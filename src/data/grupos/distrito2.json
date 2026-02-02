@@ -1,0 +1,247 @@
+[
+  {
+    "id": "aprendiendo-a-vivir",
+    "nombre": "Aprendiendo a Vivir",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Calle Club Leopardos Mz. 106 Lt 3334",
+      "colonia": "Lázaro Cárdenas",
+      "referencias": "Cerca del centro de salud y panadería La Presa",
+      "ciudad": "Tlalnepantla",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Miércoles y Viernes",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      },
+      {
+        "dias": "Martes",
+        "horaInicio": "08:30",
+        "horaFin": "10:00"
+      }
+    ],
+    "mapQuery": "Club Leopardos Col. Lázaro Cárdenas Tlalnepantla Estado de México"
+  },
+  {
+    "id": "despertar-espiritual",
+    "nombre": "Despertar Espiritual",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Buen Tono 61",
+      "colonia": "Industrial",
+      "referencias": "Entre Robles Domínguez y Basiliso Romo",
+      "ciudad": "GAM",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Sábado",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      },
+      {
+        "dias": "Domingo",
+        "horaInicio": "11:00",
+        "horaFin": "12:30"
+      }
+    ],
+    "mapQuery": "Buen Tono 61 Col. Industrial GAM CDMX"
+  },
+  {
+    "id": "fuente-de-esperanza",
+    "nombre": "Fuente de Esperanza",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Borodin 28 Accesoria A",
+      "colonia": "Vallejo",
+      "referencias": "Entre Paganini y Donizetti",
+      "ciudad": "GAM",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Borodin 28 Col. Vallejo GAM CDMX"
+  },
+  {
+    "id": "libertad",
+    "nombre": "Libertad",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Estroncio 29",
+      "colonia": "El Rosario",
+      "referencias": "Cerca del Colegio de Bachilleres 1",
+      "ciudad": "Azcapotzalco",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Viernes a Lunes",
+        "horaInicio": "09:30",
+        "horaFin": "11:00"
+      },
+      {
+        "dias": "Martes a Viernes",
+        "horaInicio": "17:30",
+        "horaFin": "19:00"
+      }
+    ],
+    "mapQuery": "Estroncio 29 Col. El Rosario Azcapotzalco CDMX"
+  },
+  {
+    "id": "manantial-de-paz",
+    "nombre": "Manantial de Paz",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Av. Civilizaciones 3500",
+      "colonia": "Unidad El Rosario",
+      "referencias": "Junto al deportivo",
+      "ciudad": "Tlalnepantla",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "16:30",
+        "horaFin": "18:00"
+      }
+    ],
+    "mapQuery": "Civilizaciones 3500 Col. Unidad El Rosario Tlalnepantla Estado de México"
+  },
+  {
+    "id": "regreso-a-la-vida",
+    "nombre": "Regreso a la Vida",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Poniente 108 4636 Esq. Norte 1-F",
+      "colonia": "Defensores de la República",
+      "referencias": "Cerca de Av. 100 Metros",
+      "ciudad": "GAM",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      }
+    ],
+    "mapQuery": "Pte. 108 209, Defensores de la República, Gustavo A. Madero, 07780 Ciudad de México, CDMX, México"
+  },
+  {
+    "id": "sendero-de-luz",
+    "nombre": "Sendero de Luz",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Segunda cerrada de Osa Mayor 139",
+      "colonia": "Unidad El Rosario",
+      "referencias": "Cerca Soriana Plaza Arquímedes",
+      "ciudad": "Azcapotzalco",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Miércoles, Sábado y Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Jueves y Viernes",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      }
+    ],
+    "mapQuery": "2a. Cda. Osa Mayor 139, El Rosario, Azcapotzalco, 02100 Ciudad de México, CDMX, México"
+  },
+  {
+    "id": "serenidad",
+    "nombre": "Serenidad",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Av. 3-A 43 2do piso",
+      "colonia": "Santa Rosa",
+      "referencias": "Estación Progreso Nacional",
+      "ciudad": "GAM",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Domingo",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      }
+    ],
+    "mapQuery": "Av 3-A 43, Santa Rosa, Gustavo A. Madero, 07620 Ciudad de México, CDMX, México"
+  },
+  {
+    "id": "una-luz-de-esperanza",
+    "nombre": "Una luz de Esperanza",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Av. Río Blanco Esq. Sagitario",
+      "colonia": "Unidad Habitacional El Rosario",
+      "referencias": "Costado iglesia San Nicolás Tolentino",
+      "ciudad": "Azcapotzalco",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "17:30",
+        "horaFin": "19:00"
+      },
+      {
+        "dias": "Sábado",
+        "horaInicio": "17:00",
+        "horaFin": "18:30"
+      }
+    ],
+    "mapQuery": "Río Blanco Sagitario Col. Unidad Habitacional El Rosario Azcapotzalco CDMX"
+  },
+  {
+    "id": "valor-para-cambiar",
+    "nombre": "Valor para Cambiar",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Miguel Lerdo de Tejada Mz. 78 Lt. 5",
+      "colonia": "Compositores Mexicanos",
+      "referencias": "Cuautepec Barrio Alto",
+      "ciudad": "GAM",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      }
+    ],
+    "mapQuery": "Miguel Lerdo de Tejada Col. Compositores Mexicanos GAM CDMX"
+  }
+]

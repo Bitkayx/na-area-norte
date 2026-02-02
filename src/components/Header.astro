@@ -1,0 +1,46 @@
+---
+import type { NavigationItem } from "../types/navigation";
+import MobileMenu from "./MobileMenu.jsx";
+
+interface Props {
+  navigation: NavigationItem[];
+}
+
+const { navigation } = Astro.props;
+---
+
+<header
+  class="sticky-nav w-full border-b border-slate-100 dark:border-slate-800 bg-white/95 dark:bg-background-dark/95 mb-4"
+>
+  <div class="max-w-300 mx-auto px-6 h-20 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <h1
+        class="text-sm font-bold tracking-tight text-slate-800 dark:text-white"
+      >
+        NA AC Área Norte CDMX
+      </h1>
+    </div>
+    
+    {/* Navegación desktop */}
+    <nav class="hidden md:flex items-center gap-8">
+      {
+        navigation.map((item) => (
+          <a
+            class="text-sm font-medium transition-colors dark:text-white hover:text-primary"
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href="/contacto/"
+        class="bg-primary hover:bg-[#009e46] text-white px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer"
+        >Busca Ayuda</a
+      >
+    </nav>
+    
+    {/* Menú móvil */}
+    <MobileMenu client:load navigation={navigation} />
+  </div>
+</header>

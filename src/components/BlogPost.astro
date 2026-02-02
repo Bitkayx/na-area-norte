@@ -1,0 +1,63 @@
+---
+import { Icon } from "astro-icon/components";
+import { formatDate } from "../utils/dateUtils.ts";
+
+const { title, tags, pubDate, description, image, url } = Astro.props;
+---
+
+<article
+  class="flex flex-col group cursor-pointer bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all overflow-hidden"
+>
+  <a href={url}>
+    <div class="h-44 overflow-hidden">
+      {
+        image?.url && (
+          <div class="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-700">
+            <img
+              src={image.url}
+              alt={image.alt || title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+        )
+      }
+    </div>
+    <div class="p-6 flex flex-col flex-1">
+      <div class="flex flex-col gap-2 mb-4">
+        {
+          tags && tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 pt-2">
+              {tags.slice(0, 2).map((tag: string) => (
+                <span class="text-xs font-bold uppercase tracking-widest text-[#136dec] bg-[#136dec]/10 px-2 py-0.5 rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
+        <time class="text-sm font-bold text-slate-400" datetime={pubDate}
+          >{formatDate(pubDate)}</time
+        >
+      </div>
+      <h3
+        class="text-lg font-bold mb-3 leading-tight group-hover:text-primary transition-colors text-slate-900 dark:text-white"
+      >
+        {title}
+      </h3>
+      <p
+        class="text-slate-500 dark:text-slate-400 text-[13px] line-clamp-2 mb-6"
+      >
+        {description}
+      </p>
+      <div class="mt-auto">
+        <span
+          class="text-[12px] font-bold text-slate-900 dark:text-white flex items-center gap-1"
+        >
+          Leer más
+          <Icon name=`material-symbols:trending-flat` />
+        </span>
+      </div>
+    </div>
+  </a>
+</article>

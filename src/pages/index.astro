@@ -1,0 +1,168 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import BlogPost from "@components/BlogPost.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+const title = "NA Area Norte CDMX";
+---
+
+<Layout title={title}>
+  <section class="py-16 md:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="flex flex-col gap-8">
+        <div class="space-y-6">
+          <h1
+            class="text-6xl md:text-7xl font-extrabold text-[#1e293b] dark:text-white leading-[1.05] tracking-tight"
+          >
+            Recupera tu <br /><span class="text-primary">tranquilidad</span>
+            <br />emocional
+          </h1>
+          <p
+            class="text-[15px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-[460px]"
+          >
+            Un programa gratuito de 12 pasos diseñado para ayudarte a encontrar
+            el equilibrio, la paz mental y una vida libre de angustias.
+          </p>
+        </div>
+      </div>
+      <div class="relative">
+        <div
+          class="w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl"
+        >
+          <img
+            alt="Personas en círculo compartiendo"
+            class="w-full h-full object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx6_hJr298WQychtKNT0-D6SpWBbCeqTHWgZPy9lXK9j_6VGPAAUnk5DqydtrRA-aDamtC_mcPWGPNIUgXfYQiSVP4_UDNVFHOH9auYZsV-bh18_nTTGoVkCTPW-sErCnc564PzJaAJSKtTwNCNr4Y1JMM1YToEL_46LRunkxtmSZyJPxkIPfChiyDXl_OcDz0u5YmQD2snNki5OkHo5nR7l7nEVAWsHKKrQdplVtVonj4XnpLi2nAeDc__n8W2k6tvTU5j6ZVwDc"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ultimos posts -->
+  <section class="py-16">
+    <div
+      class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10"
+    >
+      <div class="space-y-2">
+        <h2
+          class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white"
+        >
+          Noticias Recientes
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          Mantente informado sobre eventos, convenciones y salud mental.
+        </p>
+      </div>
+      <a
+        class="text-primary font-bold text-sm flex items-center gap-1 hover:underline"
+        href="/noticias"
+      >
+        Ver todas las noticias
+        <Icon name="material-symbols:chevron-right" />
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {
+        allPosts.map((post: any) => (
+          <BlogPost
+            url={`/noticias/${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            author={post.data.author}
+            image={post.data.image}
+            tags={post.data.tags}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Ubicanos en el mapa -->
+  <section class="py-20" id="contacto">
+    <div
+      class="bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-xl overflow-hidden"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-5 min-h-[560px]">
+        <div
+          class="lg:col-span-2 p-6 lg:p-12 flex flex-col justify-center order-1 lg:order-1"
+        >
+          <div class="space-y-4 mb-10">
+            <h2
+              class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white text-center md:text-left"
+            >
+              Ubícanos
+            </h2>
+            <p
+              class="text-[15px] text-slate-500 dark:text-slate-400 text-center md:text-left"
+            >
+              Nuestros grupos en el Área Norte de la CDMX están listos para
+              recibirte.
+            </p>
+          </div>
+          <div class="flex flex-col gap-4 justify-around">
+            <div class="flex gap-4">
+              <div
+                class="shrink-0 w-10 h-10 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:location-on" />
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white">
+                  Nuestra ubicacion
+                </h4>
+                <p class="text-slate-400 dark:text-slate-400 text-sm">
+                  Av. José Loreto Fabela 726, San Juan de Aragón VII Secc,
+                  Gustavo A. Madero, 07910 Ciudad de México, CDMX
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div
+                class="shrink-0 w-10 h-10 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:call" />
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white">
+                  Telefono de contacto
+                </h4>
+                <p class="text-slate-400 dark:text-slate-400 text-sm">
+                  Oficina: (55) 1234 5678
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div
+                class="shrink-0 w-10 h-10 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:mail" />
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white">
+                  Correo Electrónico
+                </h4>
+                <p class="text-slate-400 dark:text-slate-400 text-sm">
+                  contacto@areanortecdmx.org.mx
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="lg:col-span-3 min-h-75 sm:min-h-100 relative overflow-hidden order-1 lg:order-2"
+        >
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d790.7838046268157!2d-99.0793809230996!3d19.471818559111995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fb61e847bb83%3A0x47f502de91a34a!2zw4FyZWEgTm9ydGUsIE5ldXLDs3RpY29zIEFuw7NuaW1vcyBBQw!5e0!3m2!1ses-419!2smx!4v1769821650865!5m2!1ses-419!2smx"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

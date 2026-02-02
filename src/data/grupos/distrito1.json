@@ -1,0 +1,197 @@
+[
+  {
+    "id": "aprender-a-vivir",
+    "nombre": "Aprender a Vivir",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Entre Valle de Loira y Valle de Luces",
+      "colonia": "Valle de Aragón 1ª Sección",
+      "referencias": "Junto a la CONASUPO, cerca del metro Río de los Remedios",
+      "ciudad": "Cd. Nezahualcóyotl",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Lunes, Miércoles y Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Entre Valle de Loira y Valle de Luces Col. Valle de Aragón 1ª Sección Cd. Nezahualcóyotl Estado de México"
+  },
+  {
+    "id": "encuentro-a-la-libertad",
+    "nombre": "Encuentro a la Libertad",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Av. Valle de Guadiana Mz 4 Lote 4",
+      "colonia": "Arboledas de Aragón",
+      "referencias": "Entre Cedro y Ébano, combi desde Metro Múzquiz",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Av Valle de Guadiana Col. Arboledas de Aragón Ecatepec Estado de México"
+  },
+  {
+    "id": "que-todos-seamos-uno",
+    "nombre": "Que todos seamos uno",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Calle José Ma. Morelos casi esq. R-1",
+      "colonia": "Miguel Hidalgo",
+      "referencias": "Frente a los baños de San Agustín",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Martes, Miércoles y Viernes",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      }
+    ],
+    "mapQuery": "José María Morelos R-1 Col. Miguel Hidalgo Ecatepec Estado de México"
+  },
+  {
+    "id": "renacimiento",
+    "nombre": "Renacimiento",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Av. Central No. 158 Planta Alta",
+      "colonia": "Paseos de San Agustín",
+      "referencias": "",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "17:00",
+        "horaFin": "19:00"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Av Central 158 Col. Paseos de San Agustín Ecatepec Estado de México"
+  },
+  {
+    "id": "todos-son-bienvenidos",
+    "nombre": "Todos son Bienvenidos",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Calle Ignacio Comonfort No. 56",
+      "colonia": "Sauces 2",
+      "referencias": "Atrás del Mercado Sauces 2",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Domingo",
+        "horaInicio": "11:00",
+        "horaFin": "12:30"
+      },
+      {
+        "dias": "Lunes, Miércoles y Viernes",
+        "horaInicio": "17:00",
+        "horaFin": "18:30"
+      }
+    ],
+    "mapQuery": "Ignacio Comonfort 56 Col. Sauces 2 Ecatepec Estado de México"
+  },
+  {
+    "id": "transmitelo",
+    "nombre": "Transmítelo",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Calle Adolfo López Mateos No. 19",
+      "colonia": "Central Michoacana",
+      "referencias": "Esq. Venustiano Carranza, frente al jardín de niños, Metro Plaza Aragón",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Adolfo López Mateos 19 Col. Central Michoacana Ecatepec Estado de México"
+  },
+  {
+    "id": "tres-legados",
+    "nombre": "Tres Legados",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Calle Sur 26 Mz. 32 Lote 61",
+      "colonia": "San Agustín 1ª Sección",
+      "referencias": "A un lado del Salón Mugabi, Metro Olímpica",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Calle Sur 26 Col. San Agustín 1ª Sección Ecatepec Estado de México"
+  },
+  {
+    "id": "un-nuevo-sendero",
+    "nombre": "Un Nuevo Sendero",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Av. Ignacio Pichardo Pagaza Mz. 3 Lote 1",
+      "colonia": "Nueva Aragón",
+      "referencias": "Entre Josefa Ortiz de Domínguez y Francisco I. Madero, Metro Ecatepec",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo (excepto sábado)",
+        "horaInicio": "18:30",
+        "horaFin": "20:00"
+      }
+    ],
+    "mapQuery": "Ignacio Pichardo Pagaza Col. Nueva Aragón Ecatepec Estado de México"
+  },
+  {
+    "id": "una-luz-en-tu-camino",
+    "nombre": "Una luz en tu camino",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Av. Pichardo Pagaza Mz. 11 L-2",
+      "colonia": "Nueva Aragón",
+      "referencias": "Estación del Metro Ecatepec",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Miércoles, Viernes y Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      }
+    ],
+    "mapQuery": "Pichardo Pagaza Col. Nueva Aragón Ecatepec Estado de México"
+  }
+]

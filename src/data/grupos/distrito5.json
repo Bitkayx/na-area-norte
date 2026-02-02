@@ -1,0 +1,237 @@
+[
+  {
+    "id": "aprendiendo-a-amar",
+    "nombre": "Aprendiendo a Amar",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Calle Estado de Jalisco No. 38",
+      "colonia": "Providencia",
+      "referencias": "Casi esquina con Constitución de la República",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Calle Estado de Jalisco 38 Col. Providencia CDMX"
+  },
+  {
+    "id": "fe-y-accion",
+    "nombre": "Fé y Acción",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Av. 414 Esq. 483",
+      "colonia": "San Juan de Aragón 7ma Sección",
+      "referencias": "",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Miércoles y Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Av. 414 esquina 483 San Juan de Aragón 7ma Sección Gustavo A. Madero CDMX"
+  },
+  {
+    "id": "los-buenos-vientos",
+    "nombre": "Los Buenos Vientos",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Parque Central No. 84",
+      "colonia": "Campestre Aragón",
+      "referencias": "Casi esquina con Unión",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Martes, Miércoles, Jueves, Viernes y Domingo",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Martes",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      }
+    ],
+    "mapQuery": "Parque Central 84 Campestre Aragón CDMX"
+  },
+  {
+    "id": "principio-de-vida",
+    "nombre": "Principio de Vida",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Av. Constitución de la República No. 43",
+      "colonia": "Providencia",
+      "referencias": "",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "17:00",
+        "horaFin": "18:30"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Av. Constitución de la República 43 Providencia CDMX"
+  },
+  {
+    "id": "valor-y-confianza",
+    "nombre": "Valor y Confianza",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Puerto Cozumel No. 104",
+      "colonia": "Héroes de Chapultepec",
+      "referencias": "",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "18:30",
+        "horaFin": "20:00"
+      }
+    ],
+    "mapQuery": "Puerto Cozumel 104 Héroes de Chapultepec CDMX"
+  },
+  {
+    "id": "vida-y-esperanza",
+    "nombre": "Vida y Esperanza",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Av. Universidad Nacional No. 45",
+      "colonia": "Bosques de Aragón",
+      "referencias": "Cerca de la FES Aragón",
+      "ciudad": "Nezahualcóyotl",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      }
+    ],
+    "mapQuery": "Av. Universidad Nacional 45 Bosques de Aragón Nezahualcóyotl Estado de México"
+  },
+  {
+    "id": "volver-a-empezar",
+    "nombre": "Volver a Empezar",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Av. Las Torres No. 17-3",
+      "colonia": "El Vergel de Guadalupe",
+      "referencias": "A calle y media del Metro Neza, C.P. 57150",
+      "ciudad": "Nezahualcóyotl",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Av. Las Torres 17-3 El Vergel de Guadalupe Nezahualcóyotl Estado de México"
+  },
+  {
+    "id": "reencuentro-a-la-vida",
+    "nombre": "Reencuentro a la Vida",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Calle Apatzingán MZ 188 LT 43",
+      "colonia": "San Felipe de Jesús",
+      "referencias": "Cerca del Mercado de San Felipe",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Martes, Miércoles, Jueves y Viernes",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      }
+    ],
+    "mapQuery": "Calle Apatzingán San Felipe de Jesús CDMX"
+  },
+  {
+    "id": "otra-oportunidad",
+    "nombre": "Otra Oportunidad",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Valle de Arriba No. 158",
+      "colonia": "Valle de Aragón 1ª Sección",
+      "referencias": "",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Lunes, Miércoles y Viernes",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      }
+    ],
+    "mapQuery": "Valle de Arriba 158 Valle de Aragón 1ª Sección CDMX"
+  },
+  {
+    "id": "pradera",
+    "nombre": "Pradera",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Calle 10 No. 76",
+      "colonia": "Campestre Guadalupana",
+      "referencias": "",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Calle 10 76 Campestre Guadalupana CDMX"
+  }
+]

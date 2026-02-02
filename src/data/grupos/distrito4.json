@@ -1,0 +1,292 @@
+[
+  {
+    "id": "actua-con-amor",
+    "nombre": "Actúa con Amor",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle Marmolería No. 256",
+      "colonia": "20 de Noviembre",
+      "referencias": "Entre Eje 2 Norte y Canteros",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Martes, Jueves y Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Calle Marmolería 256 Col. 20 de Noviembre Venustiano Carranza CDMX"
+  },
+  {
+    "id": "camino-a-la-libertad",
+    "nombre": "Camino a la Libertad",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Av. Ing. Eduardo Molina No. 1685",
+      "colonia": "Nueva Atzacoalco",
+      "referencias": "A dos calles de la estación El Coyol Línea 5 del Metrobús, dirección Río de los Remedios, C.P. 07420",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      },
+      {
+        "dias": "Sábados",
+        "horaInicio": "17:00",
+        "horaFin": "18:30"
+      },
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "18:30",
+        "horaFin": "20:00"
+      }
+    ],
+    "mapQuery": "Av. Ing. Eduardo Molina 1685 Nueva Atzacoalco CDMX"
+  },
+  {
+    "id": "humildad",
+    "nombre": "Humildad",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle Ote. 155 No. 3903",
+      "colonia": "Salvador Díaz Mirón",
+      "referencias": "Entre Ote. 153 y 157",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "20:00",
+        "horaFin": "21:30"
+      }
+    ],
+    "mapQuery": "Calle Ote. 155 3903 Col. Salvador Díaz Mirón Gustavo A. Madero CDMX"
+  },
+  {
+    "id": "luz-de-esperanza",
+    "nombre": "Luz de Esperanza",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle 308 s/n",
+      "colonia": "Nueva Atzacoalco",
+      "referencias": "Entre Calle 311 y 313",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      }
+    ],
+    "mapQuery": "Calle 308 Nueva Atzacoalco CDMX"
+  },
+  {
+    "id": "nueva-senda-de-luz",
+    "nombre": "Nueva Senda de Luz",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle Fresnillo No. 52",
+      "colonia": "Michoacana",
+      "referencias": "A dos calles del Metro Canal del Norte, C.P. 15250",
+      "ciudad": "Venustiano Carranza",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      }
+    ],
+    "mapQuery": "Calle Fresnillo 52 Col. Michoacana Venustiano Carranza CDMX"
+  },
+  {
+    "id": "nuevo-amanecer",
+    "nombre": "Nuevo Amanecer",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle de Espinela No. 6236",
+      "colonia": "Tres Estrellas",
+      "referencias": "C.P. 07820",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "11:00",
+        "horaFin": "12:30"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "17:30",
+        "horaFin": "19:00"
+      },
+      {
+        "dias": "Lunes a Domingo",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      }
+    ],
+    "mapQuery": "Calle de Espinela 6236 Col. Tres Estrellas Gustavo A. Madero CDMX"
+  },
+  {
+    "id": "santa-clara",
+    "nombre": "Santa Clara",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle Miguel Hidalgo No. 124, 2do Piso",
+      "colonia": "Santa Clara",
+      "referencias": "C.P. 55540",
+      "ciudad": "Ecatepec",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Domingos",
+        "horaInicio": "17:00",
+        "horaFin": "18:30"
+      }
+    ],
+    "mapQuery": "Calle Miguel Hidalgo 124 Col. Santa Clara Ecatepec Estado de México"
+  },
+  {
+    "id": "serenidad",
+    "nombre": "Serenidad",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle 313 No. 207",
+      "colonia": "Nueva Atzacoalco",
+      "referencias": "Entre calle 304 y 306",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      }
+    ],
+    "mapQuery": "Calle 313 207 Nueva Atzacoalco Gustavo A. Madero CDMX"
+  },
+  {
+    "id": "solo-por-hoy",
+    "nombre": "Solo por hoy",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle 305 No. 820",
+      "colonia": "Nueva Atzacoalco",
+      "referencias": "Entre calle 316 y 318",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      }
+    ],
+    "mapQuery": "Calle 305 820 Nueva Atzacoalco Gustavo A. Madero CDMX"
+  },
+  {
+    "id": "unidad",
+    "nombre": "Unidad",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle 301 No. 33",
+      "colonia": "Nueva Atzacoalco",
+      "referencias": "Entre calle 302 y 304",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      },
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      },
+      {
+        "dias": "Sábados",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Calle 301 33 Nueva Atzacoalco Gustavo A. Madero CDMX"
+  },
+  {
+    "id": "valor-para-cambiar",
+    "nombre": "Valor para cambiar",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Callejón Ext. 2171 Int. B",
+      "colonia": "Ampliación Villa Hermosa",
+      "referencias": "Casi esquina con Centenario, entre Oriente 185 y Ferrocarril Hidalgo",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Martes, Miércoles y Viernes",
+        "horaInicio": "09:00",
+        "horaFin": "10:30"
+      },
+      {
+        "dias": "Lunes a Sábado",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      },
+      {
+        "dias": "Domingos",
+        "horaInicio": "16:00",
+        "horaFin": "17:30"
+      }
+    ],
+    "mapQuery": "Callejón 2171 Ampliación Villa Hermosa CDMX"
+  },
+  {
+    "id": "vive-y-deja-vivir",
+    "nombre": "Vive y deja vivir",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Av. de las Flores No. 43",
+      "colonia": "Juan González Romero",
+      "referencias": "Entre Av. Desfogue y Palmira",
+      "ciudad": "CDMX",
+      "estado": "Ciudad de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:30",
+        "horaFin": "21:00"
+      }
+    ],
+    "mapQuery": "Av. de las Flores 43 Col. Juan González Romero CDMX"
+  }
+]
