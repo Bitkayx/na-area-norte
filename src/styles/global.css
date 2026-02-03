@@ -20,7 +20,12 @@
 }
 
 @layer base {
+  html {
+    @apply bg-[#fcfdfd] dark:bg-background-dark text-slate-900 dark:text-slate-100;
+  }
+
   body {
+    @apply transition-colors duration-300 min-h-screen flex flex-col;
     font-family: var(--font-display);
   }
 }

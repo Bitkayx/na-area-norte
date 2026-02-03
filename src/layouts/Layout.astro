@@ -7,9 +7,13 @@ import Footer from "@components/Footer.astro";
 
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Neuróticos Anónimos Área Norte CDMX | Directorio de grupos y ultimas noticias acerca del area norte correspondiente a la CDMX",
+} = Astro.props;
 
 const navigation = [
   { label: "Inicio", href: "/" },
@@ -25,12 +29,26 @@ const navigation = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/na-logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/na-logo.png" />
+
+    <link rel="canonical" href={Astro.url} />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <DarkMode />
   </head>
-  <body
-    class="bg-[#fcfdfd] dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration 300 min-h-screen flex flex-col"
-  >
+  <body>
     <ClientRouter />
     <Header navigation={navigation} />
     <main class="flex-1 max-w-300 mx-auto px-6">

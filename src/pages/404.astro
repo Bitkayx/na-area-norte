@@ -1,0 +1,44 @@
+---
+import Layout from "@layouts/Layout.astro";
+const title = "Página no encontrada | NA Area Norte CDMX";
+---
+
+<Layout title={title}>
+  <section class="py-20 md:py-32">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="space-y-8">
+        <!-- Error number -->
+        <h1 class="text-8xl md:text-9xl font-extrabold text-primary opacity-20">
+          404
+        </h1>
+        
+        <!-- Error message -->
+        <div class="space-y-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+            Página no encontrada
+          </h2>
+          <p class="text-[15px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+            Lo sentimos, la página que buscas no existe o ha sido movida. 
+            Te invitamos a explorar nuestros recursos o volver al inicio.
+          </p>
+        </div>
+        
+        <!-- Action buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a 
+            href="/" 
+            class="bg-primary hover:bg-[#009e46] text-white px-5 py-2 rounded-lg text-sm font-bold transition-all"
+          >
+            Volver al inicio
+          </a>
+          <a 
+            href="/directorio/" 
+            class="text-primary font-bold text-sm flex items-center gap-1 hover:underline"
+          >
+            Ver directorio
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://na-areanorte-cdmx.vercel.app/sitemap.xml

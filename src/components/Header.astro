@@ -14,13 +14,23 @@ const { navigation } = Astro.props;
 >
   <div class="max-w-300 mx-auto px-6 h-20 flex items-center justify-between">
     <div class="flex items-center gap-2">
-      <h1
-        class="text-sm font-bold tracking-tight text-slate-800 dark:text-white"
-      >
-        NA AC Área Norte CDMX
-      </h1>
+      <a href="/" class="flex items-center gap-2">
+        <img
+          src="/na-logo.png"
+          alt="Neuróticos Anónimos Área Norte CDMX"
+          class="h-10 w-auto"
+          width="40"
+          height="40"
+          loading="eager"
+        />
+        <span
+          class="text-sm font-bold tracking-tight text-slate-800 dark:text-white"
+        >
+          NA Área Norte CDMX
+        </span>
+      </a>
     </div>
-    
+
     {/* Navegación desktop */}
     <nav class="hidden md:flex items-center gap-8">
       {
@@ -39,7 +49,7 @@ const { navigation } = Astro.props;
         >Busca Ayuda</a
       >
     </nav>
-    
+
     {/* Menú móvil */}
     <MobileMenu client:load navigation={navigation} />
   </div>
