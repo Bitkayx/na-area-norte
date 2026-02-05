@@ -1,16 +1,17 @@
 import { useMemo, useState, useEffect } from "react";
+import type { Grupo } from "../types/grupo.ts";
 
 const gruposData = Object.values(
   import.meta.glob("../data/grupos/*.json", { eager: true }),
-).flatMap((m) => m.default);
+).flatMap((m: any) => m.default) as Grupo[];
 
 export default function Directorio() {
   const [searchText, setSearchText] = useState<string>("");
   const [district, setDistrict] = useState<string>("");
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
-  const [allGroups, setAllGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState<Grupo | null>(null);
+  const [allGroups, setAllGroups] = useState<Grupo[]>([]);
   const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Grupo[]>([]);
   const [showMap, setShowMap] = useState<boolean>(false);
 
   const districts = ["1", "2", "4", "5"];
@@ -30,8 +31,8 @@ export default function Directorio() {
       return;
     }
 
-    let results = allGroups.filter(
-      (group) => group.nombre.toLowerCase().includes(searchText.toLowerCase()),
+    let results = allGroups.filter((group) =>
+      group.nombre.toLowerCase().includes(searchText.toLowerCase()),
     );
 
     setSearchResults(results);
@@ -41,7 +42,7 @@ export default function Directorio() {
     setShowMap(false);
   };
 
-  const handleDistrictChange = (value) => {
+  const handleDistrictChange = (value: string) => {
     setDistrict(value);
     setSearchText("");
     setSelectedGroup(null);
@@ -57,7 +58,7 @@ export default function Directorio() {
     }
   };
 
-  const handleGroupSelect = (groupId) => {
+  const handleGroupSelect = (groupId: string) => {
     setSearchText("");
 
     if (groupId === "") {
@@ -68,8 +69,10 @@ export default function Directorio() {
       setIsSearchMode(true);
     } else {
       // Grupo específico seleccionado - buscar solo en el distrito actual para evitar duplicados
-      const group = filteredGroups.find((g) => g.id === groupId);
-      setSelectedGroup(group);
+      const group = filteredGroups.find(
+        (g: Grupo): boolean => g.id === groupId,
+      );
+      setSelectedGroup(group || null);
       setIsSearchMode(false);
       setSearchResults([]);
     }
@@ -77,7 +80,7 @@ export default function Directorio() {
     setShowMap(false);
   };
 
-  const handleShowMap = (group) => {
+  const handleShowMap = (group: Grupo) => {
     setSelectedGroup(group);
     setShowMap(true);
     setTimeout(() => {
@@ -90,7 +93,6 @@ export default function Directorio() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
       <div className="space-y-3 mb-10 text-center md:text-left">
         <h1 className="text-6xl md:text-7xl font-extrabold text-slate-800 dark:text-white leading-[1.05] tracking-tight">
           Directorio de <span className="text-primary">Grupos</span>
