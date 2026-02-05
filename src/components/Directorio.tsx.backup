@@ -1,17 +1,58 @@
 import { useMemo, useState, useEffect } from "react";
-
 const gruposData = Object.values(
   import.meta.glob("../data/grupos/*.json", { eager: true }),
 ).flatMap((m) => m.default);
 
+const Notification = ({ notification, onClose }) => {
+  if (!notification.type) return null;
+
+  const baseClasses =
+    "fixed z-50 p-4 rounded-xl border-2 shadow-lg transition-all duration-300 ease-in-out";
+  const typeClasses =
+    notification.type === "error"
+      ? "bg-red-50 border-red-200 text-red-700"
+      : "bg-yellow-50 border-yellow-200 text-yellow-700";
+
+  const responsiveClasses = `
+    ${baseClasses} ${typeClasses}
+    left-4 right-4 mx-auto max-w-sm sm:max-w-md md:max-w-lg
+    top-4 sm:top-6 md:top-8
+  `;
+
+  return (
+    <div className={responsiveClasses}>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">
+            {notification.type === "error" ? "⚠️" : "🔮"}
+          </span>
+          <span className="text-sm font-medium">{notification.message}</span>
+        </div>
+        <button
+          onClick={onClose}
+          className="text-lg leading-none hover:opacity-70 transition-opacity"
+          aria-label="Cerrar notificación"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default function Directorio() {
-  const [searchText, setSearchText] = useState<string>("");
-  const [district, setDistrict] = useState<string>("");
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const [searchText, setSearchText] = useState("");
+  const [district, setDistrict] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState(null);
   const [allGroups, setAllGroups] = useState([]);
-  const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
+  const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [showMap, setShowMap] = useState<boolean>(false);
+  const [showMap, setShowMap] = useState(false);
+  const [notification, setNotification] = useState({
+    type: null,
+    message: "",
+    id: null,
+  });
 
   const districts = ["1", "2", "4", "5"];
 
@@ -25,28 +66,45 @@ export default function Directorio() {
     );
   }, [district, allGroups]);
 
+  const showNotification = (type, message) => {
+    const id = Date.now();
+    setNotification({ type, message, id });
+
+    // Auto-dismiss después de 5 segundos
+    setTimeout(() => {
+      setNotification((prev) =>
+        prev.id === id ? { type: null, message: "", id: null } : prev,
+      );
+    }, 5000);
+  };
+
+  const closeNotification = () => {
+    setNotification({ type: null, message: "", id: null });
+  };
+
   const handleSearch = () => {
     if (!searchText.trim()) {
-      return;
+      return; // No hacer nada si está vacío (el botón está deshabilitado)
     }
 
     let results = allGroups.filter(
-      (group) => group.nombre.toLowerCase().includes(searchText.toLowerCase()),
+      (group) => group.nombre.toLowerCase() === searchText.toLowerCase(),
     );
 
     setSearchResults(results);
     setIsSearchMode(true);
     setSelectedGroup(null);
-    setDistrict("");
+    setDistrict(""); // Limpiar distrito al buscar por nombre
     setShowMap(false);
   };
 
   const handleDistrictChange = (value) => {
     setDistrict(value);
-    setSearchText("");
+    setSearchText(""); // Limpiar input de búsqueda
     setSelectedGroup(null);
 
     if (value) {
+      // Mostrar automáticamente todos los grupos del distrito
       const results = allGroups.filter((group) => group.distrito === value);
       setSearchResults(results);
       setIsSearchMode(true);
@@ -58,7 +116,7 @@ export default function Directorio() {
   };
 
   const handleGroupSelect = (groupId) => {
-    setSearchText("");
+    setSearchText(""); // Limpiar búsqueda al seleccionar grupo
 
     if (groupId === "") {
       // "Todos" seleccionado
@@ -80,6 +138,7 @@ export default function Directorio() {
   const handleShowMap = (group) => {
     setSelectedGroup(group);
     setShowMap(true);
+    // Scroll automático al mapa después de un breve delay
     setTimeout(() => {
       const mapSection = document.getElementById("map-section");
       if (mapSection) {
@@ -90,19 +149,24 @@ export default function Directorio() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Notificación flotante */}
+      {/* <Notification notification={notification} onClose={closeNotification} /> */}
 
+      {/* HEADER */}
       <div className="space-y-3 mb-10 text-center md:text-left">
         <h1 className="text-6xl md:text-7xl font-extrabold text-slate-800 dark:text-white leading-[1.05] tracking-tight">
           Directorio de <span className="text-primary">Grupos</span>
         </h1>
 
-        <p className="text-base text-slate-500 max-w-150">
+        <p className="text-base text-slate-500 max-w-[600px]">
           Encuentra el grupo más cercano a ti.
         </p>
       </div>
 
+      {/* FILTROS */}
       <div className="w-full p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm mb-10">
         <div className="space-y-4">
+          {/* Fila 1: Búsqueda por nombre con botón */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
               <label className="text-[11px] font-bold uppercase text-slate-400">
@@ -123,13 +187,14 @@ export default function Directorio() {
               <button
                 onClick={handleSearch}
                 disabled={!searchText.trim()}
-                className="w-full h-11.5 bg-primary disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-bold"
+                className="w-full h-[46px] bg-primary disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-bold"
               >
                 Buscar por Nombre
               </button>
             </div>
           </div>
 
+          {/* Fila 2: Filtros por distrito y grupo */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1 w-full space-y-2">
               <label className="text-[11px] font-bold uppercase text-slate-400">
@@ -172,6 +237,7 @@ export default function Directorio() {
         </div>
       </div>
 
+      {/* RESULTADOS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {(isSearchMode
           ? searchResults
@@ -212,6 +278,7 @@ export default function Directorio() {
         ))}
       </div>
 
+      {/* MAPA */}
       <div id="map-section">
         {showMap && selectedGroup && (
           <div className="mt-16 p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
