@@ -1,58 +1,18 @@
 import { useMemo, useState, useEffect } from "react";
+import type { Grupo } from "../types/grupo.ts";
+
 const gruposData = Object.values(
-  import.meta.glob("../data/grupos/*.json", { eager: true })
-).flatMap((m) => m.default);
-
-const Notification = ({ notification, onClose }) => {
-  if (!notification.type) return null;
-
-  const baseClasses =
-    "fixed z-50 p-4 rounded-xl border-2 shadow-lg transition-all duration-300 ease-in-out";
-  const typeClasses =
-    notification.type === "error"
-      ? "bg-red-50 border-red-200 text-red-700"
-      : "bg-yellow-50 border-yellow-200 text-yellow-700";
-
-  const responsiveClasses = `
-    ${baseClasses} ${typeClasses}
-    left-4 right-4 mx-auto max-w-sm sm:max-w-md md:max-w-lg
-    top-4 sm:top-6 md:top-8
-  `;
-
-  return (
-    <div className={responsiveClasses}>
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <span className="text-lg">
-            {notification.type === "error" ? "⚠️" : "🔮"}
-          </span>
-          <span className="text-sm font-medium">{notification.message}</span>
-        </div>
-        <button
-          onClick={onClose}
-          className="text-lg leading-none hover:opacity-70 transition-opacity"
-          aria-label="Cerrar notificación"
-        >
-          ×
-        </button>
-      </div>
-    </div>
-  );
-};
+  import.meta.glob("../data/grupos/*.json", { eager: true }),
+).flatMap((m: any) => m.default) as Grupo[];
 
 export default function Directorio() {
-  const [searchText, setSearchText] = useState("");
-  const [district, setDistrict] = useState("");
-  const [selectedGroup, setSelectedGroup] = useState(null);
-  const [allGroups, setAllGroups] = useState([]);
-  const [isSearchMode, setIsSearchMode] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [showMap, setShowMap] = useState(false);
-  const [notification, setNotification] = useState({
-    type: null,
-    message: "",
-    id: null,
-  });
+  const [searchText, setSearchText] = useState<string>("");
+  const [district, setDistrict] = useState<string>("");
+  const [selectedGroup, setSelectedGroup] = useState<Grupo | null>(null);
+  const [allGroups, setAllGroups] = useState<Grupo[]>([]);
+  const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
+  const [searchResults, setSearchResults] = useState<Grupo[]>([]);
+  const [showMap, setShowMap] = useState<boolean>(false);
 
   const districts = ["1", "2", "4", "5"];
 
@@ -66,106 +26,63 @@ export default function Directorio() {
     );
   }, [district, allGroups]);
 
-  const showNotification = (type, message) => {
-    const id = Date.now();
-    setNotification({ type, message, id });
-
-    // Auto-dismiss después de 5 segundos
-    setTimeout(() => {
-      setNotification((prev) =>
-        prev.id === id ? { type: null, message: "", id: null } : prev,
-      );
-    }, 5000);
-  };
-
-  const closeNotification = () => {
-    setNotification({ type: null, message: "", id: null });
-  };
-
   const handleSearch = () => {
-    // Resetear notificación previa
-    closeNotification();
-
-    let results;
-    let shouldProceed = true;
-
-    if (!searchText.trim() && !district) {
-      // ERROR: No hay ningún filtro
-      showNotification(
-        "error",
-        "Por favor, ingresa un nombre de grupo o selecciona un distrito",
-      );
-      shouldProceed = false;
-    } else if (!district && searchText.trim()) {
-      // WARNING: Solo nombre, no distrito
-      showNotification(
-        "warning",
-        "¿Quieres filtrar también por distrito para resultados más precisos?",
-      );
-      // Continúa con búsqueda
-    } else if (district && !searchText.trim()) {
-      // WARNING: Solo distrito, no nombre
-      showNotification(
-        "warning",
-        "Se mostrarán todos los grupos del distrito seleccionado",
-      );
-      // Continúa con búsqueda
+    if (!searchText.trim()) {
+      return;
     }
 
-    if (!shouldProceed) return;
-
-    // Lógica de búsqueda existente
-    if (searchText.trim() && district) {
-      // Ambos filtros: nombre Y distrito
-      results = allGroups.filter(
-        (group) =>
-          group.nombre.toLowerCase().includes(searchText.toLowerCase()) &&
-          group.distrito === district,
-      );
-    } else if (searchText.trim()) {
-      // Solo por nombre
-      results = allGroups.filter((group) =>
-        group.nombre.toLowerCase().includes(searchText.toLowerCase()),
-      );
-    } else if (district) {
-      // Solo por distrito
-      results = allGroups.filter((group) => group.distrito === district);
-    }
-
-    // Verificar si hay resultados
-    if (results.length === 0) {
-      showNotification(
-        "warning",
-        "No se encontraron grupos con los criterios seleccionados",
-      );
-    }
+    let results = allGroups.filter((group) =>
+      group.nombre.toLowerCase().includes(searchText.toLowerCase()),
+    );
 
     setSearchResults(results);
     setIsSearchMode(true);
     setSelectedGroup(null);
+    setDistrict("");
     setShowMap(false);
   };
 
-  const handleDistrictChange = (value) => {
+  const handleDistrictChange = (value: string) => {
     setDistrict(value);
+    setSearchText("");
     setSelectedGroup(null);
-    setIsSearchMode(false);
-    setSearchResults([]);
-    closeNotification(); // Limpiar notificación al cambiar distrito
+
+    if (value) {
+      const results = allGroups.filter((group) => group.distrito === value);
+      setSearchResults(results);
+      setIsSearchMode(true);
+      setShowMap(false);
+    } else {
+      setSearchResults([]);
+      setIsSearchMode(false);
+    }
   };
 
-  const handleGroupSelect = (groupId) => {
-    const group = filteredGroups.find((g) => g.id === groupId);
-    setSelectedGroup(group);
-    setIsSearchMode(false);
+  const handleGroupSelect = (groupId: string) => {
+    setSearchText("");
+
+    if (groupId === "") {
+      // "Todos" seleccionado
+      const results = allGroups.filter((group) => group.distrito === district);
+      setSearchResults(results);
+      setSelectedGroup(null);
+      setIsSearchMode(true);
+    } else {
+      // Grupo específico seleccionado - buscar solo en el distrito actual para evitar duplicados
+      const group = filteredGroups.find(
+        (g: Grupo): boolean => g.id === groupId,
+      );
+      setSelectedGroup(group || null);
+      setIsSearchMode(false);
+      setSearchResults([]);
+    }
+
     setShowMap(false);
-    closeNotification(); // Limpiar notificación al seleccionar grupo
   };
 
-  const handleShowMap = (group) => {
+  const handleShowMap = (group: Grupo) => {
     setSelectedGroup(group);
     setShowMap(true);
-    // Scroll automático al mapa después de un breve delay
     setTimeout(() => {
       const mapSection = document.getElementById("map-section");
       if (mapSection) {
@@ -176,84 +93,87 @@ export default function Directorio() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Notificación flotante */}
-      <Notification notification={notification} onClose={closeNotification} />
-
-      {/* HEADER */}
       <div className="space-y-3 mb-10 text-center md:text-left">
-
         <h1 className="text-6xl md:text-7xl font-extrabold text-slate-800 dark:text-white leading-[1.05] tracking-tight">
           Directorio de <span className="text-primary">Grupos</span>
         </h1>
 
-        <p className="text-base text-slate-500 max-w-[600px]">
+        <p className="text-base text-slate-500 max-w-150">
           Encuentra el grupo más cercano a ti.
         </p>
       </div>
 
-      {/* FILTROS */}
       <div className="w-full p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm mb-10">
-        <div className="flex flex-col md:flex-row items-end gap-6">
-          <div className="flex-1 w-full space-y-2">
-            <label className="text-[11px] font-bold uppercase text-slate-400">
-              Búsqueda
-            </label>
-            <input
-              type="search"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
-              placeholder="Nombre del grupo..."
-            />
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-1">
+              <label className="text-[11px] font-bold uppercase text-slate-400">
+                Búsqueda por Nombre
+              </label>
+              <input
+                type="search"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
+                placeholder="Nombre del grupo..."
+              />
+            </div>
+            <div className="sm:w-40">
+              <label className="text-[11px] font-bold uppercase text-slate-400 opacity-0">
+                Acción
+              </label>
+              <button
+                onClick={handleSearch}
+                disabled={!searchText.trim()}
+                className="w-full h-11.5 bg-primary disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl font-bold"
+              >
+                Buscar por Nombre
+              </button>
+            </div>
           </div>
 
-          <div className="flex-1 w-full space-y-2">
-            <label className="text-[11px] font-bold uppercase text-slate-400">
-              Distrito
-            </label>
-            <select
-              value={district}
-              onChange={(e) => handleDistrictChange(e.target.value)}
-              className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
-            >
-              <option value="">Selecciona un Distrito</option>
-              {districts.map((d) => (
-                <option key={d} value={d}>
-                  Distrito {d}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {district && (
+          <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1 w-full space-y-2">
               <label className="text-[11px] font-bold uppercase text-slate-400">
-                Grupo
+                Distrito
               </label>
               <select
-                onChange={(e) => handleGroupSelect(e.target.value)}
+                value={district}
+                onChange={(e) => handleDistrictChange(e.target.value)}
                 className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
               >
-                <option value="">Todos</option>
-                {filteredGroups.map((g) => (
-                  <option key={g.id} value={g.id}>
-                    {g.nombre}
+                <option value="">Selecciona un Distrito</option>
+                {districts.map((d) => (
+                  <option key={d} value={d}>
+                    Distrito {d}
                   </option>
                 ))}
               </select>
             </div>
-          )}
 
-          <button
-            onClick={handleSearch}
-            className="w-full md:w-40 bg-primary text-white h-[46px] rounded-xl font-bold"
-          >
-            Buscar
-          </button>
+            {district && (
+              <div className="flex-1 w-full space-y-2">
+                <label className="text-[11px] font-bold uppercase text-slate-400">
+                  Grupo
+                </label>
+                <select
+                  onChange={(e) => handleGroupSelect(e.target.value)}
+                  value={selectedGroup ? selectedGroup.id : ""}
+                  className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
+                >
+                  <option value="">Todos</option>
+                  {filteredGroups.map((g) => (
+                    <option key={g.id} value={g.id}>
+                      {g.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* RESULTADOS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {(isSearchMode
           ? searchResults
@@ -275,7 +195,7 @@ export default function Directorio() {
             </p>
 
             <p className="text-sm text-slate-500 mb-4">
-              Referencias: {group.direccion.referencias}
+              {group.direccion.referencias}
             </p>
 
             {group.horarios.map((h, i) => (
@@ -294,7 +214,6 @@ export default function Directorio() {
         ))}
       </div>
 
-      {/* MAPA */}
       <div id="map-section">
         {showMap && selectedGroup && (
           <div className="mt-16 p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">

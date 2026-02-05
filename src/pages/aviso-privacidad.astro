@@ -1,0 +1,277 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+const title = "Aviso de Privacidad | NA Area Norte CDMX";
+---
+
+<Layout title={title}>
+  <!-- Hero section -->
+  <section class="py-16 md:py-24">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="space-y-6">
+        <h1
+          class="text-4xl md:text-6xl font-extrabold text-[#1e293b] dark:text-white leading-[1.05] tracking-tight"
+        >
+          Aviso de <span class="text-primary">Privacidad</span>
+        </h1>
+        <p
+          class="text-[15px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto"
+        >
+          Tu privacidad es fundamental para nosotros. Conoce cómo protegemos y
+          utilizamos tu información personal en NA AC Área Norte CDMX.
+        </p>
+        <p class="text-sm text-slate-400 dark:text-slate-500">
+          Última actualización: <time datetime="2026-02-02"
+            >02 de febrero de 2026</time
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto space-y-12">
+      <div class="space-y-4">
+        <h2
+          class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white"
+        >
+          Información que recopilamos
+        </h2>
+        <div class="space-y-4">
+          <p
+            class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed"
+          >
+            Recopilamos información personal que nos proporcionas
+            voluntariamente cuando:
+          </p>
+          <ul class="space-y-2 ml-6">
+            <!-- <li class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"> -->
+            <!--   <span class="text-primary mt-1">•</span> -->
+            <!--   Te registras en nuestros grupos de apoyo -->
+            <!-- </li> -->
+            <li
+              class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"
+            >
+              <span class="text-primary mt-1">•</span>
+              Nos contactas a través de nuestros formularios o correo electrónico
+            </li>
+            <!-- <li class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"> -->
+            <!--   <span class="text-primary mt-1">•</span> -->
+            <!--   Participas en nuestros eventos o convenciones -->
+            <!-- </li> -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cómo usamos tu información -->
+      <div class="space-y-4">
+        <h2
+          class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white"
+        >
+          Cómo utilizamos tu información
+        </h2>
+        <div class="space-y-4">
+          <p
+            class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed"
+          >
+            Tu información se utiliza exclusivamente para:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- <div class="flex gap-3"> -->
+            <!--   <div class="shrink-0 w-8 h-8 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"> -->
+            <!--     <Icon name="material-symbols:check" /> -->
+            <!--   </div> -->
+            <!--   <p class="text-[15px] text-slate-600 dark:text-slate-300"> -->
+            <!--     Proporcionar apoyo terapéutico -->
+            <!--   </p> -->
+            <!-- </div> -->
+            <div class="flex gap-3">
+              <div
+                class="shrink-0 w-8 h-8 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:check" />
+              </div>
+              <p class="text-[15px] text-slate-600 dark:text-slate-300">
+                Comunicar eventos importantes
+              </p>
+            </div>
+            <div class="flex gap-3">
+              <div
+                class="shrink-0 w-8 h-8 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:check" />
+              </div>
+              <p class="text-[15px] text-slate-600 dark:text-slate-300">
+                Mejorar nuestros servicios
+              </p>
+            </div>
+            <div class="flex gap-3">
+              <div
+                class="shrink-0 w-8 h-8 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:check" />
+              </div>
+              <p class="text-[15px] text-slate-600 dark:text-slate-300">
+                Mantener contacto de seguimiento
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Protección de datos -->
+      <div class="space-y-4">
+        <h2
+          class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white"
+        >
+          Protección de tus datos
+        </h2>
+        <div class="space-y-4">
+          <p
+            class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed"
+          >
+            Implementamos medidas de seguridad técnicas y organizativas para
+            proteger tu información personal contra acceso no autorizado,
+            alteración, divulgación o destrucción.
+          </p>
+          <div
+            class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-6"
+          >
+            <p class="text-[15px] text-slate-600 dark:text-slate-300 italic">
+              "Nos comprometemos a mantener la confidencialidad de toda la
+              información personal que compartes con nosotros, como parte
+              fundamental de nuestra filosofía de recuperación."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tus derechos -->
+      <div class="space-y-4">
+        <h2
+          class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white"
+        >
+          Tus derechos
+        </h2>
+        <div class="space-y-4">
+          <p
+            class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed"
+          >
+            Tienes derecho a:
+          </p>
+          <ul class="space-y-2 ml-6">
+            <li
+              class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"
+            >
+              <span class="text-primary mt-1">•</span>
+              <strong>Acceder:</strong> Conocer qué información tenemos sobre ti
+            </li>
+            <li
+              class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"
+            >
+              <span class="text-primary mt-1">•</span>
+              <strong>Rectificar:</strong> Corregir información incorrecta
+            </li>
+            <li
+              class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"
+            >
+              <span class="text-primary mt-1">•</span>
+              <strong>Eliminar:</strong> Solicitar eliminación de tus datos
+            </li>
+            <li
+              class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2"
+            >
+              <span class="text-primary mt-1">•</span>
+              <strong>Oponerte:</strong> Negarte al uso de tu información
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div class="space-y-4">
+        <h2
+          class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white"
+        >
+          Contacto para privacidad
+        </h2>
+        <div class="space-y-4">
+          <p
+            class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed"
+          >
+            Si tienes preguntas sobre este aviso de privacidad o deseas ejercer
+            tus derechos, contáctanos:
+          </p>
+          <div class="bg-[#f0fdf4] dark:bg-slate-800 rounded-xl p-6 space-y-4">
+            <div class="flex gap-4">
+              <div
+                class="shrink-0 w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:mail" />
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white">
+                  Correo Electrónico
+                </h4>
+                <p class="text-slate-600 dark:text-slate-300 text-sm">
+                  privacidad@areanortecdmx.org.mx
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div
+                class="shrink-0 w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center"
+              >
+                <Icon name="material-symbols:call" />
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white">
+                  Teléfono
+                </h4>
+                <p class="text-slate-600 dark:text-slate-300 text-sm">
+                  (55) 1234 5678 Ext. 123
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA section -->
+  <section class="py-20" id="contacto">
+    <div
+      class="bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-xl overflow-hidden"
+    >
+      <div class="p-12 text-center">
+        <h2
+          class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-6"
+        >
+          ¿Necesitas ayuda?
+        </h2>
+        <p
+          class="text-[15px] text-slate-500 dark:text-slate-400 mb-8 max-w-2xl mx-auto"
+        >
+          Estamos aquí para apoyarte en tu camino hacia la recuperación.
+          Contáctanos de manera confidencial.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contacto/"
+            class="bg-primary hover:bg-[#009e46] text-white px-6 py-3 rounded-lg text-sm font-bold transition-all"
+          >
+            Buscar ayuda ahora
+          </a>
+          <a
+            href="/directorio/"
+            class="text-primary font-bold text-sm flex items-center justify-center gap-1 hover:underline"
+          >
+            Ver grupos de apoyo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+

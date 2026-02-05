@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="py-20" id="contacto">
+  <div
+    class="bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-xl overflow-hidden"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-5 min-h-[560px]">
+      <div
+        class="lg:col-span-2 p-6 lg:p-12 flex flex-col justify-center order-1 lg:order-1"
+      >
+        <div class="space-y-4 mb-10">
+          <h2
+            class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white text-center md:text-left"
+          >
+            Nuestra Ubicación
+          </h2>
+          <p
+            class="text-[15px] text-slate-500 dark:text-slate-400 text-center md:text-left"
+          >
+            Nuestros grupos en el Área Norte de la CDMX están listos para
+            recibirte.
+          </p>
+        </div>
+        <div class="flex flex-col gap-4 justify-around">
+          <div class="flex gap-4">
+            <div
+              class="shrink-0 w-10 h-10 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+            >
+              <Icon name="material-symbols:location-on" />
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white">
+                Encuéntranos en
+              </h4>
+              <p class="text-slate-400 dark:text-slate-400 text-sm">
+                Av. José Loreto Fabela 726, San Juan de Aragón VII Secc, Gustavo
+                A. Madero, 07910 Ciudad de México, CDMX
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div
+              class="shrink-0 w-10 h-10 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+            >
+              <Icon name="material-symbols:call" />
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white">
+                Teléfono de contacto
+              </h4>
+              <p class="text-slate-400 dark:text-slate-400 text-sm">
+                Oficina: (55) 1234 5678
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div
+              class="shrink-0 w-10 h-10 bg-[#f0fdf4] text-primary rounded-lg flex items-center justify-center"
+            >
+              <Icon name="material-symbols:mail" />
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 dark:text-white">
+                Correo Electrónico
+              </h4>
+              <p class="text-slate-400 dark:text-slate-400 text-sm">
+                contacto@areanortecdmx.org.mx
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="lg:col-span-3 min-h-75 sm:min-h-100 relative overflow-hidden order-1 lg:order-2"
+      >
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d790.7838046268157!2d-99.0793809230996!3d19.471818559111995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fb61e847bb83%3A0x47f502de91a34a!2zw4FyZWEgTm9ydGUsIE5ldXLDs3RpY29zIEFuw7NuaW1vcyBBQw!5e0!3m2!1ses-419!2smx!4v1769821650865!5m2!1ses-419!2smx"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>

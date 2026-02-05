@@ -31,55 +31,33 @@ const MobileMenu = ({ navigation }) => {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-[999]">
-
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-          />
+        <div className="fixed inset-0 z-99">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
 
           <div className="relative h-screen w-screen bg-white dark:bg-slate-900">
-
             <button
               onClick={closeMenu}
               aria-label="Cerrar menú"
-              className="
-                fixed
-                top-8
-                right-8
-                z-50
-                text-3xl
-                font-light
-                text-slate-500
-                hover:text-black
-                dark:hover:text-white
-                transition
-                cursor-pointer
-              "
+              className="fixed top-8 right-8 z-50 text-3xl font-light text-slate-500 hover:text-black dark:hover:text-white transition cursor-pointer"
             >
               ✕
             </button>
 
             <div className="flex h-full items-center justify-center px-8">
-
               <nav className="flex flex-col items-center gap-10 text-center">
-
                 {navigation.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    className="
-                      text-3xl
-                      font-semibold
-                      tracking-wide
-                      text-slate-800 dark:text-white
-                      hover:text-primary
-                      transition
-                    "
+                    className="text-3xl font-semibold tracking-wide text-slate-800 dark:text-white hover:text-primary transition"
                   >
                     {item.label}
                   </a>
                 ))}
-
+                <a
+                  href="/contacto/"
+                  className="text-3xl font-semibold tracking-wide text-slate-800 dark:text-white hover:text-primary transition"
+                >Contacto</a>
               </nav>
             </div>
           </div>

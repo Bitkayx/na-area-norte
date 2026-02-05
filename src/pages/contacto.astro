@@ -1,11 +1,46 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Ubicacion from "@components/Ubicacion.astro";
 
 const title = "Contacto";
 ---
 
 <Layout title={title}>
-  <p class="text-6xl wrap-break-word text-center pt-16">
-    Pagina en construccion...
-  </p>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="mb-10 space-y-3 text-center md:text-left">
+      <h1
+        class="text-6xl md:text-7xl font-extrabold text-slate-800 dark:text-white leading-[1.05] tracking-tight"
+      >
+        Contáctanos
+      </h1>
+    </header>
+    <Ubicacion />
+    <section class="py-20" id="contacto">
+      <div
+        class="bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-xl overflow-hidden"
+      >
+        <div class="p-12 text-center">
+          <h2
+            class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-6"
+          >
+            Estamos para ayudarte
+          </h2>
+          <p
+            class="text-[15px] text-slate-500 dark:text-slate-400 mb-8 max-w-2xl mx-auto"
+          >
+            Nos agradaria recibirte en alguno de nuestros grupos, asique te
+            recordamos que tambien hay grupos por toda la Republica Mexicana.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/directorio/"
+              class="bg-primary hover:bg-[#009e46] text-white px-6 py-3 rounded-lg text-sm font-bold transition-all"
+            >
+              Consulta el directorio de grupos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
