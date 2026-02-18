@@ -26,14 +26,14 @@ allPosts.forEach((post: any) => {
       {
         image && (
           <img
-            src={image.url}
+            src={typeof image.url === "object" ? image.url.src : image.url}
             alt={image.alt}
             class="w-full max-w-max h-100 rounded-lg mb-6"
           />
         )
       }
       <div class="text-sm text-slate-500 dark:text-slate-500 space-y-1">
-        <p>Fecha de publicacion: {formatDate(pubDate)}</p>
+        <p>Fecha de publicación: {formatDate(pubDate)}</p>
         <p>Autor: {author}</p>
       </div>
     </header>

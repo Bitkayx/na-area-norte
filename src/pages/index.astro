@@ -19,8 +19,8 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
           <h1
             class="text-6xl md:text-7xl font-extrabold text-[#1e293b] dark:text-white leading-[1.05] tracking-tight"
           >
-            Neuroticos Anonimos <br /><span class="text-primary"
-              >Area Norte</span
+            Neuróticos Anónimos <br /><span class="text-primary"
+              >Área Norte</span
             >
             <br />CDMX
           </h1>
@@ -76,7 +76,7 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
             description={post.data.description}
             pubDate={post.data.pubDate}
             author={post.data.author}
-            image={post.data.image}
+            image={{ url: post.data.image.url.src, alt: post.data.image.alt }}
             tags={post.data.tags}
           />
         ))
@@ -84,6 +84,5 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
     </div>
   </section>
 
-  <!-- Ubicanos en el mapa -->
   <Ubicacion />
 </Layout>

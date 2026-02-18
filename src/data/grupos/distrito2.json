@@ -4,9 +4,9 @@
     "nombre": "Aprendiendo a Vivir",
     "distrito": "2",
     "direccion": {
-      "linea1": "Calle Club Leopardos Mz. 106 Lt 3334",
+      "linea1": "Calle Club Leopardos Mz. 106 Lt. 3334",
       "colonia": "Lázaro Cárdenas",
-      "referencias": "Cerca del centro de salud y panadería La Presa",
+      "referencias": "A una calle del Centro de Salud, abajo de la panadería La Presa y del asta bandera",
       "ciudad": "Tlalnepantla",
       "estado": "Estado de México"
     },
@@ -29,10 +29,10 @@
     "nombre": "Despertar Espiritual",
     "distrito": "2",
     "direccion": {
-      "linea1": "Buen Tono 61",
+      "linea1": "Buen Tono No. 61",
       "colonia": "Industrial",
-      "referencias": "Entre Robles Domínguez y Basiliso Romo",
-      "ciudad": "GAM",
+      "referencias": "Entre Av. Robles Domínguez y Basiliso Romo Anguiano",
+      "ciudad": "Gustavo A. Madero",
       "estado": "CDMX"
     },
     "horarios": [
@@ -52,17 +52,17 @@
         "horaFin": "12:30"
       }
     ],
-    "mapQuery": "Buen Tono 61 Col. Industrial GAM CDMX"
+    "mapQuery": "Buen Tono 61 Col. Industrial Gustavo A. Madero CDMX"
   },
   {
     "id": "fuente-de-esperanza",
     "nombre": "Fuente de Esperanza",
     "distrito": "2",
     "direccion": {
-      "linea1": "Borodin 28 Accesoria A",
+      "linea1": "Borodin No. 28 Accesoría A",
       "colonia": "Vallejo",
-      "referencias": "Entre Paganini y Donizetti",
-      "ciudad": "GAM",
+      "referencias": "Entre Paganini y Donizetti, cerca de Metro Misterios L5",
+      "ciudad": "Gustavo A. Madero",
       "estado": "CDMX"
     },
     "horarios": [
@@ -72,27 +72,27 @@
         "horaFin": "20:30"
       }
     ],
-    "mapQuery": "Borodin 28 Col. Vallejo GAM CDMX"
+    "mapQuery": "Borodin 28 Col. Vallejo Gustavo A. Madero CDMX"
   },
   {
     "id": "libertad",
     "nombre": "Libertad",
     "distrito": "2",
     "direccion": {
-      "linea1": "Estroncio 29",
+      "linea1": "Estroncio No. 29",
       "colonia": "El Rosario",
-      "referencias": "Cerca del Colegio de Bachilleres 1",
+      "referencias": "Cerca Av. de las Culturas, Metrobus Colegio de Bachilleres 1 y Centro Deportivo El Videógrafo",
       "ciudad": "Azcapotzalco",
       "estado": "CDMX"
     },
     "horarios": [
       {
-        "dias": "Viernes a Lunes",
+        "dias": "Viernes, Sábado, Domingo y Lunes",
         "horaInicio": "09:30",
         "horaFin": "11:00"
       },
       {
-        "dias": "Martes a Viernes",
+        "dias": "Martes, Miércoles, Jueves y Viernes",
         "horaInicio": "17:30",
         "horaFin": "19:00"
       }
@@ -104,9 +104,9 @@
     "nombre": "Manantial de Paz",
     "distrito": "2",
     "direccion": {
-      "linea1": "Av. Civilizaciones 3500",
+      "linea1": "Av. Civilizaciones No. 3500 Esq. Toltecas",
       "colonia": "Unidad El Rosario",
-      "referencias": "Junto al deportivo",
+      "referencias": "Junto al deportivo, salón anexo a Iglesia Bautista Maranatha, cerca Metro Rosario",
       "ciudad": "Tlalnepantla",
       "estado": "Estado de México"
     },
@@ -117,17 +117,17 @@
         "horaFin": "18:00"
       }
     ],
-    "mapQuery": "Civilizaciones 3500 Col. Unidad El Rosario Tlalnepantla Estado de México"
+    "mapQuery": "Av Civilizaciones 3500 Unidad El Rosario Tlalnepantla Estado de México"
   },
   {
     "id": "regreso-a-la-vida",
     "nombre": "Regreso a la Vida",
     "distrito": "2",
     "direccion": {
-      "linea1": "Poniente 108 4636 Esq. Norte 1-F",
+      "linea1": "Poniente 108 No. 4636 Esq. Norte 1-F",
       "colonia": "Defensores de la República",
-      "referencias": "Cerca de Av. 100 Metros",
-      "ciudad": "GAM",
+      "referencias": "Cerca Av. de los 100 Mts, pasando Central de Autobuses del Norte",
+      "ciudad": "Gustavo A. Madero",
       "estado": "CDMX"
     },
     "horarios": [
@@ -147,66 +147,66 @@
         "horaFin": "11:30"
       }
     ],
-    "mapQuery": "Pte. 108 209, Defensores de la República, Gustavo A. Madero, 07780 Ciudad de México, CDMX, México"
+    "mapQuery": "Poniente 108 4636 Col. Defensores de la República Gustavo A. Madero CDMX"
   },
   {
     "id": "sendero-de-luz",
     "nombre": "Sendero de Luz",
     "distrito": "2",
     "direccion": {
-      "linea1": "Segunda cerrada de Osa Mayor 139",
+      "linea1": "Segunda Cerrada de Osa Mayor No. 139",
       "colonia": "Unidad El Rosario",
-      "referencias": "Cerca Soriana Plaza Arquímedes",
+      "referencias": "Cerca Plaza Arquímedes y Metrobus El Rosario",
       "ciudad": "Azcapotzalco",
       "estado": "CDMX"
     },
     "horarios": [
       {
-        "dias": "Lunes, Miércoles, Sábado y Domingo",
+        "dias": "Lunes, Miércoles, Viernes, Sábado y Domingo",
         "horaInicio": "10:00",
         "horaFin": "11:30"
       },
       {
-        "dias": "Jueves y Viernes",
+        "dias": "Jueves",
         "horaInicio": "18:00",
         "horaFin": "19:30"
       }
     ],
-    "mapQuery": "2a. Cda. Osa Mayor 139, El Rosario, Azcapotzalco, 02100 Ciudad de México, CDMX, México"
+    "mapQuery": "Segunda Cerrada Osa Mayor 139 Unidad El Rosario Azcapotzalco CDMX"
   },
   {
-    "id": "serenidad-d2",
+    "id": "serenidad",
     "nombre": "Serenidad",
     "distrito": "2",
     "direccion": {
-      "linea1": "Av. 3-A 43 2do piso",
+      "linea1": "Av. 3-A No. 43 2do Piso",
       "colonia": "Santa Rosa",
-      "referencias": "Estación Progreso Nacional",
-      "ciudad": "GAM",
+      "referencias": "Salida Metrobus Progreso Nacional L3",
+      "ciudad": "Gustavo A. Madero",
       "estado": "CDMX"
     },
     "horarios": [
       {
-        "dias": "Lunes a Sábado",
+        "dias": "Lunes, Miércoles y Viernes",
         "horaInicio": "19:00",
         "horaFin": "20:30"
       },
       {
-        "dias": "Domingo",
-        "horaInicio": "18:00",
-        "horaFin": "19:30"
+        "dias": "Martes y Jueves",
+        "horaInicio": "11:00",
+        "horaFin": "12:30"
       }
     ],
-    "mapQuery": "Av 3-A 43, Santa Rosa, Gustavo A. Madero, 07620 Ciudad de México, CDMX, México"
+    "mapQuery": "Av 3-A 43 Col. Santa Rosa Gustavo A. Madero CDMX"
   },
   {
     "id": "una-luz-de-esperanza",
     "nombre": "Una luz de Esperanza",
     "distrito": "2",
     "direccion": {
-      "linea1": "Av. Río Blanco Esq. Sagitario",
+      "linea1": "Av. Río Blanco Esq. Sagitario S/N",
       "colonia": "Unidad Habitacional El Rosario",
-      "referencias": "Costado iglesia San Nicolás Tolentino",
+      "referencias": "Junto a Iglesia San Nicolás Tolentino, cerca Metro El Rosario",
       "ciudad": "Azcapotzalco",
       "estado": "CDMX"
     },
@@ -222,17 +222,17 @@
         "horaFin": "18:30"
       }
     ],
-    "mapQuery": "Río Blanco Sagitario Col. Unidad Habitacional El Rosario Azcapotzalco CDMX"
+    "mapQuery": "Av Rio Blanco Esq Sagitario Unidad El Rosario Azcapotzalco CDMX"
   },
   {
-    "id": "valor-para-cambiar-d2",
+    "id": "valor-para-cambiar",
     "nombre": "Valor para Cambiar",
     "distrito": "2",
     "direccion": {
-      "linea1": "Miguel Lerdo de Tejada Mz. 78 Lt. 5",
-      "colonia": "Compositores Mexicanos",
-      "referencias": "Cuautepec Barrio Alto",
-      "ciudad": "GAM",
+      "linea1": "Calle Miguel Lerdo de Tejada Mz. 78 Lt. 5",
+      "colonia": "Compositores Mexicanos, Cuautepec Barrio Alto",
+      "referencias": "",
+      "ciudad": "Gustavo A. Madero",
       "estado": "CDMX"
     },
     "horarios": [
@@ -242,6 +242,6 @@
         "horaFin": "19:30"
       }
     ],
-    "mapQuery": "Miguel Lerdo de Tejada Col. Compositores Mexicanos GAM CDMX"
+    "mapQuery": "Miguel Lerdo de Tejada Col. Compositores Mexicanos Gustavo A. Madero CDMX"
   }
 ]
