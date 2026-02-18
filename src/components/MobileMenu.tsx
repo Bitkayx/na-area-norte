@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import type { NavigationItem } from "../types/navigation.ts"
 
-interface Navigation {
-  navigation: NavigationItem
+interface MobileMenuProps {
+  navigation: NavigationItem[];
 }
 
-const MobileMenu = ({ navigation }: Navigation): React.JSX.Element => {
+const MobileMenu = ({ navigation }: MobileMenuProps): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect((): () => void => {
@@ -50,7 +50,7 @@ const MobileMenu = ({ navigation }: Navigation): React.JSX.Element => {
 
             <div className="flex h-full items-center justify-center px-8">
               <nav className="flex flex-col items-center gap-10 text-center">
-                {navigation?.map((item: NavigationItem): React.JSX.Element => (
+                {navigation.map((item: NavigationItem): React.JSX.Element => (
                   <a
                     key={item.href}
                     href={item.href}

@@ -22,7 +22,7 @@
         "horaFin": "10:00"
       }
     ],
-    "mapQuery": "Club Leopardos Col. Lázaro Cárdenas Tlalnepantla Estado de México"
+    "mapQuery": "106 Club Leopardos Lázaro Cárdenas Tlalnepantla"
   },
   {
     "id": "despertar-espiritual",
@@ -72,7 +72,7 @@
         "horaFin": "20:30"
       }
     ],
-    "mapQuery": "Borodin 28 Col. Vallejo Gustavo A. Madero CDMX"
+    "mapQuery": "Borodin 28 Vallejo Gustavo A. Madero CDMX"
   },
   {
     "id": "libertad",
@@ -97,7 +97,7 @@
         "horaFin": "19:00"
       }
     ],
-    "mapQuery": "Estroncio 29 Col. El Rosario Azcapotzalco CDMX"
+    "mapQuery": "Estroncio 29 El Rosario Azcapotzalco"
   },
   {
     "id": "manantial-de-paz",
@@ -147,7 +147,7 @@
         "horaFin": "11:30"
       }
     ],
-    "mapQuery": "Poniente 108 4636 Col. Defensores de la República Gustavo A. Madero CDMX"
+    "mapQuery": "Pte. 108 209, Defensores de la República"
   },
   {
     "id": "sendero-de-luz",
@@ -172,14 +172,14 @@
         "horaFin": "19:30"
       }
     ],
-    "mapQuery": "Segunda Cerrada Osa Mayor 139 Unidad El Rosario Azcapotzalco CDMX"
+    "mapQuery": "2a. Cda. Osa Mayor 139"
   },
   {
     "id": "serenidad",
     "nombre": "Serenidad",
     "distrito": "2",
     "direccion": {
-      "linea1": "Av. 3-A No. 43 2do Piso",
+      "linea1": "Av.3-A No. 43 2do Piso",
       "colonia": "Santa Rosa",
       "referencias": "Salida Metrobus Progreso Nacional L3",
       "ciudad": "Gustavo A. Madero",
@@ -197,7 +197,7 @@
         "horaFin": "12:30"
       }
     ],
-    "mapQuery": "Av 3-A 43 Col. Santa Rosa Gustavo A. Madero CDMX"
+    "mapQuery": "Av 3-A 43, Santa Rosa"
   },
   {
     "id": "una-luz-de-esperanza",
@@ -222,7 +222,7 @@
         "horaFin": "18:30"
       }
     ],
-    "mapQuery": "Av Rio Blanco Esq Sagitario Unidad El Rosario Azcapotzalco CDMX"
+    "mapQuery": "Av Río Blanco s/n, El Rosario, Azcapotzalco, 02100 Ciudad de México, CDMX, México"
   },
   {
     "id": "valor-para-cambiar",
@@ -242,6 +242,6 @@
         "horaFin": "19:30"
       }
     ],
-    "mapQuery": "Miguel Lerdo de Tejada Col. Compositores Mexicanos Gustavo A. Madero CDMX"
+    "mapQuery": "Miguel Lerdo de Tejada 78, Cuautepec Alto Centro, Gustavo A. Madero, 07100 Ciudad de México, CDMX, México"
   }
 ]

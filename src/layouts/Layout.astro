@@ -4,6 +4,7 @@ import { ClientRouter } from "astro:transitions";
 import DarkMode from "@components/DarkMode.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import WeeklyMotivation from "@components/WeeklyMotivation.astro";
 
 interface Props {
   title: string;
@@ -51,6 +52,7 @@ const navigation = [
   <body>
     <ClientRouter />
     <Header navigation={navigation} />
+    <WeeklyMotivation />
     <main class="flex-1 max-w-300 mx-auto px-6">
       <slot />
     </main>

@@ -1,0 +1,64 @@
+---
+import { Icon } from "astro-icon/components";
+import radiodifusionData from "../data/radiodifusion.json";
+
+const now = new Date();
+const startOfYear = new Date(now.getFullYear(), 0, 0);
+const diff = now.getTime() - startOfYear.getTime();
+const oneDay = 1000 * 60 * 60 * 24;
+const dayOfYear = Math.floor(diff / oneDay);
+const currentWeek = Math.ceil(dayOfYear / 7);
+
+const currentData = radiodifusionData.find((d) => d.semana === currentWeek);
+---
+
+<div id="weekly-motivation" class="bg-primary text-white py-3 px-4">
+  <div
+    class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3"
+  >
+    <div class="flex items-center gap-3">
+      <Icon name="material-symbols:radio" class="text-xl" />
+      <span class="font-bold">
+        Radiodifusora - Semana {currentWeek}:
+      </span>
+      <span>
+        {
+          currentData
+            ? `${currentData.distrito} a las ${currentData.hora}`
+            : "¡Participa en la radiodifusión!"
+        }
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      {
+        currentData && (
+          <a
+            href={currentData.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 bg-white text-primary px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-white/90 transition-colors"
+          >
+            <Icon name="material-symbols:play-arrow" class="text-lg" />
+            Escuchar
+          </a>
+        )
+      }
+      <button
+        id="close-motivation"
+        class="p-1 hover:bg-white/20 rounded transition-colors"
+        aria-label="Cerrar"
+      >
+        <Icon name="material-symbols:close" class="text-xl" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("close-motivation")?.addEventListener("click", () => {
+    const banner = document.getElementById("weekly-motivation");
+    if (banner) {
+      banner.style.display = "none";
+    }
+  });
+</script>
