@@ -12,11 +12,11 @@ const currentWeek = Math.ceil(dayOfYear / 7);
 const currentData = radiodifusionData.find((d) => d.semana === currentWeek);
 ---
 
-<div id="weekly-motivation" class="bg-primary text-white py-3 px-4">
+<div id="weekly-motivation" class="bg-primary text-white py-3 px-4 mb-4">
   <div
     class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3"
   >
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 flex-col md:flex-row">
       <Icon name="material-symbols:radio" class="text-xl" />
       <span class="font-bold">
         Radiodifusora - Semana {currentWeek}:
