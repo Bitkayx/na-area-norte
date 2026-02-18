@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const title = "FraterNA";
+---
+
+<Layout title={title}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-8">
+      <a href="/servicios/" class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1">
+        ← Volver a Servicios
+      </a>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4">
+        {title}
+      </h1>
+      <p class="text-lg text-slate-500 dark:text-slate-400">
+        Publicación Oficial - Área Norte
+      </p>
+    </header>
+
+    <div class="prose prose-slate dark:prose-invert max-w-none">
+      <p>FraterNA es la revista oficial del Área Norte, publicación que difunde el mensaje de recuperación.</p>
+      
+      <h2>Funciones principales</h2>
+      <ul>
+        <li>Editar y publicar contenido recuperación</li>
+        <li>Diffundir experiencias de miembros</li>
+        <li>Mantener informada a la comunidad</li>
+      </ul>
+    </div>
+  </div>
+</Layout>
