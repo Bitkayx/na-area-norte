@@ -54,11 +54,13 @@ const currentData = radiodifusionData.find((d) => d.semana === currentWeek);
   </div>
 </div>
 
-<script>
-  document.getElementById("close-motivation")?.addEventListener("click", () => {
+<script defer is:inline>
+  document.addEventListener("click", (e) => {
+    const closeButton =
+      e.target.closest && e.target.closest("#close-motivation");
+    if (!closeButton) return;
+
     const banner = document.getElementById("weekly-motivation");
-    if (banner) {
-      banner.style.display = "none";
-    }
+    if (banner) banner.style.display = "none";
   });
 </script>
