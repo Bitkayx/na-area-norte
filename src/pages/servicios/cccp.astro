@@ -1,5 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
+import cccpPeriodico1 from "../../assets/services/cccp_periodico_1.jpeg";
+import cccpPeriodico2 from "../../assets/services/cccp_periodico_2.jpeg";
 
 const title = "CCCP";
 ---
@@ -7,10 +10,15 @@ const title = "CCCP";
 <Layout title={title}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <header class="mb-8">
-      <a href="/servicios/" class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1">
+      <a
+        href="/servicios/"
+        class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+      >
         ← Volver a Servicios
       </a>
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4">
+      <h1
+        class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4"
+      >
         {title}
       </h1>
       <p class="text-lg text-slate-500 dark:text-slate-400">
@@ -19,14 +27,21 @@ const title = "CCCP";
     </header>
 
     <div class="prose prose-slate dark:prose-invert max-w-none">
-      <p>El CCCP coordina las comunicaciones y reuniones en planta dentro de los centros de trabajo.</p>
-      
+      <p>
+        El CCCP coordina las comunicaciones y reuniones en planta dentro de los
+        centros de trabajo.
+      </p>
+
       <h2>Funciones principales</h2>
       <ul>
         <li>Organizar reuniones de grupos en empresas</li>
         <li>Facilitar el contacto con profesionales</li>
         <li>Coordinar presentaciones en centros de trabajo</li>
       </ul>
+
+      <h2>Periodico Interno de C.C.C.P</h2>
+      <Image src={cccpPeriodico1} alt="cccp_periodico_1" />
+      <Image src={cccpPeriodico2} alt="cccp_periodico_2" />
     </div>
   </div>
 </Layout>

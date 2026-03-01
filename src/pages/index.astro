@@ -4,9 +4,18 @@ import BlogPost from "@components/BlogPost.astro";
 import Ubicacion from "@components/Ubicacion.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import { createLocalDate } from "../utils/dateUtils.ts";
 
 const allPosts = await getCollection("blog");
 const title = "Neuroticos Anonimos Area Norte CDMX";
+
+const latestPosts = allPosts
+  .sort(
+    (a, b) =>
+      createLocalDate(b.data.pubDate).getTime() -
+      createLocalDate(a.data.pubDate).getTime(),
+  )
+  .slice(0, 3);
 ---
 
 <Layout title={title}>
@@ -69,7 +78,7 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        allPosts.map((post: any) => (
+        latestPosts.map((post: any) => (
           <BlogPost
             url={`/noticias/${post.id}`}
             title={post.data.title}

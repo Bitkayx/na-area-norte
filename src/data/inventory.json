@@ -1,0 +1,218 @@
+[
+  {
+    "code": "NAL003",
+    "description": "BITACORA DE JUNTAS",
+    "price": 85.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL009",
+    "description": "COMPENDIO DE ACUERDOS DE ASAMBLEA",
+    "price": 35.5,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL020",
+    "description": "COMPENDIO DE NEUROTICOS ANONIMOS",
+    "price": 260.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL004",
+    "description": "DELINEAMIENTO PARA APERTURA DE UN GPO",
+    "price": 45.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL005",
+    "description": "ETIOLOGIA DE LA ENFERMEDAD MENTAL Y EMOCIONAL",
+    "price": 65.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "",
+    "description": "HISTORIA DE NA",
+    "price": 150.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL012",
+    "description": "LAS CARTAS DE GROVER",
+    "price": 75.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL006",
+    "description": "LEYES DE LA ENFERMEDAD MENTAL Y EMOCIONAL",
+    "price": 65.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL007",
+    "description": "MANUAL DE SERVICIO DE N.A.",
+    "price": 75.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL023",
+    "description": "MANUAL DEL C.C.C.P.",
+    "price": 45.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAL018",
+    "description": "MEDITACIONES DIARIAS",
+    "price": 139.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "",
+    "description": "PROGRAMA NACIONAL DE ESTUDIO DE LA LITERATURA",
+    "price": 50.0,
+    "category": "LIBROS_NA"
+  },
+  {
+    "code": "NAF006",
+    "description": "APADRINAMIENTO DE N.A.",
+    "price": 26.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAT001",
+    "description": "AUTODIAGNOSTICOS",
+    "price": 1.20,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAC030",
+    "description": "ETIQUETA ADHESIVA DE INFORMACION PUBLICA",
+    "price": 2.50,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAF002",
+    "description": "FOLLETO INFORMATIVO",
+    "price": 23.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAF008",
+    "description": "FOLLETO INSTITUCIONES",
+    "price": 51.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAF003",
+    "description": "FOLLETO NARANJA",
+    "price": 26.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAF004",
+    "description": "TEST POSITIVO GROVER",
+    "price": 8.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAF005",
+    "description": "HERRAMIENTAS DE N.A.",
+    "price": 12.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAT005",
+    "description": "MINI ORACION DE LA SERENIDAD",
+    "price": 7.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAF001",
+    "description": "PATRIMONIO",
+    "price": 23.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAT006",
+    "description": "SEPARADOR DE LIBROS ORACION DE LA SERENIDAD",
+    "price": 8.00,
+    "category": "FOLLETOS_NA"
+  },
+  {
+    "code": "NAC001",
+    "description": "ACTUA AHORA CON AMOR",
+    "price": 11.00,
+    "category": "CARTELES_NA"
+  },
+  {
+    "code": "NAC026",
+    "description": "DEL SERVICIO AL AMOR",
+    "price": 14.00,
+    "category": "CARTELES_NA"
+  },
+  {
+    "code": "NAC010",
+    "description": "LAS DOCE TRADICIONES DE N.A.",
+    "price": 30.00,
+    "category": "CARTELES_NA"
+  },
+  {
+    "code": "NAC012",
+    "description": "LOS DOCE CONCEPTOS DE N.A.",
+    "price": 30.00,
+    "category": "CARTELES_NA"
+  },
+  {
+    "code": "NAC011",
+    "description": "LOS DOCE PASOS DE N.A.",
+    "price": 30.00,
+    "category": "CARTELES_NA"
+  },
+  {
+    "code": "NAC002",
+    "description": "SEPTIMA TRADICION",
+    "price": 18.00,
+    "category": "CARTELES_NA"
+  },
+  {
+    "code": "NAVID01",
+    "description": "VIDEO INFORMATIVO",
+    "price": 60.50,
+    "category": "AUDIO_VIDEO_NA"
+  },
+  {
+    "code": "NACD005",
+    "description": "V CONVENCION INTERNACIONAL",
+    "price": 32.00,
+    "category": "AUDIO_VIDEO_NA"
+  },
+  {
+    "code": "AAL009",
+    "description": "A.A. LLEGA A SU MAYORIA DE EDAD",
+    "price": 258.00,
+    "category": "LIBROS_AA"
+  },
+  {
+    "code": "AAL017",
+    "description": "COMO LA VE BILL",
+    "price": 132.00,
+    "category": "LIBROS_AA"
+  },
+  {
+    "code": "AAL005",
+    "description": "DOCE PASOS Y DOCE TRADICIONES",
+    "price": 100.00,
+    "category": "LIBROS_AA"
+  },
+  {
+    "code": "AAL002",
+    "description": "LIBRO AZUL AA CON HISTORIALES",
+    "price": 225.00,
+    "category": "LIBROS_AA"
+  },
+  {
+    "code": "AAL020",
+    "description": "VIVIENDO SOBRIO",
+    "price": 83.00,
+    "category": "LIBROS_AA"
+  }
+]

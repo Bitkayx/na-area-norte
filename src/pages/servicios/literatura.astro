@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import InventoryTable from "../../components/InventoryTable.tsx";
+import literatures from "../../data/inventory.json";
 
 const title = "Literatura";
 ---
@@ -7,10 +9,15 @@ const title = "Literatura";
 <Layout title={title}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <header class="mb-8">
-      <a href="/servicios/" class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1">
+      <a
+        href="/servicios/"
+        class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+      >
         ← Volver a Servicios
       </a>
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4">
+      <h1
+        class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4"
+      >
         {title}
       </h1>
       <p class="text-lg text-slate-500 dark:text-slate-400">
@@ -19,14 +26,21 @@ const title = "Literatura";
     </header>
 
     <div class="prose prose-slate dark:prose-invert max-w-none">
-      <p>El Comité de Literatura se encarga de la distribución y venta de material bibliográfico de Neuróticos Anónimos.</p>
-      
+      <p>
+        El Comité de Literatura se encarga de la distribución y venta de
+        material bibliográfico de Neuróticos Anónimos.
+      </p>
+
       <h2>Funciones principales</h2>
       <ul>
         <li>Administrar el inventario de libros y folletos</li>
         <li>Atender pedidos de grupos y áreas</li>
         <li>Promover la lectura de material NL</li>
       </ul>
+
+      <h2>Inventario del mes de Febrero</h2>
+
+      <InventoryTable items={literatures} client:visible />
     </div>
   </div>
 </Layout>
