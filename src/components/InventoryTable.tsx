@@ -1,6 +1,17 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, type ReactNode } from "react";
 
-export default function InventoryTable({ items }) {
+interface InventoryItem {
+  code: string;
+  description: string;
+  price: number;
+  category: string;
+}
+
+interface InventoryTableProps {
+  items: InventoryItem[];
+}
+
+export default function InventoryTable({ items }: InventoryTableProps) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todas");
 
@@ -8,13 +19,13 @@ export default function InventoryTable({ items }) {
     console.log("Category changed to:", category);
   }, [category]);
 
-  const categories = useMemo(() => {
-    const unique = new Set(items.map((i) => i.category));
+  const categories: string[] = useMemo(() => {
+    const unique = new Set(items.map((i: InventoryItem) => i.category));
     return ["Todas", ...unique];
   }, [items]);
 
-  const filteredItems = useMemo(() => {
-    const result = items.filter((item) => {
+  const filteredItems: InventoryItem[] = useMemo(() => {
+    const result = items.filter((item: InventoryItem) => {
       const matchesSearch = item.description
         .toLowerCase()
         .includes(search.toLowerCase());
@@ -48,7 +59,7 @@ export default function InventoryTable({ items }) {
             onChange={(e) => setCategory(e.target.value)}
             className="w-full h-10 sm:h-11.5 bg-white dark:text-slate-900 rounded-xl px-3 sm:px-4 py-2 text-sm border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           >
-            {categories.map((cat) => (
+            {categories.map((cat: string) => (
               <option key={cat} value={cat}>
                 {cat}
               </option>
@@ -73,7 +84,7 @@ export default function InventoryTable({ items }) {
             </tr>
           </thead>
           <tbody>
-            {filteredItems.map((item, index) => (
+            {filteredItems.map((item: InventoryItem, index: number) => (
               <tr
                 key={`${category}-${index}-${item.code || item.description}`}
                 className="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
