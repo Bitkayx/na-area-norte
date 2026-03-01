@@ -1,8 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 export default function InventoryTable({ items }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todas");
+
+  useEffect(() => {
+    console.log("Category changed to:", category);
+  }, [category]);
 
   const categories = useMemo(() => {
     const unique = new Set(items.map((i) => i.category));
@@ -10,19 +14,24 @@ export default function InventoryTable({ items }) {
   }, [items]);
 
   const filteredItems = useMemo(() => {
-    return items.filter((item) => {
+    const result = items.filter((item) => {
       const matchesSearch = item.description
         .toLowerCase()
-        .includes(search.toLocaleLowerCase());
+        .includes(search.toLowerCase());
       const matchesCategory =
         category === "Todas" || item.category === category;
 
       return matchesSearch && matchesCategory;
     });
+    console.log(`Filtered items for "${category}":`, result.length);
+    return result;
   }, [search, category, items]);
 
   return (
-    <div className="w-full p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm mt-8">
+    <div
+      className="w-full p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm mt-8"
+      key={category}
+    >
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1">
           <input
@@ -64,9 +73,9 @@ export default function InventoryTable({ items }) {
             </tr>
           </thead>
           <tbody>
-            {filteredItems.map((item) => (
+            {filteredItems.map((item, index) => (
               <tr
-                key={item.code || item.description}
+                key={`${category}-${index}-${item.code || item.description}`}
                 className="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
               >
                 <td className="py-3 px-4 text-sm text-slate-700 dark:text-slate-200">

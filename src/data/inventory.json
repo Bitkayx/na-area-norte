@@ -3,216 +3,1184 @@
     "code": "NAL003",
     "description": "BITACORA DE JUNTAS",
     "price": 85.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL009",
     "description": "COMPENDIO DE ACUERDOS DE ASAMBLEA",
     "price": 35.5,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL020",
     "description": "COMPENDIO DE NEUROTICOS ANONIMOS",
     "price": 260.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL004",
     "description": "DELINEAMIENTO PARA APERTURA DE UN GPO",
     "price": 45.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL005",
     "description": "ETIOLOGIA DE LA ENFERMEDAD MENTAL Y EMOCIONAL",
     "price": 65.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "",
     "description": "HISTORIA DE NA",
     "price": 150.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL012",
     "description": "LAS CARTAS DE GROVER",
     "price": 75.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL006",
     "description": "LEYES DE LA ENFERMEDAD MENTAL Y EMOCIONAL",
     "price": 65.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
+  },
+  {
+    "code": "NAL009",
+    "description": "MANUAL DE INFORMACION AL PUBLICO",
+    "price": 68.0,
+    "category": "Libros NA"
   },
   {
     "code": "NAL007",
     "description": "MANUAL DE SERVICIO DE N.A.",
     "price": 75.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL023",
     "description": "MANUAL DEL C.C.C.P.",
     "price": 45.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAL018",
     "description": "MEDITACIONES DIARIAS",
     "price": 139.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "",
     "description": "PROGRAMA NACIONAL DE ESTUDIO DE LA LITERATURA",
     "price": 50.0,
-    "category": "LIBROS_NA"
+    "category": "Libros NA"
   },
   {
     "code": "NAF006",
     "description": "APADRINAMIENTO DE N.A.",
     "price": 26.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAT001",
     "description": "AUTODIAGNOSTICOS",
     "price": 1.20,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAC030",
     "description": "ETIQUETA ADHESIVA DE INFORMACION PUBLICA",
     "price": 2.50,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAF002",
     "description": "FOLLETO INFORMATIVO",
     "price": 23.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAF008",
     "description": "FOLLETO INSTITUCIONES",
     "price": 51.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAF003",
     "description": "FOLLETO NARANJA",
     "price": 26.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAF004",
     "description": "TEST POSITIVO GROVER",
     "price": 8.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAF005",
     "description": "HERRAMIENTAS DE N.A.",
     "price": 12.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAT005",
     "description": "MINI ORACION DE LA SERENIDAD",
     "price": 7.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAF001",
     "description": "PATRIMONIO",
     "price": 23.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAT006",
     "description": "SEPARADOR DE LIBROS ORACION DE LA SERENIDAD",
     "price": 8.00,
-    "category": "FOLLETOS_NA"
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAT002",
+    "description": "TARJETA LO QUE N.A. NO HACE Y ORACION DE SAN FRANCISCO",
+    "price": 9.00,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAT003",
+    "description": "TARJETA SOLO POR HOY Y AXIOMAS",
+    "price": 9.00,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAC038",
+    "description": "TARJETON DEL C.C.C.P. PARA EL PROFESIONAL",
+    "price": 18.00,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAT007",
+    "description": "TRIPTICO DE INSTITUCIONES",
+    "price": 5.00,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAT004",
+    "description": "TRIPTICO INFORMATIVO VERDE",
+    "price": 2.20,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAV002",
+    "description": "VOLANTE PARA I.P. CON MASCARAS",
+    "price": 0.65,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "",
+    "description": "VOLANTE DE I.P. SEMAFORO",
+    "price": 0.65,
+    "category": "Folletos, Tarjetas y Volantes NA"
+  },
+  {
+    "code": "NAV001",
+    "description": "VOLANTE PARA I.P. SIN MASCARAS",
+    "price": 0.50,
+    "category": "Folletos, Tarjetas y Volantes NA"
   },
   {
     "code": "NAC001",
     "description": "ACTUA AHORA CON AMOR",
     "price": 11.00,
-    "category": "CARTELES_NA"
+    "quantity": 3,
+    "total": 33.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC",
+    "description": "ATREVETE A VIVIR CARTEL PARA JOVENES PARA GRUPO",
+    "price": 12.00,
+    "quantity": 76,
+    "total": 912.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC",
+    "description": "ATREVETE A VIVIR PARA JOVENES IP",
+    "price": 12.00,
+    "quantity": 11,
+    "total": 132.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC022",
+    "description": "BUSQUENOS PARA GRUPO COLOR VERDE",
+    "price": 6.00,
+    "quantity": 82,
+    "total": 492.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC021",
+    "description": "BUSQUENOS PARA GRUPO COLOR AMARILLO",
+    "price": 7.00,
+    "quantity": 40,
+    "total": 280.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC023",
+    "description": "BUSQUENOS PARA IP COLOR VERDE T/O",
+    "price": 10.00,
+    "quantity": 18,
+    "total": 180.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC040",
+    "description": "CAPITULO 19 DE LIBRO DE LAS LEYES",
+    "price": 12.00,
+    "quantity": 10,
+    "total": 120.00,
+    "category": "Carteles NA"
   },
   {
     "code": "NAC026",
     "description": "DEL SERVICIO AL AMOR",
     "price": 14.00,
-    "category": "CARTELES_NA"
+    "quantity": 25,
+    "total": 350.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": null,
+    "description": "ESTADOS EMOCIONALES CH",
+    "price": 9.00,
+    "quantity": 11,
+    "total": 99.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": null,
+    "description": "ESTADOS EMOCIONALES GDE.",
+    "price": 11.00,
+    "quantity": 17,
+    "total": 187.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC013",
+    "description": "FOTOGRAFIA DE GROVER",
+    "price": 21.00,
+    "quantity": 6,
+    "total": 126.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC037",
+    "description": "HAWAIANO PARA IP",
+    "price": 15.00,
+    "quantity": 4,
+    "total": 60.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC032",
+    "description": "HAY UNA SOLUCION CARTEL IP/ P JOVENE COLOR VERDE /AMARILLO",
+    "price": 8.00,
+    "quantity": 24,
+    "total": 192.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC009",
+    "description": "LAS CURVAS DE LA ENFERMEDAD MENTAL Y EMOCIONAL",
+    "price": 7.50,
+    "quantity": 5,
+    "total": 37.50,
+    "category": "Carteles NA"
   },
   {
     "code": "NAC010",
     "description": "LAS DOCE TRADICIONES DE N.A.",
     "price": 30.00,
-    "category": "CARTELES_NA"
+    "quantity": 3,
+    "total": 90.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC028",
+    "description": "LITERATURA N/A",
+    "price": 6.50,
+    "quantity": 36,
+    "total": 234.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC020",
+    "description": "LO QUE N.A. NO HACE VERDE",
+    "price": 13.00,
+    "quantity": 54,
+    "total": 702.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC015",
+    "description": "LOGOTIPO DE N.A. AUTOADHERIBLE",
+    "price": 76.00,
+    "quantity": 24,
+    "total": 1824.00,
+    "category": "Carteles NA"
   },
   {
     "code": "NAC012",
     "description": "LOS DOCE CONCEPTOS DE N.A.",
     "price": 30.00,
-    "category": "CARTELES_NA"
+    "quantity": 5,
+    "total": 150.00,
+    "category": "Carteles NA"
   },
   {
     "code": "NAC011",
     "description": "LOS DOCE PASOS DE N.A.",
     "price": 30.00,
-    "category": "CARTELES_NA"
+    "quantity": 5,
+    "total": 150.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC00",
+    "description": "M.A.V.E.",
+    "price": 12.00,
+    "quantity": 45,
+    "total": 540.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC016",
+    "description": "MASCARAS DE LA ENFERMEDAD MENTAL Y EMOC",
+    "price": 28.00,
+    "quantity": 6,
+    "total": 168.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC036",
+    "description": "N/A TAMBIEN ES PARA JOVENES PARA GPO.COLOR MORADO",
+    "price": 10.00,
+    "quantity": 8,
+    "total": 80.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC029",
+    "description": "NEUROTICO YO? (CHICO)",
+    "price": 9.00,
+    "quantity": 10,
+    "total": 90.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC027",
+    "description": "NEUROTICO YO? (GRANDE)",
+    "price": 12.00,
+    "quantity": 14,
+    "total": 168.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC017",
+    "description": "ORACION DE LA SERENIDAD (CHICO)",
+    "price": 15.00,
+    "quantity": 10,
+    "total": 150.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC018",
+    "description": "ORACION DE LA SERENIDAD (GRANDE)",
+    "price": 22.00,
+    "quantity": 5,
+    "total": 110.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC019",
+    "description": "ORGANIGRAMA DE N.A.",
+    "price": 25.00,
+    "quantity": 8,
+    "total": 200.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC024",
+    "description": "PUNTO DEL PATRIMONIO No 23",
+    "price": 18.00,
+    "quantity": 27,
+    "total": 486.00,
+    "category": "Carteles NA"
   },
   {
     "code": "NAC002",
     "description": "SEPTIMA TRADICION",
     "price": 18.00,
-    "category": "CARTELES_NA"
+    "quantity": 45,
+    "total": 810.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC008",
+    "description": "TRES LEGADOS (BALANZA)",
+    "price": 6.00,
+    "quantity": 23,
+    "total": 138.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC022",
+    "description": "YO SOY RESPONSABLE INSTITUCIONES CORRECCIONALES",
+    "price": 7.50,
+    "quantity": 24,
+    "total": 180.00,
+    "category": "Carteles NA"
   },
   {
     "code": "NAVID01",
     "description": "VIDEO INFORMATIVO",
     "price": 60.50,
-    "category": "AUDIO_VIDEO_NA"
+    "quantity": 2,
+    "total": 121.00,
+    "category": "Audio y Video NA"
   },
   {
-    "code": "NACD005",
+    "code": "",
+    "description": "II CONVENCION GUADALAJARA",
+    "price": 50.00,
+    "quantity": 1,
+    "total": 50.00,
+    "category": "Audio y Video NA"
+  },
+  {
+    "code": "NAVID05",
     "description": "V CONVENCION INTERNACIONAL",
     "price": 32.00,
-    "category": "AUDIO_VIDEO_NA"
+    "quantity": 1,
+    "total": 32.00,
+    "category": "Audio y Video NA"
   },
   {
     "code": "AAL009",
     "description": "A.A. LLEGA A SU MAYORIA DE EDAD",
     "price": 258.00,
-    "category": "LIBROS_AA"
+    "quantity": 3,
+    "total": 774.00,
+    "category": "Libros AA"
   },
   {
     "code": "AAL017",
     "description": "COMO LA VE BILL",
     "price": 132.00,
-    "category": "LIBROS_AA"
+    "quantity": 5,
+    "total": 660.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL022",
+    "description": "DE LAS TINIEBLAS A LA LUZ",
+    "price": 216.00,
+    "quantity": 2,
+    "total": 432.00,
+    "category": "Libros AA"
   },
   {
     "code": "AAL005",
     "description": "DOCE PASOS Y DOCE TRADICIONES",
     "price": 100.00,
-    "category": "LIBROS_AA"
+    "quantity": 7,
+    "total": 700.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL007",
+    "description": "DOCE PASOS Y DOCE TRADICIONES (LETRA GRANDE)",
+    "price": 210.00,
+    "quantity": 4,
+    "total": 840.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL006",
+    "description": "EL DR. BO Y LOS BUENOS VETERANOS",
+    "price": 258.00,
+    "quantity": 2,
+    "total": 516.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL008",
+    "description": "EL LENGUAJE DEL CORAZON",
+    "price": 186.00,
+    "quantity": 2,
+    "total": 372.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL003",
+    "description": "HISTORIA AA EN MEXICO",
+    "price": 100.00,
+    "quantity": 3,
+    "total": 300.00,
+    "category": "Libros AA"
   },
   {
     "code": "AAL002",
     "description": "LIBRO AZUL AA CON HISTORIALES",
     "price": 225.00,
-    "category": "LIBROS_AA"
+    "quantity": 6,
+    "total": 1350.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": null,
+    "description": "LIBRO AZUL AA DE BOLSILLO",
+    "price": 101.00,
+    "quantity": 2,
+    "total": 202.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL004",
+    "description": "LIBRO AZUL AA LETRA GRANDE",
+    "price": 210.00,
+    "quantity": 3,
+    "total": 630.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL001",
+    "description": "LIBRO AZUL AA SIN HISTORIALES",
+    "price": 102.00,
+    "quantity": 5,
+    "total": 510.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL029",
+    "description": "LIBRO DE TRABAJO DE COMITES DE TRATAMIENTO",
+    "price": 66.00,
+    "quantity": 15,
+    "total": 990.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL",
+    "description": "LIBRO DE TRABAJO DE CORRECCIONALES",
+    "price": 70.00,
+    "quantity": 4,
+    "total": 280.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL028",
+    "description": "LIBRO DE TRABAJO DE INFORMACION PUBLICA",
+    "price": 60.00,
+    "quantity": 3,
+    "total": 180.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL010",
+    "description": "LIBRO DE TRABAJO DEL C.C.C.P.",
+    "price": 59.00,
+    "quantity": 4,
+    "total": 236.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL011",
+    "description": "LLEGAMOS A CREER",
+    "price": 101.00,
+    "quantity": 2,
+    "total": 202.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAF030",
+    "description": "LO MEJOR DE BILL",
+    "price": 36.00,
+    "quantity": 6,
+    "total": 216.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": null,
+    "description": "MANUAL DE SERVICIO Y LOS 12 CONCEPTOS",
+    "price": 220.00,
+    "quantity": 4,
+    "total": 880.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL",
+    "description": "NUESTRA GRAN RESPONSABILIDAD",
+    "price": 175.00,
+    "quantity": 7,
+    "total": 1225.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL016",
+    "description": "REFLEXIONES DIARIAS",
+    "price": 154.00,
+    "quantity": 2,
+    "total": 308.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL018",
+    "description": "TRASMITELO \"LA HISTORIA DE BILL\"",
+    "price": 239.00,
+    "quantity": 2,
+    "total": 478.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAF042",
+    "description": "TRES CHARLAS A SOCIEDADES MEDICAS",
+    "price": 45.00,
+    "quantity": 3,
+    "total": 135.00,
+    "category": "Libros AA"
   },
   {
     "code": "AAL020",
     "description": "VIVIENDO SOBRIO",
     "price": 83.00,
-    "category": "LIBROS_AA"
+    "quantity": 2,
+    "total": 166.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": null,
+    "description": "PLENITUD COMPENDIO # 1",
+    "price": 150.00,
+    "quantity": 1,
+    "total": 150.00,
+    "category": "Revistas Plenitud"
+  },
+  {
+    "code": "AAPL000",
+    "description": "PLENITUD COMPENDIO # 5",
+    "price": 150.00,
+    "quantity": 1,
+    "total": 150.00,
+    "category": "Revistas Plenitud"
+  },
+  {
+    "code": "AAPL000",
+    "description": "PLENITUD COMPENDIO # 10",
+    "price": 132.00,
+    "quantity": 1,
+    "total": 132.00,
+    "category": "Revistas Plenitud"
+  },
+  {
+    "code": "AAPL000",
+    "description": "PLENITUD CRITERIOS PROFESIONALES",
+    "price": 132.00,
+    "quantity": 1,
+    "total": 132.00,
+    "category": "Revistas Plenitud"
+  },
+  {
+    "code": "AAPL00",
+    "description": "PLENITUD REVISTA EDCICION ESPECIAL PRIMERO LO PRIMERO",
+    "price": 60.00,
+    "quantity": 1,
+    "total": 60.00,
+    "category": "Revistas Plenitud"
+  },
+  {
+    "code": "AAF002",
+    "description": "A.A. EN CENTROS DE TRATAMIENTO",
+    "price": 10.50,
+    "quantity": 9,
+    "total": 94.50,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF055",
+    "description": "A.A. EN CENTROS DE TRATAMIENTO (ILUSTRADO)",
+    "price": 14.00,
+    "quantity": 17,
+    "total": 238.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF052",
+    "description": "A.A. EN INST. CORRECCIONALES DE IGUAL A IGUAL",
+    "price": 35.00,
+    "quantity": 8,
+    "total": 280.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF061",
+    "description": "A.A. EN INSTITUCIONES CORRECCIONALES (ILUSTRADO)",
+    "price": 25.00,
+    "quantity": 10,
+    "total": 250.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": null,
+    "description": "A.A. EN LAS INSTITUCIONES CORRECCIONALES",
+    "price": 17.00,
+    "quantity": 9,
+    "total": 153.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF003",
+    "description": "A.A. EN LAS PRISIONES",
+    "price": 18.00,
+    "quantity": 8,
+    "total": 144.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF004",
+    "description": "A.A. PARA LA MUJER",
+    "price": 22.00,
+    "quantity": 3,
+    "total": 66.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF006",
+    "description": "A.A. Y LA PROFESION MEDICA",
+    "price": 22.00,
+    "quantity": 9,
+    "total": 198.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF",
+    "description": "AA PARA ALCOHOLICOS DE EDAD AVANZADA",
+    "price": 40.00,
+    "quantity": 1,
+    "total": 40.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF008",
+    "description": "CARTA A UN PRESO QUE PUEDE SER UN ALCOHOLICO",
+    "price": 32.00,
+    "quantity": 4,
+    "total": 128.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF065",
+    "description": "CENTROS DE TRATAMIENTO, YO ESTUVE COMO TU",
+    "price": 19.00,
+    "quantity": 2,
+    "total": 38.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF054",
+    "description": "COMITÉ DE MENSAJE A LA MUJER",
+    "price": 17.00,
+    "quantity": 7,
+    "total": 119.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF010",
+    "description": "COMO COOPERAN LOS MIEMBROS DE A.A.",
+    "price": 18.00,
+    "quantity": 4,
+    "total": 72.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF046",
+    "description": "COMO LLEVAR LA INFORMACION DE A.A. AL PROFESIONAL ILUST",
+    "price": 61.00,
+    "quantity": 5,
+    "total": 305.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF011",
+    "description": "COMPRENDIENDO EL ANONIMATO",
+    "price": 24.00,
+    "quantity": 14,
+    "total": 336.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF001",
+    "description": "CUARENTA Y CUATRO PREGUN. Y RESPUES. ACERCA DEL PROGRAMA AA",
+    "price": 30.00,
+    "quantity": 8,
+    "total": 240.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF012",
+    "description": "DIEZ MUJERES EN A.A.",
+    "price": 20.00,
+    "quantity": 10,
+    "total": 200.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF053",
+    "description": "EL ALCOHOLISMO EN LOS JOVENES (ILUSTRADO)",
+    "price": 28.00,
+    "quantity": 21,
+    "total": 588.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF014",
+    "description": "EL ARTICULO DE JACK ALEXANDER SOBRE A.A.",
+    "price": 40.00,
+    "quantity": 8,
+    "total": 320.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF066",
+    "description": "EL AUTOMANTENIMIENTO",
+    "price": 25.00,
+    "quantity": 5,
+    "total": 125.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF015",
+    "description": "EL EMPLEADO ALCOHOLICO",
+    "price": 25.00,
+    "quantity": 4,
+    "total": 100.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF016",
+    "description": "EL GRUPO DE A.A. DONDE TODO EMPIEZA",
+    "price": 53.00,
+    "quantity": 4,
+    "total": 212.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF017",
+    "description": "EL MIEMBRO DE A.A. Y EL ABUSO DE LAS DROGAS",
+    "price": 23.00,
+    "quantity": 9,
+    "total": 207.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": null,
+    "description": "EL MIEMBRO DE A.A., LOS MEDICAMENTOS Y OTRAS DROGAS",
+    "price": 23.00,
+    "quantity": 1,
+    "total": 23.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF019",
+    "description": "EL R.S.G. (EL REPRESENTANTE DE SERVICIOS GENERALES)",
+    "price": 34.00,
+    "quantity": 7,
+    "total": 238.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF018",
+    "description": "EL REPRESENTANTE DEL COMITÉ DE I.C.",
+    "price": 21.00,
+    "quantity": 9,
+    "total": 189.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF020",
+    "description": "EL REPRESENTANTE DEL COMITÉ DE I.P.",
+    "price": 23.00,
+    "quantity": 1,
+    "total": 23.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF021",
+    "description": "ES MEJOR QUE ESTAR SENTADO EN UNA CELDA",
+    "price": 30.00,
+    "quantity": 5,
+    "total": 150.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF022",
+    "description": "ESTO ES A.A.",
+    "price": 24.00,
+    "quantity": 10,
+    "total": 240.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF047",
+    "description": "GUIA DE FUNCIONAMIENTO DEL COMITÉ DE AGENDA",
+    "price": 7.00,
+    "quantity": 5,
+    "total": 35.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": null,
+    "description": "GUIA DE FUNCIONAMIENTO DEL POLITICA Y ADMON.",
+    "price": 6.00,
+    "quantity": 12,
+    "total": 72.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF026",
+    "description": "HABLANDO EN REUNIONES DE NO ALCOHOLICOS",
+    "price": 32.00,
+    "quantity": 9,
+    "total": 288.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF024",
+    "description": "HAY UN ALCOHOLICO EN SU VIDA",
+    "price": 35.00,
+    "quantity": 11,
+    "total": 385.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF051",
+    "description": "INFORMACION GENERAL DE A.A.",
+    "price": 24.00,
+    "quantity": 7,
+    "total": 168.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF027",
+    "description": "LA TRADICION DE A.A. COMO SE DESARROLLO",
+    "price": 53.00,
+    "quantity": 4,
+    "total": 212.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF028",
+    "description": "LAS DOCE TRADICIONES ILUSTRADAS",
+    "price": 41.00,
+    "quantity": 3,
+    "total": 123.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF",
+    "description": "LAS MUJERES EN A.A.",
+    "price": 29.00,
+    "quantity": 7,
+    "total": 203.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF031",
+    "description": "LOS DOCE CONCEPTOS PARA EL SERVICIO MUNDIAL ILUSTRADOS",
+    "price": 46.00,
+    "quantity": 3,
+    "total": 138.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF033",
+    "description": "LOS DOCE PASOS ILUSTRADOS",
+    "price": 27.00,
+    "quantity": 3,
+    "total": 81.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF034",
+    "description": "LOS JOVENES Y AA",
+    "price": 53.00,
+    "quantity": 2,
+    "total": 106.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF",
+    "description": "PREGUNTAS FRECUENTES ACERCA D AA",
+    "price": 48.00,
+    "quantity": 2,
+    "total": 96.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF036",
+    "description": "PREGUNTAS Y RESPUESTAS SOBRE EL APADRINAMIENTO",
+    "price": 46.00,
+    "quantity": 5,
+    "total": 230.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF037",
+    "description": "PROBLEMAS DIFERENTES AL ALCOHOL",
+    "price": 25.00,
+    "quantity": 9,
+    "total": 225.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF067",
+    "description": "REUNIONES PARA PRINCIPIANTES",
+    "price": 29.00,
+    "quantity": 4,
+    "total": 116.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF038",
+    "description": "SABES CUAL ES LA CAUSA DE TUS SUFRIMIENTOS",
+    "price": 27.00,
+    "quantity": 2,
+    "total": 54.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF039",
+    "description": "SE CREE USTED DIFERENTE",
+    "price": 46.00,
+    "quantity": 5,
+    "total": 230.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF040",
+    "description": "SI USTED ES UN PROFESIONAL A.A. QUIERE TRABAJAR UD",
+    "price": 21.00,
+    "quantity": 6,
+    "total": 126.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF",
+    "description": "SUGERENCIAS PARA COORDINAR REUNION DE PRINCIPIANTES",
+    "price": 42.00,
+    "quantity": 1,
+    "total": 42.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF062",
+    "description": "TALLER DEL LIBRO GRANDE (PARTICIPANTE)",
+    "price": 53.00,
+    "quantity": 1,
+    "total": 53.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF044",
+    "description": "UN PUNTO DE VISTA SOBRE ALCOHOLICOS ANONIMOS",
+    "price": 30.00,
+    "quantity": 7,
+    "total": 210.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAF045",
+    "description": "UNA BREVE GUIA DE ALCOHOLICOS ANONIMOS",
+    "price": 10.50,
+    "quantity": 19,
+    "total": 199.50,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAU001",
+    "description": "UNIENDO ORILLAS",
+    "price": 32.00,
+    "quantity": 5,
+    "total": 160.00,
+    "category": "Folletos AA"
+  },
+  {
+    "code": "AAC004",
+    "description": "JUEGO DE AXIOMAS (PRIMERO ES LO PRIMERO, VIVE Y DEJA VIVIR, POCO A POCO ...)",
+    "price": 31.00,
+    "quantity": 9,
+    "total": 279.00,
+    "category": "Carteles AA"
+  },
+  {
+    "code": null,
+    "description": "DECLARACION DE LA UNIDAD",
+    "price": 17.00,
+    "quantity": 6,
+    "total": 102.00,
+    "category": "Carteles AA"
+  },
+  {
+    "code": "AAC",
+    "description": "FOTOFRAFIA DE BILL W.",
+    "price": 16.00,
+    "quantity": 2,
+    "total": 32.00,
+    "category": "Carteles AA"
+  },
+  {
+    "code": "AAC",
+    "description": "FOTOGRAFIA DEL DR. BOB",
+    "price": 16.00,
+    "quantity": 1,
+    "total": 16.00,
+    "category": "Carteles AA"
+  },
+  {
+    "code": "AAC006",
+    "description": "ORACION DEL SERVICIO",
+    "price": 17.00,
+    "quantity": 8,
+    "total": 136.00,
+    "category": "Carteles AA"
+  },
+  {
+    "code": null,
+    "description": "YO SOY REPONSABLE",
+    "price": 15.00,
+    "quantity": 2,
+    "total": 30.00,
+    "category": "Carteles AA"
+  },
+  {
+    "code": "AACD003",
+    "description": "CD TALLER LAS DOCE TRADICIONES",
+    "price": 44.50,
+    "quantity": 1,
+    "total": 44.50,
+    "category": "Audio y Video AA"
+  },
+  {
+    "code": "AACD005",
+    "description": "DVD PARA IMPARTIR \"TALLER DEL LIBRO GRANDE\"",
+    "price": 68.50,
+    "quantity": 1,
+    "total": 68.50,
+    "category": "Audio y Video AA"
   }
 ]
