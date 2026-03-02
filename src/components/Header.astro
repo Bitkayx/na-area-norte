@@ -1,6 +1,6 @@
 ---
 import type { NavigationItem } from "../types/navigation";
-import MobileMenu from "./MobileMenu.jsx";
+import MobileMenu from "./MobileMenu.tsx";
 
 interface Props {
   navigation: NavigationItem[];
@@ -31,7 +31,6 @@ const { navigation } = Astro.props;
       </a>
     </div>
 
-    {/* Navegación desktop */}
     <nav class="hidden md:flex items-center gap-8">
       {
         navigation.map((item) => (
@@ -50,7 +49,6 @@ const { navigation } = Astro.props;
       >
     </nav>
 
-    {/* Menú móvil */}
     <MobileMenu client:load navigation={navigation} />
   </div>
 </header>

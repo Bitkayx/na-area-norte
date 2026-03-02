@@ -1,0 +1,59 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const title = "Tesoreria";
+---
+
+<Layout title={title}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-8">
+      <a
+        href="/servicios/"
+        class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+      >
+        ← Volver a Servicios
+      </a>
+      <h1
+        class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4"
+      >
+        {title}
+      </h1>
+    </header>
+
+    <div class="prose prose-slate dark:prose-invert max-w-none">
+      <h2>Funciones</h2>
+      <ul>
+        <li>
+          Elaborar un presupuesto de ingresos y egresos mensual y anual,
+          teniendo en cuenta el sostenimiento de los centros de servicio.
+        </li>
+        <li>
+          Tener al día los registros de entradas y salidas de dinero del Comité
+          Estatal o de Área, para que pueda rendir sus informes mensuales por
+          escrito.
+        </li>
+        <li>
+          Evitar erogaciones o gastos innecesarios y garantizar que los gastos y
+          pagos sean cubiertos en tiempo y forma.
+        </li>
+        <li>
+          Colectar las aportaciones de dinero de los Comités Auxiliares u otros
+          servicios.
+        </li>
+        <li>
+          Llevar un control y registro de las aportaciones de dinero de los
+          Grupos para el Comité y para la OSG.
+        </li>
+        <li>
+          Si los gastos de cafetería y limpieza son proporcionados por el Comité
+          Estatal o de Área, proveer los recursos económicos necesarios a los
+          responsables de dichos servicios.
+        </li>
+        <li>
+          Apoyar al Delegado Estatal o de Área en las actividades que involucren
+          el manejo de aportaciones.
+        </li>
+      </ul>
+    </div>
+  </div>
+</Layout>

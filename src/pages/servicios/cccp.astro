@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import cccpPeriodico1 from "../../assets/services/cccp_periodico_1.jpeg";
+import cccpPeriodico2 from "../../assets/services/cccp_periodico_2.jpeg";
+
+const title = "CCCP";
+---
+
+<Layout title={title}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-8">
+      <a
+        href="/servicios/"
+        class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+      >
+        ← Volver a Servicios
+      </a>
+      <h1
+        class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4"
+      >
+        {title}
+      </h1>
+    </header>
+
+    <div class="prose prose-slate dark:prose-invert max-w-none">
+      <p>
+        Coordinar las actividades de cooperación con la comunidad profesional en
+        el Comité Estatal o de Área.
+      </p>
+
+      <h2>Funciones</h2>
+      <ul>
+        <li>
+          Elaborar un plan de trabajo considerando las actividades de
+          cooperación con la comunidad profesional a nivel de Comité Estatal o
+          de Área.
+        </li>
+        <li>
+          Preparar, actualizar e integrar todos los materiales necesarios para
+          informar a los profesionales que se pretenda visitar o que soliciten
+          información.
+        </li>
+        <li>
+          Realizar pláticas informativas hacia los profesionales considerados en
+          el plan de trabajo, y cuando sea a solicitud de ellos. Adicionalmente
+          realizar platicas a otros profesionales que lo soliciten.
+        </li>
+        <li>
+          Llevar un seguimiento posterior de atención a esta actividad, hacia
+          los profesionales visitados.
+        </li>
+        <li>
+          Recibir y auxiliar las solicitudes de apoyo en actividades de CCP
+          provenientes de los Distritos.
+        </li>
+      </ul>
+
+      <h2>Periodico Interno de C.C.C.P</h2>
+      <Image src={cccpPeriodico1} alt="cccp_periodico_1" />
+      <Image src={cccpPeriodico2} alt="cccp_periodico_2" />
+    </div>
+  </div>
+</Layout>

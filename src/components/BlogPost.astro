@@ -3,6 +3,9 @@ import { Icon } from "astro-icon/components";
 import { formatDate } from "../utils/dateUtils.ts";
 
 const { title, tags, pubDate, description, image, url } = Astro.props;
+
+const imageUrl = image?.url?.src || image?.url;
+const imageAlt = image?.alt || title;
 ---
 
 <article
@@ -11,11 +14,11 @@ const { title, tags, pubDate, description, image, url } = Astro.props;
   <a href={url}>
     <div class="h-44 overflow-hidden">
       {
-        image?.url && (
+        imageUrl && (
           <div class="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-700">
             <img
-              src={image.url}
-              alt={image.alt || title}
+              src={imageUrl}
+              alt={imageAlt}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />

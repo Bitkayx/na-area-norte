@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const title = "FraterNA";
+---
+
+<Layout title={title}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-8">
+      <a
+        href="/servicios/"
+        class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+      >
+        ← Volver a Servicios
+      </a>
+      <h1
+        class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4"
+      >
+        {title}
+      </h1>
+    </header>
+
+    <div class="prose prose-slate dark:prose-invert max-w-none">
+      <p>
+        Promover el compartimiento de experiencias de los miembros de NA, por
+        medio de la revista Frater'NA.
+      </p>
+
+      <h2>Funciones</h2>
+      <ul>
+        <li>
+          Motivar la escritura de experiencias en los Distritos y Grupos, y
+          recabarlas para ser enviadas a la revista Frater'NA para su
+          publicación.
+        </li>
+        <li>
+          Entregar al Delegado Estatal o de Área los artículos, para que se
+          hagan llegar a la revista Frater'NA.
+        </li>
+        <li>
+          Adquirir la revista Frater'NA en la Oficina de Servicios Generales.
+        </li>
+        <li>
+          Promover la adquisición de la revista, en el Comité Estatal o de Área,
+          en los Distritos y en los Grupos.
+        </li>
+        <li>
+          Mantener comunicación con la revista FraterNA del Consejo de
+          Administración.
+        </li>
+      </ul>
+    </div>
+  </div>
+</Layout>

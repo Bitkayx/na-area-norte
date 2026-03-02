@@ -7,8 +7,8 @@
       "linea1": "Calle Marmolería No. 256",
       "colonia": "20 de Noviembre",
       "referencias": "Entre Eje 2 Norte y Canteros",
-      "ciudad": "CDMX",
-      "estado": "Ciudad de México"
+      "ciudad": "Venustiano Carranza",
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -17,7 +17,7 @@
         "horaFin": "20:30"
       }
     ],
-    "mapQuery": "Calle Marmolería 256 Col. 20 de Noviembre Venustiano Carranza CDMX"
+    "mapQuery": "Marmolería 256 Col. 20 de Noviembre Venustiano Carranza CDMX"
   },
   {
     "id": "camino-a-la-libertad",
@@ -26,9 +26,9 @@
     "direccion": {
       "linea1": "Av. Ing. Eduardo Molina No. 1685",
       "colonia": "Nueva Atzacoalco",
-      "referencias": "A dos calles de la estación El Coyol Línea 5 del Metrobús, dirección Río de los Remedios, C.P. 07420",
-      "ciudad": "CDMX",
-      "estado": "Ciudad de México"
+      "referencias": "Cerca Metrobús El Coyol L5 dirección Río de los Remedios",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -37,7 +37,7 @@
         "horaFin": "10:30"
       },
       {
-        "dias": "Sábados",
+        "dias": "Sábado",
         "horaInicio": "17:00",
         "horaFin": "18:30"
       },
@@ -47,18 +47,18 @@
         "horaFin": "20:00"
       }
     ],
-    "mapQuery": "Av. Ing. Eduardo Molina 1685 Nueva Atzacoalco CDMX"
+    "mapQuery": "Eduardo Molina 1685 Col. Nueva Atzacoalco Gustavo A. Madero CDMX"
   },
   {
     "id": "humildad",
     "nombre": "Humildad",
     "distrito": "4",
     "direccion": {
-      "linea1": "Calle Ote. 155 No. 3903",
+      "linea1": "Calle Oriente 155 No. 3903",
       "colonia": "Salvador Díaz Mirón",
-      "referencias": "Entre Ote. 153 y 157",
+      "referencias": "Entre Oriente 153 y 157",
       "ciudad": "Gustavo A. Madero",
-      "estado": "Ciudad de México"
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -72,18 +72,18 @@
         "horaFin": "21:30"
       }
     ],
-    "mapQuery": "Calle Ote. 155 3903 Col. Salvador Díaz Mirón Gustavo A. Madero CDMX"
+    "mapQuery": "Oriente 155 3903 Col. Salvador Díaz Mirón Gustavo A. Madero CDMX"
   },
   {
     "id": "luz-de-esperanza",
-    "nombre": "Luz de Esperanza",
+    "nombre": "Luz de esperanza",
     "distrito": "4",
     "direccion": {
-      "linea1": "Calle 308 s/n",
+      "linea1": "Calle 308 S/N",
       "colonia": "Nueva Atzacoalco",
-      "referencias": "Entre Calle 311 y 313",
-      "ciudad": "CDMX",
-      "estado": "Ciudad de México"
+      "referencias": "Entre calle 311 y 313",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -92,7 +92,7 @@
         "horaFin": "19:30"
       }
     ],
-    "mapQuery": "Calle 308 Nueva Atzacoalco CDMX"
+    "mapQuery": "Calle 308 Col. Nueva Atzacoalco Gustavo A. Madero CDMX"
   },
   {
     "id": "nueva-senda-de-luz",
@@ -101,9 +101,9 @@
     "direccion": {
       "linea1": "Calle Fresnillo No. 52",
       "colonia": "Michoacana",
-      "referencias": "A dos calles del Metro Canal del Norte, C.P. 15250",
+      "referencias": "Cerca Metro Canal del Norte",
       "ciudad": "Venustiano Carranza",
-      "estado": "Ciudad de México"
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -112,18 +112,18 @@
         "horaFin": "21:00"
       }
     ],
-    "mapQuery": "Calle Fresnillo 52 Col. Michoacana Venustiano Carranza CDMX"
+    "mapQuery": "Fresnillo 52 Col. Michoacana Venustiano Carranza CDMX"
   },
   {
     "id": "nuevo-amanecer",
     "nombre": "Nuevo Amanecer",
     "distrito": "4",
     "direccion": {
-      "linea1": "Calle de Espinela No. 6236",
+      "linea1": "Calle Espinela No. 6236",
       "colonia": "Tres Estrellas",
-      "referencias": "C.P. 07820",
+      "referencias": "",
       "ciudad": "Gustavo A. Madero",
-      "estado": "Ciudad de México"
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -142,16 +142,16 @@
         "horaFin": "21:00"
       }
     ],
-    "mapQuery": "Calle de Espinela 6236 Col. Tres Estrellas Gustavo A. Madero CDMX"
+    "mapQuery": "Espinela 6236 Col. Tres Estrellas Gustavo A. Madero CDMX"
   },
   {
     "id": "santa-clara",
     "nombre": "Santa Clara",
     "distrito": "4",
     "direccion": {
-      "linea1": "Calle Miguel Hidalgo No. 124, 2do Piso",
+      "linea1": "Calle Miguel Hidalgo No. 124 2do Piso",
       "colonia": "Santa Clara",
-      "referencias": "C.P. 55540",
+      "referencias": "",
       "ciudad": "Ecatepec",
       "estado": "Estado de México"
     },
@@ -162,15 +162,15 @@
         "horaFin": "20:30"
       },
       {
-        "dias": "Domingos",
+        "dias": "Domingo",
         "horaInicio": "17:00",
         "horaFin": "18:30"
       }
     ],
-    "mapQuery": "Calle Miguel Hidalgo 124 Col. Santa Clara Ecatepec Estado de México"
+    "mapQuery": "Miguel Hidalgo 124 Col. Santa Clara Ecatepec Estado de México"
   },
   {
-    "id": "serenidad",
+    "id": "serenidad-d4",
     "nombre": "Serenidad",
     "distrito": "4",
     "direccion": {
@@ -178,7 +178,7 @@
       "colonia": "Nueva Atzacoalco",
       "referencias": "Entre calle 304 y 306",
       "ciudad": "Gustavo A. Madero",
-      "estado": "Ciudad de México"
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -187,7 +187,7 @@
         "horaFin": "21:00"
       }
     ],
-    "mapQuery": "Calle 313 207 Nueva Atzacoalco Gustavo A. Madero CDMX"
+    "mapQuery": "Calle 313 207 Col. Nueva Atzacoalco Gustavo A. Madero CDMX"
   },
   {
     "id": "solo-por-hoy",
@@ -198,7 +198,7 @@
       "colonia": "Nueva Atzacoalco",
       "referencias": "Entre calle 316 y 318",
       "ciudad": "Gustavo A. Madero",
-      "estado": "Ciudad de México"
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -207,7 +207,7 @@
         "horaFin": "10:30"
       }
     ],
-    "mapQuery": "Calle 305 820 Nueva Atzacoalco Gustavo A. Madero CDMX"
+    "mapQuery": "Calle 305 820 Col. Nueva Atzacoalco Gustavo A. Madero CDMX"
   },
   {
     "id": "unidad",
@@ -218,7 +218,7 @@
       "colonia": "Nueva Atzacoalco",
       "referencias": "Entre calle 302 y 304",
       "ciudad": "Gustavo A. Madero",
-      "estado": "Ciudad de México"
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -232,23 +232,23 @@
         "horaFin": "21:00"
       },
       {
-        "dias": "Sábados",
+        "dias": "Sábado",
         "horaInicio": "19:00",
         "horaFin": "20:30"
       }
     ],
-    "mapQuery": "Calle 301 33 Nueva Atzacoalco Gustavo A. Madero CDMX"
+    "mapQuery": "Calle 301 33 Col. Nueva Atzacoalco Gustavo A. Madero CDMX"
   },
   {
-    "id": "valor-para-cambiar",
+    "id": "valor-para-cambiar-d4",
     "nombre": "Valor para cambiar",
     "distrito": "4",
     "direccion": {
       "linea1": "Callejón Ext. 2171 Int. B",
       "colonia": "Ampliación Villa Hermosa",
-      "referencias": "Casi esquina con Centenario, entre Oriente 185 y Ferrocarril Hidalgo",
-      "ciudad": "CDMX",
-      "estado": "Ciudad de México"
+      "referencias": "Entre Oriente 185 y Ferrocarril Hidalgo, casi esquina Centenario",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -262,12 +262,12 @@
         "horaFin": "20:30"
       },
       {
-        "dias": "Domingos",
+        "dias": "Domingo",
         "horaInicio": "16:00",
         "horaFin": "17:30"
       }
     ],
-    "mapQuery": "Callejón 2171 Ampliación Villa Hermosa CDMX"
+    "mapQuery": "Ampliación Villa Hermosa Gustavo A. Madero CDMX"
   },
   {
     "id": "vive-y-deja-vivir",
@@ -277,8 +277,8 @@
       "linea1": "Av. de las Flores No. 43",
       "colonia": "Juan González Romero",
       "referencias": "Entre Av. Desfogue y Palmira",
-      "ciudad": "CDMX",
-      "estado": "Ciudad de México"
+      "ciudad": "Gustavo A. Madero",
+      "estado": "CDMX"
     },
     "horarios": [
       {
@@ -287,6 +287,6 @@
         "horaFin": "21:00"
       }
     ],
-    "mapQuery": "Av. de las Flores 43 Col. Juan González Romero CDMX"
+    "mapQuery": "Av de las Flores 43 Col. Juan González Romero Gustavo A. Madero CDMX"
   }
 ]

@@ -2,8 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import { getCollection } from "astro:content";
+import { createLocalDate } from "src/utils/dateUtils";
 
 const allPosts = await getCollection("blog");
+const latestPosts = allPosts
+  .sort(
+    (a, b) =>
+      createLocalDate(b.data.pubDate).getTime() -
+      createLocalDate(a.data.pubDate).getTime(),
+  )
+  .slice(0, 3);
 ---
 
 <Layout title="Noticias">
@@ -22,7 +30,7 @@ const allPosts = await getCollection("blog");
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {
-        allPosts.map((post: any) => (
+        latestPosts.map((post: any) => (
           <BlogPost
             url={`/noticias/${post.id}`}
             title={post.data.title}

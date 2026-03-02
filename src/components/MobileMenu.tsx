@@ -1,30 +1,35 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import type { NavigationItem } from "../types/navigation.ts"
 
-const MobileMenu = ({ navigation }) => {
+interface MobileMenuProps {
+  navigation: NavigationItem[];
+}
+
+const MobileMenu = ({ navigation }: MobileMenuProps): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
+  useEffect((): () => void => {
     document.body.style.overflow = isOpen ? "hidden" : "";
 
-    const handleEscape = (e) => {
-      if (e.key === "Escape") setIsOpen(false);
+    const handleEscape = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") setIsOpen(false);
     };
 
     window.addEventListener("keydown", handleEscape);
 
-    return () => {
+    return (): void => {
       window.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "";
     };
   }, [isOpen]);
 
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu = (): void => setIsOpen(false);
 
   return (
     <>
       <button
         className="md:hidden p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-        onClick={() => setIsOpen(true)}
+        onClick={(): void => setIsOpen(true)}
         aria-label="Abrir menú"
       >
         ☰
@@ -45,7 +50,7 @@ const MobileMenu = ({ navigation }) => {
 
             <div className="flex h-full items-center justify-center px-8">
               <nav className="flex flex-col items-center gap-10 text-center">
-                {navigation.map((item) => (
+                {navigation.map((item: NavigationItem): React.JSX.Element => (
                   <a
                     key={item.href}
                     href={item.href}

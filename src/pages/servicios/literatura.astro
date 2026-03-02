@@ -1,0 +1,72 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import InventoryTable from "../../components/InventoryTable.tsx";
+import literatures from "../../data/inventory.json";
+
+const title = "Literatura";
+---
+
+<Layout title={title}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-8">
+      <a
+        href="/servicios/"
+        class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+      >
+        ← Volver a Servicios
+      </a>
+      <h1
+        class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4"
+      >
+        {title}
+      </h1>
+    </header>
+
+    <div class="text-slate-600 dark:text-slate-300 leading-relaxed">
+      <p class="mb-4">
+        Motivar el conocimiento, comprensión, utilización y difusión de nuestra
+        literatura mediante mecanismos de capacitación para estimular la
+        adquisición, estudio y compartimiento de la misma.
+      </p>
+
+      <h2
+        class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-6"
+      >
+        Funciones
+      </h2>
+      <ul class="list-disc list-inside mb-4 space-y-1">
+        <li>
+          Organizar reuniones en el Comité Estatal o de Área para el estudio de
+          la literatura.
+        </li>
+        <li>
+          Crear dinámicas de estudio para compartirlas con los Representantes de
+          Literatura de los Distritos o de los Grupos.
+        </li>
+        <li>Adquirir la literatura en la Oficina de Servicios Generales.</li>
+        <li>Promover la difusión y adquisición de la literatura.</li>
+      </ul>
+    </div>
+
+    <h2
+      class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-10"
+    >
+      Proximo Inventario Mensual
+    </h2>
+    <p>Viernes 27 de Marzo | 10:00 am</p>
+    <p>Participan: R.D. 4to Distrito</p>
+
+    <h2
+      class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-10"
+    >
+      Dias de venta de Literatura
+    </h2>
+    <p>Martes, Miercoles y Jueves | De 5:00 a 6:00 pm</p>
+  </div>
+  <h2
+    class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-6 text-center"
+  >
+    Inventario del mes de Febrero
+  </h2>
+  <InventoryTable items={literatures} client:visible />
+</Layout>

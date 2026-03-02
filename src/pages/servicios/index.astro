@@ -1,0 +1,139 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+type Service = "board" | "committee";
+interface Services {
+  href: string;
+  title: string;
+  service: Service;
+}
+
+const title = "Servicios";
+const services: Services[] = [
+  {
+    href: "/servicios/delegado/",
+    title: "Delegado",
+    service: "board",
+  },
+  {
+    href: "/servicios/coordinador/",
+    title: "Coordinador",
+    service: "board",
+  },
+  {
+    href: "/servicios/secretario/",
+    title: "Secretario",
+    service: "board",
+  },
+  {
+    href: "/servicios/tesoreria/",
+    title: "Tesoreria",
+    service: "board",
+  },
+  {
+    href: "/servicios/ip/",
+    title: "IP",
+    service: "committee",
+  },
+  {
+    href: "/servicios/instituciones/",
+    title: "Instituciones",
+    service: "committee",
+  },
+  {
+    href: "/servicios/literatura/",
+    title: "Literatura",
+    service: "committee",
+  },
+  {
+    href: "/servicios/cccp/",
+    title: "CCCP",
+    service: "committee",
+  },
+  {
+    href: "/servicios/eventos/",
+    title: "Eventos",
+    service: "committee",
+  },
+  {
+    href: "/servicios/fraterna/",
+    title: "FraterNA",
+    service: "committee",
+  },
+];
+
+const boardServices = services.filter((s) => s.service === "board");
+const committeeServices = services.filter((s) => s.service === "committee");
+---
+
+<Layout title={title}>
+  <section class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-12 space-y-3 text-center md:text-left">
+        <h1
+          class="text-6xl md:text-7xl font-extrabold text-slate-800 dark:text-white leading-[1.05] tracking-tight"
+        >
+          Servicios
+        </h1>
+        <p class="text-base text-slate-500">
+          Conoce los servicios que ofrece el Área Norte de Neuróticos Anónimos.
+        </p>
+      </header>
+
+      <div class="mb-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6">
+          Servicios de Mesa
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {
+            boardServices.map((service) => (
+              <a
+                href={service.href}
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all p-6"
+              >
+                <h3 class="text-lg font-bold mb-2 group-hover:text-primary transition-colors text-slate-900 dark:text-white">
+                  {service.title}
+                </h3>
+                <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                  Ver más
+                  <Icon
+                    name="material-symbols:trending-flat"
+                    class="group-hover:translate-x-1 transition-transform"
+                  />
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6">
+          Comités Auxiliares
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            committeeServices.map((service) => (
+              <a
+                href={service.href}
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all p-6"
+              >
+                <h3 class="text-lg font-bold mb-2 group-hover:text-primary transition-colors text-slate-900 dark:text-white">
+                  {service.title}
+                </h3>
+                <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                  Ver más
+                  <Icon
+                    name="material-symbols:trending-flat"
+                    class="group-hover:translate-x-1 transition-transform"
+                  />
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

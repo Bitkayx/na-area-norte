@@ -4,9 +4,18 @@ import BlogPost from "@components/BlogPost.astro";
 import Ubicacion from "@components/Ubicacion.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import { createLocalDate } from "../utils/dateUtils.ts";
 
 const allPosts = await getCollection("blog");
 const title = "Neuroticos Anonimos Area Norte CDMX";
+
+const latestPosts = allPosts
+  .sort(
+    (a, b) =>
+      createLocalDate(b.data.pubDate).getTime() -
+      createLocalDate(a.data.pubDate).getTime(),
+  )
+  .slice(0, 3);
 ---
 
 <Layout title={title}>
@@ -19,8 +28,8 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
           <h1
             class="text-6xl md:text-7xl font-extrabold text-[#1e293b] dark:text-white leading-[1.05] tracking-tight"
           >
-            Neuroticos Anonimos <br /><span class="text-primary"
-              >Area Norte</span
+            Neuróticos Anónimos <br /><span class="text-primary"
+              >Área Norte</span
             >
             <br />CDMX
           </h1>
@@ -31,7 +40,7 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
       </div>
       <div class="relative">
         <div
-          class="w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl flex items-center justify-center bg-linear-to-br from-[#f0fdf4] to-[#e6f7ee]"
+          class="w-full aspect-4/3 rounded-[2.5rem] overflow-hidden shadow-2xl flex items-center justify-center bg-linear-to-br from-[#f0fdf4] to-[#e6f7ee]"
         >
           <img
             alt="NA AC Área Norte CDMX Logo"
@@ -69,7 +78,7 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        allPosts.map((post: any) => (
+        latestPosts.map((post: any) => (
           <BlogPost
             url={`/noticias/${post.id}`}
             title={post.data.title}
@@ -84,6 +93,5 @@ const title = "Neuroticos Anonimos Area Norte CDMX";
     </div>
   </section>
 
-  <!-- Ubicanos en el mapa -->
   <Ubicacion />
 </Layout>

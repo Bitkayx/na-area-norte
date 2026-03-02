@@ -18,6 +18,12 @@ allPosts.forEach((post: any) => {
 
 <Layout title={title}>
   <article class="mt-10">
+    <a
+      href="/noticias"
+      class="text-primary hover:text-primary/80 text-sm font-bold mb-4 inline-flex items-center gap-1"
+    >
+      ← Volver a Noticias</a
+    >
     <header class="mb-8">
       <h1 class="text-4xl font-light mb-4">{title}</h1>
       <p class="text-slate-600 dark:text-slate-400 italic text-lg mb-6">
@@ -26,14 +32,14 @@ allPosts.forEach((post: any) => {
       {
         image && (
           <img
-            src={image.url}
+            src={typeof image.url === "object" ? image.url.src : image.url}
             alt={image.alt}
             class="w-full max-w-max h-100 rounded-lg mb-6"
           />
         )
       }
       <div class="text-sm text-slate-500 dark:text-slate-500 space-y-1">
-        <p>Fecha de publicacion: {formatDate(pubDate)}</p>
+        <p>Fecha de publicación: {formatDate(pubDate)}</p>
         <p>Autor: {author}</p>
       </div>
     </header>
