@@ -85,7 +85,7 @@ const latestPosts = allPosts
             description={post.data.description}
             pubDate={post.data.pubDate}
             author={post.data.author}
-            image={{ url: post.data.image.url.src, alt: post.data.image.alt }}
+            image={post.data.image}
             tags={post.data.tags}
           />
         ))
