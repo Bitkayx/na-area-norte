@@ -1,8 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const { class: className } = Astro.props;
+const sectionClass = className ? className : "py-20";
 ---
 
-<section class="py-20" id="contacto">
+<section class={sectionClass} id="contacto">
   <div
     class="bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-xl overflow-hidden"
   >
