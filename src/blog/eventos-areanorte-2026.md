@@ -18,151 +18,242 @@ tags: ["calendario", "eventos", "area-norte", "2026"]
 
 ## Enero
 
-- **23 de enero (Viernes)**
-  MAVE
-  Día Mundial contra la Depresión
-  Área Oriente
+**Evento y Área**
+
+- —
+
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 23 MAVE – Día Mundial contra la Depresión
+
+**Reunión de Delegados**
+
+- Sábado 03 Área Oriente
 
 ---
 
 ## Febrero
 
-- **20 de febrero (Viernes)**
-  Cuarto Distrito
-  Área Norte
+**Evento y Área**
 
-- **07 de febrero (Sábado)**
+- —
+
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 20 Cuarto Distrito
+
+**Reunión de Delegados**
+
+- Sábado 07 Área Norte
 
 ---
 
 ## Marzo
 
-- Encuentro MAVE
-  Área Norte
-  I.P., C.C.C.P. e Instituciones
+**Evento y Área**
 
-- **20 de marzo (Viernes)**
-  Asamblea Mexicana
-  Área Centro Sur
+- Encuentro MAVE Área Norte
 
-- **07 de marzo (Sábado)**
+**Inter Área**
+
+- I.P. C.C.C.P. e Instituciones
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 20 Asamblea Mexicana
+
+**Reunión de Delegados**
+
+- Sábado 07 Área Centro Sur
 
 ---
 
 ## Abril
 
-- **17 de abril (Viernes)**
-  Finanzas y Tesorería
-  Oriente II
+**Evento y Área**
 
-- **04 de abril (Sábado)**
+- —
+
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 17 Finanzas y Tesorería
+
+**Reunión de Delegados**
+
+- Sábado 04 Oriente II
 
 ---
 
 ## Mayo
 
-- Encuentro de Servidores
-  Comité Estatal Hidalgo
+**Evento y Área**
 
-- Tesorería y Finanzas
-  Coordinador, Secretario y Nominaciones
+- Encuentro de Servidores Comité Estatal Hidalgo
 
-- **15 de mayo (Viernes)**
-  Primer Distrito
-  Comité Estatal Hidalgo
+**Inter Área**
 
-- **02 de mayo (Sábado)**
+- Tesorería y Finanzas. Coordinador, Secretario y Nominaciones
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 15 Primer Distrito
+
+**Reunión de Delegados**
+
+- Sábado 02 Comité Estatal Hidalgo
 
 ---
 
 ## Junio
 
-- **28 de junio (Viernes)**
-  Comité de Eventos
-  Área Norte
+**Evento y Área**
 
-- **06 de junio (Sábado)**
+- —
+
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 28 Comité de Eventos
+
+**Reunión de Delegados**
+
+- Sábado 06 Área Norte
 
 ---
 
 ## Julio
 
-- Congreso Regional
-  Área Oriente II
-  R.S.G’s, R.D’s y Delegados
+**Evento y Área**
 
-- **24 de julio (Viernes)**
-  Quinto Distrito
-  Área Oriente
+- Congreso Regional Área Oriente II
 
-- **04 de julio (Sábado)**
+**Inter Área**
 
-- Junta de Información al Público
-  **16 de julio (Domingo)**
-  Área Centro Sur
+- R.S.G´s RD´s y Delegados
 
-- Semana de Unidad por Aniversario del Área
-  **Del 17 al 21 de julio**
+**Compartimientos y Aniversario del Área**
 
-- SIMPOSIO
-  **22 de julio (Sábado)**
+- Viernes 24 Quinto Distrito
+
+**Reunión de Delegados**
+
+- Sábado 04 Área Oriente
 
 ---
 
 ## Agosto
 
+**Evento y Área**
+
 - **29º Aniversario del Comité de Área Norte**
+
+**Inter Área**
+
+- **29º Aniversario del Comité de Área Norte**
+
+**Compartimientos y Aniversario del Área**
+
+- Domingo 16 Junta de Información al Público
+- Del 17 al 21 Semana de Unidad por Aniversario del Área
+- Sábado 22 Simposio
+
+**Reunión de Delegados**
+
+- Sábado 01 Área Centro Sur
 
 ---
 
 ## Septiembre
 
-- Encuentro Regional de Literatura
-  Área Centro Sur
-  Literatura y Frater´NA
+**Evento y Área**
 
-- **10 de septiembre (Jueves)**
+- Encuentro Regional de Literatura Área Centro Sur
 
-- Día Mundial de la Prevención del Suicidio
+**Inter Área**
 
-- **18 de septiembre (Viernes)**
-  Segundo Distrito
-  Área Oriente II
+- Literatura y Frater´NA
 
-- **05 de septiembre (Sábado)**
+**Compartimientos y Aniversario del Área**
+
+- Jueves 10 Día Mundial de la Prevención del Suicidio
+- Viernes 18 Segundo Distrito
+
+**Reunión de Delegados**
+
+- Sábado 05 Área Oriente II
 
 ---
 
 ## Octubre
 
-- **10 de octubre (Sábado)**
-  Día Mundial de la Salud Mental
+**Evento y Área**
 
-- **30 de octubre (Viernes)**
-  Literatura y Frater´NA
-  Comité Estatal Hidalgo
+- —
 
-- **03 de octubre (Sábado)**
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Sábado 10 Día Mundial de la Salud Mental
+- Viernes 30 Literatura y Frater´Na
+
+**Reunión de Delegados**
+
+- Sábado 03 Comité Estatal Hidalgo
 
 ---
 
 ## Noviembre
 
-- Electiva
-  Mesa: Delegado(a), Coordinador(a), Secretario(a) y Tesorero(a)
-  Fecha por definir
+**Evento y Área**
 
-- **07 de noviembre (Sábado)**
-  Área Norte
+- —
+
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Electiva Mesa: Delego(a), Coordinador(a) Secretario(a) y Tesorero(a) Fecha **\_\_\_\_**
+
+**Reunión de Delegados**
+
+- Sábado 07 Área Norte
 
 ---
 
 ## Diciembre
 
-- Cierre de Actividades y Entrega de Servicios
-  **18 de diciembre (Viernes)**
-  Área Oriente
+**Evento y Área**
 
-- **05 de diciembre (Sábado)**
+- —
 
----
+**Inter Área**
+
+- —
+
+**Compartimientos y Aniversario del Área**
+
+- Viernes 18 Cierre de Actividades y Entrega de Servicios
+
+**Reunión de Delegados**
+
+- Sábado 05 Área Oriente
