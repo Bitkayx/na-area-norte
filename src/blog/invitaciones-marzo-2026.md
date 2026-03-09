@@ -9,20 +9,34 @@ image:
 tags: ["invitaciones", "eventos", "area-norte"]
 ---
 
-## NEUROTICOS ANONIMOS
+# Invitaciones del Mes de Marzo
 
-\*EL COMITÉ DE ÁREA NORTE C.D.M.X. LES HACE UNA CORDIAL INVITACIÓN PARA EL COMPARTIMIENTO QUE SE LLEVARA EL **VIERNES 20 DE MARZO 6:30 P.M.\***
+## Area Norte
 
----
+![Invitacion del Area Norte](../assets/blog/compartimientos/marzo/area_norte.jpg)
 
-# TEMA: LA IMPORTANCIA DE LA ASAMBLEA MEXICANA
+## Grupo Camino a la Libertad
 
-## ORADOR: JUAN CARLOS | PRESIDENTE DE NEUROTICOS ANONIMOS
+![Grupo Camino a la Libertad](../assets/blog/compartimientos/marzo/Grupo_caminoalalibertad.jpeg)
 
-_DIRECCIÓN: LORETO FABELA NO 726 ESQ. 414-A COL. SAN JUAN DE ARAGON G.A.M. 7MA SECCIÓN (METROBUS 416 PONIENTE, VILLAS DE ARAGON – ROSARIO)_
+## Grupo Humildad
 
-_TEL: 5521550306_
+![Grupo Humildad](../assets/blog/compartimientos/marzo/Grupo_humildad.jpeg)
 
----
+## Grupo Unidad
 
-![Invitacion del Area Norte](../assets/blog/compartimientos/marzo/COMPARTIMIENTO_MARZO.jpg)
+![Grupo Unidad 01](../assets/blog/compartimientos/marzo/Grupo_unidad.jpeg)
+![Grupo Unidad 02](../assets/blog/compartimientos/marzo/Grupo_unidad_02.jpeg)
+
+## Grupo Serenidad
+
+![Grupo Serenidad 01](../assets/blog/compartimientos/marzo/Grupo_serenidad.jpeg)
+![Grupo Serenidad 02](../assets/blog/compartimientos/marzo/Grupo_serenidad_02.jpeg)
+
+## Grupo Nuevo Amanecer
+
+![Grupo Nuevo Amanecer 01](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer.jpeg)
+![Grupo Nuevo Amanecer 02](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_02.jpeg)
+![Grupo Nuevo Amanecer 03](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_03.jpeg)
+![Grupo Nuevo Amanecer 04](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_04.jpeg)
+![Grupo Nuevo Amanecer 05](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_05.jpeg)
