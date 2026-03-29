@@ -40,3 +40,8 @@ tags: ["invitaciones", "eventos", "area-norte"]
 ![Grupo Nuevo Amanecer 03](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_03.jpeg)
 ![Grupo Nuevo Amanecer 04](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_04.jpeg)
 ![Grupo Nuevo Amanecer 05](../assets/blog/compartimientos/marzo/Grupo_nuevoamanecer_05.jpeg)
+
+## Grupo Solo por Hoy
+
+![Grupo Solo Por Hoy 01](../assets/blog/compartimientos/marzo/Grupo_soloporhoy.jpeg)
+![Grupo Solo Por Hoy 02](../assets/blog/compartimientos/marzo/Grupo_soloporhoy_02.jpeg)

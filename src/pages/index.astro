@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import BlogPost from "@components/BlogPost.astro";
 import Ubicacion from "@components/Ubicacion.astro";
+import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import { createLocalDate } from "../utils/dateUtils.ts";
@@ -19,6 +20,8 @@ const latestPosts = allPosts
 ---
 
 <Layout title={title}>
+  <Hero />
+
   <section class="py-16 md:py-24">
     <div
       class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-center sm:text-left"

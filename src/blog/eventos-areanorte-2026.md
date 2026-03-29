@@ -1,6 +1,6 @@
 ---
 title: "Calendario de Eventos 2026"
-pubDate: 2026-03-01
+pubDate: 2026-01-02
 author: "Área Norte"
 description: "Consulta el calendario oficial de eventos 2026 del Comité de Área Norte CDMX de Neuróticos Anónimos."
 image:

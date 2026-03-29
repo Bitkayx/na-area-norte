@@ -1,0 +1,296 @@
+---
+interface Props {
+  titulo?: string;
+  fecha?: string;
+  ubicacion?: string;
+  slug?: string;
+  fechaEvento?: string;
+}
+
+const {
+  titulo = "XLII Asamblea Mexicana NA México",
+  fecha = "1 - 4 Abril 2026",
+  ubicacion = "Hotel Kristal, CDMX",
+  slug = "/noticias/asamblea-mexicana",
+  fechaEvento = "2026-04-01",
+} = Astro.props;
+
+const fechaISO = fechaEvento;
+---
+
+<section
+  class="relative overflow-hidden bg-transparent dark:bg-transparent border-b border-slate-100 dark:border-slate-700"
+>
+  <div class="absolute inset-0 opacity-5">
+    <div
+      class="absolute top-10 left-10 w-64 h-64 bg-primary rounded-full blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-10 right-10 w-48 h-48 bg-primary rounded-full blur-3xl"
+    >
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start lg:items-center"
+    >
+      <div class="flex flex-col gap-6">
+        <div class="inline-flex items-center gap-2">
+          <div
+            class="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl"
+          >
+            <svg
+              class="w-6 h-6 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <span
+            class="text-xs font-bold tracking-widest uppercase text-primary bg-primary/10 px-3 py-1 rounded-full"
+          >
+            Próximo Evento
+          </span>
+        </div>
+
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight"
+        >
+          {titulo}
+        </h2>
+
+        <div class="flex flex-wrap gap-4 md:gap-6">
+          <div
+            class="flex items-center gap-3 text-slate-600 dark:text-slate-300"
+          >
+            <div
+              class="flex items-center justify-center w-10 h-10 bg-white dark:bg-slate-700 rounded-lg shadow-sm"
+            >
+              <svg
+                class="w-5 h-5 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <span class="font-medium">{fecha}</span>
+          </div>
+
+          <div
+            class="flex items-center gap-3 text-slate-600 dark:text-slate-300"
+          >
+            <div
+              class="flex items-center justify-center w-10 h-10 bg-white dark:bg-slate-700 rounded-lg shadow-sm"
+            >
+              <svg
+                class="w-5 h-5 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">{ubicacion}</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a
+            href={slug}
+            class="inline-flex items-center gap-2 bg-primary hover:bg-[#009e46] text-white px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40"
+          >
+            Ver Detalles
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:flex justify-center items-center">
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 w-full max-w-sm mx-auto"
+          data-fecha-evento={fechaISO}
+        >
+          <div class="text-center mb-6">
+            <p
+              class="text-sm font-bold text-primary uppercase tracking-wider mb-1"
+            >
+              Faltan
+            </p>
+            <p class="text-slate-500 dark:text-slate-400 text-sm">
+              Para el evento
+            </p>
+          </div>
+          <div class="grid grid-cols-4 gap-2 md:gap-3">
+            <div
+              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+            >
+              <p
+                class="text-2xl md:text-4xl font-extrabold text-primary countdown-dias"
+              >
+                00
+              </p>
+              <p
+                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+              >
+                Días
+              </p>
+            </div>
+            <div
+              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+            >
+              <p
+                class="text-2xl md:text-4xl font-extrabold text-primary countdown-horas"
+              >
+                00
+              </p>
+              <p
+                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+              >
+                Horas
+              </p>
+            </div>
+            <div
+              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+            >
+              <p
+                class="text-2xl md:text-4xl font-extrabold text-primary countdown-minutos"
+              >
+                00
+              </p>
+              <p
+                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+              >
+                Min
+              </p>
+            </div>
+            <div
+              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+            >
+              <p
+                class="text-2xl md:text-4xl font-extrabold text-primary countdown-segundos"
+              >
+                00
+              </p>
+              <p
+                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+              >
+                Seg
+              </p>
+            </div>
+          </div>
+          <div
+            class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700"
+          >
+            <div
+              class="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400"
+            >
+              <svg
+                class="w-5 h-5 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm">Contador en vivo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initCountdown() {
+    const container = document.querySelector("[data-fecha-evento]");
+    if (!container) return;
+
+    const fechaEvento =
+      container.getAttribute("data-fecha-evento") || "2026-04-01";
+    let intervalId: number | null = null;
+
+    function updateCountdown() {
+      const eventDate = new Date(`${fechaEvento}T00:00:00`).getTime();
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        container.querySelector(".countdown-dias")!.textContent = "00";
+        container.querySelector(".countdown-horas")!.textContent = "00";
+        container.querySelector(".countdown-minutos")!.textContent = "00";
+        container.querySelector(".countdown-segundos")!.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      container.querySelector(".countdown-dias")!.textContent = String(
+        days,
+      ).padStart(2, "0");
+      container.querySelector(".countdown-horas")!.textContent = String(
+        hours,
+      ).padStart(2, "0");
+      container.querySelector(".countdown-minutos")!.textContent = String(
+        minutes,
+      ).padStart(2, "0");
+      container.querySelector(".countdown-segundos")!.textContent = String(
+        seconds,
+      ).padStart(2, "0");
+    }
+
+    if (intervalId) clearInterval(intervalId);
+    updateCountdown();
+    intervalId = setInterval(updateCountdown, 1000) as unknown as number;
+  }
+
+  initCountdown();
+  document.addEventListener("astro:after-swap", initCountdown);
+</script>
