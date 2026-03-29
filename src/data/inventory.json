@@ -181,7 +181,7 @@
   },
   {
     "code": "",
-    "description": "VOLANTE DE I.P. SEMAFORO",
+    "description": "VOLANTE PARA I.P. SEMAFORO",
     "price": 0.65,
     "category": "Folletos, Tarjetas y Volantes NA"
   },
@@ -253,6 +253,24 @@
     "price": 14.00,
     "quantity": 25,
     "total": 350.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC010",
+    "description": "ENUNCIADO DE LAS DOCE TRADICIONES DE N.A.",
+    "price": 30.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC012",
+    "description": "ENUNCIADO DE LOS DOCE CONCEPTOS DE N.A.",
+    "price": 30.00,
+    "category": "Carteles NA"
+  },
+  {
+    "code": "NAC011",
+    "description": "ENUNCIADO DE LOS DOCE PASOS DE N.A.",
+    "price": 30.00,
     "category": "Carteles NA"
   },
   {
@@ -402,7 +420,7 @@
   {
     "code": "NAC018",
     "description": "ORACION DE LA SERENIDAD (GRANDE)",
-    "price": 22.00,
+    "price": 30.00,
     "quantity": 5,
     "total": 110.00,
     "category": "Carteles NA"
@@ -498,7 +516,7 @@
   {
     "code": "AAL005",
     "description": "DOCE PASOS Y DOCE TRADICIONES",
-    "price": 100.00,
+    "price": 103.00,
     "quantity": 7,
     "total": 700.00,
     "category": "Libros AA"
