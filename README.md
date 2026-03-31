@@ -7,6 +7,8 @@
 
 Sitio web informativo para **Neuróticos Anónimos Área Norte CDMX** — un programa gratuito de 12 pasos para la recuperación emocional.
 
+### Despliegue en: https://na-areanorte-cdmx.vercel.app/ 
+
 ![Captura del Sitio](./na-area-norte-ss-01.png)
 
 ## Características
