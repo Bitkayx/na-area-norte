@@ -1,135 +1,125 @@
 # NA Area Norte CDMX
 
-Un sitio web informativo para el programa de recuperación emocional "Neuróticos Anónimos" en el Área Norte de la Ciudad de México. Ofrecemos un programa gratuito de 12 pasos diseñado para ayudar a las personas a encontrar el equilibrio, la paz mental y una vida libre de angustias.
+![Astro](https://img.shields.io/badge/astro-%23222222?style=for-the-badge&logo=astro&logoColor=ffffff)
+![React](https://img.shields.io/badge/react-%2320232a?style=for-the-badge&logo=react&logoColor=61dafb)
+![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338b2ac?style=for-the-badge&logo=tailwind-css&logoColor=ffffff)
+![TypeScript](https://img.shields.io/badge/typescript-%23007acc?style=for-the-badge&logo=typescript&logoColor=ffffff)
 
-## 🌟 Características
+Sitio web informativo para **Neuróticos Anónimos Área Norte CDMX** — un programa gratuito de 12 pasos para la recuperación emocional.
 
-- **Diseño Responsivo**: Interfaz moderna y accesible para todos los dispositivos
-- **Modo Oscuro**: Soporte completo para tema claro/oscuro
-- **Blog de Noticias**: Sistema de contenido dinámico para eventos y convenciones
-- **Directorio de Grupos**: Información detallada de grupos de apoyo por distritos
-- **Mapas Interactivos**: Integración con Google Maps para ubicaciones
-- **Navegación Intuitiva**: Estructura organizada para fácil acceso a información
+![Captura del Sitio](./na-area-norte-ss-01.png)
 
-## 🚀 Tecnologías
+## Características
 
-- **Astro 5.16.15**: Framework moderno para sitios web estáticos
-- **React 19.2.4**: Biblioteca para componentes interactivos
-- **Tailwind CSS 4.1.18**: Framework de CSS para diseño rápido
-- **TypeScript**: Tipado estático para mejor desarrollo
-- **Astro Icon**: Sistema de iconos optimizado
-- **Content Collections**: Gestión de contenido estructurado
+- **Diseño Responsivo** — Interfaz accesible en todos los dispositivos
+- **Modo Oscuro** — Tema claro/oscuro con persistencia
+- **Blog de Noticias** — Contenido dinámico para eventos y convenciones
+- **Directorio de Grupos** — Información de grupos organizados por 5 distritos
+- **Mapas Interactivos** — Integración con Google Maps
+- **SEO Optimizado** — Meta tags y estructura semántica
 
-## 📁 Estructura del Proyecto
+## Tecnologías
+
+| Tecnología   | Versión |
+| ------------ | ------- |
+| Astro        | 5.16.15 |
+| React        | 19.2.4  |
+| Tailwind CSS | 4.1.18  |
+| TypeScript   | -       |
+
+### Dependencias adicionales
+
+- `@astrojs/react` — Integración de React
+- `@iconify-json/*` — Sistemas de iconos (Material Symbols + MDI)
+- `@tailwindcss/*` — Plugins para Tailwind
+- `astro-icon` — Componente de iconos para Astro
+
+## Inicio Rápido
+
+```bash
+# Instalar dependencias
+pnpm install
+
+# Iniciar servidor de desarrollo
+pnpm dev
+
+# Construir para producción
+pnpm build
+
+# Previsualizar build local
+pnpm preview
+```
+
+El servidor de desarrollo estará disponible en `http://localhost:4321`.
+
+## Estructura del Proyecto
 
 ```
 /
-├── public/                 # Assets estáticos
+├── public/                  # Assets estáticos
 ├── src/
-│   ├── components/         # Componentes React/Astro
+│   ├── assets/              # Imágenes y recursos
+│   ├── blog/                # Posts del blog (Markdown)
+│   ├── components/          # Componentes Astro/React
 │   │   ├── Header.astro
 │   │   ├── Footer.astro
 │   │   ├── Directorio.tsx
-│   │   ├── BlogPost.astro
 │   │   └── MobileMenu.jsx
-│   ├── data/              # Datos JSON
-│   │   └── grupos/        # Información de grupos por distrito
-│   ├── layouts/           # Layouts de página
+│   ├── content.config.ts    # Configuración de Content Collections
+│   ├── data/
+│   │   └── grupos/          # Datos JSON de grupos por distrito
+│   ├── layouts/             # Layouts de página
 │   │   ├── Layout.astro
 │   │   └── MarkdownPostLayout.astro
-│   ├── pages/             # Páginas del sitio
+│   ├── pages/               # Rutas del sitio
 │   │   ├── index.astro
 │   │   ├── noticias.astro
 │   │   ├── directorio.astro
 │   │   ├── servicios.astro
 │   │   └── contacto.astro
-│   ├── blog/              # Contenido del blog (Markdown)
-│   ├── styles/            # Estilos CSS
-│   └── utils/             # Utilidades TypeScript
-├── dist/                  # Build de producción
+│   ├── styles/              # Estilos globales
+│   ├── types/               # Definiciones TypeScript
+│   └── utils/               # Funciones utilitarias
+├── astro.config.mjs
+├── tailwind.config.ts
+├── tsconfig.json
 └── package.json
 ```
 
-## 🛠️ Comandos de Desarrollo
+## Secciones del Sitio
 
-Todos los comandos se ejecutan desde la raíz del proyecto:
+| Página         | Descripción                                                   |
+| -------------- | ------------------------------------------------------------- |
+| **Inicio**     | Mensaje principal, noticias recientes, mapa y contacto        |
+| **Noticias**   | Blog con eventos, convenciones y etiquetas categorizadas      |
+| **Directorio** | Grupos organizados por 5 distritos con horarios y ubicaciones |
+| **Servicios**  | Programa de 12 pasos y recursos de recuperación               |
+| **Contacto**   | Formulario, ubicación y medios de contacto                    |
 
-| Comando                | Acción                                            |
-| ---------------------- | ------------------------------------------------- |
-| `pnpm install`         | Instala las dependencias                          |
-| `pnpm dev`             | Inicia servidor de desarrollo en `localhost:4321` |
-| `pnpm build`           | Construye el sitio para producción en `./dist/`   |
-| `pnpm preview`         | Previsualiza el build localmente                  |
-| `pnpm astro ...`       | Ejecuta comandos CLI de Astro                     |
-| `pnpm astro -- --help` | Obtiene ayuda con el CLI de Astro                 |
-
-## 📝 Secciones del Sitio
-
-### 🏠 Página Principal
-
-- Mensaje principal de recuperación emocional
-- Noticias recientes del programa
-- Mapa interactivo con ubicación principal
-- Información de contacto
-
-### 📰 Noticias
-
-- Blog dinámico con eventos y convenciones
-- Sistema de etiquetas categorizadas
-- Diseño responsivo para lectura
-
-### 📋 Directorio de Grupos
-
-- Información organizada por 5 distritos
-- Detalles de horarios y ubicaciones
-- Integración con mapas para cada grupo
-- Filtros de búsqueda
-
-### 🤝 Servicios
-
-- Información sobre el programa de 12 pasos
-- Detalles de reuniones y grupos de apoyo
-- Recursos para recuperación
-
-### 📞 Contacto
-
-- Formulario de contacto
-- Información de ubicación principal
-- Teléfono y correo electrónico
-
-## 🎨 Diseño y Estilos
-
-- **Paleta de Colores**: Diseño profesional con colores primarios verdes
-- **Tipografía**: Sistema jerárquico para mejor legibilidad
-- **Iconos**: Material Symbols y MDI para consistencia visual
-- **Responsive**: Mobile-first con breakpoints optimizados
-
-## 📊 Gestión de Contenido
+## Gestión de Contenido
 
 El sitio utiliza **Astro Content Collections** para:
 
-- **Blog**: Posts en formato Markdown con frontmatter estructurado
-- **Grupos**: Datos JSON organizados por distritos
-- **Validación**: Tipado estático para todo el contenido
+- **Blog**: Posts en Markdown con frontmatter tipado
+- **Grupos**: Datos JSON validados por distrito
+- **TypeScript**: Tipado estático para todo el contenido
 
-## 🔧 Configuración
+## Diseño
 
-- **Astro Config**: Configuración optimizada para React y Tailwind
-- **TypeScript**: Configuración estricta para mejor desarrollo
-- **Tailwind**: Configuración personalizada con plugins adicionales
-- **Iconos**: Sistema optimizado con múltiples librerías
+- **Paleta**: Colores primarios verdes para identidad institucional
+- **Tipografía**: Sistema jerárquico para legibilidad
+- **Iconografía**: Material Symbols y MDI
+- **Responsive**: Mobile-first con breakpoints optimizados
 
-## 🌐 Despliegue
+## Despliegue
 
-El sitio está optimizado para despliegue en plataformas estáticas como:
+Compatible con plataformas de hosting estático:
 
 - Vercel
 - Netlify
 - GitHub Pages
 - Cloudflare Pages
 
-## 📄 Licencia
+## Licencia
 
 Proyecto desarrollado para Neuróticos Anónimos Área Norte CDMX.
-
----
