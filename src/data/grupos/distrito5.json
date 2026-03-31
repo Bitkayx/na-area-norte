@@ -2,7 +2,7 @@
   {
     "id": "aprendiendo-a-amar",
     "nombre": "Aprendiendo a Amar",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Calle Estado de Jalisco No. 38",
       "colonia": "Providencia",
@@ -27,7 +27,7 @@
   {
     "id": "fe-y-accion",
     "nombre": "Fé y Acción",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Av. 414 Esq. 483",
       "colonia": "San Juan de Aragón 7ma. Sección",
@@ -52,7 +52,7 @@
   {
     "id": "los-buenos-vientos",
     "nombre": "Los Buenos Vientos",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Parque Central No. 84",
       "colonia": "Campestre Aragón",
@@ -62,7 +62,7 @@
     },
     "horarios": [
       {
-        "dias": "Lunes, Martes, Miércoles, Jueves, Viernes y Domingo",
+        "dias": "Lunes, Martes, Miércoles, Jueves, Viernes",
         "horaInicio": "19:00",
         "horaFin": "20:30"
       }
@@ -72,7 +72,7 @@
   {
     "id": "principio-de-vida",
     "nombre": "Principio de Vida",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Av. Constitución de la República No. 43",
       "colonia": "Providencia",
@@ -107,7 +107,7 @@
   {
     "id": "valor-y-confianza",
     "nombre": "Valor y Confianza",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Puerto Cozumel No. 104",
       "colonia": "Héroes de Chapultepec",
@@ -127,7 +127,7 @@
   {
     "id": "vida-y-esperanza",
     "nombre": "Vida y Esperanza",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Av. Universidad Nacional No. 45",
       "colonia": "Bosques de Aragón",
@@ -147,7 +147,7 @@
   {
     "id": "volver-a-empezar",
     "nombre": "Volver a Empezar",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Av. Las Torres No. 17-3",
       "colonia": "El Vergel de Guadalupe",
@@ -172,7 +172,7 @@
   {
     "id": "reencuentro-a-la-vida",
     "nombre": "Reencuentro a la Vida",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Calle Apatzingán MZ 188 LT 43",
       "colonia": "San Felipe de Jesús",
@@ -192,7 +192,7 @@
   {
     "id": "otra-oportunidad",
     "nombre": "Otra Oportunidad",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Valle de Arriba No. 158",
       "colonia": "Valle de Aragón 1ª Sección",
@@ -202,14 +202,14 @@
     },
     "horarios": [
       {
-        "dias": "Lunes a Sábado",
+        "dias": "Lunes y Miércoles",
         "horaInicio": "19:00",
         "horaFin": "20:30"
       },
       {
-        "dias": "Lunes",
-        "horaInicio": "10:00",
-        "horaFin": "11:30"
+        "dias": "Lunes a Sábado",
+        "horaInicio": "07:00",
+        "horaFin": "08:30"
       }
     ],
     "mapQuery": "Valle de Arriba 158, Colonia Valle de Aragón 1ª Sección, Nezahualcóyotl, Estado de México"
@@ -217,7 +217,7 @@
   {
     "id": "pradera",
     "nombre": "Pradera",
-    "distrito": "Distrito 5",
+    "distrito": "5",
     "direccion": {
       "linea1": "Calle 10 No. 76",
       "colonia": "Campestre Guadalupana",

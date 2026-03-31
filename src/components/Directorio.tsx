@@ -113,7 +113,9 @@ export default function Directorio() {
               <input
                 type="search"
                 value={searchText}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setSearchText(e.target.value)
+                }
                 className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
                 placeholder="Nombre del grupo..."
               />
@@ -139,7 +141,9 @@ export default function Directorio() {
               </label>
               <select
                 value={district}
-                onChange={(e: ChangeEvent<HTMLSelectElement>) => handleDistrictChange(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  handleDistrictChange(e.target.value)
+                }
                 className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
               >
                 <option value="">Selecciona un Distrito</option>
@@ -157,7 +161,9 @@ export default function Directorio() {
                   Grupo
                 </label>
                 <select
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => handleGroupSelect(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    handleGroupSelect(e.target.value)
+                  }
                   value={selectedGroup ? selectedGroup.id : ""}
                   className="w-full bg-white dark:text-slate-900 rounded-xl px-4 py-3 text-sm"
                 >

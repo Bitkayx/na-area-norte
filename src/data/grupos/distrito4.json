@@ -1,5 +1,30 @@
 [
   {
+    "id": "un-dia-a-la-vez",
+    "nombre": "Un dia a la vez",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle Estabilidad Social",
+      "colonia": "Jaguey de Tellez",
+      "referencias": "Frente a las canchas de LICONSA",
+      "ciudad": "Zempoala",
+      "estado": "Hidalgo"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes, Martes, Miércoles y Viernes",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Martes, Miércoles y Viernes",
+        "horaInicio": "18:00",
+        "horaFin": "19:30"
+      }
+    ],
+    "mapQuery": "43840 Jagüey de Téllez, Hgo."
+  },
+  {
     "id": "actua-con-amor",
     "nombre": "Actúa con Amor",
     "distrito": "4",
