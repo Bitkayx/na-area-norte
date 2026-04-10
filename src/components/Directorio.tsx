@@ -197,7 +197,7 @@ export default function Directorio() {
               {group.direccion.linea1}
             </p>
             <p className="text-sm text-slate-500 mb-4">
-              {group.direccion.colonia}, {group.direccion.ciudad}
+              {group.direccion.colonia}, {group.direccion.ciudad} - {group?.direccion.estado}
             </p>
 
             <p className="text-sm text-slate-500 mb-4">
