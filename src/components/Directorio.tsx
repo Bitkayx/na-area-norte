@@ -1,31 +1,50 @@
 import { useMemo, useState, useEffect } from "react";
 import type { Grupo } from "../types/grupo.ts";
 
+/**
+ * Directorio - Group directory component with search and filter
+ *
+ * Allows searching groups by name and filtering by district.
+ * Displays group cards with address, schedule, and map.
+ *
+ * @example
+ * ```tsx
+ * <Directorio />
+ * ```
+ */
+
+// Loads group data from JSON files in ../data/grupos/
 const gruposData = Object.values(
   import.meta.glob("../data/grupos/*.json", { eager: true }),
 ).flatMap((m: any) => m.default) as Grupo[];
 
 export default function Directorio() {
-  const [searchText, setSearchText] = useState<string>("");
-  const [district, setDistrict] = useState<string>("");
-  const [selectedGroup, setSelectedGroup] = useState<Grupo | null>(null);
-  const [allGroups, setAllGroups] = useState<Grupo[]>([]);
-  const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
-  const [searchResults, setSearchResults] = useState<Grupo[]>([]);
-  const [showMap, setShowMap] = useState<boolean>(false);
+  // Internal component states
+  const [searchText, setSearchText] = useState<string>(""); // Search input text
+  const [district, setDistrict] = useState<string>(""); // Selected district filter
+  const [selectedGroup, setSelectedGroup] = useState<Grupo | null>(null); // Selected group for details
+  const [allGroups, setAllGroups] = useState<Grupo[]>([]); // All loaded groups
+  const [isSearchMode, setIsSearchMode] = useState<boolean>(false); // Search mode active
+  const [searchResults, setSearchResults] = useState<Grupo[]>([]); // Search results
+  const [showMap, setShowMap] = useState<boolean>(false); // Show map flag
 
+  // Available districts
   const districts = ["1", "2", "4", "5"];
 
   useEffect(() => {
     setAllGroups(gruposData);
   }, []);
 
+  // Filters groups by district
   const filteredGroups = useMemo(() => {
     return allGroups.filter(
       (group) => !district || group.distrito === district,
     );
   }, [district, allGroups]);
 
+  /**
+   * Searches groups by name in searchText input
+   */
   const handleSearch = () => {
     if (!searchText.trim()) {
       return;
@@ -42,6 +61,10 @@ export default function Directorio() {
     setShowMap(false);
   };
 
+  /**
+   * Handles district dropdown change
+   * @param {string} value - District number ("1", "2", "4", "5")
+   */
   const handleDistrictChange = (value: string) => {
     setDistrict(value);
     setSearchText("");
@@ -58,6 +81,10 @@ export default function Directorio() {
     }
   };
 
+  /**
+   * Handles group selection from dropdown
+   * @param {string} groupId - Group ID to select
+   */
   const handleGroupSelect = (groupId: string) => {
     setSearchText("");
 
@@ -80,6 +107,10 @@ export default function Directorio() {
     setShowMap(false);
   };
 
+  /**
+   * Shows map for selected group and scrolls to it
+   * @param {Grupo} group - Group object to show on map
+   */
   const handleShowMap = (group: Grupo) => {
     setSelectedGroup(group);
     setShowMap(true);
@@ -197,7 +228,8 @@ export default function Directorio() {
               {group.direccion.linea1}
             </p>
             <p className="text-sm text-slate-500 mb-4">
-              {group.direccion.colonia}, {group.direccion.ciudad} - {group?.direccion.estado}
+              {group.direccion.colonia}, {group.direccion.ciudad} -{" "}
+              {group?.direccion.estado}
             </p>
 
             <p className="text-sm text-slate-500 mb-4">

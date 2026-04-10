@@ -1,6 +1,34 @@
 ---
 import { Icon } from "astro-icon/components";
 
+/**
+ * @typedef {Object} Props
+ * @property {string} [class] - Additional CSS classes
+ */
+
+/**
+ * Ubicacion - Location section component with map and contact info
+ *
+ * @example
+ * ```astro
+ * // Basic usage
+ * <Ubicacion />
+ * ```
+ *
+ * @example
+ * ```astro
+ * // With custom classes
+ * <Ubicacion class="py-10" />
+ * ```
+ */
+
+interface Props {
+  /*
+   * @property {string} [class] - Additional CSS classes
+   */
+  class?: string;
+}
+
 const { class: className } = Astro.props;
 const sectionClass = className ? className : "py-20";
 ---

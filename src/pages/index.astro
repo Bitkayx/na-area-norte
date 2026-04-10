@@ -9,6 +9,13 @@ import { createLocalDate } from "../utils/dateUtils.ts";
 import { getImage } from "astro:assets";
 import imgFraterna80 from "../assets/blog/fraterna/Fraterna_80.jpeg";
 
+/**
+ * Home - Main landing page
+ *
+ * Displays hero section with latest news/material, weekly motivation,
+ * group directory preview, and location section.
+ */
+
 const fraterna80Img = await getImage({ src: imgFraterna80, format: "jpeg" });
 
 const allPosts = await getCollection("blog");

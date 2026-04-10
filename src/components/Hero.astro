@@ -1,11 +1,70 @@
 ---
+/**
+ * @typedef {Object} Props
+ * @property {string} [titulo] - Main title
+ * @property {string} [fecha] - Event date (required for event mode)
+ * @property {string} [ubicacion] - Event location (required for event mode)
+ * @property {string} [slug] - URL slug
+ * @property {string} [fechaEvento] - Event date ISO string (triggers event mode)
+ * @property {string} [imagen] - Cover image URL (required for promo mode)
+ * @property {string} [subtitulo] - Subtitle badge text (default: "Nuevo Material")
+ */
+
+/**
+ * Hero - Hero section component with two modes: promo or event
+ *
+ * @example
+ * ```astro
+ * // Promo mode (new material)
+ * <Hero
+ *   titulo="Nuevo Libro de NA"
+ *   slug="/material/nuevo-libro"
+ *   imagen="/img/libro.jpg"
+ *   subtitulo="Nueva Literatura"
+ * />
+ * ```
+ *
+ * @example
+ * ```astro
+ * // Event mode (with countdown)
+ * <Hero
+ *   titulo="Convención NA 2026"
+ *   fecha="15 de Abril, 2026"
+ *   ubicacion="CDMX"
+ *   slug="/eventos/convencion-2026"
+ *   fechaEvento="2026-04-15"
+ * />
+ * ```
+ */
+
 interface Props {
+  /*
+   * @property {string} [titulo] - Main title
+   */
   titulo?: string;
+  /*
+   * @property {string} [fecha] - Event date (required for event mode)
+   */
   fecha?: string;
+  /*
+   * @property {string} [ubicacion] - Event location (required for event mode)
+   */
   ubicacion?: string;
+  /*
+   * @property {string} [slug] - URL slug
+   */
   slug?: string;
+  /*
+   * @property {string} [fechaEvento] - Event date ISO string (triggers event mode)
+   */
   fechaEvento?: string;
+  /*
+   * @property {string} [imagen] - Cover image URL (required for promo mode)
+   */
   imagen?: string;
+  /*
+   * @property {string} [subtitulo] - Subtitle badge text (default: "Nuevo Material")
+   */
   subtitulo?: string;
 }
 

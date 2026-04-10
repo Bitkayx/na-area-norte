@@ -1,0 +1,160 @@
+---
+import { Icon } from "astro-icon/components";
+import newsDefault from "../assets/blog/news_default.jpg";
+
+/**
+ * @typedef {Object} Props
+ * @property {string} [description] - Brief content description
+ * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
+ * @property {string} url - Destination URL when clicked
+ * @property {string} [ctaText] - CTA button text (default: "Read more")
+ * @property {string} [ctaIcon] - Astro-icon name for the CTA (default: "material-symbols:trending-flat")
+ * @property {"left"|"right"} [imagePosition] - Image position (default: "left")
+ */
+
+/**
+ * BannerPromocional - Component to highlight blog news
+ *
+ * @example
+ * ```astro
+ * // Basic usage (title and url only)
+ * <BannerPromocional
+ *   title="New blog article"
+ *   url="/blog/my-post"
+ * />
+ * ```
+ *
+ * @example
+ * ```astro
+ * // Full usage with all props
+ * <BannerPromocional
+ *   title="FraterNA Magazine No.80"
+ *   description="New magazine with experience articles"
+ *   image={{ url: "/img/magazine.jpg", alt: "Cover" }}
+ *   url="/noticias/fraterna_80"
+ *   ctaText="View magazine"
+ *   ctaIcon="material-symbols:menu-book"
+ *   imagePosition="right"
+ * />
+ * ```
+ *
+ * @example
+ * ```astro
+ * // Usage with default image (pass url and title only)
+ * <BannerPromocional
+ *   title="Latest news"
+ *   url="/news"
+ * />
+ * ```
+ */
+
+interface Props {
+  /*
+   * @property {string} title - Main banner title
+   */
+  title: string;
+  /*
+   * @property {string} [description] - Brief content description
+   */
+  description?: string;
+  /*
+   * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
+   */
+  image?: { url: string; alt?: string };
+  /*
+   * @property {string} url - Destination URL when clicked
+   */
+  url: string;
+  /*
+   * @property {string} [ctaText] - CTA button text (default: "Read more")
+   */
+  ctaText?: string;
+  /*
+   * @property {string} [ctaIcon] - Astro-icon name for the CTA (default: "material-symbols:trending-flat")
+   */
+  ctaIcon?: string;
+  /*
+   * @property {"left"|"right"} [imagePosition] - Image position (default: "left")
+   */
+  imagePosition?: "left" | "right";
+}
+
+const {
+  title,
+  description,
+  image,
+  url,
+  ctaText = "Leer más",
+  ctaIcon = "material-symbols:trending-flat",
+  imagePosition = "left",
+} = Astro.props;
+
+const imageUrl = image?.url?.src || image?.url || newsDefault.src;
+const imageAlt = image?.alt || title;
+---
+
+<div
+  class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700"
+>
+  <div
+    class:list={[
+      "flex flex-col md:flex-row",
+      imagePosition === "right" ? "md:flex-row-reverse" : "",
+    ]}
+  >
+    <div class="relative w-full md:w-2/5 h-48 md:h-64 overflow-hidden">
+      <a href={url} class="block w-full h-full">
+        {
+          imageUrl && (
+            <img
+              src={imageUrl}
+              alt={imageAlt}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              loading="lazy"
+            />
+          )
+        }
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/20"
+        >
+        </div>
+      </a>
+    </div>
+
+    <div class="flex flex-col justify-center p-6 md:p-8 w-full md:w-3/5">
+      <div class="mb-4">
+        <span
+          class="inline-block text-xs font-bold uppercase tracking-widest text-[#136dec] bg-[#136dec]/10 px-3 py-1 rounded-full"
+        >
+          Novedad
+        </span>
+      </div>
+
+      <h3
+        class="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors"
+      >
+        <a href={url}>{title}</a>
+      </h3>
+
+      {
+        description && (
+          <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 line-clamp-2 md:line-clamp-3">
+            {description}
+          </p>
+        )
+      }
+
+      <a
+        href={url}
+        class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors group/cta"
+      >
+        {ctaText}
+        <Icon
+          name={ctaIcon}
+          class="w-5 h-5 group-hover/cta:translate-x-1 transition-transform"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+

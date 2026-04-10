@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import BannerPromocional from "../../components/BannerPromocional.astro";
 
 const title = "FraterNA";
 ---
@@ -20,7 +21,7 @@ const title = "FraterNA";
       </h1>
     </header>
 
-    <div class="prose prose-slate dark:prose-invert max-w-none">
+    <div class="prose prose-slate dark:prose-invert max-w-none mb-12">
       <p>
         Promover el compartimiento de experiencias de los miembros de NA, por
         medio de la revista Frater'NA.
@@ -50,5 +51,12 @@ const title = "FraterNA";
         </li>
       </ul>
     </div>
+
+    <BannerPromocional
+      title="Revista FraterNA No.80"
+      description="La nueva revista FraterNA con artículos de experiencias de los miembros. Descubre los temas de este número."
+      url="/noticias/fraterna_80"
+      ctaText="Ver revista"
+    />
   </div>
 </Layout>

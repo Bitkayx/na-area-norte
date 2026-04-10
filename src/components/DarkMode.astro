@@ -1,3 +1,17 @@
+---
+/**
+ * DarkMode - Inline script to handle dark mode initialization
+ *
+ * Checks localStorage for user preference and respects system color scheme.
+ * Add to <head> for early theme loading.
+ *
+ * @example
+ * ```astro
+ * <DarkMode />
+ * ```
+ */
+---
+
 <script is:inline>
   const theme = localStorage.getItem("theme");
 

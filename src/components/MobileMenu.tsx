@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
-import type { NavigationItem } from "../types/navigation.ts"
+import type { NavigationItem } from "../types/navigation";
 
+/**
+ * @typedef {Object} MobileMenuProps
+ * @property {NavigationItem[]} navigation - Navigation items array
+ */
+
+/**
+ * MobileMenu - Mobile navigation overlay component
+ *
+ * @example
+ * ```tsx
+ * <MobileMenu navigation={[{ label: "Inicio", href: "/" }]} />
+ * ```
+ */
 interface MobileMenuProps {
+  /*
+   * @property {NavigationItem[]} navigation - Navigation items array
+   */
   navigation: NavigationItem[];
 }
 
 const MobileMenu = ({ navigation }: MobileMenuProps): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect((): () => void => {
+  useEffect((): (() => void) => {
     document.body.style.overflow = isOpen ? "hidden" : "";
 
     const handleEscape = (event: KeyboardEvent): void => {
@@ -50,19 +66,23 @@ const MobileMenu = ({ navigation }: MobileMenuProps): React.JSX.Element => {
 
             <div className="flex h-full items-center justify-center px-8">
               <nav className="flex flex-col items-center gap-10 text-center">
-                {navigation.map((item: NavigationItem): React.JSX.Element => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="text-3xl font-semibold tracking-wide text-slate-800 dark:text-white hover:text-primary transition"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {navigation.map(
+                  (item: NavigationItem): React.JSX.Element => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="text-3xl font-semibold tracking-wide text-slate-800 dark:text-white hover:text-primary transition"
+                    >
+                      {item.label}
+                    </a>
+                  ),
+                )}
                 <a
                   href="/contacto/"
                   className="text-3xl font-semibold tracking-wide text-slate-800 dark:text-white hover:text-primary transition"
-                >Contacto</a>
+                >
+                  Contacto
+                </a>
               </nav>
             </div>
           </div>
