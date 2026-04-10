@@ -531,7 +531,7 @@
   },
   {
     "code": "AAL006",
-    "description": "EL DR. BO Y LOS BUENOS VETERANOS",
+    "description": "EL DR. BOB Y LOS BUENOS VETERANOS",
     "price": 258.00,
     "quantity": 2,
     "total": 516.00,
@@ -679,6 +679,14 @@
     "price": 83.00,
     "quantity": 2,
     "total": 166.00,
+    "category": "Libros AA"
+  },
+  {
+    "code": "AAL099",
+    "description": "PLAN NACIONAL DE AA",
+    "price": 76.00,
+    "quantity": 3,
+    "total": 138.00,
     "category": "Libros AA"
   },
   {

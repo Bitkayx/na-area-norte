@@ -19,3 +19,11 @@ tags: ["invitaciones", "eventos", "area-norte"]
 ## Grupo Aprender a Vivir
 
 ![Grupo Aprender a Vivir](../assets/blog/compartimientos/abril/Grupo_aprenderavivir_01.jpeg)
+
+## Grupo Humildad
+
+![Grupo Humildad](../assets/blog/compartimientos/abril/Grupo_humildad_01.jpeg)
+
+## Juntas de Informacion
+
+![Sabado 11 ABRIL](../assets/blog/compartimientos/abril/Junta_IP_11_Abril.jpeg)
