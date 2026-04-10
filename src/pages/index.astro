@@ -6,6 +6,10 @@ import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import { createLocalDate } from "../utils/dateUtils.ts";
+import { getImage } from "astro:assets";
+import imgFraterna80 from "../assets/blog/fraterna/Fraterna_80.jpeg";
+
+const fraterna80Img = await getImage({ src: imgFraterna80, format: "jpeg" });
 
 const allPosts = await getCollection("blog");
 const title = "Neuroticos Anonimos Area Norte CDMX";
@@ -23,7 +27,7 @@ const latestPosts = allPosts
   <Hero
     titulo="Nueva Revista FraterNA No.80"
     slug="/noticias/fraterna_80"
-    imagen="../src/assets/blog/fraterna/Fraterna_80.jpeg"
+    imagen={fraterna80Img.src}
     subtitulo="Adquierela!"
   />
 
