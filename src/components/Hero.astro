@@ -5,15 +5,31 @@ interface Props {
   ubicacion?: string;
   slug?: string;
   fechaEvento?: string;
+  imagen?: string;
+  subtitulo?: string;
 }
 
 const {
-  titulo = "XLII Asamblea Mexicana NA México",
-  fecha = "1 - 4 Abril 2026",
-  ubicacion = "Hotel Kristal, CDMX",
-  slug = "/noticias/asamblea-mexicana",
-  fechaEvento = "2026-04-01",
+  titulo,
+  fecha,
+  ubicacion,
+  slug,
+  fechaEvento,
+  imagen,
+  subtitulo = "Nuevo Material",
 } = Astro.props;
+
+const esPromo = !fechaEvento;
+
+if (esPromo) {
+  if (!titulo || !slug || !imagen) {
+    throw new Error("Hero modo promo requiere: titulo, slug, imagen");
+  }
+} else {
+  if (!titulo || !fecha || !ubicacion || !slug) {
+    throw new Error("Hero modo evento requiere: titulo, fecha, ubicacion, slug");
+  }
+}
 
 const fechaISO = fechaEvento;
 ---
@@ -51,14 +67,14 @@ const fechaISO = fechaEvento;
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                d={esPromo ? "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v7M5 21v-7" : "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"}
               ></path>
             </svg>
           </div>
           <span
             class="text-xs font-bold tracking-widest uppercase text-primary bg-primary/10 px-3 py-1 rounded-full"
           >
-            Próximo Evento
+            {esPromo ? subtitulo : "Próximo Evento"}
           </span>
         </div>
 
@@ -68,6 +84,7 @@ const fechaISO = fechaEvento;
           {titulo}
         </h2>
 
+        {!esPromo && (
         <div class="flex flex-wrap gap-4 md:gap-6">
           <div
             class="flex items-center gap-3 text-slate-600 dark:text-slate-300"
@@ -120,6 +137,7 @@ const fechaISO = fechaEvento;
             <span class="font-medium">{ubicacion}</span>
           </div>
         </div>
+        )}
 
         <div class="flex flex-wrap gap-4 pt-2">
           <a
@@ -144,100 +162,110 @@ const fechaISO = fechaEvento;
       </div>
 
       <div class="lg:flex justify-center items-center">
-        <div
-          class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 w-full max-w-sm mx-auto"
-          data-fecha-evento={fechaISO}
-        >
-          <div class="text-center mb-6">
-            <p
-              class="text-sm font-bold text-primary uppercase tracking-wider mb-1"
-            >
-              Faltan
-            </p>
-            <p class="text-slate-500 dark:text-slate-400 text-sm">
-              Para el evento
-            </p>
+        {esPromo && imagen ? (
+          <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 w-full max-w-sm mx-auto overflow-hidden">
+            <img
+              src={imagen}
+              alt={titulo}
+              class="w-full h-auto object-cover rounded-xl"
+            />
           </div>
-          <div class="grid grid-cols-4 gap-2 md:gap-3">
-            <div
-              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
-            >
-              <p
-                class="text-2xl md:text-4xl font-extrabold text-primary countdown-dias"
-              >
-                00
-              </p>
-              <p
-                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
-              >
-                Días
-              </p>
-            </div>
-            <div
-              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
-            >
-              <p
-                class="text-2xl md:text-4xl font-extrabold text-primary countdown-horas"
-              >
-                00
-              </p>
-              <p
-                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
-              >
-                Horas
-              </p>
-            </div>
-            <div
-              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
-            >
-              <p
-                class="text-2xl md:text-4xl font-extrabold text-primary countdown-minutos"
-              >
-                00
-              </p>
-              <p
-                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
-              >
-                Min
-              </p>
-            </div>
-            <div
-              class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
-            >
-              <p
-                class="text-2xl md:text-4xl font-extrabold text-primary countdown-segundos"
-              >
-                00
-              </p>
-              <p
-                class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
-              >
-                Seg
-              </p>
-            </div>
-          </div>
+        ) : (
           <div
-            class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700"
+            class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 w-full max-w-sm mx-auto"
+            data-fecha-evento={fechaISO}
           >
-            <div
-              class="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400"
-            >
-              <svg
-                class="w-5 h-5 text-primary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <div class="text-center mb-6">
+              <p
+                class="text-sm font-bold text-primary uppercase tracking-wider mb-1"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span class="text-sm">Contador en vivo</span>
+                Faltan
+              </p>
+              <p class="text-slate-500 dark:text-slate-400 text-sm">
+                Para el evento
+              </p>
+            </div>
+            <div class="grid grid-cols-4 gap-2 md:gap-3">
+              <div
+                class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+              >
+                <p
+                  class="text-2xl md:text-4xl font-extrabold text-primary countdown-dias"
+                >
+                  00
+                </p>
+                <p
+                  class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+                >
+                  Días
+                </p>
+              </div>
+              <div
+                class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+              >
+                <p
+                  class="text-2xl md:text-4xl font-extrabold text-primary countdown-horas"
+                >
+                  00
+                </p>
+                <p
+                  class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+                >
+                  Horas
+                </p>
+              </div>
+              <div
+                class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+              >
+                <p
+                  class="text-2xl md:text-4xl font-extrabold text-primary countdown-minutos"
+                >
+                  00
+                </p>
+                <p
+                  class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+                >
+                  Min
+                </p>
+              </div>
+              <div
+                class="text-center p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-xl"
+              >
+                <p
+                  class="text-2xl md:text-4xl font-extrabold text-primary countdown-segundos"
+                >
+                  00
+                </p>
+                <p
+                  class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase mt-1"
+                >
+                  Seg
+                </p>
+              </div>
+            </div>
+            <div
+              class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700"
+            >
+              <div
+                class="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400"
+              >
+                <svg
+                  class="w-5 h-5 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-sm">Contador en vivo</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   </div>
@@ -245,14 +273,15 @@ const fechaISO = fechaEvento;
 
 <script>
   function initCountdown() {
-    const container = document.querySelector("[data-fecha-evento]");
+    const container = document.querySelector("[data-fecha-evento]") as HTMLElement | null;
     if (!container) return;
 
     const fechaEvento =
       container.getAttribute("data-fecha-evento") || "2026-04-01";
-    let intervalId: number | null = null;
 
     function updateCountdown() {
+      if (!container) return;
+      
       const eventDate = new Date(`${fechaEvento}T00:00:00`).getTime();
       const now = new Date().getTime();
       const distance = eventDate - now;
@@ -286,9 +315,8 @@ const fechaISO = fechaEvento;
       ).padStart(2, "0");
     }
 
-    if (intervalId) clearInterval(intervalId);
     updateCountdown();
-    intervalId = setInterval(updateCountdown, 1000) as unknown as number;
+    setInterval(updateCountdown, 1000);
   }
 
   initCountdown();
