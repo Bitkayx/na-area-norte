@@ -271,7 +271,7 @@ export default function Directorio() {
               src={`https://maps.google.com/maps?q=${encodeURIComponent(selectedGroup.mapQuery)}&output=embed`}
               loading="lazy"
               allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
         )}
