@@ -1,0 +1,57 @@
+---
+import newsDefault from "../assets/blog/news_default.jpg";
+
+/**
+ * @typedef {Object} Props
+ * @property {string} [title] - Brief content description
+ * @property {string} [subtitle] - Brief content description
+ * @property {string} [description] - Brief content description
+ * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
+ */
+
+/**
+ * MotivacionEvento - Component to print event details  *
+ *
+ * @example
+ * ```astro
+ * // Basic usage
+ * <MotivacionEvento
+ *   title="New motivation"
+ *   subtitle="Event here in MX"
+ * />
+ * ```
+ *
+ * @example
+ */
+
+interface Props {
+  /**
+   * @property {string} title - Main banner title
+   */
+  title: string;
+  /**
+   * @property {string} subtitle  - Subtitle header
+   */
+  subtitle: string;
+  /**
+   * @property {string} [description] - Brief content description
+   */
+  description?: string;
+  /**
+   * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
+   */
+  image?: { url: string; alt?: string };
+}
+
+const { title, subtitle, description, image } = Astro.props;
+
+const imageUrl = image.src || newsDefault.src;
+const imageAlt = image?.alt || subtitle;
+---
+
+<h2>{title}</h2>
+<h3>{subtitle}</h3>
+<img src={imageUrl} alt={imageAlt} />
+<p class="mb-4 italic">
+  {description}
+</p>

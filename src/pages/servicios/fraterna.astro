@@ -1,6 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import MotivacionEvento from "@components/MotivacionEvento.astro";
 import BannerPromocional from "../../components/BannerPromocional.astro";
+import fraterna80 from "../../assets/blog/fraterna/Fraterna_80.jpeg";
 
 const title = "FraterNA";
 ---
@@ -50,6 +52,12 @@ const title = "FraterNA";
           Administración.
         </li>
       </ul>
+
+      <MotivacionEvento
+        title="Nueva Revista"
+        subtitle="FraterNA No.80"
+        image={fraterna80}
+      />
     </div>
 
     <BannerPromocional

@@ -24,6 +24,10 @@ tags: ["invitaciones", "eventos", "area-norte"]
 
 ![Grupo Humildad](../assets/blog/compartimientos/abril/Grupo_humildad_01.jpeg)
 
+## 2do Distrito
+
+![2do Distrito](../assets/blog/compartimientos/abril/2doDto_Fraterna.jpg)
+
 ## Juntas de Informacion
 
 ![Sabado 11 ABRIL](../assets/blog/compartimientos/abril/Junta_IP_11_Abril.jpeg)
