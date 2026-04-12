@@ -1,17 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
 import newsDefault from "../assets/blog/news_default.jpg";
-
-/**
- * @typedef {Object} Props
- * @property {string} [description] - Brief content description
- * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
- * @property {string} url - Destination URL when clicked
- * @property {string} [ctaText] - CTA button text (default: "Read more")
- * @property {string} [ctaIcon] - Astro-icon name for the CTA (default: "material-symbols:trending-flat")
- * @property {"left"|"right"} [imagePosition] - Image position (default: "left")
- */
-
 /**
  * BannerPromocional - Component to highlight blog news
  *
@@ -49,31 +38,31 @@ import newsDefault from "../assets/blog/news_default.jpg";
  */
 
 interface Props {
-  /*
+  /**
    * @property {string} title - Main banner title
    */
   title: string;
-  /*
+  /**
    * @property {string} [description] - Brief content description
    */
   description?: string;
-  /*
+  /**
    * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
    */
   image?: { url: string; alt?: string };
-  /*
+  /**
    * @property {string} url - Destination URL when clicked
    */
   url: string;
-  /*
+  /**
    * @property {string} [ctaText] - CTA button text (default: "Read more")
    */
   ctaText?: string;
-  /*
+  /**
    * @property {string} [ctaIcon] - Astro-icon name for the CTA (default: "material-symbols:trending-flat")
    */
   ctaIcon?: string;
-  /*
+  /**
    * @property {"left"|"right"} [imagePosition] - Image position (default: "left")
    */
   imagePosition?: "left" | "right";
@@ -157,4 +146,3 @@ const imageAlt = image?.alt || title;
     </div>
   </div>
 </div>
-

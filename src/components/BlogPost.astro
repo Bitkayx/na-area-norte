@@ -3,16 +3,6 @@ import { Icon } from "astro-icon/components";
 import { formatDate } from "../utils/dateUtils.ts";
 
 /**
- * @typedef {Object} Props
- * @property {string} title - Post title
- * @property {string[]} [tags] - Array of tags
- * @property {string} pubDate - Publication date
- * @property {string} description - Post description
- * @property {{ url: string, alt?: string }} [image] - Cover image
- * @property {string} url - Post URL
- */
-
-/**
  * BlogPost - Card component to display a blog post
  *
  * @example
@@ -29,27 +19,27 @@ import { formatDate } from "../utils/dateUtils.ts";
  */
 
 interface Props {
-  /*
+  /**
    * @property {string} title - Post title
    */
   title: string;
-  /*
+  /**
    * @property {string[]} [tags] - Array of tags
    */
   tags?: string[];
-  /*
+  /**
    * @property {string} pubDate - Publication date
    */
   pubDate: string;
-  /*
+  /**
    * @property {string} description - Post description
    */
   description: string;
-  /*
+  /**
    * @property {{ url: string, alt?: string }} [image] - Cover image
    */
   image?: { url: string; alt?: string };
-  /*
+  /**
    * @property {string} url - Post URL
    */
   url: string;

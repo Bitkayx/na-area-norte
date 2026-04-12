@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import type { NavigationItem } from "../types/navigation";
 
 /**
- * @typedef {Object} MobileMenuProps
- * @property {NavigationItem[]} navigation - Navigation items array
- */
-
-/**
  * MobileMenu - Mobile navigation overlay component
  *
  * @example
  * ```tsx
  * <MobileMenu navigation={[{ label: "Inicio", href: "/" }]} />
  * ```
+ */
+
+/**
+ * @typedef {Object} MobileMenuProps
+ * @property {NavigationItem[]} navigation - Navigation items array
  */
 interface MobileMenuProps {
   /*
