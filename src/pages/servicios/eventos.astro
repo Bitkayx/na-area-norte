@@ -1,5 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import BannerPromocional from "@components/BannerPromocional.astro";
+import MotivacionEvento from "@components/MotivacionEvento.astro";
+import encuentroServidores from "../../assets/blog/compartimientos/eventos/encuentro-servidores-2026.jpeg";
 
 const title = "Eventos";
 ---
@@ -28,11 +31,36 @@ const title = "Eventos";
 
       <h2>Funciones</h2>
       <ul>
-        <li>Apoyar la organización de los eventos del Comité Estatal o de Área como: congresos, seminarios, encuentros de literatura, o cualquier otro evento a nivel Comité Estatal o de Área.</li>
-        <li>Cuando haya eventos a nivel regional, organizará el traslado, contratará el transporte e informará los costos, tanto de transporte como del evento.</li>
-        <li>Promoverá los eventos de otras Regiones, Estados o Áreas y colocará los carteles alusivos en el Comité Estatal o de Área.</li>
+        <li>
+          Apoyar la organización de los eventos del Comité Estatal o de Área
+          como: congresos, seminarios, encuentros de literatura, o cualquier
+          otro evento a nivel Comité Estatal o de Área.
+        </li>
+        <li>
+          Cuando haya eventos a nivel regional, organizará el traslado,
+          contratará el transporte e informará los costos, tanto de transporte
+          como del evento.
+        </li>
+        <li>
+          Promoverá los eventos de otras Regiones, Estados o Áreas y colocará
+          los carteles alusivos en el Comité Estatal o de Área.
+        </li>
         <li>Apoyará al Comité Estatal o de Área en lo que sea necesario.</li>
       </ul>
+
+      <MotivacionEvento
+        title="Proximo Evento"
+        subtitle="Encuentro de Servidores"
+        image={encuentroServidores}
+        description="Los motivamos a hacer la Unidad compañeros, pueden apartar su lugar en el autobus. Para mayor informacion pregunta con tu Comité de eventos en el Distrito o bien con tu RD."
+      />
     </div>
+
+    <BannerPromocional
+      title="Encuentro de Servidores 2026"
+      description="Encuentra el programa del evento aqui"
+      url="/noticias/encuentro-de-servidores"
+      ctaText="Ver programa"
+    />
   </div>
 </Layout>

@@ -1,22 +1,63 @@
 import { useState, useMemo } from "react";
 
+/**
+ * InventoryTable - Table component to display and filter inventory items
+ *
+ * @example
+ * ```tsx
+ * <InventoryTable items={[{ code: "L001", description: "Libro NA", price: 50, category: "Literatura" }]} />
+ * ```
+ */
+
 interface InventoryItem {
+  /*
+   * @property {string} code - Item code
+   */
   code: string;
+  /*
+   * @property {string} description - Item description
+   */
   description: string;
+  /*
+   * @property {number} price - Item price
+   */
   price: number;
+  /*
+   * @property {string} category - Item category
+   */
   category: string;
+  /*
+   * @property {number} [quantity] - Item quantity
+   */
   quantity?: number;
+  /*
+   * @property {number} [total] - Total price
+   */
   total?: number;
 }
 
-type PartialInventoryItem = Omit<InventoryItem, 'quantity' | 'total'>;
+/**
+ * @typedef {Object} PartialInventoryItem
+ * @property {string} code - Item code
+ * @property {string} description - Item description
+ * @property {number} price - Item price
+ * @property {string} category - Item category
+ */
 
-export default function InventoryTable({ items }: { items: PartialInventoryItem[] }) {
+type PartialInventoryItem = Omit<InventoryItem, "quantity" | "total">;
+
+export default function InventoryTable({
+  items,
+}: {
+  items: PartialInventoryItem[];
+}) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todas");
 
   const categories = useMemo(() => {
-    const unique = new Set(items.map((item: PartialInventoryItem) => item.category));
+    const unique = new Set(
+      items.map((item: PartialInventoryItem) => item.category),
+    );
     return ["Todas", ...unique];
   }, [items]);
 

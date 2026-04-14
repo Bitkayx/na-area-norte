@@ -2,6 +2,18 @@
 import { Icon } from "astro-icon/components";
 import radiodifusionData from "../data/radiodifusion.json";
 
+/**
+ * WeeklyMotivation - Banner component showing current week's radio broadcast
+ *
+ * Automatically calculates current week number and displays district broadcast info.
+ * Includes close button to dismiss the banner.
+ *
+ * @example
+ * ```astro
+ * <WeeklyMotivation />
+ * ```
+ */
+
 const now = new Date();
 const startOfYear = new Date(now.getFullYear(), 0, 0);
 const diff = now.getTime() - startOfYear.getTime();

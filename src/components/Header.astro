@@ -2,7 +2,19 @@
 import type { NavigationItem } from "../types/navigation";
 import MobileMenu from "./MobileMenu.tsx";
 
+/**
+ * Header - Site header component with navigation
+ *
+ * @example
+ * ```astro
+ * <Header navigation={[{ label: "Inicio", href: "/" }, { label: "Servicios", href: "/servicios/" }]} />
+ * ```
+ */
+
 interface Props {
+  /**
+   * @property {NavigationItem[]} navigation - Navigation items array
+   */
   navigation: NavigationItem[];
 }
 

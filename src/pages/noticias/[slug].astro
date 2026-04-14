@@ -2,17 +2,54 @@
 import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
 
+/**
+ * [slug] - Dynamic news post page
+ *
+ * Renders individual blog posts from the "blog" collection.
+ * Uses getStaticPaths to generate all post pages at build time.
+ *
+ * @example
+ * ```astro
+ * // Automatically generates pages for all blog posts
+ * // URL: /noticias/{slug}
+ * ```
+ */
+
 interface PostData {
+  /*
+   * @property {string} id - Unique post identifier
+   */
   id: string;
+  /*
+   * @property {object} data - Post frontmatter data (title, description, image, etc.)
+   */
   data: object;
+  /*
+   * @property {string} body - Raw markdown content
+   */
   body: string;
+  /*
+   * @property {string} filePath - Path to the markdown file
+   */
   filePath: string;
+  /*
+   * @property {string} digest - Content hash for caching
+   */
   digest: string;
+  /*
+   * @property {object} rendered - Rendered HTML content
+   */
   rendered: object;
+  /*
+   * @property {object} metadata - Post metadata (headings, readingTime, etc.)
+   */
   metadata: object;
 }
 
 interface Props {
+  /*
+   * @property {PostData} post - Full post data from collection
+   */
   post: PostData;
   collection: string;
 }
