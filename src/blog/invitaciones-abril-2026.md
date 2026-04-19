@@ -11,6 +11,11 @@ tags: ["invitaciones", "eventos", "area-norte"]
 
 # Invitaciones del Mes de Abril
 
+## Grupo Sendero de Luz
+
+![Grupo Sendero de Luz 01](../assets/blog/compartimientos/abril/Grupo_senderodeluz_01.jpg)
+![Grupo Sendero de Luz 02](../assets/blog/compartimientos/abril/Grupo_senderodeluz_02.jpg)
+
 ## Grupo Unidad
 
 ![Grupo Unidad 01](../assets/blog/compartimientos/abril/Grupo_unidad_01.jpeg)
@@ -27,6 +32,10 @@ tags: ["invitaciones", "eventos", "area-norte"]
 ## 2do Distrito
 
 ![2do Distrito](../assets/blog/compartimientos/abril/2doDto_Fraterna.jpg)
+
+## Area Norte
+
+![Area Norte](../assets/blog/compartimientos/abril/area_norte.jpg)
 
 ## Juntas de Informacion
 

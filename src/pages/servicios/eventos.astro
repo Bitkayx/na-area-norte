@@ -3,6 +3,8 @@ import Layout from "../../layouts/Layout.astro";
 import BannerPromocional from "@components/BannerPromocional.astro";
 import MotivacionEvento from "@components/MotivacionEvento.astro";
 import encuentroServidores from "../../assets/blog/compartimientos/eventos/encuentro-servidores-2026.jpeg";
+import congresoRegional from "../../assets/blog/compartimientos/eventos/CONGRESO_CHALCO.jpg";
+import congresoRegionalVideo from "../../assets/blog/compartimientos/abril/congreso_regional.mp4";
 
 const title = "Eventos";
 ---
@@ -62,5 +64,17 @@ const title = "Eventos";
       url="/noticias/encuentro-de-servidores"
       ctaText="Ver programa"
     />
+
+    <div class="prose prose-slate dark:prose-invert max-w-none mt-8">
+      <MotivacionEvento
+        title="Proximamente..."
+        description="Congreso V Region 2026"
+        image={congresoRegional}
+      />
+
+      <video controls>
+        <source src={congresoRegionalVideo} type="video/mp4" />
+      </video>
+    </div>
   </div>
 </Layout>
