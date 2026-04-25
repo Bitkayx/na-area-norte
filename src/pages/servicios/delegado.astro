@@ -1,5 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ConvertedImage from "@components/ConvertedImage.astro";
+import AMXLII_01 from "../../assets/blog/compartimientos/eventos/Acuerdos de la XLII Asamblea Mexicana de 2026-images-0.jpg";
+import AMXLII_02 from "../../assets/blog/compartimientos/eventos/Acuerdos de la XLII Asamblea Mexicana de 2026-images-1.jpg";
+import AMXLII_03 from "../../assets/blog/compartimientos/eventos/Acuerdos de la XLII Asamblea Mexicana de 2026-images-2.jpg";
+import REV_01 from "../../assets/blog/compartimientos/eventos/Revocaciones y Nombramiento de la AMXLII.-1-images-0.jpg";
+import REV_02 from "../../assets/blog/compartimientos/eventos/Revocaciones y Nombramiento de la AMXLII.-1-images-1.jpg";
+import REV_03 from "../../assets/blog/compartimientos/eventos/Revocaciones y Nombramiento de la AMXLII.-1-images-2.jpg";
+import Nombramientos from "../../assets/blog/compartimientos/eventos/Cir-Nombramientos 2026-04-11 Comunidad.jpg";
 
 const title = "Delegado";
 ---
@@ -138,6 +146,19 @@ const title = "Delegado";
           Internacional.
         </li>
       </ul>
+
+      <h3>Acuerdos de Asamblea Mexicana</h3>
+      <ConvertedImage image={AMXLII_01} />
+      <ConvertedImage image={AMXLII_02} />
+      <ConvertedImage image={AMXLII_03} />
+
+      <h3>Revocaciones y Nombramientos</h3>
+      <ConvertedImage image={REV_01} />
+      <ConvertedImage image={REV_02} />
+      <ConvertedImage image={REV_03} />
+
+      <h3>Circular de Nombramientos</h3>
+      <ConvertedImage image={Nombramientos} />
     </div>
   </div>
 </Layout>

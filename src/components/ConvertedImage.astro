@@ -1,0 +1,24 @@
+---
+/**
+ * ConvertedImage - Transform relative route into astro image source
+ *
+ * @example
+ * ```astro
+ * <ConvertedImage />
+ * ```
+ */
+
+interface Props {
+  /**
+   * @property {{ url: string, alt?: string }} [image] - Cover image (uses default if not provided)
+   */
+  image?: { url: string; alt?: string };
+}
+
+const { image } = Astro.props;
+
+const imageUrl = image.src;
+const imageAlt = image?.alt;
+---
+
+<img src={imageUrl} alt={imageAlt} />

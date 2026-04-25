@@ -23,7 +23,9 @@ tags: ["invitaciones", "eventos", "area-norte"]
 
 ## Grupo Aprender a Vivir
 
-![Grupo Aprender a Vivir](../assets/blog/compartimientos/abril/Grupo_aprenderavivir_01.jpeg)
+![Grupo Aprender a Vivir 01](../assets/blog/compartimientos/abril/Grupo_aprenderavivir_01.jpeg)
+![Grupo Aprender a Vivir 02](../assets/blog/compartimientos/abril/Grupo_Aprenderavir_01.jpeg)
+![Grupo Aprender a Vivir 03](../assets/blog/compartimientos/abril/Grupo_Aprenderavir_02.jpeg)
 
 ## Grupo Humildad
 
