@@ -1,5 +1,25 @@
 [
   {
+    "id": "un-camino-hacia-la-fe",
+    "nombre": "Un Camino hacia la Fe",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Calle Allende No.55",
+      "colonia": "Rosas del Tepeyac",
+      "referencias": "A 5 minutos de la estacion Hospital Infantil La Villa de la linea 6 del metrobus",
+      "ciudad": "Ciudad de México",
+      "estado": "CDMX"
+    },
+    "horarios": [
+      {
+        "dias": "Martes y Miercoles",
+        "horaInicio": "13:00",
+        "horaFin": "14:30"
+      }
+    ],
+    "mapQuery": "Allende 55, Rosas del Tepeyac, Gustavo A. Madero, 07010 Ciudad de México, CDMX"
+  },
+  {
     "id": "aprendiendo-a-amar",
     "nombre": "Aprendiendo a Amar",
     "distrito": "5",
