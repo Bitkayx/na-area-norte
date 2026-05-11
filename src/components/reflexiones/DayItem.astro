@@ -69,8 +69,8 @@ const statusKey = getStatusKey();
     {day}
   </span>
   <div class="flex-1 min-w-0">
-    <p class="font-semibold text-xs sm:text-sm truncate">{title}</p>
-    <p class="text-[10px] sm:text-xs opacity-70 day-label">{labels[statusKey]}</p>
+    <p class="font-semibold text-sm sm:text-base truncate">{title}</p>
+    <p class="text-xs sm:text-sm opacity-70 day-label">{labels[statusKey]}</p>
   </div>
-  <span class="day-icon text-sm sm:text-lg" aria-hidden="true">{icons[statusKey]}</span>
+  <span class="day-icon text-base sm:text-lg" aria-hidden="true">{icons[statusKey]}</span>
 </a>

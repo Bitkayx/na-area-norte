@@ -13,7 +13,7 @@ tags: ["invitaciones", "eventos", "area-norte"]
 
 ## 5to Distrito
 
-![5to Distrito](../assets/blog/compartimientos/mayo/5toDistrito_Mayo.jpeg)
+![5to Distrito](../assets/blog/compartimientos/mayo/5toFull.jpg)
 
 ## Area Norte
 
