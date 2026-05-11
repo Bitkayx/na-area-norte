@@ -1,0 +1,76 @@
+---
+interface Props {
+  day: number;
+  title: string;
+  status: "past" | "current" | "future";
+  visited: boolean;
+  href: string;
+  disabled?: boolean;
+  disponible?: boolean;
+}
+
+const { day, title, status, visited, href, disabled = false, disponible = false } = Astro.props;
+
+const statusClasses = {
+  "past-visited": "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800",
+  "past-pending": "bg-slate-100 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700",
+  "current": "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800 ring-2 ring-blue-500",
+  "future": "bg-gray-100 dark:bg-gray-800/50 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700 cursor-not-allowed",
+  "blocked": "bg-gray-100 dark:bg-gray-800/50 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700 cursor-not-allowed"
+};
+
+const getStatusKey = () => {
+  if (disabled) return "blocked";
+  if (status === "past") return visited ? "past-visited" : "past-pending";
+  if (status === "current") return "current";
+  return "future";
+};
+
+const icons = {
+  "past-visited": "✓",
+  "past-pending": "○",
+  "current": "▶",
+  "future": "🔒",
+  "blocked": "🔒"
+};
+
+const labels = {
+  "past-visited": "Completado",
+  "past-pending": "Pendiente",
+  "current": "Ver ahora",
+  "future": "Bloqueado",
+  "blocked": "No publicado"
+};
+
+const ariaLabels = {
+  "past-visited": `Día ${day}: ${title} - Completado`,
+  "past-pending": `Día ${day}: ${title} - Pendiente`,
+  "current": `Día ${day}: ${title} - Ver ahora`,
+  "future": `Día ${day}: ${title} - Bloqueado`,
+  "blocked": `Día ${day}: ${title} - No publicado`
+};
+
+const statusKey = getStatusKey();
+---
+
+<a
+  href={!disabled && status !== "future" ? href : "#"}
+  data-day={day}
+  data-disponible={disponible ? "true" : "false"}
+  role="status"
+  aria-label={ariaLabels[statusKey]}
+  class:list={[
+    "day-item flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300",
+    statusClasses[statusKey],
+    !disabled && status !== "future" && "hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+  ]}
+>
+  <span class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/50 dark:bg-black/20 font-bold text-sm sm:text-base">
+    {day}
+  </span>
+  <div class="flex-1 min-w-0">
+    <p class="font-semibold text-xs sm:text-sm truncate">{title}</p>
+    <p class="text-[10px] sm:text-xs opacity-70 day-label">{labels[statusKey]}</p>
+  </div>
+  <span class="day-icon text-sm sm:text-lg" aria-hidden="true">{icons[statusKey]}</span>
+</a>

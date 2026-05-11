@@ -1,0 +1,76 @@
+---
+import DayItem from "./DayItem.astro";
+import { getCurrentDay } from "@utils/reflexiones";
+import { getDayStatus } from "@utils/reflexiones";
+import type { DiaMes } from "@utils/reflexionesApi";
+
+interface Props {
+  reflections: DiaMes[];
+}
+
+interface PropsWithCount extends Props {
+  visitedDays?: number[];
+}
+
+const { reflections, visitedDays = [] } = Astro.props as PropsWithCount;
+const currentDay = getCurrentDay();
+---
+
+<div
+  id="day-list"
+  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
+  data-visited-days={JSON.stringify(visitedDays)}
+>
+  {
+    reflections.map((dia) => {
+      const status = getDayStatus(dia.day, currentDay);
+      const visited = visitedDays.includes(dia.day);
+      const href = dia.disponible ? `/reflexiones/${dia.day}` : "#";
+      return (
+        <DayItem
+          day={dia.day}
+          title={dia.title}
+          status={status}
+          visited={visited}
+          href={href}
+          disabled={!dia.disponible}
+          disponible={dia.disponible}
+        />
+      );
+    })
+  }
+</div>
+
+<script>
+  const currentMonth =
+    new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
+  const STORAGE_KEY = "na_reflexiones_visitadas";
+
+  function getVisitedDays(): number[] {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return [];
+      const data = JSON.parse(stored);
+      return data[currentMonth] || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function updateVisitedUI() {
+    const visitedDays = getVisitedDays();
+    const list = document.getElementById("day-list");
+    if (!list) return;
+
+    const items = list.querySelectorAll(".day-item");
+    items.forEach((item) => {
+      const day = parseInt(item.getAttribute("data-day") || "0", 10);
+      if (visitedDays.includes(day)) {
+        item.classList.add("visited");
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", updateVisitedUI);
+</script>
+

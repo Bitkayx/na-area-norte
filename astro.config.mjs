@@ -8,6 +8,12 @@ export default defineConfig({
   site: "https://na-areanorte-cdmx.vercel.app",
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@data": "/src/data",
+        "@utils": "/src/utils",
+      },
+    },
   },
   integrations: [
     icon(),
