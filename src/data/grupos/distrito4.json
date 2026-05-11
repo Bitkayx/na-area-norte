@@ -88,16 +88,11 @@
     "horarios": [
       {
         "dias": "Lunes a Domingo",
-        "horaInicio": "09:00",
-        "horaFin": "10:30"
-      },
-      {
-        "dias": "Lunes a Domingo",
         "horaInicio": "20:00",
         "horaFin": "21:30"
       }
     ],
-    "mapQuery": "Oriente 155 3903 Col. Salvador Díaz Mirón Gustavo A. Madero CDMX"
+    "mapQuery": "Ote. 155 Salvador Díaz Mirón, 07400 Ciudad de México, CDMX"
   },
   {
     "id": "luz-de-esperanza",

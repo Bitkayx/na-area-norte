@@ -1,0 +1,207 @@
+---
+import Layout from "@layouts/Layout.astro";
+import VideoPlayer from "@components/reflexiones/VideoPlayer.astro";
+import { getReflexionByDay, getReflexionesDisponibles, isDayAccessible, getEmbedUrl } from "@utils/reflexionesApi";
+import { getCurrentDay, getCurrentMonth, getMonthName } from "@utils/reflexiones";
+
+export async function getStaticPaths() {
+  const reflexiones = await getReflexionesDisponibles();
+  return reflexiones.map(r => ({ params: { day: r.day } }));
+}
+
+const { day } = Astro.params;
+const dayNumber = parseInt(day as string, 10);
+const currentDay = getCurrentDay();
+
+if (!isDayAccessible(dayNumber)) {
+  return Astro.redirect("/reflexiones");
+}
+
+const reflexion = await getReflexionByDay(day as string);
+
+if (!reflexion || reflexion.published !== "TRUE") {
+  return Astro.redirect("/reflexiones");
+}
+
+const title = `Día ${dayNumber}: ${reflexion.title} | Reflexiones Diarias`;
+const description =
+  reflexion.description ||
+  `Reflexión del día ${dayNumber} de ${getMonthName(getCurrentMonth())}`;
+---
+
+<Layout title={title} description={description}>
+  <div class="py-12 max-w-4xl mx-auto">
+    <a
+      href="/reflexiones"
+      class="inline-flex items-center gap-2 text-primary hover:underline mb-6"
+    >
+      ← Volver a las reflexiones
+    </a>
+
+    <div
+      data-day-number={dayNumber}
+      class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg"
+    >
+      <div class="mb-6">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-slate-500 dark:text-slate-400">
+            {getMonthName(getCurrentMonth())} - Día {dayNumber}
+          </span>
+          <div
+            id="visit-badge"
+            class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
+          >
+            <span id="badge-icon"></span>
+            <span id="badge-text">Cargando...</span>
+          </div>
+        </div>
+        <h1 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">
+          {reflexion.title}
+        </h1>
+        {
+          reflexion.description && (
+            <p class="text-slate-600 dark:text-slate-400 mt-2">
+              {reflexion.description}
+            </p>
+          )
+        }
+      </div>
+
+      <VideoPlayer videoUrl={getEmbedUrl(reflexion.url)} title={reflexion.title} />
+
+      <button
+        id="mark-btn"
+        class="mt-6 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300"
+      >
+        <span id="btn-icon">○</span>
+        <span id="btn-text">Marcar como vista</span>
+      </button>
+
+      <div class="mt-8 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          <strong>Nota:</strong> Esta reflexión está disponible porque es el día {
+            dayNumber
+          } o anterior. Cada nuevo día desbloquea automáticamente la siguiente reflexión.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const dayEl = document.querySelector("[data-day-number]");
+    const dayNumber = dayEl
+      ? parseInt(dayEl.getAttribute("data-day-number") || "0", 10)
+      : 0;
+
+    const STORAGE_KEY = "na_reflexiones_visitadas";
+    const currentMonth =
+      new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
+
+    function isVisited() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (!stored) return false;
+        const data = JSON.parse(stored);
+        return (data[currentMonth] || []).includes(dayNumber);
+      } catch {
+        return false;
+      }
+    }
+
+    function markAsVisited() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const data = stored ? JSON.parse(stored) : {};
+        let visitedDays = data[currentMonth] || [];
+
+        if (!visitedDays.includes(dayNumber)) {
+          visitedDays.push(dayNumber);
+          visitedDays.sort((a, b) => a - b);
+          data[currentMonth] = visitedDays;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+      } catch (e) {
+        console.error("Error marking as visited:", e);
+      }
+    }
+
+    function updateUI(visited) {
+      const badge = document.getElementById("visit-badge");
+      const badgeIcon = document.getElementById("badge-icon");
+      const badgeText = document.getElementById("badge-text");
+      const markBtn = document.getElementById("mark-btn");
+      const btnIcon = document.getElementById("btn-icon");
+      const btnText = document.getElementById("btn-text");
+
+      if (
+        !badge ||
+        !badgeIcon ||
+        !badgeText ||
+        !markBtn ||
+        !btnIcon ||
+        !btnText
+      ) {
+        return;
+      }
+
+      if (visited) {
+        badgeIcon.textContent = "✓";
+        badgeText.textContent = "Vista";
+        badge.className =
+          "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400";
+
+        btnIcon.textContent = "✓";
+        btnText.textContent = "Desmarcar";
+        markBtn.className =
+          "mt-6 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-800";
+      } else {
+        badgeIcon.textContent = "▶";
+        badgeText.textContent = "Nueva reflexión";
+        badge.className =
+          "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400";
+
+        btnIcon.textContent = "○";
+        btnText.textContent = "Marcar como vista";
+        markBtn.className =
+          "mt-6 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300";
+      }
+    }
+
+    function toggleVisited() {
+      const visited = isVisited();
+
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const data = stored ? JSON.parse(stored) : {};
+        let visitedDays = data[currentMonth] || [];
+
+        if (visitedDays.includes(dayNumber)) {
+          visitedDays = visitedDays.filter((d) => d !== dayNumber);
+        } else {
+          visitedDays.push(dayNumber);
+          visitedDays.sort((a, b) => a - b);
+        }
+
+        data[currentMonth] = visitedDays;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+        const newVisited = !visited;
+        updateUI(newVisited);
+      } catch (e) {
+        console.error("Error toggling visited:", e);
+      }
+    }
+
+    markAsVisited();
+    const visited = isVisited();
+    updateUI(visited);
+
+    const markBtn = document.getElementById("mark-btn");
+    if (markBtn) {
+      markBtn.addEventListener("click", toggleVisited);
+    }
+  });
+</script>
+

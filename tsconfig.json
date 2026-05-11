@@ -21,6 +21,12 @@
       ],
       "@types/*": [
         "src/types/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
       ]
     },
     "jsx": "react-jsx",

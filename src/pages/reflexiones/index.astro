@@ -1,0 +1,102 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProgressHeader from "@components/reflexiones/ProgressHeader.astro";
+import DayList from "@components/reflexiones/DayList.astro";
+import { getDiasDelMes, getTotalDiasDelMes } from "@utils/reflexionesApi";
+import { getCurrentMonth, getCurrentYear } from "@utils/reflexiones";
+
+const diasDelMes = await getDiasDelMes();
+const totalDiasMes = getTotalDiasDelMes();
+const diasDisponibles = diasDelMes.filter(d => d.disponible);
+const currentMonthKey = `${getCurrentYear()}-${getCurrentMonth()}`;
+const title = "Reflexiones Diarias | NA Área Norte";
+const description = "Una reflexión diaria para tu camino de recuperación";
+
+const initialVisitedDays: number[] = [];
+---
+
+<Layout title={title} description={description}>
+  <div class="py-6 md:py-12 max-w-5xl mx-auto px-4">
+    <div class="text-center mb-6 md:mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2 md:mb-3">
+        Reflexiones Diarias
+      </h1>
+      <p class="text-base md:text-lg text-slate-600 dark:text-slate-400">
+        "Un día a la vez"
+      </p>
+    </div>
+
+    <ProgressHeader 
+      totalDays={diasDisponibles.length} 
+      visitedCount={0}
+    />
+
+    <DayList 
+      reflections={diasDelMes}
+      visitedDays={[]}
+    />
+  </div>
+</Layout>
+
+<script define:vars={{ currentMonthKey }}>
+  const STORAGE_KEY = 'na_reflexiones_visitadas';
+
+  function getVisitedDays() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return [];
+      const data = JSON.parse(stored);
+      return data[currentMonthKey] || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function updateUI() {
+    const visitedDays = getVisitedDays();
+    const allItems = document.querySelectorAll('.day-item');
+    const disponiblesItems = document.querySelectorAll('.day-item[data-disponible="true"]');
+    const totalDisponibles = disponiblesItems.length;
+    
+    const visitadosDisponibles = visitedDays.filter(day => {
+      const el = document.querySelector(`.day-item[data-day="${day}"][data-disponible="true"]`);
+      return el !== null;
+    }).length;
+    
+    const progress = totalDisponibles > 0 ? Math.round((visitadosDisponibles / totalDisponibles) * 100) : 0;
+
+    const progressPercent = document.getElementById('progress-percent');
+    const progressText = document.getElementById('progress-text');
+    const progressBar = document.getElementById('progress-bar');
+    const progressMessage = document.getElementById('progress-message');
+
+    if (progressPercent) progressPercent.textContent = progress + '%';
+    if (progressText) progressText.textContent = `${visitadosDisponibles} de ${totalDisponibles} reflexiones vistas`;
+    if (progressBar) progressBar.style.width = progress + '%';
+    if (progressMessage) {
+      const pendientes = totalDisponibles - visitadosDisponibles;
+      if (pendientes > 0) {
+        progressMessage.textContent = `Tienes ${pendientes} reflexiones pendientes del mes.`;
+      } else {
+        progressMessage.textContent = "¡Felicidades! Has visto todas las reflexiones de este mes.";
+      }
+    }
+
+    allItems.forEach((item) => {
+      const day = parseInt(item.getAttribute('data-day') || '0', 10);
+      const isDisponible = item.getAttribute('data-disponible') === "true";
+      
+      if (isDisponible && visitedDays.includes(day)) {
+        item.classList.remove('bg-slate-100', 'dark:bg-slate-800/50', 'text-slate-500', 'dark:text-slate-400', 'border-slate-200', 'dark:border-slate-700');
+        item.classList.add('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-400', 'border-green-200', 'dark:border-green-800');
+        const label = item.querySelector('.day-label');
+        const icon = item.querySelector('.day-icon');
+        if (label) label.textContent = 'Completado';
+        if (icon) icon.textContent = '✓';
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', updateUI);
+  document.addEventListener('astro:page-load', updateUI);
+</script>
