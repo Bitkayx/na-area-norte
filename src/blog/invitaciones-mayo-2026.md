@@ -11,6 +11,24 @@ tags: ["invitaciones", "eventos", "area-norte"]
 
 # Invitaciones del Mes de Mayo
 
+## Grupo Aprender a Vivir
+
+![Invitacion](../assets/blog/compartimientos/mayo/Grupo_AprenderAVivir_01.jpeg)
+
+## Grupo Principio de Vida
+
+![Invitacion](../assets/blog/compartimientos/mayo/Grupo_PrincipioDeVida_01.jpeg)
+![Invitacion](../assets/blog/compartimientos/mayo/Grupo_PrincipioDeVida_02.jpeg)
+
+## Grupo Serenidad 4to Distrito
+
+![Invitacion](../assets/blog/compartimientos/mayo/Grupo_Serenidad_4toDto.jpeg)
+
+## 4to Distrito
+
+![4to Distrito](../assets/blog/compartimientos/mayo/4toDto.jpeg)
+![4to Distrito](../assets/blog/compartimientos/mayo/4toDtoIP.jpeg)
+
 ## 5to Distrito
 
 ![5to Distrito](../assets/blog/compartimientos/mayo/5toFull.jpg)
