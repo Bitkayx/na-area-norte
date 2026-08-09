@@ -6,8 +6,7 @@ import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import { createLocalDate } from "../utils/dateUtils.ts";
-import encuentroServidores from "../assets/blog/compartimientos/eventos/encuentro-servidores-2026.jpeg";
-import congresoRegional from "../assets/blog/compartimientos/agosto/congreso_regional_2026.jpeg";
+import aniversarioArea from "../assets/blog/compartimientos/agosto/area_aniversario_2026.jpeg";
 
 /**
  * Home - Main landing page
@@ -30,10 +29,10 @@ const latestPosts = allPosts
 
 <Layout title={title}>
   <Hero
-    titulo="Congreso Regional"
-    slug="/noticias/congreso-regional-2026"
-    imagen={congresoRegional}
-    subtitulo="Evento de la Region"
+    titulo="Aniversario del Area Norte"
+    slug="/noticias/invitaciones-agosto-2026"
+    imagen={aniversarioArea}
+    subtitulo="Evento del mes"
   />
 
   <section class="py-16 md:py-24">

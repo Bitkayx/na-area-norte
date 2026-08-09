@@ -1,5 +1,25 @@
 [
   {
+    "id": "quinto-distrito",
+    "nombre": "5to Distrito",
+    "distrito": "5",
+    "direccion": {
+      "linea1": "Valle Grande No. 121",
+      "colonia": "Valle de Aragón Primera sección",
+      "referencias": "",
+      "ciudad": "Nezahualcóyotl",
+      "estado": "Estado de México"
+    },
+    "horarios": [
+      {
+        "dias": "Lunes a Viernes",
+        "horaInicio": "19:00",
+        "horaFin": "20:30"
+      }
+    ],
+    "mapQuery": "Valle Grande 121, Valle de Aragon 1ra Secc, 57100 Cdad. Nezahualcóyotl, Méx."
+  },
+  {
     "id": "un-camino-hacia-la-fe",
     "nombre": "Un Camino hacia la Fe",
     "distrito": "5",
@@ -216,23 +236,28 @@
     "direccion": {
       "linea1": "Valle de Arriba No. 158",
       "colonia": "Valle de Aragón 1ª Sección",
-      "referencias": "",
+      "referencias": "Cerca del ISSSTE",
       "ciudad": "Nezahualcóyotl",
       "estado": "Estado de México"
     },
     "horarios": [
       {
         "dias": "Lunes y Miércoles",
+        "horaInicio": "10:00",
+        "horaFin": "11:30"
+      },
+      {
+        "dias": "Lunes a Jueves",
         "horaInicio": "19:00",
         "horaFin": "20:30"
       },
       {
-        "dias": "Lunes a Sábado",
-        "horaInicio": "07:00",
-        "horaFin": "08:30"
+        "dias": "Viernes y Sabado",
+        "horaInicio": "20:00",
+        "horaFin": "21:30"
       }
     ],
-    "mapQuery": "Valle de Arriba 158, Colonia Valle de Aragón 1ª Sección, Nezahualcóyotl, Estado de México"
+    "mapQuery": "Valle de Arriba 158, Valle de Aragon 1ra Secc, 57100 Cdad. Nezahualcóyotl, Méx., México"
   },
   {
     "id": "pradera",

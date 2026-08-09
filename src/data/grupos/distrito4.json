@@ -1,5 +1,19 @@
 [
   {
+    "id": "cuarto-distrito",
+    "nombre": "4to Distrito",
+    "distrito": "4",
+    "direccion": {
+      "linea1": "Calle Norte 64-A No. 7817 ",
+      "colonia": "Salvador Díaz Mirón",
+      "referencias": "",
+      "ciudad": "Gustavo A. Madero",
+      "estado": "CDMX"
+    },
+    "horarios": [],
+    "mapQuery": "Nte. 64-A 7817, Salvador Díaz Mirón, Gustavo A. Madero, 07400 Ciudad de México, CDMX"
+  },
+  {
     "id": "un-dia-a-la-vez",
     "nombre": "Un dia a la vez",
     "distrito": "4",

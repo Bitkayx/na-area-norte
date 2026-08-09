@@ -14,3 +14,7 @@ tags: ["invitaciones", "eventos", "area-norte"]
 ## Regreso a la Vida
 
 ![Invitacion](../assets/blog/compartimientos/agosto/regreso_01.jpg)
+
+## Area Norte
+
+![Invitacion](../assets/blog/compartimientos/agosto/area_aniversario_2026.jpeg)

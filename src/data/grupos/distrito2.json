@@ -1,5 +1,19 @@
 [
   {
+    "id": "segundo-distrito",
+    "nombre": "2do Distrito",
+    "distrito": "2",
+    "direccion": {
+      "linea1": "Av. 3-A #43  2do. Piso  Depto 4",
+      "colonia": "Sta. Rosa",
+      "referencias": "A la salida de la estación Progreso Nacional  de la línea 3 del Metrobús",
+      "ciudad": "G.A.M.",
+      "estado": "CDMX"
+    },
+    "horarios": [],
+    "mapQuery": "Av 3-A # 43, Santa Rosa, Gustavo A. Madero, 07620 Ciudad de México, CDMX"
+  },
+  {
     "id": "aprendiendo-a-vivir",
     "nombre": "Aprendiendo a Vivir",
     "distrito": "2",

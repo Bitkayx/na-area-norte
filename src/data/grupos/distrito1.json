@@ -1,5 +1,19 @@
 [
   {
+    "id": "primer-distrito",
+    "nombre": "1er Distrito",
+    "distrito": "1",
+    "direccion": {
+      "linea1": "Calle Valle de Tigris esq. Valle de Henares No. 106",
+      "colonia": "Valle de Aragón 3ª Sección",
+      "referencias": "Cerca de metro Muzquiz",
+      "ciudad": "Ecatepec de Morelos",
+      "estado": "Estado de México"
+    },
+    "horarios": [],
+    "mapQuery": "Henares 106, Valle de Aragon 3ra Secc, 55280 Ecatepec de Morelos, Méx."
+  },
+  {
     "id": "aprender-a-vivir",
     "nombre": "Aprender a Vivir",
     "distrito": "1",
