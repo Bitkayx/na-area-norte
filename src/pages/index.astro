@@ -6,7 +6,7 @@ import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import { createLocalDate } from "../utils/dateUtils.ts";
-import aniversarioArea from "../assets/blog/compartimientos/agosto/area_aniversario_2026.jpeg";
+import congresoLiteratura from "../assets/blog/compartimientos/septiembre/congreso_literatura.jpg";
 
 /**
  * Home - Main landing page
@@ -29,9 +29,9 @@ const latestPosts = allPosts
 
 <Layout title={title}>
   <Hero
-    titulo="Aniversario del Area Norte"
-    slug="/noticias/invitaciones-agosto-2026"
-    imagen={aniversarioArea}
+    titulo="Encuentro Regional de Literatura"
+    slug="/noticias/encuentro-regional-literatura-2026"
+    imagen={congresoLiteratura}
     subtitulo="Evento del mes"
   />
 
