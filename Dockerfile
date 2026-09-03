@@ -16,4 +16,9 @@ RUN wget -O /tmp/pb.zip \
 
 EXPOSE 8090
 
-CMD ["pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb_data"]
+CMD ["pocketbase", "s{
+  "data": {
+
+  },
+  "message": "File not found.",
+  "status": 404erve", "--http=0.0.0.0:8090", "--dir=/pb_data"]
