@@ -7,6 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "test:dal": "rm -rf tests/.dal-build && tsc -p tests/tsconfig.compile.json && node --test tests/dal.test.ts"
   },
   "dependencies": {
