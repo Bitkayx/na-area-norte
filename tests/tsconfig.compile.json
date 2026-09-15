@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".dal-build",
+    "rootDir": "../src/lib/dal",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "rewriteRelativeImportExtensions": true,
+    "verbatimModuleSyntax": false,
+    "skipLibCheck": true,
+    "types": []
+  },
+  "include": ["../src/lib/dal/**/*.ts"]
+}

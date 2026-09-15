@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:dal": "rm -rf tests/.dal-build && tsc -p tests/tsconfig.compile.json && node --test tests/dal.test.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
