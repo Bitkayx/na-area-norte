@@ -14,3 +14,12 @@ tags: ["invitaciones", "eventos", "area-norte"]
 ## Grupo Fe y Acción
 
 ![Invitacion Grupo Fe y Accion](../assets/blog/compartimientos/septiembre/grupo_fe_accion.jpg)
+
+## 2do Distrito
+
+![2do Distrito](../assets/blog/compartimientos/septiembre/2doDistrito_01.jpg)
+![2do Distrito](../assets/blog/compartimientos/septiembre/2doDistrito_02.jpg)
+
+## Area Norte
+
+![Area Norte](../assets/blog/compartimientos/septiembre/AreaNorte.jpg)
