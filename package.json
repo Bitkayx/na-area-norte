@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && cp -r src/assets/blog dist/assets/ 2>/dev/null || true",
+    "build": "astro build && mkdir -p dist/assets && cp -r src/assets/blog dist/assets/ 2>/dev/null || true",
     "preview": "astro preview",
     "astro": "astro"
   },
