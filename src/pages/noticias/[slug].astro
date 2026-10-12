@@ -27,9 +27,7 @@ if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso
       pubDate: pbPost.pubDate ?? undefined,
       description: pbPost.description,
       author: pbPost.author ?? "Área Norte",
-      image: pbPost.coverUrl
-        ? { url: pbPost.coverUrl, alt: pbPost.title }
-        : undefined,
+      image: undefined,
       tags: pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
     };
     const body = pbPost.body ?? "";
