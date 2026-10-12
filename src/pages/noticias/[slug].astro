@@ -18,8 +18,8 @@ let useHtml = false;
 let htmlBody = "";
 let ContentComp: any = null;
 
-if (slug === "fraterna_80") {
-  const pbPost = await dal.posts.getBySlug("fraterna_80");
+if (slug === "fraterna_80" || slug === "asamblea-mexicana") {
+  const pbPost = await dal.posts.getBySlug(slug);
   if (pbPost) {
     fm = {
       title: pbPost.title,
