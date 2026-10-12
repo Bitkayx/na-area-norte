@@ -18,7 +18,7 @@ let useHtml = false;
 let htmlBody = "";
 let ContentComp: any = null;
 
-if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso-regional-2026" || slug === "mave-2026" || slug === "encuentro-de-servidores" || slug === "invitaciones-marzo-2026" || slug === "invitaciones-abril-2026") {
+if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso-regional-2026" || slug === "mave-2026" || slug === "encuentro-de-servidores" || slug === "invitaciones-marzo-2026" || slug === "invitaciones-abril-2026" || slug === "invitaciones-mayo-2026") {
   const pbPost = await dal.posts.getBySlug(slug);
   if (pbPost) {
     fm = {
