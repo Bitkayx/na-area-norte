@@ -35,7 +35,7 @@ if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso
     const body = pbPost.body ?? "";
     if (body.trim()) {
       useHtml = true;
-      htmlBody = marked.parse(body);
+      htmlBody = marked.parse(body).replace(/src="\.\.\/assets\//g, 'src="/assets/');
     } else {
       fm = null; // fall back if empty
     }
