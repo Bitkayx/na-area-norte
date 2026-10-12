@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
 import { dal } from "../../lib/dal/index.ts";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -34,7 +35,7 @@ if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso
     const body = pbPost.body ?? "";
     if (body.trim()) {
       useHtml = true;
-      htmlBody = body;
+      htmlBody = marked.parse(body);
     } else {
       fm = null; // fall back if empty
     }
