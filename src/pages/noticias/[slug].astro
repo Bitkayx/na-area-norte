@@ -1,72 +1,63 @@
 ---
 import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
-
-/**
- * [slug] - Dynamic news post page
- *
- * Renders individual blog posts from the "blog" collection.
- * Uses getStaticPaths to generate all post pages at build time.
- *
- * @example
- * ```astro
- * // Automatically generates pages for all blog posts
- * // URL: /noticias/{slug}
- * ```
- */
-
-interface PostData {
-  /*
-   * @property {string} id - Unique post identifier
-   */
-  id: string;
-  /*
-   * @property {object} data - Post frontmatter data (title, description, image, etc.)
-   */
-  data: object;
-  /*
-   * @property {string} body - Raw markdown content
-   */
-  body: string;
-  /*
-   * @property {string} filePath - Path to the markdown file
-   */
-  filePath: string;
-  /*
-   * @property {string} digest - Content hash for caching
-   */
-  digest: string;
-  /*
-   * @property {object} rendered - Rendered HTML content
-   */
-  rendered: object;
-  /*
-   * @property {object} metadata - Post metadata (headings, readingTime, etc.)
-   */
-  metadata: object;
-}
-
-interface Props {
-  /*
-   * @property {PostData} post - Full post data from collection
-   */
-  post: PostData;
-  collection: string;
-}
+import { dal } from "../../lib/dal/index.ts";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-
   return posts.map((post: any) => ({
     params: { slug: post.id },
-    props: { post },
+    props: {},
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
----
+const { slug } = Astro.params;
 
-<MarkdownPostLayout frontmatter={post.data}>
-  <Content />
-</MarkdownPostLayout>
+let postData: any = null;
+let isDal = false;
+
+if (slug === "fraterna_80") {
+  const pbPost = await dal.posts.getBySlug("fraterna_80");
+  if (pbPost) {
+    const frontmatter = {
+      title: pbPost.title,
+      pubDate: pbPost.pubDate ?? undefined,
+      description: pbPost.description,
+      author: pbPost.author ?? "Área Norte",
+      image: pbPost.coverUrl
+        ? { url: pbPost.coverUrl, alt: pbPost.title }
+        : undefined,
+      tags: pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
+    };
+    const body = pbPost.body ?? "";
+    const bodyIsHtml = body.includes("<") && body.includes(">");
+    postData = { frontmatter, body, bodyIsHtml };
+    isDal = true;
+  }
+}
+
+if (!isDal) {
+  const posts = await getCollection("blog");
+  const post = posts.find((p: any) => p.id === slug);
+  if (!post) throw new Error(`Post not found: ${slug}`);
+  const { Content, headings, remarkPluginFrontmatter } = await render(post);
+  postData = { post, Content };
+  isDal = false;
+}
+---
+{isDal ? (
+  <MarkdownPostLayout frontmatter={postData.frontmatter}>
+    {postData.bodyIsHtml ? (
+      <div set:html={postData.body} />
+    ) : (
+      (() => {
+        const C = postData.Content;
+        return <C />;
+      })()
+    )}
+  </MarkdownPostLayout>
+) : (
+  <MarkdownPostLayout frontmatter={postData.post.data}>
+    <postData.Content />
+  </MarkdownPostLayout>
+)}
