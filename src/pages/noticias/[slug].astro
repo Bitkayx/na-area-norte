@@ -18,7 +18,7 @@ let useHtml = false;
 let htmlBody = "";
 let ContentComp: any = null;
 
-if (slug === "fraterna_80" || slug === "asamblea-mexicana") {
+if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso-regional-2026") {
   const pbPost = await dal.posts.getBySlug(slug);
   if (pbPost) {
     fm = {
