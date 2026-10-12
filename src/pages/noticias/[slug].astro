@@ -13,13 +13,15 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-let postData: any = null;
-let isDal = false;
+let fm: any = null;
+let useHtml = false;
+let htmlBody = "";
+let ContentComp: any = null;
 
 if (slug === "fraterna_80") {
   const pbPost = await dal.posts.getBySlug("fraterna_80");
   if (pbPost) {
-    const frontmatter = {
+    fm = {
       title: pbPost.title,
       pubDate: pbPost.pubDate ?? undefined,
       description: pbPost.description,
@@ -30,34 +32,24 @@ if (slug === "fraterna_80") {
       tags: pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
     };
     const body = pbPost.body ?? "";
-    const bodyIsHtml = body.includes("<") && body.includes(">");
-    postData = { frontmatter, body, bodyIsHtml };
-    isDal = true;
+    if (body.trim()) {
+      useHtml = true;
+      htmlBody = body;
+    } else {
+      fm = null; // fall back if empty
+    }
   }
 }
 
-if (!isDal) {
+if (!fm) {
   const posts = await getCollection("blog");
   const post = posts.find((p: any) => p.id === slug);
   if (!post) throw new Error(`Post not found: ${slug}`);
-  const { Content, headings, remarkPluginFrontmatter } = await render(post);
-  postData = { post, Content };
-  isDal = false;
+  fm = post.data;
+  const rendered = await render(post);
+  ContentComp = rendered.Content;
 }
 ---
-{isDal ? (
-  <MarkdownPostLayout frontmatter={postData.frontmatter}>
-    {postData.bodyIsHtml ? (
-      <div set:html={postData.body} />
-    ) : (
-      (() => {
-        const C = postData.Content;
-        return <C />;
-      })()
-    )}
-  </MarkdownPostLayout>
-) : (
-  <MarkdownPostLayout frontmatter={postData.post.data}>
-    <postData.Content />
-  </MarkdownPostLayout>
-)}
+<MarkdownPostLayout frontmatter={fm}>
+  {useHtml ? <div set:html={htmlBody} /> : <ContentComp />}
+</MarkdownPostLayout>

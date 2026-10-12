@@ -34,7 +34,12 @@ export function createPostRepository(): PostRepository {
       return all.slice(0, n);
     },
     async getBySlug(slug) {
-      return getOneRecord<Post, PostRecord>("posts", slug, mapPost, "tags,event");
+      const items = await listRecords<Post, PostRecord>("posts", mapPost, {
+        filter: `slug='${slug}'`,
+        perPage: 1,
+        expand: "tags,event",
+      });
+      return items[0];
     },
   };
 }
