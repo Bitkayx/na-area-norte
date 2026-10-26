@@ -18,6 +18,7 @@ const currentData = await dal.radio.getNext();
 const owner = currentData?.ownerIsAreaNorte
   ? "Área Norte"
   : currentData?.district?.name;
+const displayTime = currentData?.time ?? "13:00";
 const formattedDate = currentData?.broadcastDate?.toLocaleDateString("es-MX", {
   timeZone: "UTC",
   day: "numeric",
@@ -35,11 +36,7 @@ const formattedDate = currentData?.broadcastDate?.toLocaleDateString("es-MX", {
         Radiodifusora{formattedDate ? ` - ${formattedDate}:` : ":"}
       </span>
       <span>
-        {
-          owner
-            ? `${owner}${currentData?.time ? ` a las ${currentData.time}` : ""}`
-            : "Próximo rol por publicar"
-        }
+        {owner ? `${owner} a las ${displayTime}` : "Próximo rol por publicar"}
       </span>
     </div>
     <div class="flex items-center gap-3">

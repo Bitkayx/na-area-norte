@@ -37,6 +37,8 @@ El progreso temporal vive en `docs/migration/README.md`, no en este archivo.
   siendo un ámbito propio, pero no es un distrito. Identificar cada participación
   por su fecha exacta; el año debe confirmarse porque puede no venir en el mensaje.
   Si el rol mensual no indica hora, usar la hora operativa predeterminada `13:00`.
+  Las altas y ediciones ordinarias se realizan desde la administración de
+  PocketBase; los scripts son para preparación, migración y verificación.
 - Reflexiones permanece fuera de PocketBase, mediante Google Sheets, salvo
   decisión explícita posterior.
 - Posts y Events son entidades distintas. Evitar duplicar eventos presentes en

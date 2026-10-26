@@ -20,7 +20,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; literatura aún consume JSON.                         |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Radio                          | Octubre de 2026 aplicado. Se aprobó `13:00` como hora predeterminada; dry-run propone actualizar solo `time` en los 4 registros. Pendiente autorización de escritura.                                             |
+| Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -75,8 +75,9 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-DEFAULT-TIME-APPLY:** con autorización explícita, actualizar únicamente
-`time` a `13:00` en los cuatro registros de octubre y verificar idempotencia.
+**RADIO-NEXT-MONTH:** capturar el siguiente rol desde la administración de
+PocketBase, usando `13:00` salvo indicación distinta, y verificar el build. Para
+cargas asistidas por script se mantiene dry-run y autorización por mes.
 
 ## Mantenimiento
 

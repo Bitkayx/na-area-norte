@@ -78,9 +78,10 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   build remoto de 48 páginas mostró “26 de octubre: Área Norte” sin hora.
 - **RADIO-NEXT-MONTH — Operación recurrente.** Cada mensaje nuevo requiere año,
   preparación, dry-run, revisión y autorización propia antes de escribir.
-- **RADIO-DEFAULT-TIME — Pendiente de autorización.** Se estableció `13:00`
-  cuando el mensaje no contiene hora. El dry-run propone 4 updates de `time` y
-  ningún create; los demás campos permanecen iguales.
+- **RADIO-DEFAULT-TIME — Completa.** Tras autorización se actualizaron los cuatro
+  registros a `13:00`; el dry-run posterior quedó `UNCHANGED` y el build remoto
+  mostró “Área Norte a las 13:00”. El banner usa la misma hora si el campo queda
+  vacío. La operación editorial ordinaria se realiza desde PocketBase.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,

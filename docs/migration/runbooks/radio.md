@@ -69,3 +69,10 @@ Repetir sin `--apply`; todos los registros del mes deben quedar `UNCHANGED`.
 Octubre de 2026 se aplicó con autorización explícita: 4 creates, 0 updates. El
 dry-run posterior reportó 4 `UNCHANGED`; el build remoto mostró la participación
 del 26 de octubre de Área Norte sin inventar hora ni enlace.
+
+Después se aprobó `13:00` como hora predeterminada: se actualizaron los cuatro
+registros y la verificación quedó `UNCHANGED`. Para operación habitual, crear y
+editar desde la administración de PocketBase. Informar fecha, responsable y
+`13:00`, salvo que el rol indique otra hora; para Área Norte activar
+`ownerIsAreaNorte` y dejar `district` vacío, y para un distrito hacer lo inverso.
+El banner usa `13:00` como respaldo si el campo queda vacío.
