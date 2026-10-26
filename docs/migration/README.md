@@ -20,7 +20,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos; conserva JSON V1 como fallback. Radio y literatura aún consumen JSON.                                                                                   |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Radio                          | Análisis local completo. V2 comenzará con un calendario mensual limpio; el JSON de 52 semanas no se migrará como programación vigente. Falta decidir fecha o `year + week` antes de implementar.                 |
+| Radio                          | Análisis local completo. V2 comenzará con un calendario mensual limpio; el JSON histórico no se migrará como programación vigente. Se decidió identificar cada participación por fecha, con año explícito.      |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -75,9 +75,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-TEMPORAL-DECISION:** revisar un ejemplo representativo del mensaje
-mensual y elegir si la identidad de una emisión será su fecha o `year + week`.
-No cambiar schema ni contactar PocketBase durante esta decisión.
+**RADIO-LOCAL-DESIGN:** diseñar el cambio de modelo de semana a fecha y el
+capturador mensual, con año obligatorio, normalización limitada de responsables
+y dry-run por defecto. No modificar todavía el schema remoto ni contactar
+PocketBase.
 
 ## Mantenimiento
 

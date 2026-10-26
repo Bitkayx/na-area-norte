@@ -54,10 +54,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   mensuales; el JSON histórico no será su lote inicial. El único consumidor V1
   es el banner global. Solo se admiten distritos 1, 2, 4 y 5 o el ámbito Área
   Norte. Véase [análisis de radio](radio-analysis.md).
-- **RADIO-TEMPORAL-DECISION — Siguiente tarea.** Revisar un ejemplo del formato
-  mensual y elegir fecha o `year + week` como identidad. El schema actual solo
-  tiene semana única 1–52 y no distingue años. Cualquier cambio remoto requiere
-  revisión y autorización separadas.
+- **RADIO-TEMPORAL-DECISION — Completa.** El formato mensual incluye día y mes;
+  se eligió la fecha exacta como identidad. El capturador deberá exigir el año,
+  que no aparece en el ejemplo, y no inferirá hora ni enlace ausentes.
+- **RADIO-LOCAL-DESIGN — Siguiente tarea.** Diseñar el modelo por fecha y el
+  capturador mensual, normalizar únicamente variantes conocidas de los distritos
+  1, 2, 4 y 5 o Área Norte, y preparar tests y runbook. No cambiar todavía el
+  schema remoto ni contactar PocketBase.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,

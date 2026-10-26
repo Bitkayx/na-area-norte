@@ -36,10 +36,36 @@ implementar captura o poblar datos se debe decidir una identidad temporal:
 1. `year + week`, conservando el concepto semanal actual; o
 2. una fecha de emisión, si cada mensaje mensual proporciona la fecha exacta.
 
-La fecha es preferible si el dato de entrada la incluye: evita cálculos de semana
-incompatibles y permite mostrar directamente la próxima emisión. Si solo llega
-el número de semana, debe usarse `year + week`. Esta decisión puede requerir un
-cambio de schema y, por tanto, autorización explícita.
+El ejemplo real de entrada incluye día y mes, por lo que se adopta **fecha de
+emisión** como identidad. Evita cálculos de semana incompatibles y permite mostrar
+directamente la próxima emisión. El mensaje no incluye el año: la captura debe
+solicitarlo o recibirlo como parámetro explícito y mostrarlo en el dry-run. Esta
+decisión requiere revisar el schema antes de cualquier escritura y todo cambio
+remoto necesita autorización explícita.
+
+## Formato mensual observado
+
+Ejemplo recibido:
+
+```text
+5 Oct 1er Dto
+12 Oct 4to Dto
+19 Oct 5to Dto
+26 Oct Área Norte
+```
+
+Transformación esperada, una vez confirmado el año:
+
+| Día y mes | Responsable | Relación de distrito |
+| ---------- | ----------- | -------------------- |
+| 5 Oct      | Distrito 1  | Distrito 1           |
+| 12 Oct     | Distrito 4  | Distrito 4           |
+| 19 Oct     | Distrito 5  | Distrito 5           |
+| 26 Oct     | Área Norte  | Ninguna               |
+
+`Dto`, `1er`, `4to` y `5to` son variantes de entrada que se normalizan a los
+nombres anteriores. El mensaje no informa hora ni enlace; ambos quedan vacíos,
+sin conservar el valor `13:00` hardcodeado por el frontend actual.
 
 ## Flujo previsto
 
@@ -52,6 +78,6 @@ cambio de schema y, por tanto, autorización explícita.
 
 ## Pendiente inmediato
 
-Confirmar un ejemplo representativo del formato mensual y elegir identidad por
-fecha o por `year + week`. Después se podrá diseñar el capturador y su runbook
-sin depender del JSON histórico.
+Diseñar localmente el schema por fecha, el capturador y su runbook. El capturador
+debe exigir un año, aceptar las variantes observadas, rechazar responsables no
+vigentes y producir un dry-run sin inventar hora o enlace.
