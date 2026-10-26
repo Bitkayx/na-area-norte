@@ -65,3 +65,7 @@ node scripts/migrate-radio-schedule.mjs --year AAAA --input /ruta/al/mensaje.txt
 ```
 
 Repetir sin `--apply`; todos los registros del mes deben quedar `UNCHANGED`.
+
+Octubre de 2026 se aplicó con autorización explícita: 4 creates, 0 updates. El
+dry-run posterior reportó 4 `UNCHANGED`; el build remoto mostró la participación
+del 26 de octubre de Área Norte sin inventar hora ni enlace.

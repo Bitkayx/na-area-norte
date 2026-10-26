@@ -73,9 +73,11 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **RADIO-MONTHLY-DRY — Completa.** Para octubre de 2026 el plan crea cuatro
   fechas: 5/D1, 12/D4, 19/D5 y 26/Área Norte; 0 updates y conflictos. Hora,
   enlace y nota permanecen vacíos. No se realizaron escrituras.
-- **RADIO-MONTHLY-APPLY — Pendiente de autorización.** Crear solo esos cuatro
-  registros y repetir el dry-run hasta obtener cuatro `UNCHANGED`. No autoriza
-  calendarios posteriores.
+- **RADIO-MONTHLY-APPLY — Completa.** Tras autorización se crearon cuatro
+  registros. El dry-run posterior reportó 4 `UNCHANGED`, 0 creates/updates. El
+  build remoto de 48 páginas mostró “26 de octubre: Área Norte” sin hora.
+- **RADIO-NEXT-MONTH — Operación recurrente.** Cada mensaje nuevo requiere año,
+  preparación, dry-run, revisión y autorización propia antes de escribir.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,
