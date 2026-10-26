@@ -67,13 +67,16 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   único PATCH. La verificación confirmó `broadcastDate` requerido y único, sin
   `week`, y preservó campos, relación, índice de distrito y access rules. La
   colección continúa vacía.
-- **RADIO-DAL — Siguiente tarea.** Adaptar tipos, mapper, repositorio y tests a
-  fechas; exponer la próxima participación e integrar el banner con fallback
-  temporal. No crear registros remotos durante esta etapa.
+- **RADIO-DAL — Completa.** Tipos, mapper y repositorio consultan por fecha y
+  exponen la próxima participación. El banner usa DAL y no muestra el JSON
+  histórico. Pasaron 41/41 tests; builds local (32 páginas) y remoto (48) correctos.
+- **RADIO-MONTHLY-DRY — Siguiente tarea.** Confirmar el año del mensaje de
+  octubre, preparar cuatro registros y ejecutar un dry-run remoto idempotente.
+  Revisar el plan antes de solicitar autorización para escribir registros.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,
-  horarios y slugs; radio, 52 semanas y ámbito Área Norte; literatura, códigos y
+  horarios y slugs; radio, fechas y responsables mensuales; literatura, códigos y
   significado de `quantity`; eventos, ausencia de duplicados; settings, alcance.
   Reflexiones permanece fuera.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus

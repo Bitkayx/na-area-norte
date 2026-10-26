@@ -17,10 +17,10 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | Directorio integrado con DAL y validado contra 43 grupos; conserva JSON V1 como fallback. Radio y literatura aún consumen JSON.                                                                                   |
+| Frontend                       | Directorio integrado con DAL y validado contra 43 grupos. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; literatura aún consume JSON.                         |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Radio                          | Schema por fecha aplicado y verificado: `broadcastDate` requerido/único, demás campos, relación y reglas preservados. Colección vacía; aún no hay calendario mensual ni integración frontend.                     |
+| Radio                          | Schema por fecha y DAL/frontend completos. La colección sigue vacía; el banner muestra “Próximo rol por publicar”. Falta preparar, revisar y autorizar el primer calendario mensual.                              |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -75,9 +75,9 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-DAL:** adaptar tipos, mapper, repositorio y tests del DAL para consultar
-por fecha y obtener la próxima participación. Después integrar el banner con DAL
-y fallback temporal, sin crear todavía registros remotos.
+**RADIO-MONTHLY-DRY:** confirmar el año del mensaje de octubre, preparar sus
+cuatro participaciones y construir el reconciliador remoto dry-run por defecto.
+No escribir registros hasta revisar el plan y obtener autorización explícita.
 
 ## Mantenimiento
 

@@ -3,10 +3,7 @@ import type { Group, GroupRecord } from "../types/group.ts";
 import type { TagRecord } from "../types/tag.ts";
 import type { CategoryRecord } from "../types/category.ts";
 import type { RadioBroadcast, RadioBroadcastRecord } from "../types/radio.ts";
-import type {
-  Literature,
-  LiteratureRecord,
-} from "../types/literature.ts";
+import type { Literature, LiteratureRecord } from "../types/literature.ts";
 import { normalizeLocation } from "../types/location.ts";
 import { normalizeSchedules } from "../types/schedule.ts";
 
@@ -89,9 +86,12 @@ export function mapCategory(r: CategoryRecord) {
 
 /** Maps a raw `radio_broadcasts` record (+ optional expanded district). */
 export function mapRadioBroadcast(r: RadioBroadcastRecord): RadioBroadcast {
+  const parsedDate =
+    typeof r.broadcastDate === "string" ? new Date(r.broadcastDate) : null;
   const out: RadioBroadcast = {
     id: r.id,
-    week: num(r.week),
+    broadcastDate:
+      parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate : null,
     ownerIsAreaNorte: bool(r.ownerIsAreaNorte),
     time: nullableText(r.time),
     link: nullableText(r.link),

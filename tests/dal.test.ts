@@ -64,7 +64,9 @@ const ORIGINAL_FETCH = (globalThis as unknown as { fetch: unknown }).fetch;
  */
 function mockFetch(routes: Map<string, RouteHandler>): HttpCall[] {
   const calls: HttpCall[] = [];
-  (globalThis as unknown as { fetch: unknown }).fetch = async (input: RequestInfo | URL) => {
+  (globalThis as unknown as { fetch: unknown }).fetch = async (
+    input: RequestInfo | URL,
+  ) => {
     const href = String(input);
     const url = new URL(href);
     calls.push({ href, url });
@@ -82,7 +84,9 @@ function mockFetch(routes: Map<string, RouteHandler>): HttpCall[] {
         return handler(url);
       }
     }
-    throw new Error(`[test] unexpected fetch: ${href}. Register an explicit route or 404.`);
+    throw new Error(
+      `[test] unexpected fetch: ${href}. Register an explicit route or 404.`,
+    );
   };
   return calls;
 }
@@ -103,7 +107,10 @@ describe("client URL building", () => {
     assert.equal(normalizeBaseUrl("http://pb.test/"), "http://pb.test");
     assert.equal(normalizeBaseUrl("http://pb.test/_/"), "http://pb.test");
     assert.equal(normalizeBaseUrl("http://pb.test/_"), "http://pb.test");
-    assert.equal(normalizeBaseUrl("http://pb.test/_/nested"), "http://pb.test/_/nested");
+    assert.equal(
+      normalizeBaseUrl("http://pb.test/_/nested"),
+      "http://pb.test/_/nested",
+    );
     assert.equal(normalizeBaseUrl(""), "");
   });
 
@@ -125,7 +132,10 @@ describe("client URL building", () => {
     assert.equal(parsed.searchParams.get("sort"), "-pubDate");
     // The filter must round-trip exactly: URLSearchParams encodes it once and
     // decodes it once, so no manual encodeURI() may be applied on top.
-    assert.equal(parsed.searchParams.get("filter"), `status='published' && author != ""`);
+    assert.equal(
+      parsed.searchParams.get("filter"),
+      `status='published' && author != ""`,
+    );
     assert.equal(parsed.searchParams.get("expand"), "district,tags");
   });
 
@@ -157,8 +167,15 @@ describe("client URL building", () => {
     for (const [collection, filter] of cases) {
       const url = buildListUrl(collection, { filter });
       const parsed = new URL(url);
-      assert.equal(parsed.searchParams.get("filter"), filter, `${collection} filter`);
-      assert.ok(!url.includes("%25"), `${collection} filter must not be double-encoded`);
+      assert.equal(
+        parsed.searchParams.get("filter"),
+        filter,
+        `${collection} filter`,
+      );
+      assert.ok(
+        !url.includes("%25"),
+        `${collection} filter must not be double-encoded`,
+      );
     }
   });
 
@@ -184,17 +201,29 @@ describe("client URL building", () => {
       created: "",
       updated: "",
     };
-    assert.equal(resolveFile(record, "cover.jpg"), "http://pb.test/api/files/pbc_col/rec123/cover.jpg");
+    assert.equal(
+      resolveFile(record, "cover.jpg"),
+      "http://pb.test/api/files/pbc_col/rec123/cover.jpg",
+    );
     assert.equal(resolveFile(record, null), null);
     assert.equal(resolveFile(record, ""), null);
     assert.equal(resolveFile(record, undefined), null);
-    assert.equal(resolveFile(record, ["a.png", "b.png"]), "http://pb.test/api/files/pbc_col/rec123/a.png");
+    assert.equal(
+      resolveFile(record, ["a.png", "b.png"]),
+      "http://pb.test/api/files/pbc_col/rec123/a.png",
+    );
   });
 });
 
 describe("mapping (location, schedules, relations, M2M)", () => {
   test("normalizeLocation maps partial objects and defaults missing strings", () => {
-    const loc = normalizeLocation({ linea1: "Calle A", colonia: "Col B", ciudad: "CDMX", estado: "CDMX", mapQuery: "q" });
+    const loc = normalizeLocation({
+      linea1: "Calle A",
+      colonia: "Col B",
+      ciudad: "CDMX",
+      estado: "CDMX",
+      mapQuery: "q",
+    });
     assert.equal(loc.linea1, "Calle A");
     assert.equal(loc.referencias, "");
     assert.equal(loc.mapQuery, "q");
@@ -261,11 +290,21 @@ describe("mapping (location, schedules, relations, M2M)", () => {
         },
       },
     };
-    mockFetch(new Map([["http://pb.test/api/collections/posts/records", () => jsonResponse(200, { items: [record], totalItems: 1 })]]));
+    mockFetch(
+      new Map([
+        [
+          "http://pb.test/api/collections/posts/records",
+          () => jsonResponse(200, { items: [record], totalItems: 1 }),
+        ],
+      ]),
+    );
     const [post] = await listRecords("posts", mapPost, {});
     assert.equal(post.slug, "titulo");
     assert.equal(post.status, "published");
-    assert.equal(post.coverUrl, "http://pb.test/api/files/pbc_p/post1/portada.jpg");
+    assert.equal(
+      post.coverUrl,
+      "http://pb.test/api/files/pbc_p/post1/portada.jpg",
+    );
     assert.deepEqual(post.tagIds, ["tagA", "tagB"]);
     assert.equal(post.tags.length, 2);
     assert.equal(post.tags[0].slug, "eventos");
@@ -283,7 +322,13 @@ describe("mapping (location, schedules, relations, M2M)", () => {
       updated: "",
       name: "Serenidad",
       slug: "serenidad-d2",
-      location: { linea1: "Av 3-A", colonia: "Santa Rosa", ciudad: "GAM", estado: "CDMX", mapQuery: "q" },
+      location: {
+        linea1: "Av 3-A",
+        colonia: "Santa Rosa",
+        ciudad: "GAM",
+        estado: "CDMX",
+        mapQuery: "q",
+      },
       schedules: [{ days: [1, 3, 5], startTime: "19:00", endTime: "20:30" }],
       scheduleText: "Lunes, Miércoles y Viernes",
       notes: null,
@@ -303,7 +348,14 @@ describe("mapping (location, schedules, relations, M2M)", () => {
         },
       },
     };
-    mockFetch(new Map([["http://pb.test/api/collections/groups/records", () => jsonResponse(200, { items: [record], totalItems: 1 })]]));
+    mockFetch(
+      new Map([
+        [
+          "http://pb.test/api/collections/groups/records",
+          () => jsonResponse(200, { items: [record], totalItems: 1 }),
+        ],
+      ]),
+    );
     const [group] = await listRecords("groups", mapGroup, {});
     assert.equal(group.districtId, "d2");
     assert.equal(group.district?.number, 2);
@@ -321,8 +373,18 @@ describe("PocketBase HTTP behavior (mocked fetch)", () => {
       totalPages: 3,
       items: [],
     };
-    mockFetch(new Map([["http://pb.test/api/collections/tags/records", () => jsonResponse(200, body)]]));
-    const raw = await listRecordsPaginated("tags", () => ({}), { page: 2, perPage: 10 });
+    mockFetch(
+      new Map([
+        [
+          "http://pb.test/api/collections/tags/records",
+          () => jsonResponse(200, body),
+        ],
+      ]),
+    );
+    const raw = await listRecordsPaginated("tags", () => ({}), {
+      page: 2,
+      perPage: 10,
+    });
     assert.equal(raw.totalItems, 25);
     assert.equal(raw.totalPages, 3);
     assert.equal(raw.page, 2);
@@ -332,8 +394,14 @@ describe("PocketBase HTTP behavior (mocked fetch)", () => {
   test("getOneRecord returns undefined on 404, throws on 500", async () => {
     mockFetch(
       new Map([
-        ["http://pb.test/api/collections/events/records/absent", () => jsonResponse(404, {})],
-        ["http://pb.test/api/collections/events/records/boom", () => jsonResponse(500, {})],
+        [
+          "http://pb.test/api/collections/events/records/absent",
+          () => jsonResponse(404, {}),
+        ],
+        [
+          "http://pb.test/api/collections/events/records/boom",
+          () => jsonResponse(500, {}),
+        ],
       ]),
     );
     assert.equal(await getOneRecord("events", "absent", mapEvent), undefined);
@@ -341,15 +409,28 @@ describe("PocketBase HTTP behavior (mocked fetch)", () => {
   });
 
   test("HTTP errors are thrown, not swallowed into []", async () => {
-    mockFetch(new Map([["http://pb.test/api/collections/posts/records", () => jsonResponse(500, {})]]));
-    await assert.rejects(() => listRecords("posts", mapPost, {}), /500|Network/);
+    mockFetch(
+      new Map([
+        [
+          "http://pb.test/api/collections/posts/records",
+          () => jsonResponse(500, {}),
+        ],
+      ]),
+    );
+    await assert.rejects(
+      () => listRecords("posts", mapPost, {}),
+      /500|Network/,
+    );
   });
 
   test("network failure is wrapped and thrown", async () => {
     (globalThis as unknown as { fetch: unknown }).fetch = async () => {
       throw new TypeError("boom");
     };
-    await assert.rejects(() => listRecords("posts", mapPost, {}), /Network error/);
+    await assert.rejects(
+      () => listRecords("posts", mapPost, {}),
+      /Network error/,
+    );
   });
 });
 
@@ -374,7 +455,10 @@ describe("unconfigured behavior (no PUBLIC_POCKETBASE_URL)", () => {
 
   test("strict mode throws when PUBLIC_POCKETBASE_URL is missing", () => {
     mockFetch(new Map());
-    assert.throws(() => createDal({ strictMode: true }), /PUBLIC_POCKETBASE_URL/);
+    assert.throws(
+      () => createDal({ strictMode: true }),
+      /PUBLIC_POCKETBASE_URL/,
+    );
   });
 
   test("unconfigured siteSettings singleton returns undefined", async () => {
@@ -407,13 +491,23 @@ describe("site_settings singleton via repository", () => {
         { label: "Directorio", href: "/directorio/" },
       ],
     };
-    mockFetch(new Map([["http://pb.test/api/collections/site_settings/records", () => jsonResponse(200, { items: [record], totalItems: 1 })]]));
+    mockFetch(
+      new Map([
+        [
+          "http://pb.test/api/collections/site_settings/records",
+          () => jsonResponse(200, { items: [record], totalItems: 1 }),
+        ],
+      ]),
+    );
     const dal2 = createDal();
     const settings = await dal2.siteSettings.get();
     assert.ok(settings);
     assert.equal(settings.siteName, "NA Área Norte CDMX");
     assert.equal(settings.mapEmbedUrl, "https://maps.example");
-    assert.equal(settings.logoUrl, "http://pb.test/api/files/pbc_s/s1/logo.png");
+    assert.equal(
+      settings.logoUrl,
+      "http://pb.test/api/files/pbc_s/s1/logo.png",
+    );
     assert.deepEqual(settings.navigation, [
       { label: "Inicio", href: "/" },
       { label: "Directorio", href: "/directorio/" },
@@ -462,7 +556,10 @@ describe("getBySlug respects publication/active status", () => {
     assert.equal(p?.status, "published");
     // The status predicate must travel to the server: without it the query
     // could match drafts (and this test would pass vacuously).
-    assert.equal(calls[0].url.searchParams.get("filter"), "status='published'&&slug=\"publicado\"");
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      "status='published'&&slug=\"publicado\"",
+    );
   });
 
   test("posts.getBySlug returns undefined if only draft exists", async () => {
@@ -526,7 +623,10 @@ describe("getBySlug respects publication/active status", () => {
     const e = await dal.events.getBySlug("activo");
     assert.equal(e?.slug, "activo");
     assert.equal(e?.status, "active");
-    assert.equal(calls[0].url.searchParams.get("filter"), "status='active'&&slug=\"activo\"");
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      "status='active'&&slug=\"activo\"",
+    );
   });
 
   test("events.getBySlug returns undefined if inactive", async () => {
@@ -556,7 +656,10 @@ describe("getBySlug respects publication/active status", () => {
 describe("filter value escaping", () => {
   test("escapeFilterValue serializes like the JS SDK pb.filter() (JSON string)", () => {
     assert.equal(escapeFilterValue("eventos"), '"eventos"');
-    assert.equal(escapeFilterValue("x' || status='draft"), '"x\' || status=\'draft"'); // ' taken literally inside ""
+    assert.equal(
+      escapeFilterValue("x' || status='draft"),
+      "\"x' || status='draft\"",
+    ); // ' taken literally inside ""
     assert.equal(escapeFilterValue('say "hi"'), '"say \\"hi\\""');
     assert.equal(escapeFilterValue("te\\st"), '"te\\\\st"');
     assert.equal(escapeFilterValue("a\nb"), '"a\\nb"');
@@ -718,7 +821,10 @@ describe("filter value escaping", () => {
     assert.equal(tag.name, "Eventos");
     assert.equal(tag.slug, "eventos");
     // GET by id route must NOT be used for slugs
-    assert.equal(new URL(calls[0].href).pathname, "/api/collections/tags/records");
+    assert.equal(
+      new URL(calls[0].href).pathname,
+      "/api/collections/tags/records",
+    );
     assert.equal(calls[0].url.searchParams.get("filter"), 'slug="eventos"');
   });
 
@@ -726,7 +832,10 @@ describe("filter value escaping", () => {
     const slug = 'o"brien\\';
     const routes = new Map([
       [
-        buildListUrl("tags", { filter: `slug=${escapeFilterValue(slug)}`, perPage: 1 }),
+        buildListUrl("tags", {
+          filter: `slug=${escapeFilterValue(slug)}`,
+          perPage: 1,
+        }),
         () =>
           jsonResponse(200, {
             page: 1,
@@ -740,13 +849,27 @@ describe("filter value escaping", () => {
     const calls = mockFetch(routes);
     const tag = await dal.tags.getBySlug(slug);
     assert.equal(tag, undefined);
-    assert.equal(calls[0].url.searchParams.get("filter"), `slug=${escapeFilterValue(slug)}`);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      `slug=${escapeFilterValue(slug)}`,
+    );
   });
 });
 
 describe("pagination (real getAll/getRecent/getNext contracts)", () => {
-  function pageBody(items: unknown[], page: number, perPage: number, totalPages: number) {
-    return { page, perPage, totalItems: (page - 1) * perPage + items.length, totalPages, items };
+  function pageBody(
+    items: unknown[],
+    page: number,
+    perPage: number,
+    totalPages: number,
+  ) {
+    return {
+      page,
+      perPage,
+      totalItems: (page - 1) * perPage + items.length,
+      totalPages,
+      items,
+    };
   }
 
   const postRecord = (id: string) => ({
@@ -758,7 +881,7 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
     title: `Publicación ${id}`,
     slug: id,
     status: "published",
-    pubDate: `2025-0${id.charCodeAt(id.length - 1) % 8 + 1}-01`,
+    pubDate: `2025-0${(id.charCodeAt(id.length - 1) % 8) + 1}-01`,
     body: `cuerpo ${id}`,
   });
 
@@ -787,10 +910,14 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
     ]);
     const calls = mockFetch(routes);
     const mapped: string[] = [];
-    const items = await listAllRecords("demo", (r) => {
-      mapped.push(String((r as { id: string }).id));
-      return (r as { id: string }).id;
-    }, { perPage: 2 });
+    const items = await listAllRecords(
+      "demo",
+      (r) => {
+        mapped.push(String((r as { id: string }).id));
+        return (r as { id: string }).id;
+      },
+      { perPage: 2 },
+    );
     assert.deepEqual(items, ["a", "b", "c"]);
     assert.equal(calls.length, 2);
     assert.equal(calls[0].url.searchParams.get("page"), "1");
@@ -805,7 +932,11 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
       ],
     ]);
     const calls = mockFetch(routes);
-    const items = await listAllRecords("solo", (r) => (r as { id: string }).id, { perPage: 10 });
+    const items = await listAllRecords(
+      "solo",
+      (r) => (r as { id: string }).id,
+      { perPage: 10 },
+    );
     assert.deepEqual(items, ["a"]);
     assert.equal(calls.length, 1);
   });
@@ -831,7 +962,11 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
           page: 1,
           perPage: MAX_PER_PAGE,
         }),
-        () => jsonResponse(200, pageBody([make("l1"), make("l2")], 1, MAX_PER_PAGE, 2)),
+        () =>
+          jsonResponse(
+            200,
+            pageBody([make("l1"), make("l2")], 1, MAX_PER_PAGE, 2),
+          ),
       ],
       [
         buildListUrl("literature", {
@@ -846,10 +981,16 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
     ]);
     const calls = mockFetch(routes);
     const all = await dal.literature.getAll();
-    assert.deepEqual(all.map((l) => l.id), ["l1", "l2", "l3"]);
+    assert.deepEqual(
+      all.map((l) => l.id),
+      ["l1", "l2", "l3"],
+    );
     assert.equal(calls.length, 2);
     assert.equal(calls[1].url.searchParams.get("page"), "2");
-    assert.equal(calls[0].url.searchParams.get("perPage"), String(MAX_PER_PAGE));
+    assert.equal(
+      calls[0].url.searchParams.get("perPage"),
+      String(MAX_PER_PAGE),
+    );
   });
 
   test("posts.getRecent(n) keeps requesting pages until it has n items", async () => {
@@ -862,7 +1003,11 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
           page: 1,
           perPage: 3,
         }),
-        () => jsonResponse(200, pageBody([postRecord("p1"), postRecord("p2")], 1, 3, 2)),
+        () =>
+          jsonResponse(
+            200,
+            pageBody([postRecord("p1"), postRecord("p2")], 1, 3, 2),
+          ),
       ],
       [
         buildListUrl("posts", {
@@ -878,7 +1023,10 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
     const calls = mockFetch(routes);
     const recent = await dal.posts.getRecent(3);
     assert.equal(recent.length, 3);
-    assert.deepEqual(recent.map((p) => p.id), ["p1", "p2", "p3"]);
+    assert.deepEqual(
+      recent.map((p) => p.id),
+      ["p1", "p2", "p3"],
+    );
     assert.equal(calls.length, 2);
   });
 
@@ -900,7 +1048,18 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
           perPage: 200,
         }),
         () =>
-          jsonResponse(200, pageBody([eventRecord("e0", "2020-01-01"), eventRecord("e1", "2020-02-01")], 1, 200, 2)),
+          jsonResponse(
+            200,
+            pageBody(
+              [
+                eventRecord("e0", "2020-01-01"),
+                eventRecord("e1", "2020-02-01"),
+              ],
+              1,
+              200,
+              2,
+            ),
+          ),
       ],
       [
         buildListUrl("events", {
@@ -909,7 +1068,11 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
           page: 2,
           perPage: 200,
         }),
-        () => jsonResponse(200, pageBody([eventRecord("e2", "2100-01-01")], 2, 200, 2)),
+        () =>
+          jsonResponse(
+            200,
+            pageBody([eventRecord("e2", "2100-01-01")], 2, 200, 2),
+          ),
       ],
     ]);
     const calls = mockFetch(routes);
@@ -920,14 +1083,14 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
   });
 });
 
-describe("radio repository (week contract 1..52)", () => {
-  const radioRecord = (id: string, week: number) => ({
+describe("radio repository (date contract)", () => {
+  const radioRecord = (id: string, broadcastDate: string) => ({
     id,
     collectionId: "pbc_r",
     collectionName: "radio_broadcasts",
     created: "",
     updated: "",
-    week,
+    broadcastDate,
     ownerIsAreaNorte: false,
     time: "19:00",
     link: null,
@@ -935,107 +1098,68 @@ describe("radio repository (week contract 1..52)", () => {
     district: "d2",
   });
 
-  test("getByWeek returns the mapped broadcast and expands district", async () => {
+  test("getByDate returns the mapped broadcast and expands district", async () => {
+    const date = "2026-10-12";
+    const filter = `broadcastDate=${escapeFilterValue(`${date} 00:00:00.000Z`)}`;
     const routes = new Map([
       [
-        buildListUrl("radio_broadcasts", { filter: "week=13", expand: "district", perPage: 1 }),
+        buildListUrl("radio_broadcasts", {
+          filter,
+          expand: "district",
+          perPage: 1,
+        }),
         () =>
           jsonResponse(200, {
             page: 1,
             perPage: 1,
             totalItems: 1,
             totalPages: 1,
-            items: [radioRecord("r13", 13)],
+            items: [radioRecord("r12", "2026-10-12 00:00:00.000Z")],
           }),
       ],
     ]);
     const calls = mockFetch(routes);
-    const b = await dal.radio.getByWeek(13);
-    assert.ok(b);
-    assert.equal(b.week, 13);
-    assert.equal(b.districtId, "d2");
-    assert.equal(calls[0].url.searchParams.get("filter"), "week=13");
+    const result = await dal.radio.getByDate(date);
+    assert.ok(result?.broadcastDate instanceof Date);
+    assert.equal(
+      result?.broadcastDate?.toISOString(),
+      "2026-10-12T00:00:00.000Z",
+    );
+    assert.equal(result?.districtId, "d2");
     assert.equal(calls[0].url.searchParams.get("expand"), "district");
   });
 
-  test("getByWeek rejects non-integers and weeks outside 1..52 without fetching", async () => {
-    const calls = mockFetch(new Map());
-    assert.equal(await dal.radio.getByWeek(0), undefined);
-    assert.equal(await dal.radio.getByWeek(53), undefined);
-    assert.equal(await dal.radio.getByWeek(2.5), undefined);
-    assert.equal(calls.length, 0);
-  });
-
-  test("getByWeeks honors non-consecutive weeks exactly (no range expansion)", async () => {
+  test("getNext requests the earliest participation on or after a date", async () => {
+    const date = "2026-10-13";
+    const filter = `broadcastDate>=${escapeFilterValue(`${date} 00:00:00.000Z`)}`;
     const routes = new Map([
       [
         buildListUrl("radio_broadcasts", {
-          filter: "(week=1 || week=3)",
+          filter,
           expand: "district",
-          perPage: MAX_PER_PAGE,
-          sort: "week",
+          perPage: 1,
+          sort: "broadcastDate,id",
         }),
         () =>
           jsonResponse(200, {
             page: 1,
-            perPage: MAX_PER_PAGE,
-            totalItems: 2,
+            perPage: 1,
+            totalItems: 1,
             totalPages: 1,
-            items: [radioRecord("r1", 1), radioRecord("r3", 3)],
+            items: [radioRecord("r19", "2026-10-19 00:00:00.000Z")],
           }),
       ],
     ]);
     const calls = mockFetch(routes);
-    const result = await dal.radio.getByWeeks([1, 3]);
-    assert.equal(result.length, 2);
-    assert.equal(result[0].week, 1);
-    assert.equal(result[1].week, 3);
-    assert.equal(
-      calls[0].url.searchParams.get("filter"),
-      "(week=1 || week=3)",
-      "must be an exact week set, not a range",
-    );
+    const result = await dal.radio.getNext(date);
+    assert.equal(result?.id, "r19");
+    assert.equal(calls[0].url.searchParams.get("sort"), "broadcastDate,id");
   });
 
-  test("getByWeeks dedupes, sorts, and ignores out-of-domain weeks", async () => {
-    const routes = new Map([
-      [
-        buildListUrl("radio_broadcasts", {
-          filter: "(week=1 || week=3 || week=52)",
-          expand: "district",
-          perPage: MAX_PER_PAGE,
-          sort: "week",
-        }),
-        () =>
-          jsonResponse(200, {
-            page: 1,
-            perPage: MAX_PER_PAGE,
-            totalItems: 3,
-            totalPages: 1,
-            items: [radioRecord("r1", 1), radioRecord("r3", 3), radioRecord("r52", 52)],
-          }),
-      ],
-    ]);
-    const calls = mockFetch(routes);
-    const result = await dal.radio.getByWeeks([52, 3, 3, 1, 53, 0]);
-    assert.deepEqual(result.map((r) => r.week), [1, 3, 52]);
-    assert.equal(
-      calls[0].url.searchParams.get("filter"),
-      "(week=1 || week=3 || week=52)",
-    );
-  });
-
-  test("getByWeeks([]) returns [] without querying", async () => {
+  test("invalid calendar dates return undefined without fetching", async () => {
     const calls = mockFetch(new Map());
-    const result = await dal.radio.getByWeeks([]);
-    assert.deepEqual(result, []);
-    assert.equal(calls.length, 0);
-  });
-
-  test("getByWeeks with only out-of-domain weeks returns [] without querying", async () => {
-    const calls = mockFetch(new Map());
-    const result = await dal.radio.getByWeeks([0, 53, 99]);
-    assert.deepEqual(result, []);
+    assert.equal(await dal.radio.getByDate("2026-02-30"), undefined);
+    assert.equal(await dal.radio.getNext("not-a-date"), undefined);
     assert.equal(calls.length, 0);
   });
 });
