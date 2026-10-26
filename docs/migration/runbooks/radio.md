@@ -39,6 +39,11 @@ Dry-run remoto del 2026-10-26: la colección está vacía y el plan contiene un
 `broadcastDate`/`idx_radio_date`. Conserva todos los demás campos, relación,
 índices y access rules. No se realizaron escrituras.
 
+Aplicación del 2026-10-26: tras autorización explícita se ejecutó el único PATCH.
+La inspección posterior confirmó `broadcastDate` requerido, índice único
+`idx_radio_date`, relación e índice de distrito intactos y las mismas access
+rules. La colección permaneció vacía; esta autorización no incluyó registros.
+
 ## Dry-run remoto y apply
 
 El reconciliador remoto se implementará después de aprobar el schema. Deberá

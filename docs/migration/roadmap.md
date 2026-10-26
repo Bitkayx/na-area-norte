@@ -63,8 +63,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **RADIO-SCHEMA-REVIEW — Completa.** Tests locales y dry-run remoto confirmaron
   colección vacía. El plan hace un único PATCH: reemplaza `week` requerido por
   `broadcastDate` requerido y su índice único; conserva campos, relación y reglas.
-- **RADIO-SCHEMA-APPLY — Pendiente de autorización.** Aplicar el PATCH revisado
-  y verificar el schema. Esta autorización no incluye crear registros mensuales.
+- **RADIO-SCHEMA-APPLY — Completa.** Tras autorización explícita se aplicó un
+  único PATCH. La verificación confirmó `broadcastDate` requerido y único, sin
+  `week`, y preservó campos, relación, índice de distrito y access rules. La
+  colección continúa vacía.
+- **RADIO-DAL — Siguiente tarea.** Adaptar tipos, mapper, repositorio y tests a
+  fechas; exponer la próxima participación e integrar el banner con fallback
+  temporal. No crear registros remotos durante esta etapa.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,

@@ -20,7 +20,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos; conserva JSON V1 como fallback. Radio y literatura aún consumen JSON.                                                                                   |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Radio                          | Capturador y cambio de schema preparados localmente. Dry-run remoto confirmó colección vacía y un único PATCH propuesto: `week` → `broadcastDate` e índice equivalente. No se realizaron escrituras.              |
+| Radio                          | Schema por fecha aplicado y verificado: `broadcastDate` requerido/único, demás campos, relación y reglas preservados. Colección vacía; aún no hay calendario mensual ni integración frontend.                     |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -75,10 +75,9 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-SCHEMA-APPLY:** con autorización explícita, aplicar el único PATCH
-revisado que reemplaza `week` por `broadcastDate`, conserva los demás campos,
-relación y reglas, y reemplaza el índice único. Después verificar el schema antes
-de preparar DAL y registros.
+**RADIO-DAL:** adaptar tipos, mapper, repositorio y tests del DAL para consultar
+por fecha y obtener la próxima participación. Después integrar el banner con DAL
+y fallback temporal, sin crear todavía registros remotos.
 
 ## Mantenimiento
 
