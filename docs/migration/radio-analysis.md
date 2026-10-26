@@ -43,6 +43,20 @@ solicitarlo o recibirlo como parámetro explícito y mostrarlo en el dry-run. Es
 decisión requiere revisar el schema antes de cualquier escritura y todo cambio
 remoto necesita autorización explícita.
 
+La inspección autenticada y de solo lectura del 2026-10-26 confirmó el schema
+remoto: `week` numérico requerido, índice único `idx_radio_week`, campos
+opcionales `ownerIsAreaNorte`, `time`, `link`, `note` y relación opcional
+`district`; list/view son públicas y create/update/delete no son públicas.
+
+Propuesta mínima para revisión:
+
+- añadir `broadcastDate` como fecha requerida;
+- crear un índice único para `broadcastDate`;
+- retirar `week` y su índice cuando se confirme que la colección no contiene
+  datos que deban conservarse;
+- conservar los demás campos y la relación actual;
+- actualizar DAL y frontend en el mismo cambio local que acompañe al schema.
+
 ## Formato mensual observado
 
 Ejemplo recibido:
@@ -57,11 +71,11 @@ Ejemplo recibido:
 Transformación esperada, una vez confirmado el año:
 
 | Día y mes | Responsable | Relación de distrito |
-| ---------- | ----------- | -------------------- |
-| 5 Oct      | Distrito 1  | Distrito 1           |
-| 12 Oct     | Distrito 4  | Distrito 4           |
-| 19 Oct     | Distrito 5  | Distrito 5           |
-| 26 Oct     | Área Norte  | Ninguna               |
+| --------- | ----------- | -------------------- |
+| 5 Oct     | Distrito 1  | Distrito 1           |
+| 12 Oct    | Distrito 4  | Distrito 4           |
+| 19 Oct    | Distrito 5  | Distrito 5           |
+| 26 Oct    | Área Norte  | Ninguna              |
 
 `Dto`, `1er`, `4to` y `5to` son variantes de entrada que se normalizan a los
 nombres anteriores. El mensaje no informa hora ni enlace; ambos quedan vacíos,

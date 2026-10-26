@@ -12,15 +12,15 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                   |
+| DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
 | Noticias                       | 13 Markdown y 13 slugs contemplados en `src/pages/noticias/[slug].astro`. El detalle usa DAL con fallback a Markdown; `getStaticPaths()` aún depende de V1. No equivale a certificar los registros remotos.       |
-| Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                  |
+| Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos; conserva JSON V1 como fallback. Radio y literatura aún consumen JSON.                                                                                   |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Radio                          | Análisis local completo. V2 comenzará con un calendario mensual limpio; el JSON histórico no se migrará como programación vigente. Se decidió identificar cada participación por fecha, con año explícito.      |
+| Radio                          | Diseño local del capturador completo; 4/4 tests. El schema remoto aún usa semana única 1–52. Se propone fecha requerida y única, pendiente de revisar y autorizar; no se realizaron escrituras.                   |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -75,10 +75,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-LOCAL-DESIGN:** diseñar el cambio de modelo de semana a fecha y el
-capturador mensual, con año obligatorio, normalización limitada de responsables
-y dry-run por defecto. No modificar todavía el schema remoto ni contactar
-PocketBase.
+**RADIO-SCHEMA-REVIEW:** revisar el cambio exacto de `week` a `broadcastDate`,
+confirmar mediante lectura que no existan registros que deban conservarse y
+preparar el cambio del DAL. No modificar el schema hasta obtener autorización
+explícita para ese plan.
 
 ## Mantenimiento
 

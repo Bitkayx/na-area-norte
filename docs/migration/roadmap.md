@@ -57,10 +57,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **RADIO-TEMPORAL-DECISION — Completa.** El formato mensual incluye día y mes;
   se eligió la fecha exacta como identidad. El capturador deberá exigir el año,
   que no aparece en el ejemplo, y no inferirá hora ni enlace ausentes.
-- **RADIO-LOCAL-DESIGN — Siguiente tarea.** Diseñar el modelo por fecha y el
-  capturador mensual, normalizar únicamente variantes conocidas de los distritos
-  1, 2, 4 y 5 o Área Norte, y preparar tests y runbook. No cambiar todavía el
-  schema remoto ni contactar PocketBase.
+- **RADIO-LOCAL-DESIGN — Completo.** El capturador exige año, normaliza solo
+  variantes conocidas, rechaza distritos inexistentes y genera un plan local sin
+  contactar PocketBase. Pasaron 4/4 tests. Existe un runbook específico.
+- **RADIO-SCHEMA-REVIEW — Siguiente tarea.** El schema remoto inspeccionado aún
+  usa `week` requerido y único. Revisar el cambio exacto a `broadcastDate`,
+  confirmar que no haya registros por conservar y preparar DAL/frontend. No
+  modificar el schema sin autorización explícita.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,

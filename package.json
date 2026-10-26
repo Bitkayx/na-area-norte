@@ -10,7 +10,8 @@
     "astro": "astro",
     "test:dal": "tsc -p tests/tsconfig.compile.json && node --test tests/dal.test.ts",
     "test:migrate-districts": "node --test tests/migrate-districts.test.mjs",
-    "test:migrate-groups": "node --test tests/migrate-groups.test.mjs"
+    "test:migrate-groups": "node --test tests/migrate-groups.test.mjs",
+    "test:prepare-radio": "node --test tests/prepare-radio-schedule.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
