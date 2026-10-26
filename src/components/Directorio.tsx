@@ -1,4 +1,5 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
+import type { ChangeEvent } from "react";
 import type { Grupo } from "../types/grupo.ts";
 
 /**
@@ -16,24 +17,28 @@ import type { Grupo } from "../types/grupo.ts";
 // Loads group data from JSON files in ../data/grupos/
 const gruposData = Object.values(
   import.meta.glob("../data/grupos/*.json", { eager: true }),
-).flatMap((m: any) => m.default) as Grupo[];
+)
+  .flatMap((m: any) => m.default)
+  .filter((group: Grupo) => !group.id.endsWith("-distrito")) as Grupo[];
 
-export default function Directorio() {
+interface DirectorioProps {
+  /** V2 data provided by Astro. Empty means use the preserved V1 fallback. */
+  groups?: Grupo[];
+}
+
+export default function Directorio({ groups = [] }: DirectorioProps) {
+  const sourceGroups = groups.length > 0 ? groups : gruposData;
   // Internal component states
   const [searchText, setSearchText] = useState<string>(""); // Search input text
   const [district, setDistrict] = useState<string>(""); // Selected district filter
   const [selectedGroup, setSelectedGroup] = useState<Grupo | null>(null); // Selected group for details
-  const [allGroups, setAllGroups] = useState<Grupo[]>([]); // All loaded groups
+  const [allGroups] = useState<Grupo[]>(sourceGroups); // PB data or V1 fallback
   const [isSearchMode, setIsSearchMode] = useState<boolean>(false); // Search mode active
   const [searchResults, setSearchResults] = useState<Grupo[]>([]); // Search results
   const [showMap, setShowMap] = useState<boolean>(false); // Show map flag
 
   // Available districts
   const districts = ["1", "2", "4", "5"];
-
-  useEffect(() => {
-    setAllGroups(gruposData);
-  }, []);
 
   // Filters groups by district
   const filteredGroups = useMemo(() => {

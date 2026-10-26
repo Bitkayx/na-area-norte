@@ -11,6 +11,10 @@ Sitio web informativo para **Neuróticos Anónimos Área Norte CDMX** — un pro
 
 ![Captura del Sitio](./na-area-norte-ss-01.png)
 
+## Migración V2
+
+Consultar el [estado actual](docs/migration/README.md) y el [roadmap](docs/migration/roadmap.md). Las referencias a cinco distritos de este README están pendientes de corrección; el dominio aprobado contempla únicamente 1, 2, 4 y 5.
+
 ## Características
 
 - **Diseño Responsivo** — Interfaz accesible en todos los dispositivos

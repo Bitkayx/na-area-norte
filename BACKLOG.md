@@ -1,3 +1,6 @@
+> Planificación histórica: las casillas y el estado de este archivo no están sincronizados.
+> Para el avance vigente y la siguiente tarea, consultar [estado de migración](docs/migration/README.md) y [roadmap](docs/migration/roadmap.md).
+
 # NA Área Norte — V2 Architecture & CMS
 
 > [!info] Objetivo

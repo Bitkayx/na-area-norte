@@ -1,24 +1,19 @@
-# Architecture
+# Arquitectura
 
-## Current version
+Astro + DAL + PocketBase es la arquitectura objetivo V2; el frontend continúa
+su transición. Consultar el [estado de migración](../migration/README.md).
 
-V2
+## Decisiones existentes
 
-## Documents
+- [ADR-001 — Migración V1 a V2](../adr/ADR-001-v1-to-v2.md)
+- [ADR-002 — PocketBase](../adr/ADR-002-pocketbase.md)
+- [ADR-003 — Modelo de dominio](../adr/ADR-003-domain-model.md)
+- [ADR-004 — Separación District/Group](../adr/ADR-004-district-group-separation.md)
 
-### Architecture
+## Documentación incompleta
 
-- [System Architecture](./system-architecture.md)
-- [Domain Model](./domain-model.md)
-- [Data Model](./data-model.md)
-
-### ADRs
-
-- [ADR-001 — V1 to V2 Migration](./adr/ADR-001-v1-to-v2.md)
-- [ADR-002 — PocketBase](./adr/ADR-002-pocketbase.md)
-
-### Diagrams
-
-Architecture diagrams are stored in:
-
-`./diagrams/`
+`domain-model.md` existe pero está vacío. No están presentes
+`system-architecture.md`, `data-model.md`, `pocketbase-schema.md` ni `diagrams/`.
+El schema citado por código y scripts no puede considerarse revisado por esa
+referencia. Véanse los pendientes en el estado de migración; no se ha inventado
+contenido para sustituir estos documentos.
