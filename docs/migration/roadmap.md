@@ -70,9 +70,12 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **RADIO-DAL — Completa.** Tipos, mapper y repositorio consultan por fecha y
   exponen la próxima participación. El banner usa DAL y no muestra el JSON
   histórico. Pasaron 41/41 tests; builds local (32 páginas) y remoto (48) correctos.
-- **RADIO-MONTHLY-DRY — Siguiente tarea.** Confirmar el año del mensaje de
-  octubre, preparar cuatro registros y ejecutar un dry-run remoto idempotente.
-  Revisar el plan antes de solicitar autorización para escribir registros.
+- **RADIO-MONTHLY-DRY — Completa.** Para octubre de 2026 el plan crea cuatro
+  fechas: 5/D1, 12/D4, 19/D5 y 26/Área Norte; 0 updates y conflictos. Hora,
+  enlace y nota permanecen vacíos. No se realizaron escrituras.
+- **RADIO-MONTHLY-APPLY — Pendiente de autorización.** Crear solo esos cuatro
+  registros y repetir el dry-run hasta obtener cuatro `UNCHANGED`. No autoriza
+  calendarios posteriores.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,

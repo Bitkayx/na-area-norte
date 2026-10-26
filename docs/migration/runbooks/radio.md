@@ -51,3 +51,17 @@ resolver IDs de distrito por número, comparar por fecha, ser idempotente y hace
 solo GET en dry-run. Tras revisar ese plan se necesitará otra autorización
 explícita para escribir el calendario. Una autorización de schema no autoriza los
 registros y una autorización mensual no autoriza meses posteriores.
+
+Comando mensual de dry-run:
+
+```sh
+node scripts/migrate-radio-schedule.mjs --year AAAA --input /ruta/al/mensaje.txt
+```
+
+Solo después de revisar el plan y obtener autorización explícita para ese mes:
+
+```sh
+node scripts/migrate-radio-schedule.mjs --year AAAA --input /ruta/al/mensaje.txt --apply
+```
+
+Repetir sin `--apply`; todos los registros del mes deben quedar `UNCHANGED`.

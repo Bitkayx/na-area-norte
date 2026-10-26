@@ -20,7 +20,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; literatura aún consume JSON.                         |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Radio                          | Schema por fecha y DAL/frontend completos. La colección sigue vacía; el banner muestra “Próximo rol por publicar”. Falta preparar, revisar y autorizar el primer calendario mensual.                              |
+| Radio                          | Schema y DAL/frontend completos. Dry-run de octubre de 2026: 4 creates, 0 updates/conflictos para D1, D4, D5 y Área Norte; hora/enlace vacíos. Pendiente autorización de registros.                               |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -75,9 +75,9 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-MONTHLY-DRY:** confirmar el año del mensaje de octubre, preparar sus
-cuatro participaciones y construir el reconciliador remoto dry-run por defecto.
-No escribir registros hasta revisar el plan y obtener autorización explícita.
+**RADIO-MONTHLY-APPLY:** con autorización explícita, crear las cuatro
+participaciones revisadas de octubre de 2026 y repetir el dry-run para verificar
+que queden `UNCHANGED`. Esta autorización no cubre meses posteriores.
 
 ## Mantenimiento
 
