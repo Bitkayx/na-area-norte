@@ -12,9 +12,9 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DAL                            | Existe en `src/lib/dal/`; hardening local pendiente de commit. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                   |
+| DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                   |
 | Noticias                       | 13 Markdown y 13 slugs contemplados en `src/pages/noticias/[slug].astro`. El detalle usa DAL con fallback a Markdown; `getStaticPaths()` aún depende de V1. No equivale a certificar los registros remotos.       |
-| Distritos                      | **Migración y verificación completas; cambios locales pendientes de commit**. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                       |
+| Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                  |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos; conserva JSON V1 como fallback. Radio y literatura aún consumen JSON.                                                                                   |
@@ -74,10 +74,11 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**CHECKPOINT-COMMITS:** revisar el diff completo y separar commits coherentes para
-el hardening del DAL/CI y para documentación, migraciones e integración de
-distritos/grupos. No iniciar otra entidad ni retirar JSON V1 antes de guardar
-este punto verificable. Crear commits requiere instrucción explícita del usuario.
+**RADIO-ANALYSIS:** inventariar localmente los datos V1 de radio y todos sus
+consumidores; comprobar cobertura y unicidad de semanas 1–52; documentar cómo se
+transforman las etiquetas históricas Distrito 3, Distrito 6, Área Norte y Comité
+de Área Norte al ámbito Área Norte. No contactar PocketBase ni implementar
+escrituras durante esta etapa.
 
 ## Mantenimiento
 

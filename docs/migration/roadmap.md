@@ -7,10 +7,10 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 
 - **CTX — Contexto en repo: establecido.** Cierra con AGENTS permanente,
   estado, roadmap y runbooks enlazados, y huecos documentales explícitos.
-- **DAL-LOCAL — Hardening: completo localmente, pendiente de commit.** Cerró el
-  2026-10-26 con 44/44 tests y build directo de Astro con PocketBase deshabilitado.
-- **DIST-LOCAL — Preparación de distritos: completo localmente, pendiente de
-  commit.** Cerró el 2026-10-26 con entrada CLI operativa y 14/14 tests de
+- **DAL-LOCAL — Hardening: completo.** Cerró el 2026-10-26 con 44/44 tests,
+  build directo de Astro con PocketBase deshabilitado y commit `978ca6b`.
+- **DIST-LOCAL — Preparación de distritos: completa.** Cerró el 2026-10-26 con
+  entrada CLI operativa y 14/14 tests de
   transformación, validación, reconciliación, idempotencia y seguridad del dry-run.
 
 ## Distritos remotos
@@ -32,7 +32,7 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   de horario que requiere soporte explícito. V1 no contiene `isActive`.
 - **GROUP-ACTIVE-DECISION — Decisión de dominio: completa.** El 2026-10-26 se
   aprobó migrar como activos los 43 registros publicados en V1.
-- **GROUP-LOCAL — Preparación local: completa, pendiente de commit.** El script
+- **GROUP-LOCAL — Preparación local: completa.** El script
   es dry-run por defecto, resuelve relaciones sin IDs hardcodeados y preserva
   43 grupos/73 horarios. Pasaron 11/11 tests el 2026-10-26.
 - **GROUP-DRY — Dry-run remoto: completo.** El 2026-10-26 se confirmó schema,
@@ -47,8 +47,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **GROUP-FRONTEND — Integración: completa.** Astro obtiene grupos mediante la
   DAL y el componente conserva JSON como fallback. El build remoto serializó 43
   grupos y ningún registro de distrito; el build local validó el fallback.
-- **CHECKPOINT-COMMITS — Siguiente tarea.** Revisar y dividir el working tree en
-  commits coherentes antes de iniciar otra entidad. No retirar todavía JSON V1.
+- **CHECKPOINT-COMMITS — Completo.** El 2026-10-26 el hardening del DAL/CI quedó
+  en `978ca6b`; contexto, migraciones e integración de distritos/grupos quedaron
+  en `bfe7928`. No retirar todavía JSON V1.
+- **RADIO-ANALYSIS — Siguiente tarea.** Inventariar la fuente V1 de radio y sus
+  consumidores, comprobar cobertura y unicidad de semanas 1–52, y preparar la
+  transformación de ámbitos históricos conforme a las reglas de dominio. Esta
+  etapa es solo análisis local: no contacta ni escribe en PocketBase.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,
