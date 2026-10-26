@@ -50,10 +50,14 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **CHECKPOINT-COMMITS — Completo.** El 2026-10-26 el hardening del DAL/CI quedó
   en `978ca6b`; contexto, migraciones e integración de distritos/grupos quedaron
   en `bfe7928`. No retirar todavía JSON V1.
-- **RADIO-ANALYSIS — Siguiente tarea.** Inventariar la fuente V1 de radio y sus
-  consumidores, comprobar cobertura y unicidad de semanas 1–52, y preparar la
-  transformación de ámbitos históricos conforme a las reglas de dominio. Esta
-  etapa es solo análisis local: no contacta ni escribe en PocketBase.
+- **RADIO-ANALYSIS — Completo.** El calendario V2 comenzará limpio con entradas
+  mensuales; el JSON histórico no será su lote inicial. El único consumidor V1
+  es el banner global. Solo se admiten distritos 1, 2, 4 y 5 o el ámbito Área
+  Norte. Véase [análisis de radio](radio-analysis.md).
+- **RADIO-TEMPORAL-DECISION — Siguiente tarea.** Revisar un ejemplo del formato
+  mensual y elegir fecha o `year + week` como identidad. El schema actual solo
+  tiene semana única 1–52 y no distingue años. Cualquier cambio remoto requiere
+  revisión y autorización separadas.
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,

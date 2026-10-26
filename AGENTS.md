@@ -30,9 +30,11 @@ El progreso temporal vive en `docs/migration/README.md`, no en este archivo.
   para trazabilidad y no adivinar horarios ambiguos.
 - Los slugs de grupos son globalmente únicos. Para nombres repetidos entre
   distritos, incluir el distrito (`serenidad-d2`, `serenidad-d4`); no fusionarlos.
-- En radio, las semanas son únicas y van de 1 a 52. Los registros históricos
-  etiquetados Distrito 3, Distrito 6, Área Norte o Comité de Área Norte pertenecen
-  al ámbito Área Norte; no representan distritos adicionales.
+- En radio, solo pueden asignarse los distritos vigentes 1, 2, 4 y 5. Distrito 3
+  y Distrito 6 no existen y nunca deben crearse como entidades u opciones. El
+  calendario nuevo se recibe mensualmente y comienza limpio; no migrar como
+  calendario vigente los registros históricos de radio. Área Norte puede seguir
+  siendo un ámbito propio, pero no es un distrito.
 - Reflexiones permanece fuera de PocketBase, mediante Google Sheets, salvo
   decisión explícita posterior.
 - Posts y Events son entidades distintas. Evitar duplicar eventos presentes en
