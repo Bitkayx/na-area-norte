@@ -1,4 +1,4 @@
-import { listRecords } from "../client.ts";
+import { escapeFilterValue, listAllRecords } from "../client.ts";
 import type { GroupRecord } from "../types/group.ts";
 import { mapGroup } from "../mappers/entity.mapper.ts";
 import type { Group } from "../types/group.ts";
@@ -15,26 +15,27 @@ export interface GroupRepository {
 export function createGroupRepository(): GroupRepository {
   return {
     getAll(withDistrict = false) {
-      return listRecords<Group, GroupRecord>("groups", mapGroup, {
-        sort: "name",
+      return listAllRecords<Group, GroupRecord>("groups", mapGroup, {
+        // `id` as tiebreaker: this walk paginates on `name`, and group names
+        // collide in this dataset (e.g. Serenidad in D2 and D4).
+        sort: "name,id",
         filter: "isActive=true",
         expand: withDistrict ? "district" : undefined,
       });
     },
     async getByDistrictNumber(number) {
-      // Filter by a non-related numeric value via the expanded district's number.
-      // PocketBase filters cannot traverse relations, so we fetch all active
-      // groups with district expanded and filter in memory (dataset is small).
-      const all = await listRecords<Group, GroupRecord>("groups", mapGroup, {
+      // Fetch all active groups with district expanded and filter in memory
+      // (dataset is small; avoids assumptions about filter syntax for related
+      // fields).
+      const all = await listAllRecords<Group, GroupRecord>("groups", mapGroup, {
         filter: "isActive=true",
         expand: "district",
-        perPage: 500,
       });
       return all.filter((g) => g.district?.number === number);
     },
     async getBySlug(slug) {
-      const all = await listRecords<Group, GroupRecord>("groups", mapGroup, {
-        filter: `isActive=true && slug="${slug}"`,
+      const all = await listAllRecords<Group, GroupRecord>("groups", mapGroup, {
+        filter: `isActive=true && slug=${escapeFilterValue(slug)}`,
         expand: "district",
       });
       return all[0];

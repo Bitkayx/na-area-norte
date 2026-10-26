@@ -2,11 +2,15 @@
   "name": "na-area-norte",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@11.28.4",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && mkdir -p dist/assets && cp -r src/assets/blog dist/assets/ 2>/dev/null || true",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:dal": "tsc -p tests/tsconfig.compile.json && node --test tests/dal.test.ts",
+    "test:migrate-districts": "node --test tests/migrate-districts.test.mjs",
+    "test:migrate-groups": "node --test tests/migrate-groups.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -29,6 +33,7 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.11",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "typescript": "5.9.3"
   }
 }

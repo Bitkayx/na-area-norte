@@ -23,47 +23,73 @@ process.env.PUBLIC_POCKETBASE_URL = "http://pb.test";
 // against the JS emitted by `tsc` (tests/tsconfig.compile.json) into
 // tests/.dal-build. `npm run test:dal` compiles then runs. The compiled output
 // is git-ignored and regenerated.
-const { configureDal, createDal } = await import("./.dal-build/index.js");
+const { configureDal, createDal, dal } = await import("./.dal-build/index.js");
 const {
   listRecords,
   listRecordsPaginated,
+  listAllRecords,
   getOneRecord,
   normalizeBaseUrl,
   buildListUrl,
   buildGetUrl,
   resolveFile,
   isConfigured,
+  escapeFilterValue,
+  MAX_PER_PAGE,
 } = await import("./.dal-build/client.js");
 const { normalizeLocation } = await import("./.dal-build/types/location.js");
 const { normalizeSchedules } = await import("./.dal-build/types/schedule.js");
 const { mapPost } = await import("./.dal-build/mappers/post.mapper.js");
 const { mapEvent } = await import("./.dal-build/mappers/event.mapper.js");
 
-/** Installs a mock global fetch returning canned per-path responses. */
-function mockFetch(routes: Map<string, () => Response>) {
+/** Recorded request so tests can assert real query params (filter/sort/expand/page). */
+interface HttpCall {
+  href: string;
+  url: URL;
+}
+
+type RouteHandler = (url: URL) => Response;
+
+/** Original global fetch, captured on the first mockFetch() for teardown. */
+const ORIGINAL_FETCH = (globalThis as unknown as { fetch: unknown }).fetch;
+
+/**
+ * Installs a mock global fetch returning canned responses and recording every
+ * request. Matching: exact full URL first (query included), then a registered
+ * route key by pathname (queries may vary on that endpoint).
+ *
+ * Unmatched URLs FAIL the test instead of silently returning 404, so a wrongly
+ * built URL cannot go unnoticed. Register an explicit 404 route when a 404 is
+ * part of the case under test.
+ */
+function mockFetch(routes: Map<string, RouteHandler>): HttpCall[] {
+  const calls: HttpCall[] = [];
   (globalThis as unknown as { fetch: unknown }).fetch = async (input: RequestInfo | URL) => {
-    const url = String(input);
-    const reqPath = new URL(url).pathname;
-    // 1) exact URL key, 2) key whose pathname equals the requested pathname
-    // (ignores query params so paginated/sort/filter URLs share one mock).
-    const from = (hitRaw: () => Response) => hitRaw();
-    if (routes.has(url)) {
-      return from(routes.get(url)!);
+    const href = String(input);
+    const url = new URL(href);
+    calls.push({ href, url });
+    if (routes.has(href)) {
+      return routes.get(href)!(url);
     }
-    for (const [key, hitRaw] of routes) {
+    for (const [key, handler] of routes) {
       let keyPath: string;
       try {
         keyPath = new URL(key).pathname;
       } catch {
         keyPath = key;
       }
-      if (keyPath === reqPath) {
-        return from(hitRaw);
+      if (keyPath === url.pathname) {
+        return handler(url);
       }
     }
-    return jsonResponse(404, {});
+    throw new Error(`[test] unexpected fetch: ${href}. Register an explicit route or 404.`);
   };
+  return calls;
 }
+
+afterEach(() => {
+  (globalThis as unknown as { fetch: unknown }).fetch = ORIGINAL_FETCH;
+});
 
 function jsonResponse(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), {
@@ -89,7 +115,7 @@ describe("client URL building", () => {
     assert.equal(parsed.searchParams.get("perPage"), "10");
   });
 
-  test("buildListUrl serializes sort, filter (encoded), and expand", () => {
+  test("buildListUrl serializes sort, filter (encoded once), and expand", () => {
     const url = buildListUrl("groups", {
       sort: "-pubDate",
       filter: `status='published' && author != ""`,
@@ -97,8 +123,43 @@ describe("client URL building", () => {
     });
     const parsed = new URL(url);
     assert.equal(parsed.searchParams.get("sort"), "-pubDate");
-    assert.equal(decodeURIComponent(parsed.searchParams.get("filter")!), `status='published' && author != ""`);
+    // The filter must round-trip exactly: URLSearchParams encodes it once and
+    // decodes it once, so no manual encodeURI() may be applied on top.
+    assert.equal(parsed.searchParams.get("filter"), `status='published' && author != ""`);
     assert.equal(parsed.searchParams.get("expand"), "district,tags");
+  });
+
+  test("buildListUrl encodes filter with spaces exactly once", () => {
+    const filter = `status='published' && slug='invitaciones-marzo-2026'`;
+    const url = buildListUrl("posts", { filter });
+    const parsed = new URL(url);
+    assert.equal(parsed.searchParams.get("filter"), filter);
+    // No double-encoded percent sequences (e.g. %2520) leaked into the query.
+    assert.ok(!url.includes("%2520"), "filter must not be double-encoded");
+    assert.ok(!url.includes("%2522"), "filter must not be double-encoded");
+  });
+
+  test("buildListUrl encodes filter with quotes and special characters once", () => {
+    const filter = `status="published" && (created>"2024-01-01")`;
+    const url = buildListUrl("posts", { filter });
+    const parsed = new URL(url);
+    assert.equal(parsed.searchParams.get("filter"), filter);
+    assert.ok(!url.includes("%2522"), "quotes must not be double-encoded");
+    assert.ok(!url.includes("%253E"), "operators must not be double-encoded");
+  });
+
+  test("buildListUrl filter round-trips for posts, groups and districts", () => {
+    const cases: Array<[string, string]> = [
+      ["posts", `status='published' && slug='x'`],
+      ["groups", `isActive=true && slug="x"`],
+      ["districts", `isActive=true && number=1`],
+    ];
+    for (const [collection, filter] of cases) {
+      const url = buildListUrl(collection, { filter });
+      const parsed = new URL(url);
+      assert.equal(parsed.searchParams.get("filter"), filter, `${collection} filter`);
+      assert.ok(!url.includes("%25"), `${collection} filter must not be double-encoded`);
+    }
   });
 
   test("buildListUrl omits unset params", () => {
@@ -360,5 +421,621 @@ describe("site_settings singleton via repository", () => {
     assert.equal(settings.socialLinks.facebook, "https://fb.example");
     assert.equal(settings.hero?.slug, "/x");
     assert.equal(settings.seo?.ogImage, "/og.png");
+  });
+});
+
+describe("getBySlug respects publication/active status", () => {
+  test("posts.getBySlug returns post only when published", async () => {
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/posts/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [
+              {
+                id: "p1",
+                collectionId: "posts",
+                collectionName: "posts",
+                created: "2025-01-01T00:00:00Z",
+                updated: "2025-01-01T00:00:00Z",
+                title: "Publicado",
+                slug: "publicado",
+                description: "",
+                author: null,
+                pubDate: "2025-01-01",
+                cover: "",
+                body: "body",
+                status: "published",
+                tags: [],
+              },
+            ],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const p = await dal.posts.getBySlug("publicado");
+    assert.equal(p?.slug, "publicado");
+    assert.equal(p?.status, "published");
+    // The status predicate must travel to the server: without it the query
+    // could match drafts (and this test would pass vacuously).
+    assert.equal(calls[0].url.searchParams.get("filter"), "status='published'&&slug=\"publicado\"");
+  });
+
+  test("posts.getBySlug returns undefined if only draft exists", async () => {
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/posts/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 0,
+            totalPages: 0,
+            items: [],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const p = await dal.posts.getBySlug("borrador");
+    assert.equal(p, undefined);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      "status='published'&&slug=\"borrador\"",
+    );
+  });
+
+  test("events.getBySlug returns event only when active", async () => {
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/events/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [
+              {
+                id: "e1",
+                collectionId: "events",
+                collectionName: "events",
+                created: "2025-01-01T00:00:00Z",
+                updated: "2025-01-01T00:00:00Z",
+                title: "Activo",
+                slug: "activo",
+                type: "congreso",
+                startDate: "2026-12-01",
+                endDate: "2026-12-02",
+                location: "",
+                organizer: null,
+                organizerName: null,
+                description: "",
+                program: "",
+                image: "",
+                status: "active",
+              },
+            ],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const e = await dal.events.getBySlug("activo");
+    assert.equal(e?.slug, "activo");
+    assert.equal(e?.status, "active");
+    assert.equal(calls[0].url.searchParams.get("filter"), "status='active'&&slug=\"activo\"");
+  });
+
+  test("events.getBySlug returns undefined if inactive", async () => {
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/events/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 0,
+            totalPages: 0,
+            items: [],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const e = await dal.events.getBySlug("inactivo");
+    assert.equal(e, undefined);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      "status='active'&&slug=\"inactivo\"",
+    );
+  });
+});
+
+describe("filter value escaping", () => {
+  test("escapeFilterValue serializes like the JS SDK pb.filter() (JSON string)", () => {
+    assert.equal(escapeFilterValue("eventos"), '"eventos"');
+    assert.equal(escapeFilterValue("x' || status='draft"), '"x\' || status=\'draft"'); // ' taken literally inside ""
+    assert.equal(escapeFilterValue('say "hi"'), '"say \\"hi\\""');
+    assert.equal(escapeFilterValue("te\\st"), '"te\\\\st"');
+    assert.equal(escapeFilterValue("a\nb"), '"a\\nb"');
+  });
+
+  test("posts.getBySlug escapes quote/injection payloads in the filter param", async () => {
+    const slug = "x' || status='draft";
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/posts/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [
+              {
+                id: "p1",
+                collectionId: "posts",
+                collectionName: "posts",
+                created: "",
+                updated: "",
+                title: "Publicado",
+                slug: "whatever", // mock returns by path; the filter is what is asserted
+                status: "published",
+                pubDate: "2025-01-01",
+                body: "b",
+              },
+            ],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const p = await dal.posts.getBySlug(slug);
+    assert.ok(p);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      `status='published'&&slug=${escapeFilterValue(slug)}`,
+    );
+    assert.equal(calls[0].url.searchParams.get("expand"), "tags,event");
+    assert.equal(calls[0].url.searchParams.get("perPage"), "1");
+  });
+
+  test("events.getBySlug escapes quote/injection payloads in the filter param", async () => {
+    const slug = "x' || status='active";
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/events/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [
+              {
+                id: "e1",
+                collectionId: "events",
+                collectionName: "events",
+                created: "",
+                updated: "",
+                title: "T",
+                slug: "whatever",
+                status: "active",
+                startDate: "2100-01-01",
+              },
+            ],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const e = await dal.events.getBySlug(slug);
+    assert.ok(e);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      `status='active'&&slug=${escapeFilterValue(slug)}`,
+    );
+  });
+
+  test("groups.getBySlug escapes double quotes and backslashes", async () => {
+    const slug = 'bad"\\slug';
+    const routes = new Map([
+      [
+        "http://pb.test/api/collections/groups/records",
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [
+              {
+                id: "g1",
+                collectionId: "pbc_g",
+                collectionName: "groups",
+                created: "",
+                updated: "",
+                name: "G",
+                slug: "whatever",
+                isActive: true,
+                district: "d2",
+                expand: {
+                  district: {
+                    id: "d2",
+                    collectionId: "pbc_d",
+                    collectionName: "districts",
+                    created: "",
+                    updated: "",
+                    name: "2do Distrito",
+                    number: 2,
+                    slug: "segundo-distrito",
+                    isActive: true,
+                  },
+                },
+              },
+            ],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const g = await dal.groups.getBySlug(slug);
+    assert.ok(g);
+    assert.equal(g.district?.number, 2);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      `isActive=true && slug=${escapeFilterValue(slug)}`,
+    );
+    assert.equal(calls[0].url.searchParams.get("expand"), "district");
+  });
+
+  test("tags.getBySlug searches by the slug field, not the record id", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("tags", { filter: 'slug="eventos"', perPage: 1 }),
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [
+              {
+                id: "t1",
+                collectionId: "pbc_t",
+                collectionName: "tags",
+                created: "",
+                updated: "",
+                name: "Eventos",
+                slug: "eventos",
+              },
+            ],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const tag = await dal.tags.getBySlug("eventos");
+    assert.ok(tag);
+    assert.equal(tag.name, "Eventos");
+    assert.equal(tag.slug, "eventos");
+    // GET by id route must NOT be used for slugs
+    assert.equal(new URL(calls[0].href).pathname, "/api/collections/tags/records");
+    assert.equal(calls[0].url.searchParams.get("filter"), 'slug="eventos"');
+  });
+
+  test("tags.getBySlug escapes special characters and returns undefined when absent", async () => {
+    const slug = 'o"brien\\';
+    const routes = new Map([
+      [
+        buildListUrl("tags", { filter: `slug=${escapeFilterValue(slug)}`, perPage: 1 }),
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 0,
+            totalPages: 0,
+            items: [],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const tag = await dal.tags.getBySlug(slug);
+    assert.equal(tag, undefined);
+    assert.equal(calls[0].url.searchParams.get("filter"), `slug=${escapeFilterValue(slug)}`);
+  });
+});
+
+describe("pagination (real getAll/getRecent/getNext contracts)", () => {
+  function pageBody(items: unknown[], page: number, perPage: number, totalPages: number) {
+    return { page, perPage, totalItems: (page - 1) * perPage + items.length, totalPages, items };
+  }
+
+  const postRecord = (id: string) => ({
+    id,
+    collectionId: "posts",
+    collectionName: "posts",
+    created: "",
+    updated: "",
+    title: `Publicación ${id}`,
+    slug: id,
+    status: "published",
+    pubDate: `2025-0${id.charCodeAt(id.length - 1) % 8 + 1}-01`,
+    body: `cuerpo ${id}`,
+  });
+
+  const eventRecord = (id: string, startDate: string) => ({
+    id,
+    collectionId: "events",
+    collectionName: "events",
+    created: "",
+    updated: "",
+    title: id,
+    slug: id,
+    status: "active",
+    startDate,
+  });
+
+  test("listAllRecords walks every page, requests pages in order, and stops at totalPages", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("demo", { page: 1, perPage: 2 }),
+        () => jsonResponse(200, pageBody([{ id: "a" }, { id: "b" }], 1, 2, 2)),
+      ],
+      [
+        buildListUrl("demo", { page: 2, perPage: 2 }),
+        () => jsonResponse(200, pageBody([{ id: "c" }], 2, 2, 2)),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const mapped: string[] = [];
+    const items = await listAllRecords("demo", (r) => {
+      mapped.push(String((r as { id: string }).id));
+      return (r as { id: string }).id;
+    }, { perPage: 2 });
+    assert.deepEqual(items, ["a", "b", "c"]);
+    assert.equal(calls.length, 2);
+    assert.equal(calls[0].url.searchParams.get("page"), "1");
+    assert.equal(calls[1].url.searchParams.get("page"), "2");
+  });
+
+  test("listAllRecords does not loop on a single-page response", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("solo", { page: 1, perPage: 10 }),
+        () => jsonResponse(200, pageBody([{ id: "a" }], 1, 10, 1)),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const items = await listAllRecords("solo", (r) => (r as { id: string }).id, { perPage: 10 });
+    assert.deepEqual(items, ["a"]);
+    assert.equal(calls.length, 1);
+  });
+
+  test("literature.getAll returns ALL records across pages (contract: 161 items > one page)", async () => {
+    const make = (id: string) => ({
+      id,
+      collectionId: "pbc_l",
+      collectionName: "literature",
+      created: "",
+      updated: "",
+      code: null,
+      title: `Libro ${id}`,
+      price: 10,
+      isActive: true,
+    });
+    const routes = new Map([
+      [
+        buildListUrl("literature", {
+          filter: "isActive=true",
+          sort: "title,id",
+          expand: "category",
+          page: 1,
+          perPage: MAX_PER_PAGE,
+        }),
+        () => jsonResponse(200, pageBody([make("l1"), make("l2")], 1, MAX_PER_PAGE, 2)),
+      ],
+      [
+        buildListUrl("literature", {
+          filter: "isActive=true",
+          sort: "title,id",
+          expand: "category",
+          page: 2,
+          perPage: MAX_PER_PAGE,
+        }),
+        () => jsonResponse(200, pageBody([make("l3")], 2, MAX_PER_PAGE, 2)),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const all = await dal.literature.getAll();
+    assert.deepEqual(all.map((l) => l.id), ["l1", "l2", "l3"]);
+    assert.equal(calls.length, 2);
+    assert.equal(calls[1].url.searchParams.get("page"), "2");
+    assert.equal(calls[0].url.searchParams.get("perPage"), String(MAX_PER_PAGE));
+  });
+
+  test("posts.getRecent(n) keeps requesting pages until it has n items", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("posts", {
+          filter: "status='published'",
+          sort: "-pubDate,id",
+          expand: "tags",
+          page: 1,
+          perPage: 3,
+        }),
+        () => jsonResponse(200, pageBody([postRecord("p1"), postRecord("p2")], 1, 3, 2)),
+      ],
+      [
+        buildListUrl("posts", {
+          filter: "status='published'",
+          sort: "-pubDate,id",
+          expand: "tags",
+          page: 2,
+          perPage: 3,
+        }),
+        () => jsonResponse(200, pageBody([postRecord("p3")], 2, 3, 2)),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const recent = await dal.posts.getRecent(3);
+    assert.equal(recent.length, 3);
+    assert.deepEqual(recent.map((p) => p.id), ["p1", "p2", "p3"]);
+    assert.equal(calls.length, 2);
+  });
+
+  test("posts.getRecent(0) and negative n return [] without fetching", async () => {
+    const calls = mockFetch(new Map());
+    assert.deepEqual(await dal.posts.getRecent(0), []);
+    assert.deepEqual(await dal.posts.getRecent(-2), []);
+    assert.equal(calls.length, 0);
+  });
+
+  test("events.getNext() keeps paging past stale events to find the upcoming one", async () => {
+    // Page 1 is entirely past events; the next event lives on page 2.
+    const routes = new Map([
+      [
+        buildListUrl("events", {
+          filter: "status='active'",
+          sort: "startDate,id",
+          page: 1,
+          perPage: 200,
+        }),
+        () =>
+          jsonResponse(200, pageBody([eventRecord("e0", "2020-01-01"), eventRecord("e1", "2020-02-01")], 1, 200, 2)),
+      ],
+      [
+        buildListUrl("events", {
+          filter: "status='active'",
+          sort: "startDate,id",
+          page: 2,
+          perPage: 200,
+        }),
+        () => jsonResponse(200, pageBody([eventRecord("e2", "2100-01-01")], 2, 200, 2)),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const next = await dal.events.getNext();
+    assert.ok(next);
+    assert.equal(next.slug, "e2");
+    assert.equal(calls.length, 2);
+  });
+});
+
+describe("radio repository (week contract 1..52)", () => {
+  const radioRecord = (id: string, week: number) => ({
+    id,
+    collectionId: "pbc_r",
+    collectionName: "radio_broadcasts",
+    created: "",
+    updated: "",
+    week,
+    ownerIsAreaNorte: false,
+    time: "19:00",
+    link: null,
+    note: null,
+    district: "d2",
+  });
+
+  test("getByWeek returns the mapped broadcast and expands district", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("radio_broadcasts", { filter: "week=13", expand: "district", perPage: 1 }),
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: 1,
+            totalItems: 1,
+            totalPages: 1,
+            items: [radioRecord("r13", 13)],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const b = await dal.radio.getByWeek(13);
+    assert.ok(b);
+    assert.equal(b.week, 13);
+    assert.equal(b.districtId, "d2");
+    assert.equal(calls[0].url.searchParams.get("filter"), "week=13");
+    assert.equal(calls[0].url.searchParams.get("expand"), "district");
+  });
+
+  test("getByWeek rejects non-integers and weeks outside 1..52 without fetching", async () => {
+    const calls = mockFetch(new Map());
+    assert.equal(await dal.radio.getByWeek(0), undefined);
+    assert.equal(await dal.radio.getByWeek(53), undefined);
+    assert.equal(await dal.radio.getByWeek(2.5), undefined);
+    assert.equal(calls.length, 0);
+  });
+
+  test("getByWeeks honors non-consecutive weeks exactly (no range expansion)", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("radio_broadcasts", {
+          filter: "(week=1 || week=3)",
+          expand: "district",
+          perPage: MAX_PER_PAGE,
+          sort: "week",
+        }),
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: MAX_PER_PAGE,
+            totalItems: 2,
+            totalPages: 1,
+            items: [radioRecord("r1", 1), radioRecord("r3", 3)],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const result = await dal.radio.getByWeeks([1, 3]);
+    assert.equal(result.length, 2);
+    assert.equal(result[0].week, 1);
+    assert.equal(result[1].week, 3);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      "(week=1 || week=3)",
+      "must be an exact week set, not a range",
+    );
+  });
+
+  test("getByWeeks dedupes, sorts, and ignores out-of-domain weeks", async () => {
+    const routes = new Map([
+      [
+        buildListUrl("radio_broadcasts", {
+          filter: "(week=1 || week=3 || week=52)",
+          expand: "district",
+          perPage: MAX_PER_PAGE,
+          sort: "week",
+        }),
+        () =>
+          jsonResponse(200, {
+            page: 1,
+            perPage: MAX_PER_PAGE,
+            totalItems: 3,
+            totalPages: 1,
+            items: [radioRecord("r1", 1), radioRecord("r3", 3), radioRecord("r52", 52)],
+          }),
+      ],
+    ]);
+    const calls = mockFetch(routes);
+    const result = await dal.radio.getByWeeks([52, 3, 3, 1, 53, 0]);
+    assert.deepEqual(result.map((r) => r.week), [1, 3, 52]);
+    assert.equal(
+      calls[0].url.searchParams.get("filter"),
+      "(week=1 || week=3 || week=52)",
+    );
+  });
+
+  test("getByWeeks([]) returns [] without querying", async () => {
+    const calls = mockFetch(new Map());
+    const result = await dal.radio.getByWeeks([]);
+    assert.deepEqual(result, []);
+    assert.equal(calls.length, 0);
+  });
+
+  test("getByWeeks with only out-of-domain weeks returns [] without querying", async () => {
+    const calls = mockFetch(new Map());
+    const result = await dal.radio.getByWeeks([0, 53, 99]);
+    assert.deepEqual(result, []);
+    assert.equal(calls.length, 0);
   });
 });
