@@ -36,6 +36,7 @@ El progreso temporal vive en `docs/migration/README.md`, no en este archivo.
   calendario vigente los registros históricos de radio. Área Norte puede seguir
   siendo un ámbito propio, pero no es un distrito. Identificar cada participación
   por su fecha exacta; el año debe confirmarse porque puede no venir en el mensaje.
+  Si el rol mensual no indica hora, usar la hora operativa predeterminada `13:00`.
 - Reflexiones permanece fuera de PocketBase, mediante Google Sheets, salvo
   decisión explícita posterior.
 - Posts y Events son entidades distintas. Evitar duplicar eventos presentes en

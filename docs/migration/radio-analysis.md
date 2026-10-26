@@ -78,8 +78,8 @@ Transformación esperada, una vez confirmado el año:
 | 26 Oct    | Área Norte  | Ninguna              |
 
 `Dto`, `1er`, `4to` y `5to` son variantes de entrada que se normalizan a los
-nombres anteriores. El mensaje no informa hora ni enlace; ambos quedan vacíos,
-sin conservar el valor `13:00` hardcodeado por el frontend actual.
+nombres anteriores. Si el mensaje no informa hora se usa el valor operativo
+predeterminado `13:00`; el enlace permanece vacío si no se proporciona.
 
 ## Flujo previsto
 

@@ -21,8 +21,8 @@ Verificación:
 node --test tests/prepare-radio-schedule.test.mjs
 ```
 
-Revisar fechas, responsables y cualquier error. Hora, enlace y nota permanecen
-nulos si el mensaje no los incluye.
+Revisar fechas, responsables y cualquier error. Cuando el mensaje no incluye
+hora se usa `13:00`; enlace y nota permanecen nulos si no se proporcionan.
 
 ## Cambio de schema pendiente
 

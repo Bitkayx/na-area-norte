@@ -32,6 +32,7 @@ const MONTHS = new Map([
   ["diciembre", 12],
 ]);
 const VALID_DISTRICTS = new Set([1, 2, 4, 5]);
+const DEFAULT_TIME = "13:00";
 
 function normalized(value) {
   return String(value)
@@ -103,7 +104,7 @@ function parseRadioSchedule(text, year) {
       entries.push({
         broadcastDate: dateValue(year, month, Number(match[1])),
         ...owner,
-        time: null,
+        time: DEFAULT_TIME,
         link: null,
         note: null,
         sourceText: line,
@@ -148,6 +149,7 @@ function main(argv = process.argv) {
 }
 
 export {
+  DEFAULT_TIME,
   MONTHS,
   VALID_DISTRICTS,
   normalized,

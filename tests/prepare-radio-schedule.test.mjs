@@ -30,7 +30,7 @@ describe("radio monthly message parser", () => {
     assert.ok(
       result.entries.every(
         ({ time, link, note }) =>
-          time === null && link === null && note === null,
+          time === "13:00" && link === null && note === null,
       ),
     );
   });
