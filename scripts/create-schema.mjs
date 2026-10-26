@@ -74,30 +74,54 @@ const PUBLIC_READ = {
  */
 const field = {
   text: (name, { required = false, max = 0 } = {}) => ({
-    name, type: "text", required, max,
+    name,
+    type: "text",
+    required,
+    max,
   }),
-  editor: (name, { required = false } = {}) => ({ name, type: "editor", required }),
+  editor: (name, { required = false } = {}) => ({
+    name,
+    type: "editor",
+    required,
+  }),
   number: (name, { required = false, min = null, max = null } = {}) => ({
-    name, type: "number", required,
+    name,
+    type: "number",
+    required,
     ...(min !== null ? { min } : {}),
     ...(max !== null ? { max } : {}),
   }),
   bool: (name, { required = false } = {}) => ({ name, type: "bool", required }),
-  email: (name, { required = false } = {}) => ({ name, type: "email", required }),
+  email: (name, { required = false } = {}) => ({
+    name,
+    type: "email",
+    required,
+  }),
   url: (name, { required = false } = {}) => ({ name, type: "url", required }),
   date: (name, { required = false } = {}) => ({ name, type: "date", required }),
   json: (name, { required = false } = {}) => ({ name, type: "json", required }),
   select: (name, values, { required = false, maxSelect = 1 } = {}) => ({
-    name, type: "select", required, values, maxSelect,
+    name,
+    type: "select",
+    required,
+    values,
+    maxSelect,
   }),
   file: (name, { required = false, maxSelect = 1 } = {}) => ({
-    name, type: "file", required, maxSelect,
+    name,
+    type: "file",
+    required,
+    maxSelect,
   }),
   // `collection` is the NAME of the related collection here. PocketBase 0.27.x
   // validates that `collectionId` equals the resolved collection's real ID, so
   // we store the name during definition but swap it for the actual ID in phase
   // 2 (resolveCollectionIds) before PATCHing the field to the API.
-  relation: (name, collection, { required = false, maxSelect = 1, cascadeDelete = false } = {}) => ({
+  relation: (
+    name,
+    collection,
+    { required = false, maxSelect = 1, cascadeDelete = false } = {},
+  ) => ({
     name,
     type: "relation",
     required,
@@ -185,7 +209,10 @@ const COLLECTIONS = [
       field.bool("isActive"),
     ],
     relations: [
-      field.relation("category", "categories", { required: true, maxSelect: 1 }),
+      field.relation("category", "categories", {
+        required: true,
+        maxSelect: 1,
+      }),
     ],
     indexes: [
       "CREATE INDEX idx_literature_category ON literature (category)",
@@ -195,7 +222,7 @@ const COLLECTIONS = [
   {
     name: "radio_broadcasts",
     fields: [
-      field.number("week", { required: true, min: 1, max: 52 }),
+      field.date("broadcastDate", { required: true }),
       // owner is either a District or the Área Norte itself (never both).
       field.bool("ownerIsAreaNorte"),
       field.text("time"),
@@ -203,10 +230,13 @@ const COLLECTIONS = [
       field.text("note"),
     ],
     relations: [
-      field.relation("district", "districts", { required: false, maxSelect: 1 }),
+      field.relation("district", "districts", {
+        required: false,
+        maxSelect: 1,
+      }),
     ],
     indexes: [
-      "CREATE UNIQUE INDEX idx_radio_week ON radio_broadcasts (week)",
+      "CREATE UNIQUE INDEX idx_radio_date ON radio_broadcasts (broadcastDate)",
       "CREATE INDEX idx_radio_district ON radio_broadcasts (district)",
     ],
   },
@@ -220,7 +250,10 @@ const COLLECTIONS = [
       field.date("pubDate"),
       field.file("cover", { maxSelect: 1 }),
       field.editor("body"),
-      field.select("status", ["published", "draft", "archived"], { required: true, maxSelect: 1 }),
+      field.select("status", ["published", "draft", "archived"], {
+        required: true,
+        maxSelect: 1,
+      }),
     ],
     relations: [
       // posts.tags is M2M. PocketBase has NO "unlimited" relation mode: a
@@ -229,8 +262,16 @@ const COLLECTIONS = [
       // purely TECHNICAL ceiling to represent M2M — it is NOT a domain rule
       // limiting posts to N tags. 20 is generous: the V1 dataset never exceeds
       // 4 tags per post. If a real post ever needs more, relax this number.
-      field.relation("tags", "tags", { required: false, maxSelect: 20, cascadeDelete: false }),
-      field.relation("event", "events", { required: false, maxSelect: 1, cascadeDelete: false }),
+      field.relation("tags", "tags", {
+        required: false,
+        maxSelect: 20,
+        cascadeDelete: false,
+      }),
+      field.relation("event", "events", {
+        required: false,
+        maxSelect: 1,
+        cascadeDelete: false,
+      }),
     ],
     indexes: [
       "CREATE UNIQUE INDEX idx_posts_slug ON posts (slug)",
@@ -243,7 +284,11 @@ const COLLECTIONS = [
     fields: [
       field.text("title", { required: true }),
       field.text("slug", { required: true }),
-      field.select("type", ["encuentro", "mave", "congreso", "asamblea", "invitacion", "otro"], { required: false, maxSelect: 1 }),
+      field.select(
+        "type",
+        ["encuentro", "mave", "congreso", "asamblea", "invitacion", "otro"],
+        { required: false, maxSelect: 1 },
+      ),
       field.date("startDate"),
       field.date("endDate"),
       field.json("location"),
@@ -251,10 +296,17 @@ const COLLECTIONS = [
       field.text("description"),
       field.editor("program"),
       field.file("image", { maxSelect: 1 }),
-      field.select("status", ["active", "cancelled", "archived"], { required: true, maxSelect: 1 }),
+      field.select("status", ["active", "cancelled", "archived"], {
+        required: true,
+        maxSelect: 1,
+      }),
     ],
     relations: [
-      field.relation("postRef", "posts", { required: false, maxSelect: 1, cascadeDelete: false }),
+      field.relation("postRef", "posts", {
+        required: false,
+        maxSelect: 1,
+        cascadeDelete: false,
+      }),
     ],
     indexes: [
       "CREATE UNIQUE INDEX idx_events_slug ON events (slug)",
@@ -381,8 +433,9 @@ async function main() {
   const apply = args.includes("--apply");
   const printJson = args.includes("--json");
   const baseUrl =
-    (args.includes("--base-url") ? args[args.indexOf("--base-url") + 1] : undefined) ||
-    process.env.PB_URL;
+    (args.includes("--base-url")
+      ? args[args.indexOf("--base-url") + 1]
+      : undefined) || process.env.PB_URL;
 
   validateSchema();
 
@@ -413,7 +466,9 @@ async function main() {
     );
     for (const c of COLLECTIONS) {
       const nFields = c.fields.length + c.relations.length;
-      const rels = c.relations.map((r) => `${r.name}->${r.collectionId}`).join(", ");
+      const rels = c.relations
+        .map((r) => `${r.name}->${r.collectionId}`)
+        .join(", ");
       const { phase1, phase3 } = splitIndexes(c);
       console.log(
         `  - ${c.name} (${nFields} fields, phase1 index(es)=${phase1.length}, phase3 index(es)=${phase3.length})${
@@ -421,7 +476,9 @@ async function main() {
         }`,
       );
       if (phase3.length) {
-        console.log(`      phase3 (relation-dependent): ${phase3.map((i) => i.match(/idx_[a-z_]+/i)?.[0] || i).join(", ")}`);
+        console.log(
+          `      phase3 (relation-dependent): ${phase3.map((i) => i.match(/idx_[a-z_]+/i)?.[0] || i).join(", ")}`,
+        );
       }
     }
     console.log(
@@ -442,7 +499,9 @@ async function main() {
   console.log(`[apply] Authenticated.`);
 
   const existing = await request(baseUrl, API_COLLECTIONS, { token });
-  const existingByName = new Map((existing.items || []).map((c) => [c.name, c]));
+  const existingByName = new Map(
+    (existing.items || []).map((c) => [c.name, c]),
+  );
 
   // Phase 1: create collections with only their phase-1 indexes (no relation
   // fields, no relation-dependent indexes). Idempotent: existing collections
@@ -463,43 +522,43 @@ async function main() {
   }
 
   // Build the COMPLETE, correct field set for a collection by merging:
-//  - the intended non-relation fields (this schema), reusing the live field
-//    object (preserving its `id`) when a field with the same name already
-//    exists on the server, else using the intended definition;
-//  - the relation fields, resolving each target *name* to its real collection ID.
-//
-// This is required because PocketBase 0.27.x collection PATCH replaces the
-// whole `fields` array (no merge). It restores any base field that a previous
-// partial/failed apply may have dropped, and never duplicates existing fields.
-function buildFullFields(c, currentFields, existingByName) {
-  const byName = new Map(currentFields.map((f) => [f.name, f]));
-  const merged = [];
+  //  - the intended non-relation fields (this schema), reusing the live field
+  //    object (preserving its `id`) when a field with the same name already
+  //    exists on the server, else using the intended definition;
+  //  - the relation fields, resolving each target *name* to its real collection ID.
+  //
+  // This is required because PocketBase 0.27.x collection PATCH replaces the
+  // whole `fields` array (no merge). It restores any base field that a previous
+  // partial/failed apply may have dropped, and never duplicates existing fields.
+  function buildFullFields(c, currentFields, existingByName) {
+    const byName = new Map(currentFields.map((f) => [f.name, f]));
+    const merged = [];
 
-  for (const intended of c.fields) {
-    const live = byName.get(intended.name);
-    // Keep the live field (with its id + options) if present so PocketBase
-    // recognizes it; otherwise fall back to the intended definition.
-    merged.push(live ? { ...live } : { ...intended });
+    for (const intended of c.fields) {
+      const live = byName.get(intended.name);
+      // Keep the live field (with its id + options) if present so PocketBase
+      // recognizes it; otherwise fall back to the intended definition.
+      merged.push(live ? { ...live } : { ...intended });
+    }
+
+    for (const r of c.relations) {
+      if (byName.has(r.name)) {
+        merged.push({ ...byName.get(r.name) });
+        continue;
+      }
+      const target = existingByName.get(r.collectionId);
+      if (!target) {
+        throw new Error(
+          `Cannot resolve collection id for relation "${c.name}.${r.name}" -> "${r.collectionId}"`,
+        );
+      }
+      merged.push({ ...r, collectionId: target.id });
+    }
+
+    return merged;
   }
 
-  for (const r of c.relations) {
-    if (byName.has(r.name)) {
-      merged.push({ ...byName.get(r.name) });
-      continue;
-    }
-    const target = existingByName.get(r.collectionId);
-    if (!target) {
-      throw new Error(
-        `Cannot resolve collection id for relation "${c.name}.${r.name}" -> "${r.collectionId}"`,
-      );
-    }
-    merged.push({ ...r, collectionId: target.id });
-  }
-
-  return merged;
-}
-
-// Phase 2: attach relation fields via a FULL field-set PATCH.
+  // Phase 2: attach relation fields via a FULL field-set PATCH.
   //
   // IMPORTANT (verified against PocketBase 0.27.2 semantics): collection
   // update PATCH replaces the whole `fields` array (there is NO merge of array
@@ -533,16 +592,14 @@ function buildFullFields(c, currentFields, existingByName) {
     console.log(
       `  ~ ${c.name}: syncing fields to ${fullFields.length} (${c.relations.length} relation, ${c.fields.length} base) ...`,
     );
-    const updated = await request(
-      baseUrl,
-      `${API_COLLECTIONS}/${current.id}`,
-      {
-        method: "PATCH",
-        token,
-        body: { fields: fullFields },
-      },
+    const updated = await request(baseUrl, `${API_COLLECTIONS}/${current.id}`, {
+      method: "PATCH",
+      token,
+      body: { fields: fullFields },
+    });
+    console.log(
+      `    done (${updated.fields.length} fields on ${updated.name}).`,
     );
-    console.log(`    done (${updated.fields.length} fields on ${updated.name}).`);
     existingByName.set(c.name, updated);
   }
 
@@ -579,17 +636,17 @@ function buildFullFields(c, currentFields, existingByName) {
     }
 
     const fullIndexes = [...currentIndexes, ...missing];
-    console.log(`  ~ ${c.name}: adding ${missing.length} missing index(es) ...`);
-    const updated = await request(
-      baseUrl,
-      `${API_COLLECTIONS}/${current.id}`,
-      {
-        method: "PATCH",
-        token,
-        body: { indexes: fullIndexes },
-      },
+    console.log(
+      `  ~ ${c.name}: adding ${missing.length} missing index(es) ...`,
     );
-    console.log(`    done (${updated.indexes.length} indexes on ${updated.name}).`);
+    const updated = await request(baseUrl, `${API_COLLECTIONS}/${current.id}`, {
+      method: "PATCH",
+      token,
+      body: { indexes: fullIndexes },
+    });
+    console.log(
+      `    done (${updated.indexes.length} indexes on ${updated.name}).`,
+    );
     existingByName.set(c.name, updated);
   }
 

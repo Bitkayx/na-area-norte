@@ -34,6 +34,11 @@ un campo de fecha único, propuesto como `broadcastDate`. Antes de cambiarla:
 3. solicitar autorización explícita para modificar schema;
 4. verificar el schema después del cambio.
 
+Dry-run remoto del 2026-10-26: la colección está vacía y el plan contiene un
+único PATCH que reemplaza `week`/`idx_radio_week` por
+`broadcastDate`/`idx_radio_date`. Conserva todos los demás campos, relación,
+índices y access rules. No se realizaron escrituras.
+
 ## Dry-run remoto y apply
 
 El reconciliador remoto se implementará después de aprobar el schema. Deberá
