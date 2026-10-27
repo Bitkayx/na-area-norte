@@ -114,7 +114,7 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
   [análisis de Literatura](literature-analysis.md).
 - **LITERATURE-LOCAL — Completo.** `scripts/migrate-literature.mjs` es dry-run
-  por defecto; 4/4 tests. Excluye `quantity`/`total`, conserva códigos y evita
+  por defecto; 5/5 tests. Excluye `quantity`/`total`, conserva códigos y evita
   sobrescribir conflictos.
 - **LITERATURE-DRY — Completo.** El 2026-10-26 el dry-run remoto propuso 9
   categorías y 161 productos, 0 updates y 0 conflictos. No hubo escrituras.
