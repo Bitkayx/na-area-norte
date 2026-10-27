@@ -40,6 +40,8 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
   Markdown; el renderer actual transforma Markdown remoto con `marked`.
 - Confirmar la estrategia para covers locales y URLs externas antes de subir
   assets. No inventar tags ni sustituir media faltante.
+- Para presentación cuando falte un cover, el frontend usa el asset local
+  `public/assets/blog/news_default.jpg`; esto no rellena el campo `cover` remoto.
 - Eliminar la allowlist de slugs solo después de que `getStaticPaths()` y la
   lista consulten una fuente verificada y se haya probado build/preview.
 

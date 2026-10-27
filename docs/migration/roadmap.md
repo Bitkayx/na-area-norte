@@ -96,8 +96,9 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   slugs publicados, 9 tags, ningún evento relacionado y schema compatible. No
   hubo escrituras.
 - **NEWS-REVIEW — Siguiente tarea.** Revisar `pubDate` faltante de
-  `congreso-regional-2026`, seis covers ausentes y equivalencia de cuerpos y
-  media. No corregir ni aplicar hasta decidir si son diferencias intencionales.
+  `congreso-regional-2026` y equivalencia de cuerpos y media. Se implementó el
+  fallback visual local `public/assets/blog/news_default.jpg` para covers
+  ausentes; esto no cambia PocketBase ni sustituye media dentro del cuerpo.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.

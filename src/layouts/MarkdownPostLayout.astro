@@ -5,6 +5,12 @@ import { getCollection } from "astro:content";
 
 const { frontmatter } = Astro.props;
 const { title, pubDate, description, author, image, tags } = frontmatter;
+const coverUrl = image
+  ? typeof image.url === "object"
+    ? image.url.src
+    : image.url
+  : "/assets/blog/news_default.jpg";
+const coverAlt = image?.alt || "Imagen predeterminada de noticias";
 const allPosts = await getCollection("blog");
 const tagCounts: Record<string, number> = {};
 allPosts.forEach((post: any) => {
@@ -29,15 +35,11 @@ allPosts.forEach((post: any) => {
       <p class="text-slate-600 dark:text-slate-400 italic text-lg mb-6">
         {description}
       </p>
-      {
-        image && (
-          <img
-            src={typeof image.url === "object" ? image.url.src : image.url}
-            alt={image.alt}
-            class="w-full max-w-max h-100 rounded-lg mb-6"
-          />
-        )
-      }
+      <img
+        src={coverUrl}
+        alt={coverAlt}
+        class="w-full max-w-max h-100 rounded-lg mb-6 object-cover"
+      />
       <div class="text-sm text-slate-500 dark:text-slate-500 space-y-1">
         <p>Fecha de publicación: {formatDate(pubDate)}</p>
         <p>Autor: {author}</p>
