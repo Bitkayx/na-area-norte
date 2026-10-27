@@ -18,6 +18,12 @@ test("source inventory transforms to 9 categories and 161 public catalog rows", 
   assert.ok(source.products.every((item) => !("quantity" in item) && !("total" in item)));
 });
 
+test("source validation rejects duplicate title/category identities", () => {
+  const source = loadSource();
+  source.products[1].title = source.products[0].title;
+  assert.ok(validateSource(source).some((error) => error.includes("duplicate source title/category identity")));
+});
+
 test("empty destination plans only category and product creates", () => {
   const source = loadSource();
   const plan = buildPlan(source, [], []);

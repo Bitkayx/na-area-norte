@@ -58,7 +58,7 @@ se realizaron escrituras.
 ## Pendiente / siguiente subetapa
 
 La preparación local está implementada en `scripts/migrate-literature.mjs`;
-`node --test tests/migrate-literature.test.mjs` pasó 4 casos. El dry-run remoto
+`node tests/migrate-literature.test.mjs` pasó 5 casos. El dry-run remoto
 de solo lectura del 2026-10-26 propuso 9 categorías y 161 productos, todo CREATE,
 sin conflictos. `quantity` y `total` no aparecen en payloads; códigos vacíos se
 representan como `null`, y el resto se conserva tal como está.

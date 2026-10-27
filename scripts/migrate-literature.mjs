@@ -65,11 +65,16 @@ function validateSource(source) {
   const errors = [];
   if (source.categories.length !== 9) errors.push(`expected 9 categories, found ${source.categories.length}`);
   if (source.products.length !== 161) errors.push(`expected 161 products, found ${source.products.length}`);
+  const identities = new Set();
   for (const item of source.products) {
     if (!item.title) errors.push(`row ${item.sourceIndex}: missing title`);
     if (!Number.isFinite(item.price) || item.price < 0) errors.push(`row ${item.sourceIndex}: invalid price`);
     if (!source.categories.some((category) => category.name === item.categoryName))
       errors.push(`row ${item.sourceIndex}: unknown category ${item.categoryName}`);
+    const identity = `${item.categoryName}:${item.title}`;
+    if (identities.has(identity))
+      errors.push(`row ${item.sourceIndex}: duplicate source title/category identity`);
+    identities.add(identity);
   }
   return errors;
 }
