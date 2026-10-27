@@ -48,3 +48,21 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
 Leer el schema y registros de `posts` y `tags` en modo lectura, sin mostrar
 secretos. Preparar un inventario comparativo y un dry-run de reconciliación. No
 usar `--apply` hasta revisar slugs, tags, media y cuerpos.
+
+## Evidencia remota — 2026-10-26
+
+- Schema autenticado: `posts` y `tags` tienen list/view públicas, escrituras
+  restringidas, slug único y relación M2M de tags; `posts.event` es opcional.
+- La colección remota contiene **13 posts**, exactamente los 13 slugs V1, todos
+  con `status=published`; no hay posts extra en esta lectura.
+- Hay **9 tags** remotos. Los tags expandidos coinciden con los tags V1
+  normalizados por slug en los 13 registros.
+- Ningún post tiene evento relacionado. No se debe crear relación por inferencia.
+- `congreso-regional-2026` tiene `pubDate` remoto vacío, aunque V1 declara
+  `2026-08-01`; requiere revisión editorial antes de actualizar.
+- Seis registros no tienen `cover` remoto (`eventos-areanorte-2026` y cinco
+  invitaciones), aunque sus cuerpos o frontmatter contienen referencias de
+  imágenes; distinguir cover de imágenes embebidas antes de cambiar media.
+- Los cuerpos remotos tienen contenido no vacío. Falta comparar contenido y
+  referencias de media con hashes o un inventario detallado; no se imprimieron
+  cuerpos completos.

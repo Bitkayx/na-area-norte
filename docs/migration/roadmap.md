@@ -92,9 +92,12 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
   referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
   colección remota, tags, media y cuerpos aún no están certificados.
-- **NEWS-DRY — Siguiente tarea.** Inspeccionar `posts` y `tags` en lectura,
-  comparar slugs, cuerpos, fechas, tags y media, y preparar un dry-run sin
-  escrituras.
+- **NEWS-DRY — Completo.** La lectura autenticada del 2026-10-26 encontró 13/13
+  slugs publicados, 9 tags, ningún evento relacionado y schema compatible. No
+  hubo escrituras.
+- **NEWS-REVIEW — Siguiente tarea.** Revisar `pubDate` faltante de
+  `congreso-regional-2026`, seis covers ausentes y equivalencia de cuerpos y
+  media. No corregir ni aplicar hasta decidir si son diferencias intencionales.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.

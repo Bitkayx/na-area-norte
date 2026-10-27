@@ -20,8 +20,9 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-La siguiente etapa es `NEWS-DRY`: inspeccionar `posts` y `tags` en modo lectura y
-comparar los 13 slugs, cuerpos, fechas, tags y media antes de cualquier escritura.
+La siguiente etapa es `NEWS-REVIEW`: revisar la fecha faltante de
+`congreso-regional-2026`, seis covers ausentes y equivalencia de cuerpos/media.
+No corregir ni aplicar hasta decidir si son diferencias intencionales.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
