@@ -102,8 +102,25 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-PUBDATE-DRY — Completo.** El 2026-10-26, el script comparó las 13 fechas
   V1 con PocketBase: una vacía propone `2026-08-01`; 12 están iguales. No hubo
   escrituras.
-- **NEWS-PUBDATE-APPLY — Pendiente de autorización.** Completar solo la fecha
-  vacía; luego verificar `UNCHANGED` y hacer build.
+- **NEWS-PUBDATE-APPLY — Completo.** Tras autorización se actualizó solo la fecha
+  vacía a `2026-08-01`; la verificación posterior reportó 13 `UNCHANGED`.
+- **NEWS-FRONT — Completo en transición.** Inicio, lista y rutas consultan DAL;
+  Markdown queda de respaldo si PocketBase no tiene posts o falta un cuerpo.
+  Builds local y remoto pasan: 32 y 48 páginas; lista muestra 13 posts e inicio 4.
+- **NEWS-BODY-REVIEW — Pendiente.** Hay diferencias de texto en algunos posts;
+  hace falta revisión semántica antes de retirar Markdown.
+- **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
+  local/remoto del schema revisados. La lectura autenticada confirmó ambas
+  colecciones vacías frente a 161 productos y 9 categorías V1. Véase
+  [análisis de Literatura](literature-analysis.md).
+- **LITERATURE-LOCAL — Completo.** `scripts/migrate-literature.mjs` es dry-run
+  por defecto; 4/4 tests. Excluye `quantity`/`total`, conserva códigos y evita
+  sobrescribir conflictos.
+- **LITERATURE-DRY — Completo.** El 2026-10-26 el dry-run remoto propuso 9
+  categorías y 161 productos, 0 updates y 0 conflictos. No hubo escrituras.
+- **LITERATURE-REVIEW — Siguiente tarea.** Revisión humana de códigos
+  duplicados/genéricos y ausentes; confirmar que los 161 precios V1 quedan
+  activos. Solo luego se puede solicitar autorización explícita de escritura.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.

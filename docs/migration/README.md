@@ -13,13 +13,14 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | 13/13 slugs publicados, 9 tags; conteos de las 49 imágenes embebidas coinciden. 6 covers usan fallback local. Dry-run propone completar `pubDate` de Congreso con V1; escritura pendiente de autorización.        |
+| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. `pubDate` de Congreso corregido; dry-run: 13 `UNCHANGED`. Builds local/remoto correctos. Revisión semántica de cuerpos pendiente.                      |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; literatura aún consume JSON.                         |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
+| Literatura                     | Dry-run propone 9 categorías y 161 productos, sin conflictos. Preparación/tests completos; falta revisión humana de códigos duplicados/genéricos y confirmación de precios activos. Véase [análisis](literature-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
 
 La idempotencia de distritos está probada localmente mediante una segunda
@@ -75,9 +76,9 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**NEWS-PUBDATE-APPLY:** autorizar y actualizar únicamente el `pubDate` vacío de
-`congreso-regional-2026` a `2026-08-01`, según V1; después repetir el dry-run y
-validar build. La revisión semántica de cuerpos sigue pendiente.
+**LITERATURE-REVIEW:** revisar excepciones de códigos y confirmar que los 161
+precios V1 deben publicarse activos. El dry-run completo está en
+[análisis de Literatura](literature-analysis.md); no se ha ejecutado `--apply`.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

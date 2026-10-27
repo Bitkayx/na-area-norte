@@ -4,8 +4,7 @@ import BlogPost from "@components/BlogPost.astro";
 import Ubicacion from "@components/Ubicacion.astro";
 import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
-import { createLocalDate } from "../utils/dateUtils.ts";
+import { getNewsItems } from "../lib/news.ts";
 import aniversarioArea from "../assets/blog/compartimientos/agosto/area_aniversario_2026.jpeg";
 
 /**
@@ -15,16 +14,9 @@ import aniversarioArea from "../assets/blog/compartimientos/agosto/area_aniversa
  * group directory preview, and location section.
  */
 
-const allPosts = await getCollection("blog");
+const allPosts = await getNewsItems();
 const title = "Neuroticos Anonimos Area Norte CDMX";
-
-const latestPosts = allPosts
-  .sort(
-    (a, b) =>
-      createLocalDate(b.data.pubDate).getTime() -
-      createLocalDate(a.data.pubDate).getTime(),
-  )
-  .slice(0, 4);
+const latestPosts = allPosts.slice(0, 4);
 ---
 
 <Layout title={title}>
@@ -94,15 +86,15 @@ const latestPosts = allPosts
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        latestPosts.map((post: any) => (
+        latestPosts.map((post) => (
           <BlogPost
-            url={`/noticias/${post.id}`}
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            author={post.data.author}
-            image={post.data.image}
-            tags={post.data.tags}
+            url={`/noticias/${post.slug}`}
+            title={post.title}
+            description={post.description}
+            pubDate={post.pubDate}
+            author={post.author ?? undefined}
+            image={post.image}
+            tags={post.tags}
           />
         ))
       }

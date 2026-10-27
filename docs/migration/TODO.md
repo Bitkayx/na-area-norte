@@ -20,10 +20,12 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: autorizar y completar `pubDate` vacío de
-`congreso-regional-2026` con la fecha V1 `2026-08-01`; el dry-run reporta 1 update
-y 12 unchanged. Después verificar con dry-run y build. La revisión semántica de
-cuerpos sigue abierta.
+Siguiente etapa: `LITERATURE-REVIEW`, revisar los códigos duplicados/genéricos y
+ausentes descritos en [literature-analysis.md](literature-analysis.md), y
+confirmar que los 161 precios deben publicarse activos. El dry-run remoto propone
+9 categorías y 161 altas sin conflictos; no se ha ejecutado `--apply`. En
+noticias, no retirar Markdown hasta revisar semánticamente las diferencias de
+cuerpos; las 13 fechas remotas ya coinciden con V1.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
@@ -53,8 +55,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 - Noticias: certificar los 13 posts remotos, media, tags, URLs y consumidores;
   después evaluar el retiro gradual del fallback Markdown.
-- Literatura: analizar códigos duplicados/genéricos y el significado de
-  `quantity`; no inventar códigos ni stock.
+- Literatura: completar revisión humana antes de autorizar escritura; no inferir
+  stock ni inventar/corregir códigos.
 - Events: verificar duplicados entre posts, calendarios y páginas.
 - Site settings y media: validar alcance, assets y estrategia para videos grandes.
 - Frontend: retirar JSON V1 únicamente después de validar cada entidad y sus

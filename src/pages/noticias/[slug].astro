@@ -5,11 +5,12 @@ import { dal } from "../../lib/dal/index.ts";
 import { marked } from "marked";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post: any) => ({
-    params: { slug: post.id },
-    props: {},
-  }));
+  const published = await dal.posts.getPublished();
+  if (published.length > 0) {
+    return published.map((post) => ({ params: { slug: post.slug } }));
+  }
+  const localPosts = await getCollection("blog");
+  return localPosts.map((post) => ({ params: { slug: post.id } }));
 }
 
 const { slug } = Astro.params;
@@ -19,56 +20,47 @@ let useHtml = false;
 let htmlBody = "";
 let ContentComp: any = null;
 
-if (
-  slug === "fraterna_80" ||
-  slug === "asamblea-mexicana" ||
-  slug === "congreso-regional-2026" ||
-  slug === "mave-2026" ||
-  slug === "encuentro-de-servidores" ||
-  slug === "invitaciones-marzo-2026" ||
-  slug === "invitaciones-abril-2026" ||
-  slug === "invitaciones-mayo-2026" ||
-  slug === "invitaciones-junio-2026" ||
-  slug === "invitaciones-agosto-2026" ||
-  slug === "eventos-areanorte-2026" ||
-  slug === "encuentro-regional-literatura-2026" ||
-  slug === "invitaciones-septiembre-2026"
-) {
-  const pbPost = await dal.posts.getBySlug(slug);
-  if (pbPost) {
-    fm = {
-      title: pbPost.title,
-      pubDate: pbPost.pubDate ?? undefined,
-      description: pbPost.description,
-      author: pbPost.author ?? "Área Norte",
-      image: pbPost.coverUrl
-        ? { url: pbPost.coverUrl, alt: pbPost.title }
-        : undefined,
-      tags:
-        pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
-    };
-    const body = pbPost.body ?? "";
-    if (body.trim()) {
-      useHtml = true;
-      htmlBody = marked
-        .parse(body)
-        .replace(/src="\.\.\/assets\//g, 'src="/assets/');
-    } else {
-      fm = null; // fall back if empty
-    }
+const localPosts = await getCollection("blog");
+const localPost = localPosts.find((post) => post.id === slug);
+const pbPost = slug ? await dal.posts.getBySlug(slug) : undefined;
+
+if (pbPost) {
+  fm = {
+    title: pbPost.title,
+    pubDate: pbPost.pubDate ?? undefined,
+    description: pbPost.description,
+    author: pbPost.author ?? "Área Norte",
+    image: pbPost.coverUrl
+      ? { url: pbPost.coverUrl, alt: pbPost.title }
+      : undefined,
+    tags:
+      pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
+  };
+  const body = pbPost.body ?? "";
+  if (body.trim()) {
+    useHtml = true;
+    htmlBody = marked
+      .parse(body)
+      .replace(/src="\.\.\/assets\//g, 'src="/assets/');
   }
 }
 
-if (!fm) {
-  const posts = await getCollection("blog");
-  const post = posts.find((p: any) => p.id === slug);
-  if (!post) throw new Error(`Post not found: ${slug}`);
-  fm = post.data;
-  const rendered = await render(post);
+if (!fm && localPost) {
+  fm = localPost.data;
+  const rendered = await render(localPost);
   ContentComp = rendered.Content;
+} else if (!fm && !pbPost) {
+  throw new Error(`Post not found: ${slug}`);
+} else if (pbPost && !(pbPost.body ?? "").trim()) {
+  // Keep the PB metadata and use local content when this slug has a V1 copy.
+  if (localPost) {
+    fm = localPost.data;
+    const rendered = await render(localPost);
+    ContentComp = rendered.Content;
+  }
 }
 ---
 
 <MarkdownPostLayout frontmatter={fm}>
-  {useHtml ? <div set:html={htmlBody} /> : <ContentComp />}
+  {useHtml ? <div set:html={htmlBody} /> : ContentComp && <ContentComp />}
 </MarkdownPostLayout>

@@ -60,9 +60,9 @@ usar `--apply` hasta revisar slugs, tags, media y cuerpos.
 - Hay **9 tags** remotos. Los tags expandidos coinciden con los tags V1
   normalizados por slug en los 13 registros.
 - Ningún post tiene evento relacionado. No se debe crear relación por inferencia.
-- `congreso-regional-2026` tiene `pubDate` remoto vacío, aunque V1 declara
-  `2026-08-01`. La fecha V1 es exacta; el dry-run propone completar solo este
-  campo vacío.
+- `congreso-regional-2026` tenía `pubDate` remoto vacío. Tras autorización se
+  actualizó a `2026-08-01`, igual que V1; el dry-run posterior dejó los 13 posts
+  `UNCHANGED`.
 - Seis registros no tienen `cover` remoto (`eventos-areanorte-2026` y cinco
   invitaciones). El fallback local cubre esta diferencia de presentación sin
   escribir en PocketBase.
@@ -73,6 +73,13 @@ usar `--apply` hasta revisar slugs, tags, media y cuerpos.
   diferencias textuales en varios posts; esa heurística no determina si los
   cambios son intencionales. La revisión semántica sigue pendiente; no se
   imprimieron cuerpos completos.
-- `node scripts/migrate-news-pubdates.mjs` propuso un update:
-  `congreso-regional-2026` a `2026-08-01`; las otras 12 fechas quedaron
-  `UNCHANGED`. No hubo escrituras.
+- `node scripts/migrate-news-pubdates.mjs --apply` actualizó únicamente
+  `pubDate` de `congreso-regional-2026` a `2026-08-01` tras autorización.
+  Repetir `node scripts/migrate-news-pubdates.mjs` reportó 13 `UNCHANGED`.
+- Se integraron inicio, listado y rutas estáticas con DAL; Markdown queda como
+  fallback cuando PocketBase no tiene posts, no tiene el slug o un cuerpo está
+  vacío. No se retiró ninguna fuente V1.
+- Builds: `PUBLIC_POCKETBASE_URL= ./node_modules/.bin/astro build` produjo 32
+  páginas con fallback local; `node --env-file=.env node_modules/astro/astro.js
+  build` produjo 48 páginas con PocketBase. La página de noticias contiene 13
+  slugs; el inicio muestra los 4 más recientes.
