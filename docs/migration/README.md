@@ -2,7 +2,7 @@
 
 Última revisión local: **2026-10-26**. Entrada para retomar el proyecto junto con
 [AGENTS.md](../../AGENTS.md), el [roadmap](roadmap.md) y el
-[runbook de distritos](runbooks/districts.md).
+[runbook de distritos](runbooks/districts.md) y la [lista de continuación](TODO.md).
 
 Este archivo registra el estado vigente. `BACKLOG.md` conserva planificación
 histórica; sus casillas, numeración de ADR y “siguiente paso” no acreditan avance.
