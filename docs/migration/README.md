@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | 13 Markdown y 13 slugs contemplados en `src/pages/noticias/[slug].astro`. El detalle usa DAL con fallback a Markdown; `getStaticPaths()` aún depende de V1. No equivale a certificar los registros remotos.       |
+| Noticias                       | Análisis local: 13 posts, 49 referencias de imagen local sin rutas rotas. Lista y rutas aún dependen de Astro Content; el detalle tiene fallback Markdown. Registros remotos, tags y media pendientes.            |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -78,6 +78,8 @@ registrada usó directamente el binario de Astro.
 **RADIO-NEXT-MONTH:** capturar el siguiente rol desde la administración de
 PocketBase, usando `13:00` salvo indicación distinta, y verificar el build. Para
 cargas asistidas por script se mantiene dry-run y autorización por mes.
+
+La siguiente entidad de contenido es **Noticias**; véase [análisis de noticias](news-analysis.md).
 
 ## Mantenimiento
 

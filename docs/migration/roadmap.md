@@ -89,6 +89,12 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   horarios y slugs; radio, fechas y responsables mensuales; literatura, códigos y
   significado de `quantity`; eventos, ausencia de duplicados; settings, alcance.
   Reflexiones permanece fuera.
+- **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
+  referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
+  colección remota, tags, media y cuerpos aún no están certificados.
+- **NEWS-DRY — Siguiente tarea.** Inspeccionar `posts` y `tags` en lectura,
+  comparar slugs, cuerpos, fechas, tags y media, y preparar un dry-run sin
+  escrituras.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.

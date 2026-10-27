@@ -20,6 +20,9 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
+La siguiente etapa es `NEWS-DRY`: inspeccionar `posts` y `tags` en modo lectura y
+comparar los 13 slugs, cuerpos, fechas, tags y media antes de cualquier escritura.
+
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 1. Confirmar el año explícito.
