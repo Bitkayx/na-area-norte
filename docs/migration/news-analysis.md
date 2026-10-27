@@ -61,10 +61,18 @@ usar `--apply` hasta revisar slugs, tags, media y cuerpos.
   normalizados por slug en los 13 registros.
 - Ningún post tiene evento relacionado. No se debe crear relación por inferencia.
 - `congreso-regional-2026` tiene `pubDate` remoto vacío, aunque V1 declara
-  `2026-08-01`; requiere revisión editorial antes de actualizar.
+  `2026-08-01`. La fecha V1 es exacta; el dry-run propone completar solo este
+  campo vacío.
 - Seis registros no tienen `cover` remoto (`eventos-areanorte-2026` y cinco
-  invitaciones), aunque sus cuerpos o frontmatter contienen referencias de
-  imágenes; distinguir cover de imágenes embebidas antes de cambiar media.
-- Los cuerpos remotos tienen contenido no vacío. Falta comparar contenido y
-  referencias de media con hashes o un inventario detallado; no se imprimieron
-  cuerpos completos.
+  invitaciones). El fallback local cubre esta diferencia de presentación sin
+  escribir en PocketBase.
+- Los conteos de imágenes embebidas coinciden en los 13 posts: 49 en V1 y
+  PocketBase. PocketBase puede renombrar los assets subidos, así que las rutas
+  locales no necesariamente comparten basename.
+- Los cuerpos son no vacíos. Una comparación normalizada de palabras muestra
+  diferencias textuales en varios posts; esa heurística no determina si los
+  cambios son intencionales. La revisión semántica sigue pendiente; no se
+  imprimieron cuerpos completos.
+- `node scripts/migrate-news-pubdates.mjs` propuso un update:
+  `congreso-regional-2026` a `2026-08-01`; las otras 12 fechas quedaron
+  `UNCHANGED`. No hubo escrituras.

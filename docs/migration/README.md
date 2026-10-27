@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | NEWS-DRY remoto completo: 13/13 slugs publicados y 9 tags; sin eventos relacionados. `congreso-regional-2026` no tiene `pubDate`; 6 covers faltan y usan fallback visual local. Revisión editorial pendiente.     |
+| Noticias                       | 13/13 slugs publicados, 9 tags; conteos de las 49 imágenes embebidas coinciden. 6 covers usan fallback local. Dry-run propone completar `pubDate` de Congreso con V1; escritura pendiente de autorización.        |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -75,11 +75,11 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**RADIO-NEXT-MONTH:** capturar el siguiente rol desde la administración de
-PocketBase, usando `13:00` salvo indicación distinta, y verificar el build. Para
-cargas asistidas por script se mantiene dry-run y autorización por mes.
+**NEWS-PUBDATE-APPLY:** autorizar y actualizar únicamente el `pubDate` vacío de
+`congreso-regional-2026` a `2026-08-01`, según V1; después repetir el dry-run y
+validar build. La revisión semántica de cuerpos sigue pendiente.
 
-La siguiente entidad de contenido es **Noticias-REVIEW**; véase [análisis de noticias](news-analysis.md).
+Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 
 ## Mantenimiento
 

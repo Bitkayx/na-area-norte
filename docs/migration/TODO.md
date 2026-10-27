@@ -8,7 +8,7 @@ autorizaciones remotas.
 ## Estado de entrada
 
 - Rama de trabajo: `feature/26.7`.
-- Último checkpoint documentado: commit `c36373f`.
+- Consultar `git log -1` para identificar el checkpoint más reciente.
 - Distritos 1, 2, 4 y 5 migrados y verificados.
 - 43 grupos migrados y verificados; directorio usa DAL con fallback JSON.
 - Schema de `radio_broadcasts` usa `broadcastDate` requerido y único; `week` ya
@@ -20,9 +20,10 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-La siguiente etapa es `NEWS-REVIEW`: revisar la fecha faltante de
-`congreso-regional-2026`, seis covers ausentes y equivalencia de cuerpos/media.
-No corregir ni aplicar hasta decidir si son diferencias intencionales.
+Siguiente etapa: autorizar y completar `pubDate` vacío de
+`congreso-regional-2026` con la fecha V1 `2026-08-01`; el dry-run reporta 1 update
+y 12 unchanged. Después verificar con dry-run y build. La revisión semántica de
+cuerpos sigue abierta.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 

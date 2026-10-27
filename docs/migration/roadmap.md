@@ -95,10 +95,15 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-DRY — Completo.** La lectura autenticada del 2026-10-26 encontró 13/13
   slugs publicados, 9 tags, ningún evento relacionado y schema compatible. No
   hubo escrituras.
-- **NEWS-REVIEW — Siguiente tarea.** Revisar `pubDate` faltante de
-  `congreso-regional-2026` y equivalencia de cuerpos y media. Se implementó el
-  fallback visual local `public/assets/blog/news_default.jpg` para covers
-  ausentes; esto no cambia PocketBase ni sustituye media dentro del cuerpo.
+- **NEWS-REVIEW — En curso.** El fallback local
+  `public/assets/blog/news_default.jpg` cubre seis covers vacíos. Los conteos de
+  imágenes embebidas coinciden: 49 en V1 y PocketBase. La equivalencia semántica
+  de cuerpos requiere revisión editorial.
+- **NEWS-PUBDATE-DRY — Completo.** El 2026-10-26, el script comparó las 13 fechas
+  V1 con PocketBase: una vacía propone `2026-08-01`; 12 están iguales. No hubo
+  escrituras.
+- **NEWS-PUBDATE-APPLY — Pendiente de autorización.** Completar solo la fecha
+  vacía; luego verificar `UNCHANGED` y hacer build.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.

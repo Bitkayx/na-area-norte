@@ -19,7 +19,21 @@ let useHtml = false;
 let htmlBody = "";
 let ContentComp: any = null;
 
-if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso-regional-2026" || slug === "mave-2026" || slug === "encuentro-de-servidores" || slug === "invitaciones-marzo-2026" || slug === "invitaciones-abril-2026" || slug === "invitaciones-mayo-2026" || slug === "invitaciones-junio-2026" || slug === "invitaciones-agosto-2026" || slug === "eventos-areanorte-2026" || slug === "encuentro-regional-literatura-2026" || slug === "invitaciones-septiembre-2026") {
+if (
+  slug === "fraterna_80" ||
+  slug === "asamblea-mexicana" ||
+  slug === "congreso-regional-2026" ||
+  slug === "mave-2026" ||
+  slug === "encuentro-de-servidores" ||
+  slug === "invitaciones-marzo-2026" ||
+  slug === "invitaciones-abril-2026" ||
+  slug === "invitaciones-mayo-2026" ||
+  slug === "invitaciones-junio-2026" ||
+  slug === "invitaciones-agosto-2026" ||
+  slug === "eventos-areanorte-2026" ||
+  slug === "encuentro-regional-literatura-2026" ||
+  slug === "invitaciones-septiembre-2026"
+) {
   const pbPost = await dal.posts.getBySlug(slug);
   if (pbPost) {
     fm = {
@@ -27,13 +41,18 @@ if (slug === "fraterna_80" || slug === "asamblea-mexicana" || slug === "congreso
       pubDate: pbPost.pubDate ?? undefined,
       description: pbPost.description,
       author: pbPost.author ?? "Área Norte",
-      image: undefined,
-      tags: pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
+      image: pbPost.coverUrl
+        ? { url: pbPost.coverUrl, alt: pbPost.title }
+        : undefined,
+      tags:
+        pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
     };
     const body = pbPost.body ?? "";
     if (body.trim()) {
       useHtml = true;
-      htmlBody = marked.parse(body).replace(/src="\.\.\/assets\//g, 'src="/assets/');
+      htmlBody = marked
+        .parse(body)
+        .replace(/src="\.\.\/assets\//g, 'src="/assets/');
     } else {
       fm = null; // fall back if empty
     }
@@ -49,6 +68,7 @@ if (!fm) {
   ContentComp = rendered.Content;
 }
 ---
+
 <MarkdownPostLayout frontmatter={fm}>
   {useHtml ? <div set:html={htmlBody} /> : <ContentComp />}
 </MarkdownPostLayout>
