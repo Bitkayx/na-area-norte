@@ -58,37 +58,33 @@ eso el migrador envía 1 cuando V1 no incluye cantidad, pero un producto futuro
 creado desde el administrador sin stock quedaría en 0; garantizar default 1 en
 altas futuras requiere definir un flujo adicional.
 
-La inspección autenticada y de solo lectura del 2026-10-29 confirmó que las
-colecciones remotas `categories` y `literature` existen con sus campos base,
-relación e índices actuales; lectura pública, escritura cerrada. La última
-lectura de registros fue el 2026-10-26 y encontró ambas colecciones vacías; el
-conteo no se repitió el 29 porque el preflight se detuvo al faltar
-`literature.stock` en el schema. No se realizaron escrituras.
+El 2026-10-29 se autorizó y aplicó un PATCH que añadió solo `literature.stock`
+(NumberField opcional, entero, mínimo 0). La inspección posterior confirmó el
+campo; se conservaron los demás campos, índices y access rules. No se hizo otro
+cambio de schema. `node --env-file=.env scripts/migrate-literature-schema.mjs`
+posterior reportó `stock` con el contrato esperado (sin PATCH).
 
 ## Pendiente / siguiente subetapa
 
 La preparación local está implementada en `scripts/migrate-literature.mjs`;
-`node tests/migrate-literature.test.mjs` pasó 7 casos; TypeScript compiló y
-`node tests/dal.test.ts` pasó 42/42. `PUBLIC_POCKETBASE_URL= ./node_modules/.bin/astro
-build` completó 32 páginas; Reflexiones registró errores de DNS hacia Google
-Sheets, como fuente externa fuera de PocketBase. La inspección de destino del
-2026-10-29 detectó que falta `literature.stock`; el migrador detuvo el dry-run
-antes de listar registros y no produjo un plan de datos aplicable. El dry-run de
-9 categorías/161 productos del 26 de octubre queda supersedido porque no incluía
-stock ni los códigos genéricos.
+`node tests/migrate-literature.test.mjs` pasó 7 casos; el nuevo migrador de
+schema pasó 4/4, TypeScript compiló y `node tests/dal.test.ts` pasó 42/42.
+`PUBLIC_POCKETBASE_URL= ./node_modules/.bin/astro build` completó 32 páginas;
+Reflexiones registró errores de DNS hacia Google Sheets, fuente externa a
+PocketBase. Tras añadir `stock`, el dry-run remoto autenticado del 2026-10-29
+propuso 9 categorías y 161 productos, todos CREATE, 0 updates y 0 conflictos.
+13 códigos se transforman a prefijo genérico; 36 filas defaultan stock a 1; se
+ignoran 3 totales V1 discrepantes. No se escribieron registros.
 
-## Siguiente subetapa: schema y nuevo dry-run
+## Siguiente subetapa: revisión y autorización de datos
 
-El destino necesita el campo opcional `stock` de tipo número entero, mínimo 0;
-el migrador asigna 1 a las 36 filas que carecen de cantidad V1. La relación
-`category` sigue requerida y `code` no debe ser único. El schema/access rules de
-PocketBase no se han modificado. El dry-run de schema debe limitarse a añadir
-ese campo sin cambiar campos, índices ni access rules existentes. Tras su
-autorización y alta en el administrador de PocketBase, ejecutar de nuevo el
-dry-run autenticado, revisar códigos genéricos, cantidades y los 9/161 payloads,
-confirmar que los 161 registros deben quedar activos, y definir cómo garantizar
-stock 1 en futuras altas desde el administrador. La escritura de datos requiere
-autorización explícita posterior a ese dry-run.
+Revisar el dry-run actual: 9 categorías y 161 productos CREATE, 0 updates y 0
+conflictos; confirma la regla de códigos genéricos por prefijo alfabético y que
+los 161 productos deben quedar activos. Para esos registros, faltantes de stock
+se convierten en 1 y `total` no se guarda. Se requiere autorización explícita
+posterior a esta revisión antes de ejecutar `node --env-file=.env
+scripts/migrate-literature.mjs --apply`. El default de stock para futuras altas
+administrativas sigue pendiente; PocketBase da 0 a un NumberField omitido.
 
 No existe todavía una migración V1 de Literatura; PocketBase está vacío para
 estas colecciones. No se realizaron escrituras en esta revisión.

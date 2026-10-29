@@ -20,14 +20,13 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `LITERATURE-SCHEMA-REVIEW`, autorizar y agregar desde el
-administrador de PocketBase solo `literature.stock` como campo opcional entero,
-mínimo 0. El migrador ya bloquea si falta. Después repetir el dry-run, revisar
-códigos genéricos y cantidades predeterminadas, confirmar `isActive`, y pedir
-autorización independiente antes de apply. Para futuras altas, PB default numérico
-es 0; definir cómo enviar 1 cuando aplique. En noticias, no retirar Markdown
-hasta revisar semánticamente las diferencias de cuerpos; las 13 fechas remotas
-ya coinciden con V1.
+Siguiente etapa: `LITERATURE-REVIEW`. El schema `stock` ya se agregó y verificó.
+El dry-run actual propone 9 categorías y 161 productos CREATE, sin conflictos.
+Revisar la conversión de códigos, los stocks default 1 y confirmar que todos
+deben quedar activos. Solo después autorizar `--apply`. Para futuras altas, PB
+default numérico es 0; definir cómo enviar 1 cuando aplique. En noticias, no
+retirar Markdown hasta revisar semánticamente las diferencias de cuerpos; las 13
+fechas remotas ya coinciden con V1.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 

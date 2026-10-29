@@ -114,16 +114,19 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
   [análisis de Literatura](literature-analysis.md).
-- **LITERATURE-LOCAL — Preparación actualizada.** Transformación local propone códigos
-  genéricos por prefijo para códigos numéricos repetidos, `stock` desde
-  `quantity` (default 1) y `total` derivado. Pasaron 7 pruebas del migrador,
-  42/42 del DAL; build local 32 páginas.
-- **LITERATURE-SCHEMA-REVIEW — Siguiente tarea.** El schema remoto no contiene
-  `literature.stock`; el migrador bloquea antes de planear/escribir. Se propone
-  únicamente un campo opcional entero, mínimo 0. Sin autorización o cambio remoto.
-- **LITERATURE-DRY — Pendiente.** Tras agregar `stock`, repetir el dry-run;
-  revisar códigos genéricos, las 36 cantidades predeterminadas y 9/161 altas.
-  Después confirmar `isActive` y pedir autorización explícita de apply.
+- **LITERATURE-LOCAL — Completo.** Transformación usa prefijos genéricos para
+  códigos numéricos repetidos, `stock` desde `quantity` (default 1) y `total`
+  derivado. Pasaron 7 pruebas del migrador, 42/42 del DAL; build local 32 páginas.
+- **LITERATURE-SCHEMA-REVIEW — Completo.** Dry-run del 2026-10-29 propuso un
+  único campo opcional `stock`, entero, mínimo 0; colección vacía. No se propuso
+  alterar campos, índices ni reglas.
+- **LITERATURE-SCHEMA-APPLY — Completo.** Tras autorización se añadió `stock`;
+  la inspección confirmó el campo y preservación de campos, índices y reglas;
+  un dry-run posterior reportó `stock` sin cambios.
+- **LITERATURE-DRY — Completo.** El 2026-10-29 propuso 9 categorías y 161
+  productos, todos CREATE, 0 updates/conflictos. No hubo escrituras de datos.
+- **LITERATURE-REVIEW — Siguiente tarea.** Revisar códigos transformados y
+  `isActive`; luego autorizar explícitamente la carga de categorías/productos.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.
