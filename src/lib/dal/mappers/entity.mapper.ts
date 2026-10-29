@@ -109,11 +109,15 @@ export function mapRadioBroadcast(r: RadioBroadcastRecord): RadioBroadcast {
 
 /** Maps a raw `literature` record (+ optional expanded category). */
 export function mapLiterature(r: LiteratureRecord): Literature {
+  const price = num(r.price);
+  const stock = Math.max(0, num(r.stock, 1));
   const out: Literature = {
     id: r.id,
     code: nullableText(r.code),
     title: text(r.title),
-    price: num(r.price),
+    price,
+    stock,
+    total: price * stock,
     isActive: bool(r.isActive, true),
     categoryId: text(r.category),
     created: r.created,

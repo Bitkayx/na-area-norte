@@ -41,6 +41,7 @@ const { normalizeLocation } = await import("./.dal-build/types/location.js");
 const { normalizeSchedules } = await import("./.dal-build/types/schedule.js");
 const { mapPost } = await import("./.dal-build/mappers/post.mapper.js");
 const { mapEvent } = await import("./.dal-build/mappers/event.mapper.js");
+const { mapLiterature } = await import("./.dal-build/mappers/entity.mapper.js");
 
 /** Recorded request so tests can assert real query params (filter/sort/expand/page). */
 interface HttpCall {
@@ -216,6 +217,27 @@ describe("client URL building", () => {
 });
 
 describe("mapping (location, schedules, relations, M2M)", () => {
+  test("literature stock defaults to 1 and total is derived", () => {
+    const base = {
+      id: "literature-1",
+      collectionId: "pbc_l",
+      collectionName: "literature",
+      created: "",
+      updated: "",
+      code: null,
+      title: "Libro",
+      price: 10.5,
+      isActive: true,
+      category: "category-1",
+    };
+    const withoutStock = mapLiterature(base);
+    assert.equal(withoutStock.stock, 1);
+    assert.equal(withoutStock.total, 10.5);
+    const stocked = mapLiterature({ ...base, stock: 3 });
+    assert.equal(stocked.stock, 3);
+    assert.equal(stocked.total, 31.5);
+  });
+
   test("normalizeLocation maps partial objects and defaults missing strings", () => {
     const loc = normalizeLocation({
       linea1: "Calle A",

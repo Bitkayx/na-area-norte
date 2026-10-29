@@ -86,8 +86,9 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
   análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
   Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,
-  horarios y slugs; radio, fechas y responsables mensuales; literatura, códigos y
-  significado de `quantity`; eventos, ausencia de duplicados; settings, alcance.
+  horarios y slugs; radio, fechas y responsables mensuales; literatura, stock,
+  códigos genéricos y total derivado; eventos, ausencia de duplicados; settings,
+  alcance.
   Reflexiones permanece fuera.
 - **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
   referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
@@ -113,14 +114,16 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
   [análisis de Literatura](literature-analysis.md).
-- **LITERATURE-LOCAL — Completo.** `scripts/migrate-literature.mjs` es dry-run
-  por defecto; 5/5 tests. Excluye `quantity`/`total`, conserva códigos y evita
-  sobrescribir conflictos.
-- **LITERATURE-DRY — Completo.** El 2026-10-26 el dry-run remoto propuso 9
-  categorías y 161 productos, 0 updates y 0 conflictos. No hubo escrituras.
-- **LITERATURE-REVIEW — Siguiente tarea.** Revisión humana de códigos
-  duplicados/genéricos y ausentes; confirmar que los 161 precios V1 quedan
-  activos. Solo luego se puede solicitar autorización explícita de escritura.
+- **LITERATURE-LOCAL — Preparación actualizada.** Transformación local propone códigos
+  genéricos por prefijo para códigos numéricos repetidos, `stock` desde
+  `quantity` (default 1) y `total` derivado. Pasaron 7 pruebas del migrador,
+  42/42 del DAL; build local 32 páginas.
+- **LITERATURE-SCHEMA-REVIEW — Siguiente tarea.** El schema remoto no contiene
+  `literature.stock`; el migrador bloquea antes de planear/escribir. Se propone
+  únicamente un campo opcional entero, mínimo 0. Sin autorización o cambio remoto.
+- **LITERATURE-DRY — Pendiente.** Tras agregar `stock`, repetir el dry-run;
+  revisar códigos genéricos, las 36 cantidades predeterminadas y 9/161 altas.
+  Después confirmar `isActive` y pedir autorización explícita de apply.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.

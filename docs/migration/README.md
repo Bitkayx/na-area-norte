@@ -1,6 +1,6 @@
 # Estado de la migración V1 → V2
 
-Última revisión local: **2026-10-26**. Entrada para retomar el proyecto junto con
+Última revisión local: **2026-10-29**. Entrada para retomar el proyecto junto con
 [AGENTS.md](../../AGENTS.md), el [roadmap](roadmap.md) y el
 [runbook de distritos](runbooks/districts.md) y la [lista de continuación](TODO.md).
 
@@ -20,7 +20,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Frontend                       | Directorio integrado con DAL y validado contra 43 grupos. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; literatura aún consume JSON.                         |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Literatura                     | Dry-run propone 9 categorías y 161 productos, sin conflictos. Preparación/tests completos; falta revisión humana de códigos duplicados/genéricos y confirmación de precios activos. Véase [análisis](literature-analysis.md). |
+| Literatura                     | Transformación local añade códigos genéricos, stock por `quantity` y total derivado; 7 pruebas pasan. El schema remoto no tiene `stock`, así que el migrador se detiene sin plan de datos. PB default numérico es 0; para exigir 1 en futuras altas se necesita un flujo explícito. Véase [análisis](literature-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
 
 La idempotencia de distritos está probada localmente mediante una segunda
@@ -76,9 +76,12 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**LITERATURE-REVIEW:** revisar excepciones de códigos y confirmar que los 161
-precios V1 deben publicarse activos. El dry-run completo está en
-[análisis de Literatura](literature-analysis.md); no se ha ejecutado `--apply`.
+**LITERATURE-SCHEMA-REVIEW:** revisar la propuesta de añadir únicamente el campo
+opcional `stock` (entero, mínimo 0) a `literature` en PocketBase. El estado remoto
+actual detectado el 2026-10-29 no lo contiene. No cambiar otros campos, índices
+ni access rules. Una vez autorizado y agregado desde el administrador, repetir
+el dry-run de datos; resolver también cómo enviar 1 en futuras altas, porque
+PocketBase usa 0 como default numérico. No se ha ejecutado `--apply`.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

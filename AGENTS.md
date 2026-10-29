@@ -46,9 +46,14 @@ El progreso temporal vive en `docs/migration/README.md`, no en este archivo.
 - Normalizar tags sin perder los existentes. Preservar todas las referencias de
   media; no borrar assets locales antes de verificar la migración. Los videos
   grandes requieren una estrategia de almacenamiento separada.
-- En literatura no migrar `total` (derivado), no inventar códigos y no asumir que
-  `quantity` significa stock. Códigos faltantes pueden quedar nulos; códigos
-  duplicados/genéricos y posibles productos duplicados requieren revisión humana.
+- En literatura, `quantity` de V1 representa stock; si falta, asignar 1 al
+  migrar. `stock` es opcional en el dominio. `total` es derivado
+  (`price * stock`) y no se persiste. Para códigos repetidos con sufijo numérico,
+  usar el prefijo alfabético como código genérico; conservar códigos únicos y
+  genéricos ya existentes, y dejar faltantes nulos. No fusionar productos:
+  reconciliar por título y categoría y detenerse ante identidades duplicadas.
+  PocketBase almacena NumberFields con default 0; cualquier flujo que requiera
+  default 1 debe enviar ese valor explícitamente.
 - No inventar información faltante ni descartar información silenciosamente.
 
 ## Trabajo y migraciones

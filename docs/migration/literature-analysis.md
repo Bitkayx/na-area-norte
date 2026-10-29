@@ -1,6 +1,6 @@
 # Análisis de Literatura
 
-Revisión local: **2026-10-26**. Fuente V1: `src/data/inventory.json`;
+Revisión: **2026-10-29**. Fuente V1: `src/data/inventory.json`;
 consumidor: `src/pages/servicios/literatura.astro` y
 `src/components/InventoryTable.tsx`.
 
@@ -10,10 +10,11 @@ consumidor: `src/pages/servicios/literatura.astro` y
   (20), Carteles NA (35), Audio/Video NA (3), Libros AA (25), Revistas
   Plenitud (5), Folletos AA (52), Carteles AA (6), Audio/Video AA (2).
 - 14 filas tienen código vacío o nulo; hay 134 códigos distintos no vacíos.
-- Diez códigos aparecen en más de una fila (`NAL009`, `NAC`, `NAC022`, `NAC010`,
-  `NAC012`, `NAC011`, `AAL`, `AAPL000`, `AAF`, `AAC`). Algunos son códigos
-  genéricos y otros parecen reutilizados entre títulos distintos. No corregir ni
-  fusionar sin revisión de la fuente editorial.
+- Diez códigos aparecen en más de una fila: seis llevan sufijo numérico y cuatro
+  ya son códigos genéricos. Decisión de transformación: para un código repetido
+  con sufijo numérico, usar su prefijo alfabético (`NAL009` → `NAL`, `NAC022` →
+  `NAC`, `AAPL000` → `AAPL`); mantener sin cambios los códigos ya genéricos, los
+  códigos únicos y los 14 vacíos. El schema no hace único `code`.
 - Detalle para revisión editorial:
   - `NAL009`: Compendio de acuerdos de asamblea / Manual de información al público.
   - `NAC`: Atrévete a vivir (cartel para grupo) / Atrévete a vivir para jóvenes IP.
@@ -31,46 +32,63 @@ consumidor: `src/pages/servicios/literatura.astro` y
   Correccionales; El miembro de A.A., los medicamentos y otras drogas; Guía de
   Funcionamiento del Política y Admon.; Declaración de la Unidad; Yo soy
   Responsable.
-- 125 filas contienen `quantity` y `total`; 36 no los contienen. La tabla pública
-  solo muestra descripción, código y precio. No está determinado qué significan
-  esas cantidades; `total` es derivable y no forma parte del modelo V2.
-- El inventario trae categoría como texto. V2 relaciona cada registro a una
-  categoría independiente; no se debe asignar por aproximación si el nombre no
-  coincide exactamente.
-- No hay títulos exactamente repetidos dentro de una misma categoría; título
-  más categoría puede servir como clave de reconciliación, sujeto a verificar
-  conflictos remotos.
+- 125 filas contienen `quantity`; 36 no. `quantity` se transforma en el campo
+  opcional `stock`; cuando falta en V1, el migrador asigna 1. El campo es
+  entero, mínimo 0. `total` se deriva
+  como `price × stock` y no se guarda en PocketBase. Tres `total` V1 no coinciden
+  con esa fórmula: Oración de la Serenidad (Grande), Doce Pasos y Doce Tradiciones,
+  y Plan Nacional de AA. Se ignora el valor previo de `total`.
+- El inventario trae categoría como texto. Las nueve categorías se crean con sus
+  nombres exactos de V1 y orden de aparición; cada producto se relaciona por
+  coincidencia exacta. El migrador rechaza nombres o relaciones ambiguas.
+- No hay títulos repetidos dentro de una misma categoría en el origen. La
+  identidad de reconciliación es título + categoría; una repetición futura en V1
+  o en el destino detiene el migrador con conflicto.
 
 ## Modelo y consumidores
 
-El tipo DAL `Literature` y `scripts/create-schema.mjs` describen `code` opcional,
-`title`, `price`, `isActive` y relación requerida `category`; no hay campo de
-stock. El repositorio DAL pagina todos los registros activos y expande categoría,
-pero la página de Literatura aún importa el JSON V1 directamente. El ADR-003
-deja `stock?` como pregunta, no como decisión aprobada.
+El modelo DAL tiene `code` opcional no único, `title`, `price`, `stock` opcional,
+`isActive` y relación requerida `category`. El DAL calcula `total` a partir de
+precio y stock. La página de Literatura aún importa el JSON V1 directamente.
+ADR-003 declara stock opcional.
 
-La inspección autenticada y de solo lectura del 2026-10-26 confirmó que las
-colecciones remotas `categories` y `literature` existen con esos campos,
-relación e índices; lectura pública, escritura cerrada. La lectura autenticada
-de registros confirmó ambas colecciones vacías (0 categorías, 0 productos). No
-se realizaron escrituras.
+PocketBase guarda los campos Number como no nulos y usa 0 si no se envía un
+valor ([documentación de campos](https://pocketbase.io/docs/collections/)). Por
+eso el migrador envía 1 cuando V1 no incluye cantidad, pero un producto futuro
+creado desde el administrador sin stock quedaría en 0; garantizar default 1 en
+altas futuras requiere definir un flujo adicional.
+
+La inspección autenticada y de solo lectura del 2026-10-29 confirmó que las
+colecciones remotas `categories` y `literature` existen con sus campos base,
+relación e índices actuales; lectura pública, escritura cerrada. La última
+lectura de registros fue el 2026-10-26 y encontró ambas colecciones vacías; el
+conteo no se repitió el 29 porque el preflight se detuvo al faltar
+`literature.stock` en el schema. No se realizaron escrituras.
 
 ## Pendiente / siguiente subetapa
 
 La preparación local está implementada en `scripts/migrate-literature.mjs`;
-`node tests/migrate-literature.test.mjs` pasó 5 casos. El dry-run remoto
-de solo lectura del 2026-10-26 propuso 9 categorías y 161 productos, todo CREATE,
-sin conflictos. `quantity` y `total` no aparecen en payloads; códigos vacíos se
-representan como `null`, y el resto se conserva tal como está.
+`node tests/migrate-literature.test.mjs` pasó 7 casos; TypeScript compiló y
+`node tests/dal.test.ts` pasó 42/42. `PUBLIC_POCKETBASE_URL= ./node_modules/.bin/astro
+build` completó 32 páginas; Reflexiones registró errores de DNS hacia Google
+Sheets, como fuente externa fuera de PocketBase. La inspección de destino del
+2026-10-29 detectó que falta `literature.stock`; el migrador detuvo el dry-run
+antes de listar registros y no produjo un plan de datos aplicable. El dry-run de
+9 categorías/161 productos del 26 de octubre queda supersedido porque no incluía
+stock ni los códigos genéricos.
 
-## Siguiente subetapa: revisión humana
+## Siguiente subetapa: schema y nuevo dry-run
 
-Antes de autorizar cualquier escritura, la persona responsable debe revisar los
-códigos duplicados/genéricos y los 14 códigos ausentes detallados arriba,
-confirmar que no se deben corregir ni deduplicar, y confirmar que los 161 precios
-publicados deben quedar activos. Luego revisar el plan de dry-run completo.
-Solo después de esa revisión se solicitará autorización explícita para `--apply`.
-No se realizaron escrituras.
+El destino necesita el campo opcional `stock` de tipo número entero, mínimo 0;
+el migrador asigna 1 a las 36 filas que carecen de cantidad V1. La relación
+`category` sigue requerida y `code` no debe ser único. El schema/access rules de
+PocketBase no se han modificado. El dry-run de schema debe limitarse a añadir
+ese campo sin cambiar campos, índices ni access rules existentes. Tras su
+autorización y alta en el administrador de PocketBase, ejecutar de nuevo el
+dry-run autenticado, revisar códigos genéricos, cantidades y los 9/161 payloads,
+confirmar que los 161 registros deben quedar activos, y definir cómo garantizar
+stock 1 en futuras altas desde el administrador. La escritura de datos requiere
+autorización explícita posterior a ese dry-run.
 
 No existe todavía una migración V1 de Literatura; PocketBase está vacío para
 estas colecciones. No se realizaron escrituras en esta revisión.

@@ -53,7 +53,7 @@ Media
 │ title │
 │ price │
 │ category │
-│ stock? │
+│ stock (optional) │
 └──────────────┘
 
 ┌─────────────────┐

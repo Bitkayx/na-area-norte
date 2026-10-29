@@ -7,7 +7,7 @@
  * The collection definitions here are derived from the APPROVED design in
  * docs/architecture/pocketbase-schema.md (base approved with documented
  * adjustments: See the schema doc for decisions on radio/broadcasts,
- * literature (no stock), site_settings navigation, tags M2M, media strategy).
+ * literature optional stock, site_settings navigation, tags M2M, media strategy).
  *
  * Behavior:
  *  - Authenticates as a PocketBase superuser.
@@ -84,10 +84,11 @@ const field = {
     type: "editor",
     required,
   }),
-  number: (name, { required = false, min = null, max = null } = {}) => ({
+  number: (name, { required = false, min = null, max = null, onlyInt = false } = {}) => ({
     name,
     type: "number",
     required,
+    ...(onlyInt ? { onlyInt: true } : {}),
     ...(min !== null ? { min } : {}),
     ...(max !== null ? { max } : {}),
   }),
@@ -201,11 +202,12 @@ const COLLECTIONS = [
   {
     name: "literature",
     fields: [
-      // code is nullable and NOT unique until duplicate/generic codes are
-      // resolved by human review (schema doc §5).
+      // Family codes may be shared by multiple products, so code stays nullable
+      // and non-unique.
       field.text("code"),
       field.text("title", { required: true }),
       field.number("price", { required: true, min: 0 }),
+      field.number("stock", { min: 0, onlyInt: true }),
       field.bool("isActive"),
     ],
     relations: [

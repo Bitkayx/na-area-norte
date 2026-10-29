@@ -20,12 +20,14 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `LITERATURE-REVIEW`, revisar los códigos duplicados/genéricos y
-ausentes descritos en [literature-analysis.md](literature-analysis.md), y
-confirmar que los 161 precios deben publicarse activos. El dry-run remoto propone
-9 categorías y 161 altas sin conflictos; no se ha ejecutado `--apply`. En
-noticias, no retirar Markdown hasta revisar semánticamente las diferencias de
-cuerpos; las 13 fechas remotas ya coinciden con V1.
+Siguiente etapa: `LITERATURE-SCHEMA-REVIEW`, autorizar y agregar desde el
+administrador de PocketBase solo `literature.stock` como campo opcional entero,
+mínimo 0. El migrador ya bloquea si falta. Después repetir el dry-run, revisar
+códigos genéricos y cantidades predeterminadas, confirmar `isActive`, y pedir
+autorización independiente antes de apply. Para futuras altas, PB default numérico
+es 0; definir cómo enviar 1 cuando aplique. En noticias, no retirar Markdown
+hasta revisar semánticamente las diferencias de cuerpos; las 13 fechas remotas
+ya coinciden con V1.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
@@ -55,8 +57,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 - Noticias: certificar los 13 posts remotos, media, tags, URLs y consumidores;
   después evaluar el retiro gradual del fallback Markdown.
-- Literatura: completar revisión humana antes de autorizar escritura; no inferir
-  stock ni inventar/corregir códigos.
+- Literatura: resolver schema, revisar nuevo dry-run y confirmar `isActive` antes
+  de autorizar escritura; no inferir datos ni inventar códigos.
 - Events: verificar duplicados entre posts, calendarios y páginas.
 - Site settings y media: validar alcance, assets y estrategia para videos grandes.
 - Frontend: retirar JSON V1 únicamente después de validar cada entidad y sus
