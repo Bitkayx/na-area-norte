@@ -17,10 +17,10 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | Directorio integrado con DAL y validado contra 43 grupos. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; literatura aún consume JSON.                         |
+| Frontend                       | Directorio y literatura integrados con DAL y fallback JSON. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; builds local/remoto de literatura verificados. |
 | Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Literatura                     | Schema `stock` añadido tras autorización y verificado. Dry-run: 9 categorías y 161 productos CREATE, 0 updates/conflictos. Escritura de datos pendiente de revisión/autorización. Véase [análisis](literature-analysis.md). |
+| Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. Página integrada con DAL y JSON fallback; build local/remoto verificados. Véase [análisis](literature-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
 
 La idempotencia de distritos está probada localmente mediante una segunda
@@ -76,11 +76,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**LITERATURE-REVIEW:** revisar el dry-run actual (9 categorías/161 productos,
-solo CREATE, 0 conflictos), confirmar la transformación de códigos y que los 161
-queden activos. Después autorizar explícitamente la escritura de datos. No se ha
-ejecutado `--apply`. El default para futuras altas desde el administrador sigue
-pendiente porque PocketBase asigna 0 a NumberFields omitidos.
+**NEWS-BODY-REVIEW:** revisar semánticamente las diferencias de contenido en los
+13 posts antes de evaluar el retiro del fallback Markdown. Literatura ya consume
+la DAL con JSON de respaldo; resolver el default de stock para futuras altas
+administrativas antes de crear productos sin cantidad.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

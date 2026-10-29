@@ -49,8 +49,9 @@ consumidor: `src/pages/servicios/literatura.astro` y
 
 El modelo DAL tiene `code` opcional no único, `title`, `price`, `stock` opcional,
 `isActive` y relación requerida `category`. El DAL calcula `total` a partir de
-precio y stock. La página de Literatura aún importa el JSON V1 directamente.
-ADR-003 declara stock opcional.
+precio y stock. ADR-003 declara stock opcional. La página pública consulta las
+categorías y productos por DAL, los ordena según V1 y conserva JSON como fallback
+si PocketBase no entrega datos completos.
 
 PocketBase guarda los campos Number como no nulos y usa 0 si no se envía un
 valor ([documentación de campos](https://pocketbase.io/docs/collections/)). Por
@@ -64,27 +65,24 @@ campo; se conservaron los demás campos, índices y access rules. No se hizo otr
 cambio de schema. `node --env-file=.env scripts/migrate-literature-schema.mjs`
 posterior reportó `stock` con el contrato esperado (sin PATCH).
 
-## Pendiente / siguiente subetapa
+## Integración frontend y estado actual
 
-La preparación local está implementada en `scripts/migrate-literature.mjs`;
-`node tests/migrate-literature.test.mjs` pasó 7 casos; el nuevo migrador de
-schema pasó 4/4, TypeScript compiló y `node tests/dal.test.ts` pasó 42/42.
-`PUBLIC_POCKETBASE_URL= ./node_modules/.bin/astro build` completó 32 páginas;
-Reflexiones registró errores de DNS hacia Google Sheets, fuente externa a
-PocketBase. Tras añadir `stock`, el dry-run remoto autenticado del 2026-10-29
+Preparación local: `scripts/migrate-literature.mjs`; sus tests pasaron 7/7, los
+tests del cambio de schema 4/4, TypeScript compiló y `node tests/dal.test.ts`
+pasó 42/42. Tras añadir `stock`, el dry-run remoto autenticado del 2026-10-29
 propuso 9 categorías y 161 productos, todos CREATE, 0 updates y 0 conflictos.
-13 códigos se transforman a prefijo genérico; 36 filas defaultan stock a 1; se
-ignoran 3 totales V1 discrepantes. No se escribieron registros.
+Tras autorización se crearon las 9 categorías y 161 productos. El dry-run
+posterior dejó todos `UNCHANGED`, sin creates, updates ni conflictos. 13 códigos
+se transformaron a prefijo genérico; 36 filas recibieron stock 1; se ignoraron 3
+totales V1 discrepantes. Los 161 productos están activos.
 
-## Siguiente subetapa: revisión y autorización de datos
+La página consulta la DAL, usa JSON de respaldo y conserva el orden de categorías.
+El build local con PocketBase deshabilitado completó 32 páginas (Reflexiones
+registró errores DNS a Google Sheets). El build remoto completó 48 páginas; el
+HTML generado contiene 161 filas de producto y las nueve categorías. No se hizo
+deploy. La integración está completa, aunque el fallback V1 permanece hasta una
+decisión posterior de retiro.
 
-Revisar el dry-run actual: 9 categorías y 161 productos CREATE, 0 updates y 0
-conflictos; confirma la regla de códigos genéricos por prefijo alfabético y que
-los 161 productos deben quedar activos. Para esos registros, faltantes de stock
-se convierten en 1 y `total` no se guarda. Se requiere autorización explícita
-posterior a esta revisión antes de ejecutar `node --env-file=.env
-scripts/migrate-literature.mjs --apply`. El default de stock para futuras altas
-administrativas sigue pendiente; PocketBase da 0 a un NumberField omitido.
-
-No existe todavía una migración V1 de Literatura; PocketBase está vacío para
-estas colecciones. No se realizaron escrituras en esta revisión.
+Pendiente operativo: las altas administrativas que omiten `stock` reciben 0 por
+el comportamiento de NumberField de PocketBase; el migrador V1 asignó 1 donde
+faltaba `quantity`. Definir el flujo editorial para nuevas altas antes de usarlas.

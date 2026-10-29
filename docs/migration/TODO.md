@@ -20,13 +20,12 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `LITERATURE-REVIEW`. El schema `stock` ya se agregó y verificó.
-El dry-run actual propone 9 categorías y 161 productos CREATE, sin conflictos.
-Revisar la conversión de códigos, los stocks default 1 y confirmar que todos
-deben quedar activos. Solo después autorizar `--apply`. Para futuras altas, PB
-default numérico es 0; definir cómo enviar 1 cuando aplique. En noticias, no
-retirar Markdown hasta revisar semánticamente las diferencias de cuerpos; las 13
-fechas remotas ya coinciden con V1.
+Siguiente etapa: `NEWS-BODY-REVIEW`, comparar semánticamente los cuerpos de los
+13 posts antes de evaluar el retiro del fallback Markdown. Literatura consulta
+la DAL y conserva JSON como fallback; nueve categorías y 161 productos están
+migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para futuras
+altas administrativas: PB asigna 0 si se omite el NumberField. Las fechas de los
+13 posts ya coinciden con V1.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
@@ -56,8 +55,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 - Noticias: certificar los 13 posts remotos, media, tags, URLs y consumidores;
   después evaluar el retiro gradual del fallback Markdown.
-- Literatura: resolver schema, revisar nuevo dry-run y confirmar `isActive` antes
-  de autorizar escritura; no inferir datos ni inventar códigos.
+- Literatura: integración DAL y builds local/remoto completados; mantener JSON
+  fallback hasta decidir su retiro y resolver el default editorial de stock.
 - Events: verificar duplicados entre posts, calendarios y páginas.
 - Site settings y media: validar alcance, assets y estrategia para videos grandes.
 - Frontend: retirar JSON V1 únicamente después de validar cada entidad y sus

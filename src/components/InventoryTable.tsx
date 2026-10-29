@@ -11,9 +11,9 @@ import { useState, useMemo } from "react";
 
 interface InventoryItem {
   /*
-   * @property {string} code - Item code
+   * @property {string | null} code - Item code
    */
-  code: string;
+  code: string | null;
   /*
    * @property {string} description - Item description
    */

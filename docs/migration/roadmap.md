@@ -124,9 +124,16 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   la inspección confirmó el campo y preservación de campos, índices y reglas;
   un dry-run posterior reportó `stock` sin cambios.
 - **LITERATURE-DRY — Completo.** El 2026-10-29 propuso 9 categorías y 161
-  productos, todos CREATE, 0 updates/conflictos. No hubo escrituras de datos.
-- **LITERATURE-REVIEW — Siguiente tarea.** Revisar códigos transformados y
-  `isActive`; luego autorizar explícitamente la carga de categorías/productos.
+  productos, todos CREATE, 0 updates/conflictos.
+- **LITERATURE-APPLY — Completo.** Tras autorización se crearon 9 categorías y
+  161 productos, con los códigos genéricos y stocks revisados. No hubo updates.
+- **LITERATURE-VERIFY — Completo.** El dry-run posterior dejó las 9 categorías y
+  161 productos `UNCHANGED`, sin creates, updates ni conflictos.
+- **LITERATURE-FRONT — Completo en transición.** La página pública consulta DAL,
+  mantiene fallback JSON y fue validada en builds local/remoto; HTML remoto con
+  161 productos y nueve categorías. No se hizo deploy.
+- **LITERATURE-STOCK-DEFAULT — Pendiente operativo.** PocketBase da 0 cuando se
+  omite un NumberField; definir el flujo editorial para futuras altas sin cantidad.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.
@@ -137,3 +144,8 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 La existencia de un script no acredita una etapa. Recuperar o documentar con
 revisión el schema faltante antes de depender de él; no reconstruir decisiones
 aprobadas a partir de comentarios de implementación.
+
+## Siguiente tarea
+
+**NEWS-BODY-REVIEW:** comparar semánticamente los cuerpos de los 13 posts y
+registrar diferencias antes de evaluar el retiro del fallback Markdown.
