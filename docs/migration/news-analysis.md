@@ -1,7 +1,7 @@
 # Análisis de noticias
 
-Fecha: **2026-10-26**. Análisis local; no se consultó ni modificó la colección
-`posts` de PocketBase.
+Análisis inicial: **2026-10-26**. Revisión de cuerpos: **2026-10-30**.
+La revisión remota fue de solo lectura; no modificó la colección `posts`.
 
 ## Inventario V1
 
@@ -69,10 +69,13 @@ usar `--apply` hasta revisar slugs, tags, media y cuerpos.
 - Los conteos de imágenes embebidas coinciden en los 13 posts: 49 en V1 y
   PocketBase. PocketBase puede renombrar los assets subidos, así que las rutas
   locales no necesariamente comparten basename.
-- Los cuerpos son no vacíos. Una comparación normalizada de palabras muestra
-  diferencias textuales en varios posts; esa heurística no determina si los
-  cambios son intencionales. La revisión semántica sigue pendiente; no se
-  imprimieron cuerpos completos.
+- Revisión automatizada del 2026-10-30: una comparación de texto visible
+  normalizado encontró los 13 cuerpos iguales. Se ignoró la sintaxis Markdown/HTML
+  de enlaces e imágenes y entidades HTML (`&nbsp;`); no se imprimieron cuerpos.
+  Las 49 imágenes de V1 también están representadas en PocketBase: 47 como
+  imágenes Markdown y 2 como `<img>` HTML. No se encontraron enlaces en línea.
+  Esto confirma equivalencia textual y conteos de media, no la carga visual de
+  cada archivo ni aprobación editorial humana.
 - `node scripts/migrate-news-pubdates.mjs --apply` actualizó únicamente
   `pubDate` de `congreso-regional-2026` a `2026-08-01` tras autorización.
   Repetir `node scripts/migrate-news-pubdates.mjs` reportó 13 `UNCHANGED`.
@@ -83,3 +86,12 @@ usar `--apply` hasta revisar slugs, tags, media y cuerpos.
   páginas con fallback local; `node --env-file=.env node_modules/astro/astro.js
   build` produjo 48 páginas con PocketBase. La página de noticias contiene 13
   slugs; el inicio muestra los 4 más recientes.
+
+## Siguiente paso
+
+La comparación de cuerpos queda completa, pero no retirar todavía los archivos
+Markdown: `src/pages/noticias.astro` y `getStaticPaths()` en
+`src/pages/noticias/[slug].astro` aún dependen de Astro Content para el fallback
+y la lista local. Siguiente tarea: **NEWS-LIST-DAL**, integrar el listado con
+`dal.posts.getPublished()` manteniendo fallback Markdown y comprobar rutas,
+media y build local/remoto. Solo después evaluar el retiro de fuentes V1.

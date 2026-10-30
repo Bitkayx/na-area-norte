@@ -1,6 +1,6 @@
 # Estado de la migración V1 → V2
 
-Última revisión local: **2026-10-29**. Entrada para retomar el proyecto junto con
+Última revisión local: **2026-10-30**. Entrada para retomar el proyecto junto con
 [AGENTS.md](../../AGENTS.md), el [roadmap](roadmap.md) y el
 [runbook de distritos](runbooks/districts.md) y la [lista de continuación](TODO.md).
 
@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. `pubDate` de Congreso corregido; dry-run: 13 `UNCHANGED`. Builds local/remoto correctos. Revisión semántica de cuerpos pendiente.                      |
+| Noticias                       | Inicio y rutas usan DAL con fallback Markdown; el listado sigue consumiendo Astro Content. `pubDate` de Congreso corregido; 13 `UNCHANGED`. Comparación automatizada: texto 13/13 igual, 49 imágenes representadas. |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -76,10 +76,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**NEWS-BODY-REVIEW:** revisar semánticamente las diferencias de contenido en los
-13 posts antes de evaluar el retiro del fallback Markdown. Literatura ya consume
-la DAL con JSON de respaldo; resolver el default de stock para futuras altas
-administrativas antes de crear productos sin cantidad.
+**NEWS-LIST-DAL:** integrar el listado con `dal.posts.getPublished()` conservando
+el fallback Markdown; verificar rutas, media y builds local/remoto. Los 13 textos
+de posts y conteos de imágenes fueron comparados en modo lectura el 2026-10-30;
+mantener Markdown hasta completar los consumidores y decidir su retiro.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

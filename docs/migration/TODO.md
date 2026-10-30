@@ -20,12 +20,13 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `NEWS-BODY-REVIEW`, comparar semánticamente los cuerpos de los
-13 posts antes de evaluar el retiro del fallback Markdown. Literatura consulta
-la DAL y conserva JSON como fallback; nueve categorías y 161 productos están
-migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para futuras
-altas administrativas: PB asigna 0 si se omite el NumberField. Las fechas de los
-13 posts ya coinciden con V1.
+Siguiente etapa: `NEWS-LIST-DAL`, integrar `noticias.astro` con
+`dal.posts.getPublished()` y conservar fallback Markdown. La comparación
+automatizada de 2026-10-30 encontró texto visible igual en 13/13 posts y 49
+imágenes representadas en remoto. Revisar rutas y renderizado de media en build
+antes de considerar retirar archivos V1. Literatura consulta DAL con JSON fallback;
+nueve categorías y 161 productos están migrados y el dry-run quedó `UNCHANGED`.
+Definir el flujo de stock para altas administrativas: PB asigna 0 si se omite.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
@@ -53,8 +54,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 ## Trabajo V2 pendiente
 
-- Noticias: certificar los 13 posts remotos, media, tags, URLs y consumidores;
-  después evaluar el retiro gradual del fallback Markdown.
+- Noticias: integrar listado con DAL, verificar rutas/media en build; mantener
+  fallback Markdown hasta validar todos los consumidores.
 - Literatura: integración DAL y builds local/remoto completados; mantener JSON
   fallback hasta decidir su retiro y resolver el default editorial de stock.
 - Events: verificar duplicados entre posts, calendarios y páginas.

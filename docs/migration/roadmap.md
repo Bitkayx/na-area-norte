@@ -108,8 +108,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-FRONT — Completo en transición.** Inicio, lista y rutas consultan DAL;
   Markdown queda de respaldo si PocketBase no tiene posts o falta un cuerpo.
   Builds local y remoto pasan: 32 y 48 páginas; lista muestra 13 posts e inicio 4.
-- **NEWS-BODY-REVIEW — Pendiente.** Hay diferencias de texto en algunos posts;
-  hace falta revisión semántica antes de retirar Markdown.
+- **NEWS-BODY-REVIEW — Comparación automatizada completa.** El 2026-10-30 una
+  lectura remota de solo lectura encontró texto visible normalizado igual en
+  13/13 posts y 49/49 imágenes representadas (47 Markdown, 2 HTML). No equivale a
+  aprobación editorial ni valida la carga visual de cada media.
+- **NEWS-LIST-DAL — Siguiente tarea.** `noticias.astro` aún obtiene la lista de
+  Astro Content y `getStaticPaths()` conserva fallback local. Integrar listado
+  con `dal.posts.getPublished()`, mantener fallback y validar rutas/media/builds.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -147,5 +152,5 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**NEWS-BODY-REVIEW:** comparar semánticamente los cuerpos de los 13 posts y
-registrar diferencias antes de evaluar el retiro del fallback Markdown.
+**NEWS-LIST-DAL:** integrar el listado público con la DAL preservando fallback
+Markdown y validar rutas y media antes de decidir el retiro de fuentes V1.
