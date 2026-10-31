@@ -21,11 +21,13 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
 
 ## Consumidores actuales
 
-- `src/pages/noticias.astro` obtiene toda la lista desde Astro Content y genera
-  tarjetas desde Markdown; todavía no usa `dal.posts.getPublished()`.
-- `src/pages/noticias/[slug].astro` genera rutas desde Astro Content. Solo para
-  los 13 slugs conocidos intenta `dal.posts.getBySlug()`, y vuelve a Markdown si
-  falta el registro o el body remoto está vacío.
+- `src/pages/noticias.astro` obtiene la lista mediante `getNewsItems()`; el helper
+  consulta `dal.posts.getPublished()` y usa Astro Content como fallback si no hay
+  datos remotos.
+- `src/pages/noticias/[slug].astro` obtiene los slugs publicados de la DAL y usa
+  Astro Content como fallback cuando PocketBase no devuelve posts. Para cada
+  slug, consulta `dal.posts.getBySlug()` y vuelve a Markdown si falta el registro
+  o el body remoto está vacío.
 - `src/pages/index.astro`, `BannerPromocional.astro` y páginas de servicios
   enlazan slugs públicos concretos. No retirar Markdown hasta validar esos
   enlaces y el contenido remoto.
@@ -89,9 +91,12 @@ usar `--apply` hasta revisar slugs, tags, media y cuerpos.
 
 ## Siguiente paso
 
-La comparación de cuerpos queda completa, pero no retirar todavía los archivos
-Markdown: `src/pages/noticias.astro` y `getStaticPaths()` en
-`src/pages/noticias/[slug].astro` aún dependen de Astro Content para el fallback
-y la lista local. Siguiente tarea: **NEWS-LIST-DAL**, integrar el listado con
-`dal.posts.getPublished()` manteniendo fallback Markdown y comprobar rutas,
-media y build local/remoto. Solo después evaluar el retiro de fuentes V1.
+Listado y rutas consultan DAL cuando hay posts remotos, conservando Markdown como
+fallback. El build local del 2026-10-30 produjo 32 páginas y mostró 13 tarjetas,
+13 rutas existentes. El build remoto produjo 48 páginas; el listado generado
+contiene las mismas 13 tarjetas/rutas y seis covers predeterminados.
+
+Siguiente tarea: **NEWS-MEDIA-REVIEW**, revisar las imágenes embebidas en preview
+autorizado y definir el manejo de posts futuros administrados en PocketBase. No
+retirar aún los archivos Markdown: continúan como fallback para el listado y los
+cuerpos locales.

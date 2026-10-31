@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | Inicio y rutas usan DAL con fallback Markdown; el listado sigue consumiendo Astro Content. `pubDate` de Congreso corregido; 13 `UNCHANGED`. Comparación automatizada: texto 13/13 igual, 49 imágenes representadas. |
+| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Build local: 32 páginas; remoto: 48. Listado remoto: 13 tarjetas/slugs y seis covers predeterminados. Comparación de cuerpos: 13/13 textos iguales y 49 imágenes representadas. |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -76,10 +76,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**NEWS-LIST-DAL:** integrar el listado con `dal.posts.getPublished()` conservando
-el fallback Markdown; verificar rutas, media y builds local/remoto. Los 13 textos
-de posts y conteos de imágenes fueron comparados en modo lectura el 2026-10-30;
-mantener Markdown hasta completar los consumidores y decidir su retiro.
+**NEWS-MEDIA-REVIEW:** comprobar visualmente en preview autorizado el render de
+imágenes embebidas en posts remotos y evaluar cómo incorporar publicaciones nuevas
+de PocketBase, manteniendo Markdown de fallback hasta cerrar esa revisión. El
+listado y las rutas ya consultan DAL; builds local/remoto pasan.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

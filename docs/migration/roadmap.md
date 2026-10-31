@@ -96,10 +96,10 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-DRY — Completo.** La lectura autenticada del 2026-10-26 encontró 13/13
   slugs publicados, 9 tags, ningún evento relacionado y schema compatible. No
   hubo escrituras.
-- **NEWS-REVIEW — En curso.** El fallback local
-  `public/assets/blog/news_default.jpg` cubre seis covers vacíos. Los conteos de
-  imágenes embebidas coinciden: 49 en V1 y PocketBase. La equivalencia semántica
-  de cuerpos requiere revisión editorial.
+- **NEWS-REVIEW — Comparación de datos completa; revisión visual pendiente.** El
+  fallback `public/assets/blog/news_default.jpg` cubre seis covers remotos vacíos.
+  Los textos visibles coinciden 13/13 y las 49 imágenes embebidas están
+  representadas; falta inspección visual de media en preview.
 - **NEWS-PUBDATE-DRY — Completo.** El 2026-10-26, el script comparó las 13 fechas
   V1 con PocketBase: una vacía propone `2026-08-01`; 12 están iguales. No hubo
   escrituras.
@@ -112,9 +112,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   lectura remota de solo lectura encontró texto visible normalizado igual en
   13/13 posts y 49/49 imágenes representadas (47 Markdown, 2 HTML). No equivale a
   aprobación editorial ni valida la carga visual de cada media.
-- **NEWS-LIST-DAL — Siguiente tarea.** `noticias.astro` aún obtiene la lista de
-  Astro Content y `getStaticPaths()` conserva fallback local. Integrar listado
-  con `dal.posts.getPublished()`, mantener fallback y validar rutas/media/builds.
+- **NEWS-LIST-DAL — Completa en transición.** El listado usa `getNewsItems()` y
+  este consulta `dal.posts.getPublished()`, con Astro Content cuando no hay datos
+  remotos. El 2026-10-30 los builds local/remoto completaron 32/48 páginas; el
+  listado remoto tiene 13 slugs y existen sus rutas, con seis covers predeterminados.
+- **NEWS-MEDIA-REVIEW — Siguiente tarea.** Revisar en preview autorizado las
+  imágenes embebidas de posts y definir el flujo para nuevos posts de PocketBase;
+  conservar Markdown mientras tanto.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -152,5 +156,6 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**NEWS-LIST-DAL:** integrar el listado público con la DAL preservando fallback
-Markdown y validar rutas y media antes de decidir el retiro de fuentes V1.
+**NEWS-MEDIA-REVIEW:** validar visualmente imágenes embebidas en preview y
+resolver el manejo de nuevas publicaciones administradas en PocketBase. No retirar
+Markdown antes de completar esa revisión.

@@ -20,13 +20,14 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `NEWS-LIST-DAL`, integrar `noticias.astro` con
-`dal.posts.getPublished()` y conservar fallback Markdown. La comparación
-automatizada de 2026-10-30 encontró texto visible igual en 13/13 posts y 49
-imágenes representadas en remoto. Revisar rutas y renderizado de media en build
-antes de considerar retirar archivos V1. Literatura consulta DAL con JSON fallback;
-nueve categorías y 161 productos están migrados y el dry-run quedó `UNCHANGED`.
-Definir el flujo de stock para altas administrativas: PB asigna 0 si se omite.
+Siguiente etapa: `NEWS-MEDIA-REVIEW`, revisar las imágenes embebidas de posts en
+preview autorizado y definir el flujo para publicaciones futuras de PocketBase.
+El listado usa DAL con fallback Markdown; builds local/remoto producen 32/48
+páginas y las 13 rutas remotas existen. La comparación encontró texto visible
+igual en 13/13 posts y 49 imágenes representadas. No retirar Markdown todavía.
+Literatura consulta DAL con JSON fallback; nueve categorías y 161 productos están
+migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para altas
+administrativas: PB asigna 0 si se omite.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
@@ -54,8 +55,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 ## Trabajo V2 pendiente
 
-- Noticias: integrar listado con DAL, verificar rutas/media en build; mantener
-  fallback Markdown hasta validar todos los consumidores.
+- Noticias: revisar visualmente media remota y definir alta de posts nuevos;
+  mantener fallback Markdown mientras tanto.
 - Literatura: integración DAL y builds local/remoto completados; mantener JSON
   fallback hasta decidir su retiro y resolver el default editorial de stock.
 - Events: verificar duplicados entre posts, calendarios y páginas.
