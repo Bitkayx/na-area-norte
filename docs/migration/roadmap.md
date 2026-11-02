@@ -126,9 +126,15 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   satisfactoria en preview el 2026-11-02: listado, posts con covers/imágenes,
   orden de imágenes y revisión móvil. El smoke test local reportado dio HTTP 200
   para inicio, `/_image`, listado, dos posts y directorio. Se conserva Markdown.
-- **NEWS-V1-RETIREMENT-REVIEW — Siguiente tarea.** Auditar referencias y
-  consumidores restantes de Markdown antes de decidir el retiro del fallback V1;
-  no borrar fuentes sin cerrar esa revisión.
+- **NEWS-V1-RETIREMENT-REVIEW — Completa; decisión: conservar V1.** Se
+  identificaron tres consumidores runtime de Astro Content (`src/lib/news.ts`,
+  `src/pages/noticias/[slug].astro` y `src/layouts/MarkdownPostLayout.astro`);
+  13 scripts de migración también leen Markdown local. Se mantienen los archivos
+  como fallback para builds locales y fuente reproducible de los scripts. No se
+  aprueba retirar archivos ni el fallback en esta etapa. `tagCounts` en el layout
+  parece calculado sin uso; queda como cleanup aparte, no blocker de contenido.
+- **EVENTS-ANALYSIS — Siguiente tarea.** Revisar Events, posts, calendarios y
+  páginas para detectar duplicados antes de proponer cambios.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -166,5 +172,5 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**NEWS-V1-RETIREMENT-REVIEW:** auditar referencias y consumidores de Markdown y
-definir si se retira el fallback V1. No borrar fuentes hasta cerrar esta revisión.
+**EVENTS-ANALYSIS:** inventariar registros de Events, posts, calendarios y páginas
+para detectar contenido duplicado y definir límites de entidad.

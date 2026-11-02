@@ -20,11 +20,11 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `NEWS-V1-RETIREMENT-REVIEW`, auditar los consumidores y usos
-restantes de Markdown para decidir si puede retirarse el fallback V1. El usuario
-confirmó revisión visual satisfactoria del preview el 2026-11-02. El listado y
-rutas consultan DAL con fallback Markdown; no retirar los archivos antes de cerrar
-esa auditoría y acordar el retiro.
+Siguiente etapa: `EVENTS-ANALYSIS`, revisar Events, calendarios y posts para
+detectar duplicados y establecer qué contenido debe vivir en cada entidad. La
+revisión de medios de Noticias pasó según confirmación del usuario (2026-11-02).
+Se conservan los Markdown: sostienen el fallback local y son entrada de 13 scripts
+históricos de migración. No forman parte de una limpieza de Noticias.
 Literatura consulta DAL con JSON fallback; nueve categorías y 161 productos están
 migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para altas
 administrativas: PB asigna 0 si se omite.
@@ -55,8 +55,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 ## Trabajo V2 pendiente
 
-- Noticias: revisar visualmente media remota y definir alta de posts nuevos;
-  mantener fallback Markdown mientras tanto.
+- Noticias: integración y revisión visual completas; mantener Markdown como
+  fallback y archivo fuente de los scripts históricos.
 - Literatura: integración DAL y builds local/remoto completados; mantener JSON
   fallback hasta decidir su retiro y resolver el default editorial de stock.
 - Events: verificar duplicados entre posts, calendarios y páginas.

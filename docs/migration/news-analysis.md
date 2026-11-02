@@ -32,27 +32,29 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
   enlazan slugs públicos concretos. No retirar Markdown hasta validar esos
   enlaces y el contenido remoto.
 
-## Riesgos y decisiones pendientes
+## Auditoría de retiro V1 — 2026-11-02
 
-- La lectura del 2026-10-30 encontró los 13 slugs publicados. Los listados y
-  rutas toman los posts publicados desde DAL; para una publicación futura, incluir
-  cuerpo y media al crearla en PocketBase y comprobar el build estático.
-- Texto visible y conteo de media comparados el 2026-10-30; falta revisar
-  visualmente encuadre y render en navegador.
-- Resolver si el cuerpo se almacenará en el editor de PocketBase como HTML o
-  Markdown; el renderer actual transforma Markdown remoto con `marked`.
-- Confirmar la estrategia para covers locales y URLs externas antes de subir
-  assets. No inventar tags ni sustituir media faltante.
-- Para presentación cuando falte un cover, el frontend usa el asset local
-  `public/assets/blog/news_default.jpg`; esto no rellena el campo `cover` remoto.
-- Eliminar la allowlist de slugs solo después de que `getStaticPaths()` y la
-  lista consulten una fuente verificada y se haya probado build/preview.
+- Runtime: `src/lib/news.ts` consulta Astro Content cuando la DAL no devuelve
+  posts; `src/pages/noticias/[slug].astro` usa Astro Content para `getStaticPaths`
+  y como fallback de cuerpo/metadata; `src/layouts/MarkdownPostLayout.astro`
+  todavía consulta la colección para calcular `tagCounts`.
+- Mantenimiento/migración: 13 scripts (`scripts/migrate-*.mjs`) leen los archivos
+  `src/blog/*.md` como entrada. Borrarlos rompería la reproducibilidad de esos
+  scripts aunque no afectaría la lectura normal de PocketBase.
+- Assets: `src/assets/blog/` también se importa desde páginas de inicio y
+  servicios; no es seguro eliminar el directorio completo al retirar posts.
+- La revisión de preview se confirmó satisfactoria por el usuario el 2026-11-02.
+- **Decisión:** no retirar archivos Markdown ni el fallback runtime en este
+  checkpoint. Los archivos mantienen utilidad para builds locales sin PocketBase
+  y para repetir/auditar los scripts históricos. Si se desea retirar el fallback
+  runtime después, primero definir comportamiento de desarrollo sin PB y retirar
+  la lectura no usada de `tagCounts`; conservar las fuentes hasta reemplazar o
+  archivar explícitamente los inputs de los 13 scripts.
 
 ## Siguiente verificación
 
-Con un preview de Vercel autorizado, revisar visualmente las páginas de post,
-covers, imágenes embebidas y enlaces. No retirar Markdown hasta confirmar el
-render en preview y conservar una estrategia de fallback.
+Analizar la entidad Events y cruzarla con posts, calendarios y páginas para
+detectar duplicados. No cambiar ni borrar las fuentes Markdown en esa etapa.
 
 ## Evidencia remota — 2026-10-26
 
@@ -108,10 +110,10 @@ presentación. Codex no tuvo acceso a navegador/preview. El smoke test local que
 usuario mostró HTTP 200 para inicio, `/_image`, listado, dos posts y directorio.
 La revisión visual de medios queda completa según confirmación del usuario.
 
-Siguiente tarea: **NEWS-V1-RETIREMENT-REVIEW**, auditar referencias y consumidores
-que aún dependen de Markdown y decidir si puede retirarse el fallback V1. No
-borrar fuentes durante esa auditoría; Markdown continúa como fallback cuando
-PocketBase no devuelve posts o un cuerpo está vacío.
+La revisión visual de medios está completa según confirmación del usuario. La
+decisión de auditoría es conservar los 13 Markdown como fallback y fuente de
+scripts históricos. Siguiente tarea: **EVENTS-ANALYSIS**, cruzar Events, posts,
+calendarios y páginas para identificar duplicados antes de proponer migraciones.
 
 El usuario reportó el **2026-11-02** este smoke test manual del servidor local:
 `/`, `/_image`, `/noticias/`, `/noticias/invitaciones-agosto-2026`,

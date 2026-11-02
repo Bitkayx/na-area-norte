@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Builds local/remoto: 32/48 páginas; 13 rutas presentes. El usuario confirmó revisión visual satisfactoria del preview el 2026-11-02; 49 imágenes embebidas resuelven en build. Fallback Markdown se conserva. |
+| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Builds local/remoto: 32/48 páginas; 13 rutas presentes. El usuario confirmó revisión visual satisfactoria del preview el 2026-11-02. Las fuentes Markdown siguen alimentando 13 scripts históricos y el fallback local; se conservan. |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -76,10 +76,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**NEWS-V1-RETIREMENT-REVIEW:** auditar referencias y consumidores restantes de
-Markdown antes de decidir si se retira el fallback V1. La revisión de preview se
-confirmó satisfactoria el 2026-11-02; no borrar fuentes sin revisar su uso y
-acordar explícitamente el retiro.
+**EVENTS-ANALYSIS:** revisar Eventos, calendarios y posts para identificar
+duplicados antes de diseñar migración o cambios. La auditoría de retiro V1
+concluyó que los Markdown se conservan como fallback y entrada de scripts
+históricos; no borrarlos como parte del trabajo de Noticias.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 
