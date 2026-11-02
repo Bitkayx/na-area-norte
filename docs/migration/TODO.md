@@ -20,11 +20,14 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `EVENTS-ANALYSIS`, revisar Events, calendarios y posts para
-detectar duplicados y establecer qué contenido debe vivir en cada entidad. La
-revisión de medios de Noticias pasó según confirmación del usuario (2026-11-02).
-Se conservan los Markdown: sostienen el fallback local y son entrada de 13 scripts
-históricos de migración. No forman parte de una limpieza de Noticias.
+Siguiente etapa: `EVENTS-SCOPE-REVIEW`, confirmar qué ocurrencias del calendario
+se administrarán como Events y cuáles son reuniones/compartimientos. Events está
+vacía; los 13 posts no tienen relación, pero cinco posts podrían corresponder a
+entradas del calendario. No se han inferido fechas ni preparado escrituras. Véase
+[análisis de Events](events-analysis.md).
+
+Noticias: la revisión de preview pasó según confirmación del usuario (2026-11-02).
+Se conservan Markdown como fallback local y entrada de 13 scripts históricos.
 Literatura consulta DAL con JSON fallback; nueve categorías y 161 productos están
 migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para altas
 administrativas: PB asigna 0 si se omite.

@@ -22,6 +22,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
 | Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. Página integrada con DAL y JSON fallback; build local/remoto verificados. Véase [análisis](literature-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
+| Events                         | La lectura pública del 2026-11-02 encontró la colección vacía y 13 posts sin relación a Event. El calendario 2026 es un post agregado con coincidencias posibles; confirmar alcance antes de proponer migración. |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -76,10 +77,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**EVENTS-ANALYSIS:** revisar Eventos, calendarios y posts para identificar
-duplicados antes de diseñar migración o cambios. La auditoría de retiro V1
-concluyó que los Markdown se conservan como fallback y entrada de scripts
-históricos; no borrarlos como parte del trabajo de Noticias.
+**EVENTS-SCOPE-REVIEW:** confirmar qué entradas del calendario anual son
+ocurrencias administrables y cuáles son reuniones/compartimientos; validar los
+posibles cruces con cinco posts sin inferir fechas. Véase
+[análisis de Events](events-analysis.md). No se han preparado escrituras.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

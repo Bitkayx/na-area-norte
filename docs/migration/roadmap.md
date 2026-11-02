@@ -133,8 +133,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   como fallback para builds locales y fuente reproducible de los scripts. No se
   aprueba retirar archivos ni el fallback en esta etapa. `tagCounts` en el layout
   parece calculado sin uso; queda como cleanup aparte, no blocker de contenido.
-- **EVENTS-ANALYSIS — Siguiente tarea.** Revisar Events, posts, calendarios y
-  páginas para detectar duplicados antes de proponer cambios.
+- **EVENTS-ANALYSIS — Completa local/remoto.** El 2026-11-02, lectura pública
+  encontró Events vacío, 13 posts sin relación a Event y cuatro participaciones
+  de radio separadas. Un post contiene el calendario 2026 agregado; cinco posts
+  podrían coincidir con entradas, sin correspondencia confirmada para todas.
+  Véase [análisis de Events](events-analysis.md). Sin escrituras.
+- **EVENTS-SCOPE-REVIEW — Siguiente tarea.** Confirmar qué entradas son Events y
+  validar posibles cruces con calendario/posts antes de diseñar migración.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -172,5 +177,6 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**EVENTS-ANALYSIS:** inventariar registros de Events, posts, calendarios y páginas
-para detectar contenido duplicado y definir límites de entidad.
+**EVENTS-SCOPE-REVIEW:** confirmar con el responsable qué ocurrencias del
+calendario se administrarán como Events y cuáles permanecen como contenido de
+calendario/post. Véase el análisis para candidatos sin correspondencia asumida.
