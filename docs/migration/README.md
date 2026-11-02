@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Build local: 32 páginas; remoto: 48. Listado remoto: 13 tarjetas/slugs y seis covers predeterminados. Comparación de cuerpos: 13/13 textos iguales y 49 imágenes representadas. |
+| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Builds local/remoto: 32/48 páginas; 13 rutas presentes. Smoke test local reportado: inicio, imagen optimizada, noticias, 2 posts y directorio respondieron 200. 49 imágenes resuelven en build; falta preview visual completo. |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -76,10 +76,11 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**NEWS-MEDIA-REVIEW:** comprobar visualmente en preview autorizado el render de
-imágenes embebidas en posts remotos y evaluar cómo incorporar publicaciones nuevas
-de PocketBase, manteniendo Markdown de fallback hasta cerrar esa revisión. El
-listado y las rutas ya consultan DAL; builds local/remoto pasan.
+**NEWS-MEDIA-PREVIEW:** revisar en navegador las páginas remotas de noticias
+cuando exista un preview de Vercel autorizado. El build empaquetado resuelve las
+49 imágenes embebidas y las 10 URLs remotas respondieron 200; el smoke test local
+reportado cubre inicio, listado, 2 posts y directorio. Falta revisar visualmente
+encuadre y presentación completa; conservar Markdown de fallback.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

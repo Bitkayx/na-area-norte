@@ -20,11 +20,14 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `NEWS-MEDIA-REVIEW`, revisar las imágenes embebidas de posts en
-preview autorizado y definir el flujo para publicaciones futuras de PocketBase.
-El listado usa DAL con fallback Markdown; builds local/remoto producen 32/48
-páginas y las 13 rutas remotas existen. La comparación encontró texto visible
-igual en 13/13 posts y 49 imágenes representadas. No retirar Markdown todavía.
+Siguiente etapa: `NEWS-MEDIA-PREVIEW`, revisar en navegador las imágenes
+embebidas en un preview autorizado. El build remoto empaquetado produce 48
+páginas; las 49 imágenes embebidas resuelven a archivos y 10 URLs remotas
+respondieron 200 con MIME de imagen, pero falta validación visual. El listado y
+rutas consultan DAL con fallback Markdown. No retirar Markdown todavía.
+Smoke test local reportado el 2026-11-02: inicio, `/_image`, listado, dos posts y
+directorio respondieron 200; esto confirma respuesta HTTP para esas solicitudes,
+no todas las imágenes ni encuadres.
 Literatura consulta DAL con JSON fallback; nueve categorías y 161 productos están
 migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para altas
 administrativas: PB asigna 0 si se omite.

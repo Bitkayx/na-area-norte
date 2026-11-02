@@ -34,10 +34,11 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
 
 ## Riesgos y decisiones pendientes
 
-- Confirmar que la colección `posts` contiene exactamente estos slugs o definir
-  cómo tratar publicaciones nuevas administradas solo en PocketBase.
-- Comparar cuerpo, descripción, autor, `pubDate`, tags, cover y media sin
-  descartar imágenes Markdown embebidas.
+- La lectura del 2026-10-30 encontró los 13 slugs publicados. Los listados y
+  rutas toman los posts publicados desde DAL; para una publicación futura, incluir
+  cuerpo y media al crearla en PocketBase y comprobar el build estático.
+- Texto visible y conteo de media comparados el 2026-10-30; falta revisar
+  visualmente encuadre y render en navegador.
 - Resolver si el cuerpo se almacenará en el editor de PocketBase como HTML o
   Markdown; el renderer actual transforma Markdown remoto con `marked`.
 - Confirmar la estrategia para covers locales y URLs externas antes de subir
@@ -49,9 +50,9 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
 
 ## Siguiente verificación
 
-Leer el schema y registros de `posts` y `tags` en modo lectura, sin mostrar
-secretos. Preparar un inventario comparativo y un dry-run de reconciliación. No
-usar `--apply` hasta revisar slugs, tags, media y cuerpos.
+Con un preview de Vercel autorizado, revisar visualmente las páginas de post,
+covers, imágenes embebidas y enlaces. No retirar Markdown hasta confirmar el
+render en preview y conservar una estrategia de fallback.
 
 ## Evidencia remota — 2026-10-26
 
@@ -97,6 +98,17 @@ fallback. El build local del 2026-10-30 produjo 32 páginas y mostró 13 tarjeta
 contiene las mismas 13 tarjetas/rutas y seis covers predeterminados.
 
 Siguiente tarea: **NEWS-MEDIA-REVIEW**, revisar las imágenes embebidas en preview
-autorizado y definir el manejo de posts futuros administrados en PocketBase. No
-retirar aún los archivos Markdown: continúan como fallback para el listado y los
-cuerpos locales.
+autorizado. El build empaquetado remoto del 2026-10-30 produjo 48 páginas; en las
+13 rutas de post se encontraron 75 usos de `<img>`, con las 49 imágenes embebidas
+resueltas a archivos locales existentes y 10 URLs remotas que respondieron HTTP
+200 con MIME de imagen. No se inspeccionaron visualmente encuadre ni presentación:
+no había preview de Vercel ni navegador automatizado en el entorno. Siguiente
+acción: **NEWS-MEDIA-PREVIEW**, abrir un preview autorizado y revisar páginas y
+media en navegador. No retirar aún Markdown; sigue siendo fallback cuando
+PocketBase no devuelve posts o un cuerpo vacío.
+
+El usuario reportó el **2026-11-02** este smoke test manual del servidor local:
+`/`, `/_image`, `/noticias/`, `/noticias/invitaciones-agosto-2026`,
+`/noticias/invitaciones-septiembre-2026` y `/directorio/` respondieron HTTP 200.
+Es evidencia aportada por el usuario; confirma esas solicitudes puntuales, no la
+carga visual de todas las imágenes ni el preview de Vercel.

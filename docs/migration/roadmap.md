@@ -116,9 +116,16 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   este consulta `dal.posts.getPublished()`, con Astro Content cuando no hay datos
   remotos. El 2026-10-30 los builds local/remoto completaron 32/48 páginas; el
   listado remoto tiene 13 slugs y existen sus rutas, con seis covers predeterminados.
-- **NEWS-MEDIA-REVIEW — Siguiente tarea.** Revisar en preview autorizado las
-  imágenes embebidas de posts y definir el flujo para nuevos posts de PocketBase;
-  conservar Markdown mientras tanto.
+- **NEWS-MEDIA-REVIEW — Validación técnica completa; inspección visual pendiente.**
+  Build remoto empaquetado (48 páginas) del 2026-10-30: 75 usos de imágenes en
+  páginas de post; las 49 embebidas tienen referencias locales existentes y las
+  10 URLs remotas respondieron HTTP 200 con MIME de imagen. No hay preview ni
+  Chromium/Playwright en el entorno; no se verificaron encuadre ni carga visual.
+- **NEWS-MEDIA-PREVIEW — Siguiente tarea.** Inspeccionar visualmente las páginas
+  en navegador cuando exista un preview de Vercel autorizado; mantener Markdown
+  hasta confirmar presentación de imágenes. El usuario reportó el 2026-11-02 un
+  smoke test local con HTTP 200 para inicio, `/_image`, listado, dos posts y
+  directorio; no acredita visualización de todas las media.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -156,6 +163,5 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**NEWS-MEDIA-REVIEW:** validar visualmente imágenes embebidas en preview y
-resolver el manejo de nuevas publicaciones administradas en PocketBase. No retirar
-Markdown antes de completar esa revisión.
+**NEWS-MEDIA-PREVIEW:** inspeccionar imágenes embebidas en navegador cuando haya
+un preview autorizado. No retirar Markdown antes de completar esa revisión.
