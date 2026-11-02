@@ -217,9 +217,11 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **SITESETTINGS-SINGLETON-VERIFY — Completa.** GET de solo lectura encontró un
   registro y todos los campos aprobados coinciden; próxima fecha de inventario
   ausente como se decidió. Build Astro con datos remotos generó 48 páginas; el
-  HTML contiene el hero y horario de Literatura. No se hizo deploy.
+  HTML contiene el hero y horario de Literatura.
 - **SITESETTINGS-FRONT-REVIEW — Siguiente.** Revisar visualmente portada y
-  Literatura en el preview tras el próximo deploy autorizado.
+  Literatura en el preview de `feature/26.7`. La branch se subió, pero Vercel CLI
+  no permitió comprobarlo porque el token local es inválido. No se lanzó deploy
+  de producción.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.
@@ -234,6 +236,7 @@ aprobadas a partir de comentarios de implementación.
 ## Siguiente tarea
 
 **SITESETTINGS-FRONT-REVIEW:** revisar visualmente la portada y Literatura en un
-preview tras el siguiente deploy autorizado. La lectura remota y build local de
-48 páginas pasaron; no se hizo deploy. Véase la
-[auditoría](site-settings-analysis.md).
+preview de `feature/26.7`. Los commits `f2b4a52`, `4829b14` y `96b976e` están
+subidos; la lectura remota y build local de 48 páginas pasaron. Vercel CLI tiene
+token inválido y el estado del preview está pendiente. No se lanzó deploy de
+producción. Véase la [auditoría](site-settings-analysis.md).

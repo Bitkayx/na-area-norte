@@ -17,7 +17,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | Directorio, literatura y configuración global integrados con DAL/fallback. Singleton creado desde Admin y verificado. Build local con datos remotos: 48 páginas; HTML contiene hero y horario configurados. Astro es estático; no se hizo deploy. |
+| Frontend                       | Directorio, literatura y configuración global integrados con DAL/fallback. Singleton creado desde Admin y verificado. Build local con datos remotos: 48 páginas; HTML contiene hero y horario. Commits subidos a `feature/26.7`; estado del preview Vercel no confirmado porque el token de CLI guardado es inválido. No se lanzó deploy de producción. |
 | Infraestructura/schema         | Existen scripts de creación e inspección. `site_settings` se leyó autenticadamente el 2026-11-02; otros schemas/infraestructura no se revalidaron en esta etapa. No ejecutar scripts generales de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
 | Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. Página integrada con DAL y JSON fallback; build local/remoto verificados. Véase [análisis](literature-analysis.md). |
@@ -81,8 +81,11 @@ registrada usó directamente el binario de Astro.
 **SITESETTINGS-FRONT-REVIEW:** singleton creado desde PocketBase Admin y lectura
 remota confirmó un registro con el payload aprobado. Build Astro con datos
 remotos generó 48 páginas; comprobaciones del HTML confirmaron hero y horario
-semanal de Literatura. No se hizo deploy; revisar visualmente portada y
-Literatura en el próximo preview. Véase [auditoría](site-settings-analysis.md).
+semanal de Literatura. Los commits `f2b4a52`, `4829b14` y `96b976e` están
+subidos a `feature/26.7`. La consulta de estado Vercel falló porque el token de
+CLI guardado es inválido; revisar visualmente portada y Literatura cuando el
+preview de esa branch esté disponible. No se lanzó deploy de producción. Véase
+[auditoría](site-settings-analysis.md).
 
 La integración del hero manual se verificó localmente el 2026-11-02:
 `tsc -p tests/tsconfig.compile.json`, `node tests/dal.test.ts` (43/43) y
@@ -92,7 +95,8 @@ Sheets tolerado por su fallback. `pnpm test:dal` no pudo iniciar por un lock de
 store de solo lectura; se ejecutó directamente el compilador y el test runner.
 La verificación final de `site_settings` fue de solo lectura y devolvió un
 registro que coincide con el payload revisado. La build remota se ejecutó con
-acceso de red autorizado; no se hizo deploy.
+acceso de red autorizado. La branch se subió, pero Vercel CLI no permitió
+verificar el preview por token inválido; no se lanzó deploy de producción.
 
 La auditoría frontend encontró fallbacks runtime de noticias (Markdown), grupos
 (JSON) y literatura (JSON). Markdown también alimenta scripts históricos; no

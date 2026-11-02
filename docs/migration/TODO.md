@@ -23,8 +23,9 @@ autorizaciones remotas.
 Siguiente etapa: `SITESETTINGS-FRONT-REVIEW`, revisar visualmente portada y
 Literatura en el próximo preview. El singleton fue creado por el usuario desde
 PocketBase Admin; GET remoto confirmó el payload. Build local con datos remotos:
-48 páginas y HTML con hero y horario semanal. No se hizo deploy. Véase la
-[auditoría](site-settings-analysis.md).
+48 páginas y HTML con hero y horario semanal. `feature/26.7` está subida; el
+preview aún no se verificó porque el token Vercel de CLI no es válido. No se hizo
+deploy de producción. Véase la [auditoría](site-settings-analysis.md).
 Fallbacks runtime
 identificados: noticias (Markdown), grupos (JSON), literatura (JSON); las fuentes
 se conservan. En altas nuevas, stock 0 es válido y se captura en PocketBase.

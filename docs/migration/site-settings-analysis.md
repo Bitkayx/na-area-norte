@@ -97,5 +97,7 @@ encontraron el horario martes-jueves, 17:00–18:00. El asset del hero existe en
 ## Siguiente paso
 
 **SITESETTINGS-FRONT-REVIEW:** revisar visualmente la portada y Literatura en el
-preview cuando se publique la build; no se ha hecho deploy. Después continuar
-con los pendientes generales de FRONT y OPS.
+preview de `feature/26.7`. Los commits `f2b4a52`, `4829b14` y `96b976e` están
+subidos. El estado del preview no se pudo consultar porque Vercel CLI rechazó el
+token local; no se lanzó deploy de producción. Después continuar con los
+pendientes generales de FRONT y OPS.
