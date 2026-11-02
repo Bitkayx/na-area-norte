@@ -77,10 +77,11 @@ posterior: los cuatro quedaron `UNCHANGED`.
 
 ## Siguiente tarea exacta
 
-**OPS-BACKUP-RECOVERY:** el repo confirma que PocketBase usa `/pb_data`, pero no
-hay evidencia de la configuración de volumen/backups en Railway ni de una
-restauración probada. Confirmar los puntos del
-[runbook](runbooks/backup-recovery.md) en Railway antes de cerrar la etapa.
+**VERCEL-BUILD-RETRY:** el build del deployment `ce7556e` recibió HTTP 502 de
+Railway durante un GET público a `site_settings`. Después, `/api/health` y el GET
+de `site_settings` respondieron 200; `npm run build` local conectado a PocketBase
+completó 48 páginas. Reintentar el Preview. Luego continuar
+`OPS-BACKUP-RECOVERY` según el [runbook](runbooks/backup-recovery.md).
 
 El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y
 literatura; se conservaron fuentes que usan los scripts históricos. TypeScript
@@ -88,7 +89,9 @@ compiló y `PUBLIC_POCKETBASE_URL= npm run build` pasó con 19 páginas y Pocket
 deshabilitado. Reflexiones registró fallos DNS de Google Sheets que su fallback
 tolera. Esta build valida compilación, no el contenido remoto. El usuario
 confirmó que el Preview posterior a estos cambios muestra correctamente noticias,
-directorio y literatura.
+directorio y literatura. El 2026-11-02, el build local conectado a PocketBase
+terminó con 48 páginas tras un 502 transitorio reportado por Vercel. Las
+comprobaciones GET posteriores dieron 200; el build de Vercel requiere reintento.
 
 El 2026-11-02 se corrigió `package.json`: `pnpm build` ya no termina en `|| true`,
 que podía ocultar errores de Astro. `PUBLIC_POCKETBASE_URL= npm run build` pasó

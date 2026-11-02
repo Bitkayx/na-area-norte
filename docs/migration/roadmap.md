@@ -236,6 +236,11 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   volumen Railway y restauración aún sin confirmar. El cierre requiere backup y
   recuperación probados, seguridad, actualización del sitio, administración, QA
   y release documentados. Cambios remotos/deploys mantienen sus autorizaciones.
+- **VERCEL-BUILD-TRANSIENT-502 — Observado (2026-11-02).** El deployment
+  `ce7556e` falló porque el GET a `site_settings` recibió HTTP 502 de Railway.
+  Después, GET `/api/health` y `site_settings` dieron 200; build local con
+  PocketBase completó 48 páginas. La causa interna del 502 no se determinó.
+  Reintentar el Preview antes de cerrar el checkpoint.
 
 La existencia de un script no acredita una etapa. Recuperar o documentar con
 revisión el schema faltante antes de depender de él; no reconstruir decisiones
@@ -243,8 +248,8 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**OPS-BACKUP-RECOVERY:** verificar en Railway el volumen montado en `/pb_data`,
-backups activos/destino/retención y restaurar una copia en entorno aislado. El
-runbook está en `runbooks/backup-recovery.md`; no se inspeccionó la consola ni se
-declaró configurado ningún backup. La política de imágenes se abordará en el
-punto 4 acordado.
+**VERCEL-BUILD-RETRY:** confirmar el Preview tras el 502 transitorio de Railway.
+La build local conectada a PocketBase completó 48 páginas. Después verificar en
+Railway el volumen `/pb_data`, backups activos/destino/retención y restaurar una
+copia en entorno aislado, según `runbooks/backup-recovery.md`. La política de
+imágenes se abordará en el punto 4 acordado.

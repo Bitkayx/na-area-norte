@@ -123,3 +123,14 @@ El usuario confirmó que resolvió el fallo de build y que el Preview permitió
 avanzar a la auditoría de fallbacks. Ese Preview validó el estado anterior a su
 retiro; el siguiente build debe revisar los cambios DAL-only. Después sigue la
 auditoría de backups, recuperación, seguridad y release.
+
+## Error de build del 2026-11-02
+
+El deployment de Vercel para `ce7556e` llegó a prerender y falló al consultar
+`site_settings`: Railway respondió HTTP 502 con `Application failed to respond`.
+Las compilaciones de Vite y Astro habían terminado; el DAL propagó correctamente
+el error de API. Después del fallo, las solicitudes de solo lectura a
+`/api/health` y `site_settings` respondieron HTTP 200. `npm run build` local con
+PocketBase conectado completó 48 páginas. Esto sugiere una indisponibilidad
+transitoria de Railway; no identifica su causa interna ni prueba que el Preview
+Vercel posterior haya pasado. Reintentar el deployment.

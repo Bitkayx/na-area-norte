@@ -21,10 +21,11 @@ autorizaciones remotas.
 ## Siguiente acción
 
 El usuario confirmó que noticias, directorio y literatura se ven bien en el
-Preview después de retirar los fallbacks runtime. Las fuentes V1 se conservan
-para los migradores. Siguiente: `OPS-BACKUP-RECOVERY`, verificar el volumen,
-backups y restauración de PocketBase según el
-[runbook](runbooks/backup-recovery.md).
+Preview después de retirar los fallbacks runtime. El siguiente deployment
+`ce7556e` falló cuando Railway respondió HTTP 502 a `site_settings`; las GET
+posteriores y el build local remoto devolvieron 200/completaron 48 páginas.
+Siguiente: `VERCEL-BUILD-RETRY`, confirmar el nuevo Preview. Luego
+`OPS-BACKUP-RECOVERY` según el [runbook](runbooks/backup-recovery.md).
 En altas nuevas, stock 0 es válido y se captura en PocketBase.
 Los cinco Events están verificados y el usuario confirmó que `/servicios/eventos`
 se ve bien.
