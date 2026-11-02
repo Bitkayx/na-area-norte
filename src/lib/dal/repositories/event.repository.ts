@@ -47,6 +47,7 @@ export function createEventRepository(): EventRepository {
           {
             filter: "status='active'",
             sort: "startDate,id",
+            expand: "postRef",
             page,
             perPage: NEXT_PAGE_SIZE,
           },

@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Nuestra XLII Asamblea Mexicana",
+    "slug": "asamblea-mexicana",
+    "postSlug": "asamblea-mexicana",
+    "type": "asamblea",
+    "startDate": "2026-04-01",
+    "endDate": "2026-04-04",
+    "status": "archived",
+    "location": {
+      "linea1": "Hotel Kristal",
+      "colonia": "",
+      "referencias": "",
+      "ciudad": "Ciudad de México",
+      "estado": "Ciudad de México",
+      "mapQuery": "Hotel Kristal CDMX"
+    },
+    "source": "src/assets/blog/compartimientos/eventos/ASAMBLEA_MEXICANA.jpg"
+  },
+  {
+    "title": "Encuentro Regional de MAVE 2026",
+    "slug": "mave-2026",
+    "postSlug": "mave-2026",
+    "type": "mave",
+    "startDate": "2026-03-22",
+    "endDate": "2026-03-22",
+    "status": "archived",
+    "location": {
+      "linea1": "Escuela Preparatoria Oficial EPO No. 336 Gral. Lázaro Cárdenas, Av. Plazas de Aragón s/n",
+      "colonia": "Plazas de Aragón, CP 57139",
+      "referencias": "",
+      "ciudad": "Ciudad Nezahualcóyotl",
+      "estado": "Estado de México",
+      "mapQuery": "Escuela Preparatoria Oficial EPO No. 336, Plazas de Aragón, Nezahualcóyotl, Estado de México"
+    },
+    "source": "src/blog/mave-2026.md"
+  },
+  {
+    "title": "Encuentro Anual de Servidores 2026",
+    "slug": "encuentro-de-servidores",
+    "postSlug": "encuentro-de-servidores",
+    "type": "encuentro",
+    "startDate": "2026-05-17",
+    "endDate": "2026-05-17",
+    "status": "archived",
+    "location": {
+      "linea1": "CBTis 179, Calle Adolfo Lugo Verduzco No. 105",
+      "colonia": "La Cañada, CP 43615",
+      "referencias": "Comité Estatal de Hidalgo",
+      "ciudad": "Tulancingo de Bravo",
+      "estado": "Hidalgo",
+      "mapQuery": "CBTis 179, Calle Adolfo Lugo Verduzco No. 105, La Cañada, Tulancingo de Bravo, Hidalgo"
+    },
+    "source": "src/assets/blog/compartimientos/eventos/encuentro-servidores-2026.jpeg"
+  },
+  {
+    "title": "Congreso Regional 2026",
+    "slug": "congreso-regional-2026",
+    "postSlug": "congreso-regional-2026",
+    "type": "congreso",
+    "startDate": "2026-07-26",
+    "endDate": "2026-07-26",
+    "status": "archived",
+    "location": {
+      "linea1": "Jardín Rivera Maya, Río de los Reyes 1-2",
+      "colonia": "",
+      "referencias": "",
+      "ciudad": "Atenco, Amecameca de Juárez",
+      "estado": "Estado de México",
+      "mapQuery": "Jardín Rivera Maya, Río de los Reyes 1-2, Atenco, Amecameca de Juárez, Estado de México"
+    },
+    "source": "src/assets/blog/compartimientos/agosto/congreso_regional_2026.jpeg"
+  },
+  {
+    "title": "Encuentro Regional de Literatura 2026",
+    "slug": "encuentro-regional-literatura-2026",
+    "postSlug": "encuentro-regional-literatura-2026",
+    "type": "encuentro",
+    "startDate": "2026-09-13",
+    "endDate": "2026-09-13",
+    "status": "archived",
+    "location": {
+      "linea1": "Escuela Superior de Educación Física, Calle Atletas s/n, Puerta 4",
+      "colonia": "",
+      "referencias": "",
+      "ciudad": "Iztacalco, Ciudad de México, CP 08010",
+      "estado": "Ciudad de México",
+      "mapQuery": "Escuela Superior de Educación Física, Calle Atletas s/n, Puerta 4, Iztacalco, Ciudad de México"
+    },
+    "source": "src/assets/blog/compartimientos/septiembre/congreso_literatura.jpg"
+  }
+]
