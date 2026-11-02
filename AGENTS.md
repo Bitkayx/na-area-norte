@@ -52,8 +52,10 @@ El progreso temporal vive en `docs/migration/README.md`, no en este archivo.
   usar el prefijo alfabético como código genérico; conservar códigos únicos y
   genéricos ya existentes, y dejar faltantes nulos. No fusionar productos:
   reconciliar por título y categoría y detenerse ante identidades duplicadas.
-  PocketBase almacena NumberFields con default 0; cualquier flujo que requiera
-  default 1 debe enviar ese valor explícitamente.
+  El stock 0 es válido para productos nuevos sin existencia y debe capturarse
+  explícitamente desde PocketBase; no forzar 1 en altas nuevas. PocketBase
+  almacena NumberFields con default 0 si se omiten. La regla de asignar 1 solo
+  aplica a filas históricas de V1 sin `quantity` durante su migración.
 - No inventar información faltante ni descartar información silenciosamente.
 
 ## Trabajo y migraciones

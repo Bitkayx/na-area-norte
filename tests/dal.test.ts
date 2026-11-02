@@ -42,6 +42,7 @@ const { normalizeSchedules } = await import("./.dal-build/types/schedule.js");
 const { mapPost } = await import("./.dal-build/mappers/post.mapper.js");
 const { mapEvent } = await import("./.dal-build/mappers/event.mapper.js");
 const { mapLiterature } = await import("./.dal-build/mappers/entity.mapper.js");
+const { mapSiteSettings } = await import("./.dal-build/mappers/site-settings.mapper.js");
 
 /** Recorded request so tests can assert real query params (filter/sort/expand/page). */
 interface HttpCall {
@@ -512,8 +513,21 @@ describe("site_settings singleton via repository", () => {
         { label: "Inicio", href: "/" },
         { label: "Directorio", href: "/directorio/" },
       ],
+      literature: {
+        nextInventory: {
+          date: "2026-11-29",
+          time: "10:00",
+          districts: [1, 4],
+          areaNorte: false,
+        },
+        salesSchedule: {
+          days: [2, 3, 4],
+          startTime: "17:00",
+          endTime: "18:00",
+        },
+      },
     };
-    mockFetch(
+    const calls = mockFetch(
       new Map([
         [
           "http://pb.test/api/collections/site_settings/records",
@@ -523,7 +537,10 @@ describe("site_settings singleton via repository", () => {
     );
     const dal2 = createDal();
     const settings = await dal2.siteSettings.get();
+    const cachedSettings = await dal2.siteSettings.get();
     assert.ok(settings);
+    assert.deepEqual(cachedSettings, settings);
+    assert.equal(calls.length, 1);
     assert.equal(settings.siteName, "NA Área Norte CDMX");
     assert.equal(settings.mapEmbedUrl, "https://maps.example");
     assert.equal(
@@ -537,6 +554,36 @@ describe("site_settings singleton via repository", () => {
     assert.equal(settings.socialLinks.facebook, "https://fb.example");
     assert.equal(settings.hero?.slug, "/x");
     assert.equal(settings.seo?.ogImage, "/og.png");
+    assert.deepEqual(settings.literature, {
+      nextInventory: {
+        date: "2026-11-29",
+        time: "10:00",
+        districts: [1, 4],
+        areaNorte: false,
+      },
+      salesSchedule: {
+        days: [2, 3, 4],
+        startTime: "17:00",
+        endTime: "18:00",
+      },
+    });
+  });
+
+  test("literature settings mapper rejects invalid inventory and sales schedules", () => {
+    const base = {
+      id: "s1",
+      collectionId: "pbc_s",
+      collectionName: "site_settings",
+      created: "",
+      updated: "",
+      siteName: "Área Norte",
+    };
+    const invalidInventory = mapSiteSettings({ ...base, literature: { nextInventory: { date: "2026-02-30", districts: [], areaNorte: false } } });
+    assert.equal(invalidInventory.literature?.nextInventory, null);
+    const invalidDistrict = mapSiteSettings({ ...base, literature: { nextInventory: { date: "2026-11-29", districts: [3], areaNorte: false } } });
+    assert.equal(invalidDistrict.literature?.nextInventory, null);
+    const invalidSales = mapSiteSettings({ ...base, literature: { salesSchedule: { days: [2, 3], startTime: "18:00", endTime: "17:00" } } });
+    assert.equal(invalidSales.literature?.salesSchedule, null);
   });
 });
 
@@ -1066,6 +1113,7 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
         buildListUrl("events", {
           filter: "status='active'",
           sort: "startDate,id",
+          expand: "postRef",
           page: 1,
           perPage: 200,
         }),
@@ -1087,6 +1135,7 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
         buildListUrl("events", {
           filter: "status='active'",
           sort: "startDate,id",
+          expand: "postRef",
           page: 2,
           perPage: 200,
         }),

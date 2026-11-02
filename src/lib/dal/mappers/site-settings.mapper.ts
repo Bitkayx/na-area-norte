@@ -5,6 +5,9 @@ import type {
   Hero,
   Seo,
   NavigationItem,
+  LiteratureInventory,
+  LiteratureSalesSchedule,
+  LiteratureSettings,
 } from "../types/site-settings.ts";
 import { resolveFile } from "../client.ts";
 
@@ -81,6 +84,50 @@ function mapNavigation(v: unknown): NavigationItem[] {
     .filter((item) => item.label !== "" || item.href !== "");
 }
 
+const VALID_DISTRICTS = new Set([1, 2, 4, 5]);
+
+function isDateOnly(value: unknown): value is string {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+    !Number.isNaN(Date.parse(`${value}T00:00:00.000Z`)) &&
+    new Date(`${value}T00:00:00.000Z`).toISOString().slice(0, 10) === value;
+}
+
+function mapLiteratureInventory(v: unknown): LiteratureInventory | null {
+  const o = obj(v);
+  if (!o || !isDateOnly(o.date)) return null;
+  const time = o.time;
+  if (time !== null && time !== undefined &&
+    (typeof time !== "string" || !/^([01]\d|2[0-3]):[0-5]\d$/.test(time))) return null;
+  if (!Array.isArray(o.districts) ||
+    !o.districts.every((district) => Number.isInteger(district) && VALID_DISTRICTS.has(district as number)) ||
+    typeof o.areaNorte !== "boolean") return null;
+  return {
+    date: o.date,
+    time: typeof time === "string" ? time : null,
+    districts: [...new Set(o.districts as number[])],
+    areaNorte: o.areaNorte,
+  };
+}
+
+function mapLiteratureSalesSchedule(v: unknown): LiteratureSalesSchedule | null {
+  const o = obj(v);
+  if (!o || !Array.isArray(o.days) || o.days.length === 0 ||
+    !o.days.every((day) => Number.isInteger(day) && day >= 1 && day <= 7) ||
+    typeof o.startTime !== "string" || !/^([01]\d|2[0-3]):[0-5]\d$/.test(o.startTime) ||
+    typeof o.endTime !== "string" || !/^([01]\d|2[0-3]):[0-5]\d$/.test(o.endTime) ||
+    o.startTime >= o.endTime) return null;
+  return { days: [...new Set(o.days as number[])].sort(), startTime: o.startTime, endTime: o.endTime };
+}
+
+function mapLiterature(v: unknown): LiteratureSettings | null {
+  const o = obj(v);
+  if (!o) return null;
+  return {
+    nextInventory: mapLiteratureInventory(o.nextInventory),
+    salesSchedule: mapLiteratureSalesSchedule(o.salesSchedule),
+  };
+}
+
 /** Maps a raw `site_settings` record into a domain SiteSettings (singleton). */
 export function mapSiteSettings(r: SiteSettingsRecord): SiteSettings {
   return {
@@ -96,6 +143,7 @@ export function mapSiteSettings(r: SiteSettingsRecord): SiteSettings {
     hero: mapHero(r.hero),
     seo: mapSeo(r.seo),
     navigation: mapNavigation(r.navigation),
+    literature: mapLiterature(r.literature),
     created: r.created,
     updated: r.updated,
   };

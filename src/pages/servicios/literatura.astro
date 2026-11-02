@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import InventoryTable from "../../components/InventoryTable.tsx";
 import inventoryFallback from "../../data/inventory.json";
 import { dal } from "../../lib/dal/index.ts";
+import { formatDate } from "../../utils/dateUtils.ts";
 
 const title = "Literatura";
 
@@ -13,10 +14,26 @@ type InventoryTableItem = {
   category: string;
 };
 
-const [categories, literature] = await Promise.all([
+const [categories, literature, siteSettings] = await Promise.all([
   dal.categories.getAll(),
   dal.literature.getAll(),
+  dal.siteSettings.get(),
 ]);
+const literatureSettings = siteSettings?.literature;
+const inventorySchedule = literatureSettings?.nextInventory;
+const salesSchedule = literatureSettings?.salesSchedule;
+const todayInMexico = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "America/Mexico_City",
+}).format(new Date());
+const showInventorySchedule = !!inventorySchedule && inventorySchedule.date >= todayInMexico;
+const inventoryParticipants = inventorySchedule
+  ? [
+      ...inventorySchedule.districts.map((district) => `Distrito ${district}`),
+      ...(inventorySchedule.areaNorte ? ["Área Norte"] : []),
+    ].join(", ")
+  : "";
+const weekdayNames = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+const salesDays = salesSchedule?.days.map((day) => weekdayNames[day - 1]).join(", ") ?? "";
 const remoteItems: InventoryTableItem[] = categories.flatMap((category) =>
   literature
     .filter((item) => item.categoryId === category.id)
@@ -80,26 +97,43 @@ const literatures: InventoryTableItem[] =
       </ul>
     </div>
 
-    <hr />
-    <h2
-      class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-10"
-    >
-      Proximo Inventario Mensual
-    </h2>
-    <p>Viernes 29 de Mayo | 10:00 am</p>
-    <p>Participan: 1er Distrito</p>
+    {
+      showInventorySchedule && inventorySchedule && (
+        <section class="mt-10" aria-labelledby="inventory-schedule-title">
+          <hr />
+          <h2
+            id="inventory-schedule-title"
+            class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-10"
+          >
+            Próximo Inventario Mensual
+          </h2>
+          <p>
+            {formatDate(inventorySchedule.date)}
+            {inventorySchedule.time ? ` | ${inventorySchedule.time}` : ""}
+          </p>
+          {inventoryParticipants && <p>Participan: {inventoryParticipants}</p>}
+        </section>
+      )
+    }
 
-    <h2
-      class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-10"
-    >
-      Dias de venta de Literatura
-    </h2>
-    <p>Martes, Miercoles y Jueves | De 5:00 a 6:00 pm</p>
+    {
+      salesSchedule && (
+        <section class="mt-10" aria-labelledby="literature-sales-title">
+          <h2
+            id="literature-sales-title"
+            class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3"
+          >
+            Días de venta de Literatura
+          </h2>
+          <p>{salesDays} | De {salesSchedule.startTime} a {salesSchedule.endTime}</p>
+        </section>
+      )
+    }
   </div>
   <h2
     class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 mt-6 text-center"
   >
-    Lista de Precios de Mayo
+    Lista de Literatura
   </h2>
   <InventoryTable items={literatures} client:visible />
 </Layout>

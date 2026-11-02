@@ -5,24 +5,41 @@ import DarkMode from "@components/DarkMode.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import WeeklyMotivation from "@components/WeeklyMotivation.astro";
+import { dal } from "../lib/dal/index.ts";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const {
-  title,
-  description = "Neuróticos Anónimos Área Norte CDMX | Directorio de grupos y ultimas noticias acerca del area norte correspondiente a la CDMX",
-} = Astro.props;
+const { title, description: pageDescription } = Astro.props;
+const siteSettings = await dal.siteSettings.get();
+const siteName = siteSettings?.siteName?.trim() || "NA Área Norte CDMX";
+const logoUrl = siteSettings?.logoUrl || "/na-logo.png";
+const description =
+  pageDescription ||
+  siteSettings?.description ||
+  "Neuróticos Anónimos Área Norte CDMX | Directorio de grupos y últimas noticias acerca del Área Norte correspondiente a la CDMX";
 
-const navigation = [
+const defaultNavigation = [
   { label: "Inicio", href: "/" },
   { label: "Servicios", href: "/servicios/" },
   { label: "Directorio", href: "/directorio/" },
   { label: "Noticias", href: "/noticias/" },
   { label: "Reflexiones", href: "/reflexiones/" },
 ];
+const configuredNavigation = siteSettings?.navigation.filter(
+  (item) => item.isActive !== false && item.label.trim() && item.href.trim(),
+);
+const navigation =
+  configuredNavigation && configuredNavigation.length > 0
+    ? configuredNavigation
+    : defaultNavigation;
+const openGraphImage = siteSettings?.seo.ogImage || logoUrl;
+const twitterCard = siteSettings?.seo.twitterCard || "summary_large_image";
+const keywords = typeof siteSettings?.seo.keywords === "string"
+  ? siteSettings.seo.keywords
+  : undefined;
 ---
 
 <!doctype html>
@@ -35,14 +52,15 @@ const navigation = [
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/na-logo.png" />
+    <meta property="og:image" content={openGraphImage} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
 
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/na-logo.png" />
+    <meta name="twitter:image" content={openGraphImage} />
+    {keywords && <meta name="keywords" content={keywords} />}
 
     <link rel="canonical" href={Astro.url} />
 
@@ -51,11 +69,11 @@ const navigation = [
   </head>
   <body>
     <ClientRouter />
-    <Header navigation={navigation} />
+    <Header navigation={navigation} siteName={siteName} logoUrl={logoUrl} />
     <WeeklyMotivation />
     <main class="flex-1 max-w-300 mx-auto px-6">
       <slot />
     </main>
-    <Footer />
+    <Footer siteName={siteName} />
   </body>
 </html>

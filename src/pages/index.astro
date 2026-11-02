@@ -5,7 +5,7 @@ import Ubicacion from "@components/Ubicacion.astro";
 import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
 import { getNewsItems } from "../lib/news.ts";
-import aniversarioArea from "../assets/blog/compartimientos/agosto/area_aniversario_2026.jpeg";
+import { dal } from "../lib/dal/index.ts";
 
 /**
  * Home - Main landing page
@@ -14,18 +14,38 @@ import aniversarioArea from "../assets/blog/compartimientos/agosto/area_aniversa
  * group directory preview, and location section.
  */
 
-const allPosts = await getNewsItems();
-const title = "Neuroticos Anonimos Area Norte CDMX";
+const [allPosts, siteSettings] = await Promise.all([
+  getNewsItems(),
+  dal.siteSettings.get(),
+]);
+const title = "Neuróticos Anónimos Área Norte CDMX";
 const latestPosts = allPosts.slice(0, 4);
+const hero = siteSettings?.hero;
+const hasPromoHero = !!(hero?.titulo && hero.slug && hero.imagen);
+const hasEventHero = !!(
+  hero?.titulo && hero.slug && hero.fecha && hero.ubicacion && hero.fechaEvento
+);
 ---
 
 <Layout title={title}>
-  <Hero
-    titulo="Aniversario del Area Norte"
-    slug="/noticias/invitaciones-agosto-2026"
-    imagen={aniversarioArea}
-    subtitulo="Evento del mes"
-  />
+  {
+    hasPromoHero ? (
+      <Hero
+        titulo={hero!.titulo}
+        slug={hero!.slug}
+        imagen={hero!.imagen}
+        subtitulo={hero!.subtitulo}
+      />
+    ) : hasEventHero ? (
+      <Hero
+        titulo={hero!.titulo}
+        slug={hero!.slug}
+        fecha={hero!.fecha}
+        ubicacion={hero!.ubicacion}
+        fechaEvento={hero!.fechaEvento}
+      />
+    ) : null
+  }
 
   <section class="py-16 md:py-24">
     <div

@@ -15,7 +15,9 @@
     "test:migrate-literature-schema": "node --test tests/migrate-literature-schema.test.mjs",
     "test:prepare-radio": "node --test tests/prepare-radio-schedule.test.mjs",
     "test:migrate-radio-schema": "node --test tests/migrate-radio-schema.test.mjs",
-    "test:migrate-radio": "node --test tests/migrate-radio-schedule.test.mjs"
+    "test:migrate-radio": "node --test tests/migrate-radio-schedule.test.mjs",
+    "test:migrate-events": "node --test tests/migrate-events.test.mjs",
+    "test:migrate-site-settings-schema": "node --test tests/migrate-site-settings-schema.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

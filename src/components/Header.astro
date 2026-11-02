@@ -16,9 +16,15 @@ interface Props {
    * @property {NavigationItem[]} navigation - Navigation items array
    */
   navigation: NavigationItem[];
+  siteName?: string;
+  logoUrl?: string;
 }
 
-const { navigation } = Astro.props;
+const {
+  navigation,
+  siteName = "NA Área Norte CDMX",
+  logoUrl = "/na-logo.png",
+} = Astro.props;
 ---
 
 <header
@@ -28,8 +34,8 @@ const { navigation } = Astro.props;
     <div class="flex items-center gap-2">
       <a href="/" class="flex items-center gap-2">
         <img
-          src="/na-logo.png"
-          alt="Neuróticos Anónimos Área Norte CDMX"
+          src={logoUrl}
+          alt={siteName}
           class="h-10 w-auto"
           width="40"
           height="40"
@@ -38,7 +44,7 @@ const { navigation } = Astro.props;
         <span
           class="text-sm font-bold tracking-tight text-slate-800 dark:text-white"
         >
-          NA Área Norte CDMX
+          {siteName}
         </span>
       </a>
     </div>
