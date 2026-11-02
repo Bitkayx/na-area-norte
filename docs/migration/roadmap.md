@@ -96,10 +96,11 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-DRY — Completo.** La lectura autenticada del 2026-10-26 encontró 13/13
   slugs publicados, 9 tags, ningún evento relacionado y schema compatible. No
   hubo escrituras.
-- **NEWS-REVIEW — Comparación de datos completa; revisión visual pendiente.** El
+- **NEWS-REVIEW — Completa.** El
   fallback `public/assets/blog/news_default.jpg` cubre seis covers remotos vacíos.
   Los textos visibles coinciden 13/13 y las 49 imágenes embebidas están
-  representadas; falta inspección visual de media en preview.
+  representadas; la revisión visual satisfactoria del usuario consta en
+  `NEWS-MEDIA-REVIEW`.
 - **NEWS-PUBDATE-DRY — Completo.** El 2026-10-26, el script comparó las 13 fechas
   V1 con PocketBase: una vacía propone `2026-08-01`; 12 están iguales. No hubo
   escrituras.
@@ -111,21 +112,23 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **NEWS-BODY-REVIEW — Comparación automatizada completa.** El 2026-10-30 una
   lectura remota de solo lectura encontró texto visible normalizado igual en
   13/13 posts y 49/49 imágenes representadas (47 Markdown, 2 HTML). No equivale a
-  aprobación editorial ni valida la carga visual de cada media.
+  aprobación editorial por sí sola; la revisión visual posterior se registra en
+  `NEWS-MEDIA-REVIEW`.
 - **NEWS-LIST-DAL — Completa en transición.** El listado usa `getNewsItems()` y
   este consulta `dal.posts.getPublished()`, con Astro Content cuando no hay datos
   remotos. El 2026-10-30 los builds local/remoto completaron 32/48 páginas; el
   listado remoto tiene 13 slugs y existen sus rutas, con seis covers predeterminados.
-- **NEWS-MEDIA-REVIEW — Validación técnica completa; inspección visual pendiente.**
+- **NEWS-MEDIA-REVIEW — Completa.**
   Build remoto empaquetado (48 páginas) del 2026-10-30: 75 usos de imágenes en
   páginas de post; las 49 embebidas tienen referencias locales existentes y las
-  10 URLs remotas respondieron HTTP 200 con MIME de imagen. No hay preview ni
-  Chromium/Playwright en el entorno; no se verificaron encuadre ni carga visual.
-- **NEWS-MEDIA-PREVIEW — Siguiente tarea.** Inspeccionar visualmente las páginas
-  en navegador cuando exista un preview de Vercel autorizado; mantener Markdown
-  hasta confirmar presentación de imágenes. El usuario reportó el 2026-11-02 un
-  smoke test local con HTTP 200 para inicio, `/_image`, listado, dos posts y
-  directorio; no acredita visualización de todas las media.
+  10 URLs remotas respondieron HTTP 200 con MIME de imagen. Codex no tuvo acceso
+  al preview ni a navegador automatizado. El usuario confirmó revisión visual
+  satisfactoria en preview el 2026-11-02: listado, posts con covers/imágenes,
+  orden de imágenes y revisión móvil. El smoke test local reportado dio HTTP 200
+  para inicio, `/_image`, listado, dos posts y directorio. Se conserva Markdown.
+- **NEWS-V1-RETIREMENT-REVIEW — Siguiente tarea.** Auditar referencias y
+  consumidores restantes de Markdown antes de decidir el retiro del fallback V1;
+  no borrar fuentes sin cerrar esa revisión.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -163,5 +166,5 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**NEWS-MEDIA-PREVIEW:** inspeccionar imágenes embebidas en navegador cuando haya
-un preview autorizado. No retirar Markdown antes de completar esa revisión.
+**NEWS-V1-RETIREMENT-REVIEW:** auditar referencias y consumidores de Markdown y
+definir si se retira el fallback V1. No borrar fuentes hasta cerrar esta revisión.

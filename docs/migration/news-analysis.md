@@ -97,15 +97,21 @@ fallback. El build local del 2026-10-30 produjo 32 páginas y mostró 13 tarjeta
 13 rutas existentes. El build remoto produjo 48 páginas; el listado generado
 contiene las mismas 13 tarjetas/rutas y seis covers predeterminados.
 
-Siguiente tarea: **NEWS-MEDIA-REVIEW**, revisar las imágenes embebidas en preview
-autorizado. El build empaquetado remoto del 2026-10-30 produjo 48 páginas; en las
+El usuario confirmó el **2026-11-02** que la revisión visual del preview pasó:
+listado, posts con distintas formas de imagen, orden de imágenes y vista móvil.
+Esta comprobación visual fue realizada por el usuario, no por Codex. Junto con el
+build empaquetado remoto del 2026-10-30, que produjo 48 páginas, en las
 13 rutas de post se encontraron 75 usos de `<img>`, con las 49 imágenes embebidas
 resueltas a archivos locales existentes y 10 URLs remotas que respondieron HTTP
-200 con MIME de imagen. No se inspeccionaron visualmente encuadre ni presentación:
-no había preview de Vercel ni navegador automatizado en el entorno. Siguiente
-acción: **NEWS-MEDIA-PREVIEW**, abrir un preview autorizado y revisar páginas y
-media en navegador. No retirar aún Markdown; sigue siendo fallback cuando
-PocketBase no devuelve posts o un cuerpo vacío.
+200 con MIME de imagen. Estos checks automatizados no inspeccionan encuadre ni
+presentación. Codex no tuvo acceso a navegador/preview. El smoke test local que reportó el
+usuario mostró HTTP 200 para inicio, `/_image`, listado, dos posts y directorio.
+La revisión visual de medios queda completa según confirmación del usuario.
+
+Siguiente tarea: **NEWS-V1-RETIREMENT-REVIEW**, auditar referencias y consumidores
+que aún dependen de Markdown y decidir si puede retirarse el fallback V1. No
+borrar fuentes durante esa auditoría; Markdown continúa como fallback cuando
+PocketBase no devuelve posts o un cuerpo está vacío.
 
 El usuario reportó el **2026-11-02** este smoke test manual del servidor local:
 `/`, `/_image`, `/noticias/`, `/noticias/invitaciones-agosto-2026`,

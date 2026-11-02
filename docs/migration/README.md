@@ -1,6 +1,6 @@
 # Estado de la migración V1 → V2
 
-Última revisión local: **2026-10-30**. Entrada para retomar el proyecto junto con
+Última revisión local: **2026-11-02**. Entrada para retomar el proyecto junto con
 [AGENTS.md](../../AGENTS.md), el [roadmap](roadmap.md) y el
 [runbook de distritos](runbooks/districts.md) y la [lista de continuación](TODO.md).
 
@@ -13,7 +13,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Builds local/remoto: 32/48 páginas; 13 rutas presentes. Smoke test local reportado: inicio, imagen optimizada, noticias, 2 posts y directorio respondieron 200. 49 imágenes resuelven en build; falta preview visual completo. |
+| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Builds local/remoto: 32/48 páginas; 13 rutas presentes. El usuario confirmó revisión visual satisfactoria del preview el 2026-11-02; 49 imágenes embebidas resuelven en build. Fallback Markdown se conserva. |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
@@ -76,11 +76,10 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**NEWS-MEDIA-PREVIEW:** revisar en navegador las páginas remotas de noticias
-cuando exista un preview de Vercel autorizado. El build empaquetado resuelve las
-49 imágenes embebidas y las 10 URLs remotas respondieron 200; el smoke test local
-reportado cubre inicio, listado, 2 posts y directorio. Falta revisar visualmente
-encuadre y presentación completa; conservar Markdown de fallback.
+**NEWS-V1-RETIREMENT-REVIEW:** auditar referencias y consumidores restantes de
+Markdown antes de decidir si se retira el fallback V1. La revisión de preview se
+confirmó satisfactoria el 2026-11-02; no borrar fuentes sin revisar su uso y
+acordar explícitamente el retiro.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 
