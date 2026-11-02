@@ -118,6 +118,11 @@ const hasEventHero = !!(
           />
         ))
       }
+      {latestPosts.length === 0 && (
+        <p class="md:col-span-2 py-8 text-center text-slate-500">
+          No hay noticias publicadas en este momento.
+        </p>
+      )}
     </div>
   </section>
 

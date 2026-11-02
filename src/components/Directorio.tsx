@@ -14,25 +14,17 @@ import type { Grupo } from "../types/grupo.ts";
  * ```
  */
 
-// Loads group data from JSON files in ../data/grupos/
-const gruposData = Object.values(
-  import.meta.glob("../data/grupos/*.json", { eager: true }),
-)
-  .flatMap((m: any) => m.default)
-  .filter((group: Grupo) => !group.id.endsWith("-distrito")) as Grupo[];
-
 interface DirectorioProps {
-  /** V2 data provided by Astro. Empty means use the preserved V1 fallback. */
+  /** V2 data provided by Astro from PocketBase. */
   groups?: Grupo[];
 }
 
 export default function Directorio({ groups = [] }: DirectorioProps) {
-  const sourceGroups = groups.length > 0 ? groups : gruposData;
   // Internal component states
   const [searchText, setSearchText] = useState<string>(""); // Search input text
   const [district, setDistrict] = useState<string>(""); // Selected district filter
   const [selectedGroup, setSelectedGroup] = useState<Grupo | null>(null); // Selected group for details
-  const [allGroups] = useState<Grupo[]>(sourceGroups); // PB data or V1 fallback
+  const [allGroups] = useState<Grupo[]>(groups);
   const [isSearchMode, setIsSearchMode] = useState<boolean>(false); // Search mode active
   const [searchResults, setSearchResults] = useState<Grupo[]>([]); // Search results
   const [showMap, setShowMap] = useState<boolean>(false); // Show map flag
@@ -256,6 +248,12 @@ export default function Directorio({ groups = [] }: DirectorioProps) {
           </div>
         ))}
       </div>
+
+      {allGroups.length === 0 && (
+        <p className="py-8 text-center text-slate-500">
+          No hay grupos disponibles en este momento.
+        </p>
+      )}
 
       <div id="map-section">
         {showMap && selectedGroup && (

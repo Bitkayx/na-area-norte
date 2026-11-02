@@ -50,8 +50,7 @@ consumidor: `src/pages/servicios/literatura.astro` y
 El modelo DAL tiene `code` opcional no único, `title`, `price`, `stock` opcional,
 `isActive` y relación requerida `category`. El DAL calcula `total` a partir de
 precio y stock. ADR-003 declara stock opcional. La página pública consulta las
-categorías y productos por DAL, los ordena según V1 y conserva JSON como fallback
-si PocketBase no entrega datos completos.
+categorías y productos por DAL y los ordena según PocketBase.
 
 PocketBase guarda los campos Number como no nulos y usa 0 si no se envía un
 valor ([documentación de campos](https://pocketbase.io/docs/collections/)). La
@@ -77,12 +76,11 @@ posterior dejó todos `UNCHANGED`, sin creates, updates ni conflictos. 13 códig
 se transformaron a prefijo genérico; 36 filas recibieron stock 1; se ignoraron 3
 totales V1 discrepantes. Los 161 productos están activos.
 
-La página consulta la DAL, usa JSON de respaldo y conserva el orden de categorías.
+La página consulta la DAL y conserva el orden de categorías.
 El build local con PocketBase deshabilitado completó 32 páginas (Reflexiones
 registró errores DNS a Google Sheets). El build remoto completó 48 páginas; el
-HTML generado contiene 161 filas de producto y las nueve categorías. No se hizo
-deploy. La integración está completa, aunque el fallback V1 permanece hasta una
-decisión posterior de retiro.
+HTML generado contiene 161 filas de producto y las nueve categorías. La página usa
+DAL; `inventory.json` permanece como fuente del migrador, no como fallback runtime.
 
 Altas nuevas: ingresar el stock real en PocketBase; usar 0 cuando no haya
 existencia. No cambiar el schema ni aplicar un default 1. La migración histórica

@@ -1,7 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { formatDate } from "../utils/dateUtils";
-import { getCollection } from "astro:content";
 
 const { frontmatter } = Astro.props;
 const { title, pubDate, description, author, image, tags } = frontmatter;
@@ -11,15 +10,6 @@ const coverUrl = image
     : image.url
   : "/assets/blog/news_default.jpg";
 const coverAlt = image?.alt || "Imagen predeterminada de noticias";
-const allPosts = await getCollection("blog");
-const tagCounts: Record<string, number> = {};
-allPosts.forEach((post: any) => {
-  if (post.data.tags) {
-    post.data.tags.forEach((tag: string) => {
-      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-    });
-  }
-});
 ---
 
 <Layout title={title}>

@@ -10,31 +10,27 @@ autorizaciones remotas.
 - Rama de trabajo: `feature/26.7`.
 - Consultar `git log -1` para identificar el checkpoint más reciente.
 - Distritos 1, 2, 4 y 5 migrados y verificados.
-- 43 grupos migrados y verificados; directorio usa DAL con fallback JSON.
+- 43 grupos migrados y verificados; directorio usa DAL sin fallback runtime.
 - Schema de `radio_broadcasts` usa `broadcastDate` requerido y único; `week` ya
   no existe.
 - Octubre de 2026 tiene cuatro registros y el dry-run posterior quedó en
   `UNCHANGED`; hora predeterminada `13:00`.
 - Las ediciones ordinarias de radio se hacen en la administración de PocketBase.
-- No retirar todavía fuentes V1 ni ejecutar cambios de schema sin autorización.
+- Conservar fuentes V1 que usan migradores; no ejecutar cambios de schema sin autorización.
 
 ## Siguiente acción
 
-`OPS-VERSIONED-BUILD` quedó atendida localmente: se quitó el `|| true` que podía
-ocultar errores de Astro. `npm run build` pasó con PocketBase deshabilitado
-(32 páginas). Siguiente: `SITESETTINGS-PREVIEW-VERIFY`, revisar hero y Literatura
-en el siguiente Preview. El usuario reporta que agregó `PUBLIC_POCKETBASE_URL`
-al entorno Preview de Vercel; falta evidencia de un build que la haya usado.
-Véase la [auditoría](site-settings-analysis.md).
-Fallbacks runtime
-identificados: noticias (Markdown), grupos (JSON), literatura (JSON); las fuentes
-se conservan. En altas nuevas, stock 0 es válido y se captura en PocketBase.
+El usuario confirmó el Preview previo y corrigió el fallo de build de Vercel.
+Los fallbacks runtime de noticias, grupos y literatura se retiraron localmente;
+fuentes se conservan para migradores. Siguiente: `FRONT-RUNTIME-FALLBACKS-PREVIEW-VERIFY`,
+revisar el nuevo Preview después del push. Luego `OPS-BACKUP-RECOVERY-AUDIT`.
+En altas nuevas, stock 0 es válido y se captura en PocketBase.
 Los cinco Events están verificados y el usuario confirmó que `/servicios/eventos`
 se ve bien.
 
 Noticias: la revisión de preview pasó según confirmación del usuario (2026-11-02).
-Se conservan Markdown como fallback local y entrada de 13 scripts históricos.
-Literatura consulta DAL con JSON fallback; nueve categorías y 161 productos están
+Los Markdown se conservan como entrada de 13 scripts históricos, sin fallback
+runtime. Literatura consulta DAL sin fallback JSON; nueve categorías y 161 productos están
 migrados y el dry-run quedó `UNCHANGED`. Las altas nuevas deben capturar stock
 real explícitamente; 0 es válido cuando no hay existencia.
 
@@ -64,16 +60,17 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 ## Trabajo V2 pendiente
 
-- Noticias: integración y revisión visual completas; mantener Markdown como
-  fallback y archivo fuente de los scripts históricos.
-- Literatura: productos en DAL con fallback JSON; stock 0 aprobado para altas
-  nuevas. Schema de `site_settings.literature` aplicado y singleton verificado;
-  revisar visualmente el próximo preview.
+- Noticias: integración y revisión visual completas; Markdown conservado como
+  entrada de 13 scripts históricos, sin fallback runtime.
+- Literatura: productos en DAL sin fallback JSON; `inventory.json` permanece
+  como fuente del migrador; stock 0 aprobado para altas
+  nuevas. Schema de `site_settings.literature` aplicado y singleton verificado.
 - Events: cinco Events migrados, verificados y revisados visualmente.
-- Site settings: singleton creado y verificado; revisar visualmente el siguiente
-  preview. Media: definir estrategia para videos grandes.
-- Frontend: retirar JSON V1 únicamente después de validar cada entidad y sus
-  rutas públicas.
+- Site settings: singleton creado y verificado; el usuario confirmó el Preview.
+  El punto 4 definirá alojamiento y ciclo de vida de imágenes.
+- Frontend: fallbacks runtime de noticias, grupos y literatura retirados
+  localmente; verificar la nueva build Preview. Preservar fuentes V1 usadas por
+  scripts de migración.
 - OPS: documentar backups, recuperación, seguridad, administración, QA y release.
 
 ## Al retomar

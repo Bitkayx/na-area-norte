@@ -114,12 +114,12 @@ ignorado por Git. Nunca copiar el valor del bypass a la conversación ni a logs.
 
 ## Siguiente paso
 
-El usuario reporta que agregó `PUBLIC_POCKETBASE_URL` a las variables de entorno
+El usuario reportó que agregó `PUBLIC_POCKETBASE_URL` a las variables de entorno
 de Preview en Vercel tras advertirle Vite que el prefijo `PUBLIC_` expone el
-valor al navegador. Es una URL pública de PocketBase, sin credenciales. Aún no
-hay evidencia de que un build de Vercel haya usado la variable.
+valor al navegador. Es una URL pública de PocketBase, sin credenciales. Luego
+confirmó el Preview, aunque la build asociada a `bb69911` inicialmente falló.
 
-**SITESETTINGS-PREVIEW-VERIFY:** en el siguiente push/deploy comprobar el HTML de
-hero y Literatura en Preview. El comando local de build ahora propaga errores de
-Astro (`OPS-VERSIONED-BUILD`); no se hizo deploy desde esta sesión. Después
-continuar con la auditoría de backups, recuperación, seguridad y release.
+El usuario confirmó que resolvió el fallo de build y que el Preview permitió
+avanzar a la auditoría de fallbacks. Ese Preview validó el estado anterior a su
+retiro; el siguiente build debe revisar los cambios DAL-only. Después sigue la
+auditoría de backups, recuperación, seguridad y release.

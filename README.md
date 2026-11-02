@@ -104,15 +104,14 @@ El servidor de desarrollo estará disponible en `http://localhost:4321`.
 
 ## Gestión de Contenido
 
-La transición a PocketBase está en curso. El frontend consulta contenido mediante la DAL;
-algunas fuentes Markdown/JSON se conservan como fallback local y no deben tratarse
-como fuente operativa de V2. Consulta el [estado de migración](docs/migration/README.md).
+La transición a PocketBase está en curso. El contenido migrado se presenta desde
+PocketBase mediante la DAL. Se conservan fuentes Markdown/JSON V1 para reproducir
+las migraciones históricas; ya no son fallback de presentación. Consulta el
+[estado de migración](docs/migration/README.md).
 
-El sitio utiliza **Astro Content Collections** para:
-
-- **Blog**: Posts en Markdown con frontmatter tipado
-- **Grupos**: Datos JSON validados por distrito
-- **TypeScript**: Tipado estático para todo el contenido
+Astro Content Collections conserva y valida la colección Markdown histórica de
+noticias. Los scripts de migración también usan esos archivos y los JSON de V1;
+la presentación del contenido migrado consulta PocketBase por DAL.
 
 ## Diseño
 

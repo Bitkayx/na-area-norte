@@ -13,14 +13,14 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Área                           | Estado y evidencia                                                                                                                                                                                                |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DAL                            | Existe en `src/lib/dal/`; hardening registrado en `978ca6b`. El 2026-10-26 pasaron 44/44 casos y el build directo de Astro con `PUBLIC_POCKETBASE_URL` vacío.                                                     |
-| Noticias                       | Inicio, listado y rutas usan DAL con fallback Markdown. Builds local/remoto: 32/48 páginas; 13 rutas presentes. El usuario confirmó revisión visual satisfactoria del preview el 2026-11-02. Las fuentes Markdown siguen alimentando 13 scripts históricos y el fallback local; se conservan. |
+| Noticias                       | Inicio, listado y rutas consultan PocketBase vía DAL; se retiró el fallback runtime Markdown tras revisión del usuario. Los 13 Markdown permanecen como entrada de scripts históricos. |
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | DAL integrada en varias páginas, con fallbacks V1. El usuario reporta que agregó `PUBLIC_POCKETBASE_URL` al entorno Preview de Vercel; la integración se comprobará en el próximo push/deploy. |
+| Frontend                       | Se retiraron localmente los fallbacks runtime de noticias, grupos y literatura tras la revisión previa del Preview. TypeScript y build offline pasaron; falta verificar el nuevo Preview tras estos cambios. Las fuentes V1 se conservan para scripts históricos. |
 | Infraestructura/schema         | Existen scripts de creación e inspección. `site_settings` se leyó autenticadamente el 2026-11-02; otros schemas/infraestructura no se revalidaron en esta etapa. No ejecutar scripts generales de schema para reconstruir contexto. |
-| Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
-| Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. Página integrada con DAL y JSON fallback; build local/remoto verificados. Véase [análisis](literature-analysis.md). |
+| Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El directorio consulta DAL sin fallback runtime; JSON se conserva como entrada de `migrate-groups.mjs`. |
+| Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. La página consulta DAL sin fallback runtime; `inventory.json` se conserva como entrada del migrador. Véase [análisis](literature-analysis.md). |
 | `site_settings` | Campo JSON `literature` aplicado y verificado; usuario creó el singleton desde Admin el 2026-11-02. GET de lectura: 1 registro, payload coincide; próxima fecha de inventario sin configurar. Schema y reglas sin cambios en esta alta. Véase [auditoría](site-settings-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
 | Events                         | Cinco Events creados tras autorización; dry-run `UNCHANGED` (5), 0 CREATE/conflictos. Build remota de 48 páginas; el HTML de Eventos muestra la última publicación (Literatura) y omite próximo evento futuro porque todos están archivados. Sin cambios de schema/access rules ni deploy. |
@@ -77,11 +77,16 @@ posterior: los cuatro quedaron `UNCHANGED`.
 
 ## Siguiente tarea exacta
 
-**SITESETTINGS-PREVIEW-VERIFY:** en el siguiente push/deploy comprobar hero y
-Literatura en el Preview. El usuario reporta que agregó `PUBLIC_POCKETBASE_URL`
-al entorno Preview; todavía no hay evidencia de que un build de Vercel la haya
-usado. Producción no se actualizó. Véase
-[auditoría](site-settings-analysis.md).
+**FRONT-RUNTIME-FALLBACKS-PREVIEW-VERIFY:** en el siguiente Preview confirmar
+que noticias, directorio y literatura renderizan datos de PocketBase después de
+retirar los fallbacks. Después iniciar `OPS-BACKUP-RECOVERY-AUDIT`.
+
+El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y
+literatura; se conservaron fuentes que usan los scripts históricos. TypeScript
+compiló y `PUBLIC_POCKETBASE_URL= npm run build` pasó con 19 páginas y PocketBase
+deshabilitado. Reflexiones registró fallos DNS de Google Sheets que su fallback
+tolera. Esta build valida compilación, no el contenido remoto. El nuevo Preview
+posterior a estos cambios queda pendiente.
 
 El 2026-11-02 se corrigió `package.json`: `pnpm build` ya no termina en `|| true`,
 que podía ocultar errores de Astro. `PUBLIC_POCKETBASE_URL= npm run build` pasó
@@ -103,11 +108,10 @@ anterior; no se lanzó deploy de producción. Vercel CLI rechazó el token local
 por lo que el preview de la branch no se pudo comprobar. El preview protegido
 respondió `Login – Vercel` a lecturas anónimas.
 
-La auditoría frontend encontró fallbacks runtime de noticias (Markdown), grupos
-(JSON) y literatura (JSON). Markdown también alimenta scripts históricos; no
-retirar fuentes durante esa auditoría. Stock: 0 es válido para altas nuevas y se
-captura en PocketBase; 1 solo aplica a filas históricas V1 sin `quantity`. Events
-quedó visualmente revisado por el usuario el 2026-11-02; no se hizo deploy.
+El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y literatura.
+Los Markdown/JSON V1 permanecen como entradas de scripts históricos. Stock: 0 es
+válido para altas nuevas y se captura en PocketBase; 1 solo aplica a filas
+históricas V1 sin `quantity`. Events quedó visualmente revisado por el usuario.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

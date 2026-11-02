@@ -44,9 +44,9 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   43 grupos, sin updates ni cambios de schema/access rules.
 - **GROUP-VERIFY — Verificación: completa.** El dry-run posterior reportó 43
   `UNCHANGED`, 0 creates y 0 updates.
-- **GROUP-FRONTEND — Integración: completa.** Astro obtiene grupos mediante la
-  DAL y el componente conserva JSON como fallback. El build remoto serializó 43
-  grupos y ningún registro de distrito; el build local validó el fallback.
+- **GROUP-FRONTEND — DAL sin fallback runtime.** El directorio obtiene grupos
+  mediante DAL; se retiró el fallback JSON tras verificar los 43 grupos, sus
+  horarios y revisar el Preview. JSON se conserva como entrada del migrador.
 - **CHECKPOINT-COMMITS — Completo.** El 2026-10-26 el hardening del DAL/CI quedó
   en `978ca6b`; contexto, migraciones e integración de distritos/grupos quedaron
   en `bfe7928`. No retirar todavía JSON V1.
@@ -86,8 +86,8 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **CONTENT — Transición por entidad.** Noticias, grupos, distritos, literatura,
   radio de octubre y primera ola de Events están migrados/verificados según sus
   etapas abajo. Radio mensual continúa como operación recurrente. El singleton
-  `site_settings` está creado y verificado; falta completar la auditoría de
-  consumidores frontend y cerrar OPS. Reflexiones permanece fuera.
+  `site_settings` está creado y verificado; los fallbacks runtime de noticias,
+  grupos y literatura se retiraron; falta cerrar OPS. Reflexiones permanece fuera.
 - **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
   referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
   colección remota, tags, media y cuerpos aún no están certificados.
@@ -104,17 +104,17 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   escrituras.
 - **NEWS-PUBDATE-APPLY — Completo.** Tras autorización se actualizó solo la fecha
   vacía a `2026-08-01`; la verificación posterior reportó 13 `UNCHANGED`.
-- **NEWS-FRONT — Completo en transición.** Inicio, lista y rutas consultan DAL;
-  Markdown queda de respaldo si PocketBase no tiene posts o falta un cuerpo.
-  Builds local y remoto pasan: 32 y 48 páginas; lista muestra 13 posts e inicio 4.
+- **NEWS-FRONT — DAL sin fallback runtime.** Inicio, lista y rutas consultan DAL;
+  un post sin cuerpo detiene la build. Los 13 Markdown quedan como fuentes de
+  scripts históricos. Se validaron 13 posts y revisión visual del Preview.
 - **NEWS-BODY-REVIEW — Comparación automatizada completa.** El 2026-10-30 una
   lectura remota de solo lectura encontró texto visible normalizado igual en
   13/13 posts y 49/49 imágenes representadas (47 Markdown, 2 HTML). No equivale a
   aprobación editorial por sí sola; la revisión visual posterior se registra en
   `NEWS-MEDIA-REVIEW`.
-- **NEWS-LIST-DAL — Completa en transición.** El listado usa `getNewsItems()` y
-  este consulta `dal.posts.getPublished()`, con Astro Content cuando no hay datos
-  remotos. El 2026-10-30 los builds local/remoto completaron 32/48 páginas; el
+- **NEWS-LIST-DAL — Completa.** `getNewsItems()` consulta
+  `dal.posts.getPublished()` sin fallback a Astro Content. El 2026-10-30 los
+  builds local/remoto completaron 32/48 páginas; el
   listado remoto tiene 13 slugs y existen sus rutas, con seis covers predeterminados.
 - **NEWS-MEDIA-REVIEW — Completa.**
   Build remoto empaquetado (48 páginas) del 2026-10-30: 75 usos de imágenes en
@@ -124,13 +124,10 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   satisfactoria en preview el 2026-11-02: listado, posts con covers/imágenes,
   orden de imágenes y revisión móvil. El smoke test local reportado dio HTTP 200
   para inicio, `/_image`, listado, dos posts y directorio. Se conserva Markdown.
-- **NEWS-V1-RETIREMENT-REVIEW — Completa; decisión: conservar V1.** Se
-  identificaron tres consumidores runtime de Astro Content (`src/lib/news.ts`,
-  `src/pages/noticias/[slug].astro` y `src/layouts/MarkdownPostLayout.astro`);
-  13 scripts de migración también leen Markdown local. Se mantienen los archivos
-  como fallback para builds locales y fuente reproducible de los scripts. No se
-  aprueba retirar archivos ni el fallback en esta etapa. `tagCounts` en el layout
-  parece calculado sin uso; queda como cleanup aparte, no blocker de contenido.
+- **NEWS-V1-RETIREMENT-REVIEW — Runtime completa; fuentes conservadas.** Tras
+  validar 13/13 posts, cuerpos/media y Preview, se retiró el fallback de Astro
+  Content de inicio, listado y rutas. Markdown permanece como entrada de 13
+  scripts históricos; `tagCounts` no usado se retiró del layout.
 - **EVENTS-ANALYSIS — Completa.** El responsable confirmó cinco eventos para la
   primera ola. La colección estaba vacía y 13 posts no tenían relaciones; radio
   es una entidad separada. Véase [análisis de Events](events-analysis.md).
@@ -169,15 +166,16 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   161 productos, con los códigos genéricos y stocks revisados. No hubo updates.
 - **LITERATURE-VERIFY — Completo.** El dry-run posterior dejó las 9 categorías y
   161 productos `UNCHANGED`, sin creates, updates ni conflictos.
-- **LITERATURE-FRONT — Completo en transición.** La página pública consulta DAL,
-  mantiene fallback JSON y fue validada en builds local/remoto; HTML remoto con
-  161 productos y nueve categorías. No se hizo deploy.
+- **LITERATURE-FRONT — DAL sin fallback runtime.** La página consulta PocketBase;
+  se retiró el fallback `inventory.json` tras validar 161 productos y nueve
+  categorías. El JSON permanece como entrada del migrador.
 - **LITERATURE-STOCK-DEFAULT — Completa.** El 2026-11-02 se confirmó que 0 es
   stock válido para nuevas altas sin existencia; capturarlo desde PocketBase.
   El 1 solo se asigna a filas históricas V1 que carecen de `quantity`.
-- **FRONT-V1-CONSUMER-AUDIT — Completa.** Se encontraron fallbacks runtime de
-  Markdown en noticias y JSON en grupos/literatura. Markdown también alimenta
-  scripts históricos; no se retiraron fuentes ni fallbacks.
+- **FRONT-V1-CONSUMER-AUDIT — Completa (2026-11-02).** Se retiraron los
+  fallbacks runtime de noticias, grupos y literatura tras revisar registros,
+  rutas, media y Preview. Los archivos fuente siguen disponibles para
+  migradores históricos.
 - **LITERATURE-SETTINGS-LOCAL — Completa.** DAL valida el contrato opcional de
   inventario y horario de venta. La página muestra solo datos válidos y no
   inventa fechas. Tests DAL/schema pasaron; build local completó 32 páginas.
@@ -218,19 +216,22 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   registro y todos los campos aprobados coinciden; próxima fecha de inventario
   ausente como se decidió. Build Astro con datos remotos generó 48 páginas; el
   HTML contiene el hero y horario de Literatura.
-- **SITESETTINGS-FRONT-REVIEW — Pendiente de Preview.** El usuario reporta que
-  agregó `PUBLIC_POCKETBASE_URL` al entorno Preview de Vercel. Revisar hero y
-  Literatura en el siguiente build de `feature/26.7`; aún no hay evidencia de
-  que el Preview usó la variable. Producción no se actualizó.
+- **SITESETTINGS-FRONT-REVIEW — Completa según confirmación del usuario.** El
+  usuario confirmó el Preview y corrigió después el fallo de build de Vercel.
 - **OPS-VERSIONED-BUILD — Completa localmente (2026-11-02).** Se quitó el `|| true`
   final de `package.json`, que podía convertir en éxito un fallo de Astro.
   `PUBLIC_POCKETBASE_URL= npm run build` pasó con 32 páginas y fallback local;
   Reflexiones registró errores DNS tolerados. `pnpm build` no pudo iniciar por
   el store de pnpm de solo lectura. La conexión de Vercel a PocketBase queda por
   comprobar en el siguiente Preview.
-- **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
-  consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
-  fuentes V1 solo se retiran después de validar.
+- **FRONT-RUNTIME-FALLBACKS — Implementada localmente (2026-11-02).** Noticias,
+  grupos y literatura ya no sustituyen respuestas vacías de PocketBase por datos
+  V1. Markdown/JSON se preservan como fuentes de migradores. TypeScript y build
+  offline pasaron; falta validar el nuevo Preview con PocketBase.
+- **FRONT — Integración runtime implementada para noticias, grupos y literatura.**
+  Las fuentes V1 se conservan únicamente para reproducir migraciones. Falta
+  validar los cambios en el próximo Preview; el manejo de medios corresponde al
+  punto 4.
 - **OPS — Operación y cierre V2: pendiente.** Cierra con backups y recuperación
   probados, seguridad, actualización del sitio, administración, QA y release
   documentados. Cambios remotos y deploys conservan sus propias autorizaciones.
@@ -241,8 +242,8 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**SITESETTINGS-PREVIEW-VERIFY:** revisar hero y Literatura en el siguiente
-Preview de `feature/26.7`; el usuario reporta haber agregado
-`PUBLIC_POCKETBASE_URL` para Preview, pero no hay build que confirme que Vercel
-la usó. Los pendientes OPS de backups, recuperación, seguridad y release
-requieren auditoría específica.
+**FRONT-RUNTIME-FALLBACKS-PREVIEW-VERIFY:** tras el siguiente push, comprobar en
+Preview noticias, directorio y literatura con datos de PocketBase. Después
+iniciar `OPS-BACKUP-RECOVERY-AUDIT`: establecer dónde se respaldan los datos,
+retención, acceso y restauración; acordar una prueba sin riesgo a producción.
+La estrategia de imágenes se aborda en el punto 4 acordado.

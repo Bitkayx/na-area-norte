@@ -21,40 +21,44 @@ requieren revisión de disponibilidad y licencia durante el dry-run de media.
 
 ## Consumidores actuales
 
-- `src/pages/noticias.astro` obtiene la lista mediante `getNewsItems()`; el helper
-  consulta `dal.posts.getPublished()` y usa Astro Content como fallback si no hay
-  datos remotos.
-- `src/pages/noticias/[slug].astro` obtiene los slugs publicados de la DAL y usa
-  Astro Content como fallback cuando PocketBase no devuelve posts. Para cada
-  slug, consulta `dal.posts.getBySlug()` y vuelve a Markdown si falta el registro
-  o el body remoto está vacío.
+- `src/pages/noticias.astro` obtiene la lista mediante `getNewsItems()`, que
+  consulta `dal.posts.getPublished()`.
+- `src/pages/noticias/[slug].astro` obtiene slugs y cuerpos publicados mediante
+  DAL y detiene la build si falta un registro o un body.
 - `src/pages/index.astro`, `BannerPromocional.astro` y páginas de servicios
-  enlazan slugs públicos concretos. No retirar Markdown hasta validar esos
-  enlaces y el contenido remoto.
+  enlazan slugs públicos concretos, conservados en PocketBase.
 
 ## Auditoría de retiro V1 — 2026-11-02
 
-- Runtime: `src/lib/news.ts` consulta Astro Content cuando la DAL no devuelve
-  posts; `src/pages/noticias/[slug].astro` usa Astro Content para `getStaticPaths`
-  y como fallback de cuerpo/metadata; `src/layouts/MarkdownPostLayout.astro`
-  todavía consulta la colección para calcular `tagCounts`.
+- Runtime antes del retiro: `src/lib/news.ts` y la ruta dinámica consultaban
+  Astro Content como respaldo; el layout calculaba `tagCounts` sin usarlo.
 - Mantenimiento/migración: 13 scripts (`scripts/migrate-*.mjs`) leen los archivos
   `src/blog/*.md` como entrada. Borrarlos rompería la reproducibilidad de esos
   scripts aunque no afectaría la lectura normal de PocketBase.
 - Assets: `src/assets/blog/` también se importa desde páginas de inicio y
   servicios; no es seguro eliminar el directorio completo al retirar posts.
 - La revisión de preview se confirmó satisfactoria por el usuario el 2026-11-02.
-- **Decisión:** no retirar archivos Markdown ni el fallback runtime en este
-  checkpoint. Los archivos mantienen utilidad para builds locales sin PocketBase
-  y para repetir/auditar los scripts históricos. Si se desea retirar el fallback
-  runtime después, primero definir comportamiento de desarrollo sin PB y retirar
-  la lectura no usada de `tagCounts`; conservar las fuentes hasta reemplazar o
-  archivar explícitamente los inputs de los 13 scripts.
+- **Decisión anterior (supersedida):** mantener el fallback runtime en ese
+  checkpoint; los archivos siguen siendo fuente de los scripts históricos.
 
-## Siguiente verificación
+## Retiro del fallback runtime — 2026-11-02
 
-Analizar la entidad Events y cruzarla con posts, calendarios y páginas para
-detectar duplicados. No cambiar ni borrar las fuentes Markdown en esa etapa.
+Tras la confirmación del usuario sobre el Preview y la validación de los 13 posts,
+se retiró el fallback runtime de `src/lib/news.ts` y
+`src/pages/noticias/[slug].astro`. La generación de rutas y los cuerpos publicados
+dependen ahora de PocketBase; un post publicado sin cuerpo detiene la build para
+no generar una página incompleta. Inicio y listado muestran un estado vacío si no
+hay posts. `MarkdownPostLayout.astro` dejó de consultar Astro Content para el
+`tagCounts` que no se usaba.
+
+Los Markdown permanecen porque 13 scripts históricos los usan como entrada
+reproducible. Los assets locales también se conservan hasta definir la política
+de imágenes del punto 4.
+
+## Verificación posterior
+
+La revisión de Events y duplicados está documentada en `events-analysis.md`.
+Los archivos Markdown siguen conservados para los 13 scripts históricos.
 
 ## Evidencia remota — 2026-10-26
 
@@ -110,10 +114,10 @@ presentación. Codex no tuvo acceso a navegador/preview. El smoke test local que
 usuario mostró HTTP 200 para inicio, `/_image`, listado, dos posts y directorio.
 La revisión visual de medios queda completa según confirmación del usuario.
 
-La revisión visual de medios está completa según confirmación del usuario. La
-decisión de auditoría es conservar los 13 Markdown como fallback y fuente de
-scripts históricos. Siguiente tarea: **EVENTS-ANALYSIS**, cruzar Events, posts,
-calendarios y páginas para identificar duplicados antes de proponer migraciones.
+La revisión visual de medios está completa según confirmación del usuario. Los
+13 Markdown se conservan como entrada de scripts históricos, sin fallback
+runtime. La revisión de Events y duplicados ya está documentada en
+`events-analysis.md`.
 
 El usuario reportó el **2026-11-02** este smoke test manual del servidor local:
 `/`, `/_image`, `/noticias/`, `/noticias/invitaciones-agosto-2026`,

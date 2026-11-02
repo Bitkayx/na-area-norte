@@ -1,66 +1,42 @@
 ---
-import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
 import { dal } from "../../lib/dal/index.ts";
 import { marked } from "marked";
 
 export async function getStaticPaths() {
   const published = await dal.posts.getPublished();
-  if (published.length > 0) {
-    return published.map((post) => ({ params: { slug: post.slug } }));
-  }
-  const localPosts = await getCollection("blog");
-  return localPosts.map((post) => ({ params: { slug: post.id } }));
+  return published.map((post) => ({ params: { slug: post.slug } }));
 }
 
 const { slug } = Astro.params;
 
-let fm: any = null;
-let useHtml = false;
-let htmlBody = "";
-let ContentComp: any = null;
-
-const localPosts = await getCollection("blog");
-const localPost = localPosts.find((post) => post.id === slug);
 const pbPost = slug ? await dal.posts.getBySlug(slug) : undefined;
 
-if (pbPost) {
-  fm = {
-    title: pbPost.title,
-    pubDate: pbPost.pubDate ?? undefined,
-    description: pbPost.description,
-    author: pbPost.author ?? "Área Norte",
-    image: pbPost.coverUrl
-      ? { url: pbPost.coverUrl, alt: pbPost.title }
-      : undefined,
-    tags:
-      pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
-  };
-  const body = pbPost.body ?? "";
-  if (body.trim()) {
-    useHtml = true;
-    htmlBody = marked
-      .parse(body)
-      .replace(/src="\.\.\/assets\//g, 'src="/assets/');
-  }
+if (!pbPost) {
+  throw new Error(`Published PocketBase post not found: ${slug}`);
 }
 
-if (!fm && localPost) {
-  fm = localPost.data;
-  const rendered = await render(localPost);
-  ContentComp = rendered.Content;
-} else if (!fm && !pbPost) {
-  throw new Error(`Post not found: ${slug}`);
-} else if (pbPost && !(pbPost.body ?? "").trim()) {
-  // Keep the PB metadata and use local content when this slug has a V1 copy.
-  if (localPost) {
-    fm = localPost.data;
-    const rendered = await render(localPost);
-    ContentComp = rendered.Content;
-  }
+const body = pbPost.body ?? "";
+if (!body.trim()) {
+  throw new Error(`Published PocketBase post has no body: ${slug}`);
 }
+
+const fm = {
+  title: pbPost.title,
+  pubDate: pbPost.pubDate ?? undefined,
+  description: pbPost.description,
+  author: pbPost.author ?? "Área Norte",
+  image: pbPost.coverUrl
+    ? { url: pbPost.coverUrl, alt: pbPost.title }
+    : undefined,
+  tags:
+    pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
+};
+const htmlBody = marked
+  .parse(body)
+  .replace(/src="\.\.\/assets\//g, 'src="/assets/');
 ---
 
 <MarkdownPostLayout frontmatter={fm}>
-  {useHtml ? <div set:html={htmlBody} /> : ContentComp && <ContentComp />}
+  <div set:html={htmlBody} />
 </MarkdownPostLayout>

@@ -93,6 +93,10 @@ Estas mejoras no bloquean ni invalidan los 43 grupos migrados:
   forman parte de URLs compartidas.
 - Historial de cambios o responsable de la última revisión de cada grupo.
 
-La integración del directorio con el DAL sí pertenece a V2: hasta realizarla y
-validarla, el frontend continuará leyendo JSON V1 aunque PocketBase ya contenga
-los grupos migrados y verificados.
+## Retiro del fallback runtime — 2026-11-02
+
+El directorio recibe los 43 grupos desde la DAL y ya no importa JSON si la
+respuesta está vacía. En ese caso presenta un estado vacío explícito. Los cuatro
+JSON se conservan como entrada de `scripts/migrate-groups.mjs`, no como fuente de
+presentación. La distribución, horarios, relaciones y slugs se verificaron antes
+del retiro; el usuario confirmó el Preview para avanzar al punto 2.
