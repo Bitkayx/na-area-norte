@@ -17,12 +17,13 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | Directorio y literatura integrados con DAL y fallback JSON. El banner de radio consulta la próxima fecha mediante DAL y muestra estado pendiente si no existe; builds local/remoto de literatura verificados. |
-| Infraestructura/schema         | Existen scripts de creación e inspección. La transferencia reporta PocketBase en Railway con volumen y superusuario; el estado remoto no fue verificado. No ejecutar scripts de schema para reconstruir contexto. |
+| Frontend                       | Directorio, literatura y configuración global integrados con DAL/fallback. Singleton creado desde Admin y verificado. Build local con datos remotos: 48 páginas; HTML contiene hero y horario configurados. Astro es estático; no se hizo deploy. |
+| Infraestructura/schema         | Existen scripts de creación e inspección. `site_settings` se leyó autenticadamente el 2026-11-02; otros schemas/infraestructura no se revalidaron en esta etapa. No ejecutar scripts generales de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
 | Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. Página integrada con DAL y JSON fallback; build local/remoto verificados. Véase [análisis](literature-analysis.md). |
+| `site_settings` | Campo JSON `literature` aplicado y verificado; usuario creó el singleton desde Admin el 2026-11-02. GET de lectura: 1 registro, payload coincide; próxima fecha de inventario sin configurar. Schema y reglas sin cambios en esta alta. Véase [auditoría](site-settings-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
-| Events                         | La lectura pública del 2026-11-02 encontró la colección vacía y 13 posts sin relación a Event. El calendario 2026 es un post agregado con coincidencias posibles; confirmar alcance antes de proponer migración. |
+| Events                         | Cinco Events creados tras autorización; dry-run `UNCHANGED` (5), 0 CREATE/conflictos. Build remota de 48 páginas; el HTML de Eventos muestra la última publicación (Literatura) y omite próximo evento futuro porque todos están archivados. Sin cambios de schema/access rules ni deploy. |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
@@ -77,10 +78,27 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**EVENTS-SCOPE-REVIEW:** confirmar qué entradas del calendario anual son
-ocurrencias administrables y cuáles son reuniones/compartimientos; validar los
-posibles cruces con cinco posts sin inferir fechas. Véase
-[análisis de Events](events-analysis.md). No se han preparado escrituras.
+**SITESETTINGS-FRONT-REVIEW:** singleton creado desde PocketBase Admin y lectura
+remota confirmó un registro con el payload aprobado. Build Astro con datos
+remotos generó 48 páginas; comprobaciones del HTML confirmaron hero y horario
+semanal de Literatura. No se hizo deploy; revisar visualmente portada y
+Literatura en el próximo preview. Véase [auditoría](site-settings-analysis.md).
+
+La integración del hero manual se verificó localmente el 2026-11-02:
+`tsc -p tests/tsconfig.compile.json`, `node tests/dal.test.ts` (43/43) y
+`PUBLIC_POCKETBASE_URL= ./node_modules/.bin/astro build` (32 páginas) pasaron.
+La build no consultó PocketBase; Reflexiones reportó un error DNS de Google
+Sheets tolerado por su fallback. `pnpm test:dal` no pudo iniciar por un lock de
+store de solo lectura; se ejecutó directamente el compilador y el test runner.
+La verificación final de `site_settings` fue de solo lectura y devolvió un
+registro que coincide con el payload revisado. La build remota se ejecutó con
+acceso de red autorizado; no se hizo deploy.
+
+La auditoría frontend encontró fallbacks runtime de noticias (Markdown), grupos
+(JSON) y literatura (JSON). Markdown también alimenta scripts históricos; no
+retirar fuentes durante esa auditoría. Stock: 0 es válido para altas nuevas y se
+captura en PocketBase; 1 solo aplica a filas históricas V1 sin `quantity`. Events
+quedó visualmente revisado por el usuario el 2026-11-02; no se hizo deploy.
 
 Véase el [análisis de noticias](news-analysis.md) para límites y evidencia.
 

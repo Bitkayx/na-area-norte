@@ -44,17 +44,60 @@ Lectura de solo lectura, sin autenticación:
 - Las consultas locales muestran eventos en Posts y páginas; `dal.events` existe,
   pero la colección vacía no se refleja como fuente de contenido visible.
 
-## Decisión y pendientes
+## Alcance confirmado y preparación local
 
-No hay duplicados en la colección remota porque Events está vacía, y ningún post
-está relacionado con Event. Sí hay solapamiento editorial probable entre el
-calendario agregado y algunos posts. Antes de crear registros se debe confirmar
-qué ocurrencias cuentan como eventos administrables, cuáles son solo reuniones
-listadas en el calendario y qué posts anuncian, documentan o reportan cada
-ocurrencia. No inferir fechas exactas de `pubDate`, mes de sección, flyers sin
-revisión o nombre parecido.
+El responsable confirmó que estos cinco elementos son Events y conforman la
+primera ola; cada uno tiene un post correspondiente por slug:
 
-Siguiente etapa: **EVENTS-SCOPE-REVIEW**. Confirmar con el responsable los cinco
-posibles cruces anteriores y el alcance de Events frente a reuniones y
-compartimientos. Después se puede diseñar un inventario local y un dry-run; aún no
-se propone migrar ni relacionar registros.
+| Event | Fecha de ocurrencia | Fuente local | Estado propuesto |
+| --- | --- | --- | --- |
+| Nuestra XLII Asamblea Mexicana | 1–4 abril 2026 | Flyer `ASAMBLEA_MEXICANA.jpg` | archived |
+| Encuentro Regional de MAVE 2026 | 22 marzo 2026 | `src/blog/mave-2026.md` | archived |
+| Encuentro Anual de Servidores 2026 | 17 mayo 2026 | Flyer `encuentro-servidores-2026.jpeg` | archived |
+| Congreso Regional 2026 | 26 julio 2026 | Flyer `congreso_regional_2026.jpeg` | archived |
+| Encuentro Regional de Literatura 2026 | 13 septiembre 2026 | Flyer `congreso_literatura.jpg` | archived |
+
+Las fechas y ubicaciones visibles en los flyers se transcribieron al seed local;
+los campos sin evidencia se dejan vacíos. Los cinco eventos ya pasaron al
+2026-11-02. La información transformada está en
+[`src/data/events-2026-seed.json`](../../src/data/events-2026-seed.json); el
+script es create-only, enlaza por slug y rechaza conflictos.
+
+## Interfaz y evidencia
+
+En `/servicios/eventos`, la tarjeta antigua de “Próximo evento” estaba fija en
+Encuentro de Servidores (17 de mayo, ya pasado) y “Próximamente” anunciaba un
+Congreso Regional pasado. Se retiraron ambos anuncios y el video asociado de la
+página. La interfaz ahora muestra “Próximo evento” solo desde Events activos con
+fecha futura; muestra por separado la última publicación etiquetada `eventos`,
+excluyendo invitaciones y calendario, sin afirmar que sea futura. Cuando se
+registren eventos futuros en PocketBase, su post relacionado será enlazable.
+
+Verificación remota de solo lectura, 2026-11-02:
+
+- `node --env-file=.env scripts/migrate-events.mjs`: 13 posts, 0 Events; cinco
+  `CREATE`, 0 `UNCHANGED`, 0 conflictos. No hubo escrituras.
+- Tras la autorización explícita, `node --env-file=.env scripts/migrate-events.mjs
+  --apply` creó cinco Events. La primera verificación reportó cinco conflictos
+  aparentes por el orden de claves en el JSON de `location`; una lectura
+  comparativa confirmó que sus valores coinciden. Se hizo la comparación
+  insensible al orden de claves (sin cambiar datos) y el test de regresión pasó.
+- El dry-run corregido reportó 5 `UNCHANGED`, 0 CREATE y 0 conflictos.
+- `node --test tests/migrate-events.test.mjs`: pasó; la salida de Node agrupa
+  este archivo como un test.
+- `node --test tests/dal.test.ts`: pasó; misma presentación resumida de Node.
+- `./node_modules/.bin/tsc -p tests/tsconfig.compile.json`: pasó.
+- `./node_modules/.bin/astro build`: generó rutas estáticas, pero una lectura de
+  `radio_broadcasts` falló por red durante la build. El entorno no pudo completar
+  una build remota integral. No se hizo deploy.
+- Repetición autorizada con acceso de red:
+  `node --env-file=.env node_modules/astro/astro.js build` completó 48 páginas.
+  `dist/servicios/eventos/index.html` muestra “Última publicación de eventos”
+  con el post de Literatura y no muestra una tarjeta “Próximo evento” porque
+  los cinco registros están archivados. No se hizo deploy.
+
+No se ejecutó `--apply`; los registros no han sido creados. Aún se requiere una
+revisión del plan y autorización explícita para esta escritura.
+
+La portada también conserva un enlace temporal a la invitación de agosto 2026;
+queda fuera de esta etapa de Events y requiere revisión de noticias por separado.

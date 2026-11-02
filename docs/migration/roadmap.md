@@ -83,13 +83,11 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   registros a `13:00`; el dry-run posterior quedó `UNCHANGED` y el build remoto
   mostró “Área Norte a las 13:00”. El banner usa la misma hora si el campo queda
   vacío. La operación editorial ordinaria se realiza desde PocketBase.
-- **CONTENT — Contenido restante: transición parcial.** Cada entidad requiere
-  análisis, decisión, tests, dry-run, revisión, autorización, apply y verificación.
-  Noticias debe verificar 13 posts, URLs, tags y media; grupos, relaciones,
-  horarios y slugs; radio, fechas y responsables mensuales; literatura, stock,
-  códigos genéricos y total derivado; eventos, ausencia de duplicados; settings,
-  alcance.
-  Reflexiones permanece fuera.
+- **CONTENT — Transición por entidad.** Noticias, grupos, distritos, literatura,
+  radio de octubre y primera ola de Events están migrados/verificados según sus
+  etapas abajo. Radio mensual continúa como operación recurrente. El singleton
+  `site_settings` está creado y verificado; falta completar la auditoría de
+  consumidores frontend y cerrar OPS. Reflexiones permanece fuera.
 - **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
   referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
   colección remota, tags, media y cuerpos aún no están certificados.
@@ -133,13 +131,25 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   como fallback para builds locales y fuente reproducible de los scripts. No se
   aprueba retirar archivos ni el fallback en esta etapa. `tagCounts` en el layout
   parece calculado sin uso; queda como cleanup aparte, no blocker de contenido.
-- **EVENTS-ANALYSIS — Completa local/remoto.** El 2026-11-02, lectura pública
-  encontró Events vacío, 13 posts sin relación a Event y cuatro participaciones
-  de radio separadas. Un post contiene el calendario 2026 agregado; cinco posts
-  podrían coincidir con entradas, sin correspondencia confirmada para todas.
-  Véase [análisis de Events](events-analysis.md). Sin escrituras.
-- **EVENTS-SCOPE-REVIEW — Siguiente tarea.** Confirmar qué entradas son Events y
-  validar posibles cruces con calendario/posts antes de diseñar migración.
+- **EVENTS-ANALYSIS — Completa.** El responsable confirmó cinco eventos para la
+  primera ola. La colección estaba vacía y 13 posts no tenían relaciones; radio
+  es una entidad separada. Véase [análisis de Events](events-analysis.md).
+- **EVENTS-LOCAL — Completa.** Seed local de cinco eventos archivados, migrador
+  create-only con resolución de posts por slug, tests y página de Eventos usando
+  DAL. Tests del migrador y DAL pasaron, TypeScript compiló. Build Astro generó
+  rutas estáticas, pero tuvo error de red al consultar radio.
+- **EVENTS-DRY — Completa.** Dry-run previo a apply: 13 posts, 0 Events; cinco
+  CREATE, 0 conflictos.
+- **EVENTS-APPLY — Completa.** Tras autorización explícita del usuario el
+  2026-11-02 se crearon cinco Events; no se modificaron schema ni access rules.
+- **EVENTS-VERIFY — Completa.** La primera comparación detectó solo diferencia
+  de orden de claves en `location`; se corrigió la igualdad profunda y se añadió
+  un test. El dry-run posterior reportó cinco UNCHANGED, 0 CREATE/conflictos.
+- **EVENTS-FRONT-VERIFY — Completa técnicamente.** Build remoto estático terminó
+  con 48 páginas; HTML de Eventos muestra última publicación de Literatura y
+  omite próximo evento porque los cinco están archivados. No se hizo deploy.
+- **EVENTS-FRONT-REVIEW — Completa.** El usuario confirmó el 2026-11-02 que la
+  página se ve bien. No se hizo deploy.
 - **LITERATURE-ANALYSIS — Completo.** Inventario V1, consumidores y contrato
   local/remoto del schema revisados. La lectura autenticada confirmó ambas
   colecciones vacías frente a 161 productos y 9 categorías V1. Véase
@@ -162,8 +172,54 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
 - **LITERATURE-FRONT — Completo en transición.** La página pública consulta DAL,
   mantiene fallback JSON y fue validada en builds local/remoto; HTML remoto con
   161 productos y nueve categorías. No se hizo deploy.
-- **LITERATURE-STOCK-DEFAULT — Pendiente operativo.** PocketBase da 0 cuando se
-  omite un NumberField; definir el flujo editorial para futuras altas sin cantidad.
+- **LITERATURE-STOCK-DEFAULT — Completa.** El 2026-11-02 se confirmó que 0 es
+  stock válido para nuevas altas sin existencia; capturarlo desde PocketBase.
+  El 1 solo se asigna a filas históricas V1 que carecen de `quantity`.
+- **FRONT-V1-CONSUMER-AUDIT — Completa.** Se encontraron fallbacks runtime de
+  Markdown en noticias y JSON en grupos/literatura. Markdown también alimenta
+  scripts históricos; no se retiraron fuentes ni fallbacks.
+- **LITERATURE-SETTINGS-LOCAL — Completa.** DAL valida el contrato opcional de
+  inventario y horario de venta. La página muestra solo datos válidos y no
+  inventa fechas. Tests DAL/schema pasaron; build local completó 32 páginas.
+- **LITERATURE-SETTINGS-SCHEMA-DRY — Completa.** Lectura autenticada encontró
+  que falta el campo y 0 registros singleton. Dry-run propuso un JSON opcional,
+  preservando campos/índices y omitiendo reglas.
+- **LITERATURE-SETTINGS-SCHEMA-APPLY — Completa.** Tras autorización explícita,
+  el 2026-11-02 se añadió solo `site_settings.literature`; no se modificaron
+  access rules ni se escribieron registros.
+- **LITERATURE-SETTINGS-VERIFY — Completa.** Inspección autenticada confirmó el
+  campo JSON y el dry-run posterior `unchanged`; en esa fecha aún no existía el
+  singleton (se creó posteriormente en SITESETTINGS-SINGLETON-APPLY).
+- **SITESETTINGS-DYNAMIC-DATA-AUDIT — Completa.** Se clasificaron contenidos
+  configurables, contenido editorial y entidades propias en
+  [auditoría](site-settings-analysis.md).
+- **SITESETTINGS-FRONT-WIRING — Completa técnicamente.** Layout/Header/Footer y
+  Ubicacion consumen identidad, logo, navigation, metadata y contacto desde DAL,
+  con fallback. En el cierre de esta etapa el singleton ya existe; DAL cachea la lectura por build.
+  TypeScript, DAL y build estático local pasaron.
+- **SITESETTINGS-DATA-REVIEW — Completa.** El usuario confirmó identidad,
+  dirección, teléfono y correo; eligió hero manual y aceptó actualización en el
+  siguiente build/deploy estático. Se quitó el hero vencido de la portada.
+- **SITESETTINGS-HERO-LOCAL — Completa.** La portada obtiene el hero de la DAL,
+  solo lo renderiza con campos suficientes y no muestra el banner vencido cuando
+  no hay configuración. TypeScript, 43/43 tests DAL y build local de 32 páginas
+  pasaron el 2026-11-02. No se usó PocketBase.
+- **SITESETTINGS-SINGLETON-DRY — Completa.** El 2026-11-02 la inspección
+  autenticada confirmó el schema y un GET remoto de solo lectura encontró 0
+  registros. El payload candidato propone un CREATE e incluye solo nombre,
+  contacto confirmado, horario de venta de Literatura y hero anterior de agosto
+  de 2026, que el usuario actualizará después. No hubo escrituras.
+- **SITESETTINGS-SINGLETON-REVIEW — Completa.** El usuario revisó el payload y
+  autorizó el CREATE el 2026-11-02.
+- **SITESETTINGS-SINGLETON-APPLY — Completa.** El usuario creó el registro desde
+  PocketBase Admin el 2026-11-02 con el payload autorizado. No se cambió schema
+  ni access rules.
+- **SITESETTINGS-SINGLETON-VERIFY — Completa.** GET de solo lectura encontró un
+  registro y todos los campos aprobados coinciden; próxima fecha de inventario
+  ausente como se decidió. Build Astro con datos remotos generó 48 páginas; el
+  HTML contiene el hero y horario de Literatura. No se hizo deploy.
+- **SITESETTINGS-FRONT-REVIEW — Siguiente.** Revisar visualmente portada y
+  Literatura en el preview tras el próximo deploy autorizado.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.
@@ -177,6 +233,7 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**EVENTS-SCOPE-REVIEW:** confirmar con el responsable qué ocurrencias del
-calendario se administrarán como Events y cuáles permanecen como contenido de
-calendario/post. Véase el análisis para candidatos sin correspondencia asumida.
+**SITESETTINGS-FRONT-REVIEW:** revisar visualmente la portada y Literatura en un
+preview tras el siguiente deploy autorizado. La lectura remota y build local de
+48 páginas pasaron; no se hizo deploy. Véase la
+[auditoría](site-settings-analysis.md).

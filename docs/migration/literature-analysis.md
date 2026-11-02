@@ -54,10 +54,11 @@ categorías y productos por DAL, los ordena según V1 y conserva JSON como fallb
 si PocketBase no entrega datos completos.
 
 PocketBase guarda los campos Number como no nulos y usa 0 si no se envía un
-valor ([documentación de campos](https://pocketbase.io/docs/collections/)). Por
-eso el migrador envía 1 cuando V1 no incluye cantidad, pero un producto futuro
-creado desde el administrador sin stock quedaría en 0; garantizar default 1 en
-altas futuras requiere definir un flujo adicional.
+valor ([documentación de campos](https://pocketbase.io/docs/collections/)). La
+decisión editorial del 2026-11-02 es conservar ese comportamiento para altas
+nuevas: stock 0 es válido cuando no hay existencia y debe ingresarse
+explícitamente desde el administrador. La asignación de 1 se limita al flujo de
+migración histórica V1 cuando falta `quantity`; no es el default general.
 
 El 2026-10-29 se autorizó y aplicó un PATCH que añadió solo `literature.stock`
 (NumberField opcional, entero, mínimo 0). La inspección posterior confirmó el
@@ -83,6 +84,22 @@ HTML generado contiene 161 filas de producto y las nueve categorías. No se hizo
 deploy. La integración está completa, aunque el fallback V1 permanece hasta una
 decisión posterior de retiro.
 
-Pendiente operativo: las altas administrativas que omiten `stock` reciben 0 por
-el comportamiento de NumberField de PocketBase; el migrador V1 asignó 1 donde
-faltaba `quantity`. Definir el flujo editorial para nuevas altas antes de usarlas.
+Altas nuevas: ingresar el stock real en PocketBase; usar 0 cuando no haya
+existencia. No cambiar el schema ni aplicar un default 1. La migración histórica
+de V1 conserva la regla separada de usar 1 cuando falta `quantity`.
+
+## Configuración del próximo inventario mensual
+
+El bloque antes hardcodeado con fecha de mayo se sustituyó por configuración
+opcional `site_settings.literature`, leída desde el DAL. El contrato contiene
+`nextInventory` y `salesSchedule`; valida fecha, hora, distritos y días ISO. El
+inventario solo se muestra si tiene fecha válida futura. No se sembró una fecha
+histórica como próxima. El horario de venta informado es martes a jueves,
+17:00–18:00; todavía no se escribió en PocketBase.
+
+Lectura autenticada del 2026-11-02 encontró que no había registro singleton.
+Tras autorización explícita se añadió `site_settings.literature` como JSON; la
+inspección posterior confirmó el campo y el dry-run reportó `unchanged`. En ese
+momento no se modificaron access rules ni registros. El singleton se creó
+posteriormente desde Admin y se verificó; véase la [auditoría de site_settings](site-settings-analysis.md)
+y el [runbook](runbooks/literature-inventory.md).

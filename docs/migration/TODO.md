@@ -20,17 +20,22 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `EVENTS-SCOPE-REVIEW`, confirmar qué ocurrencias del calendario
-se administrarán como Events y cuáles son reuniones/compartimientos. Events está
-vacía; los 13 posts no tienen relación, pero cinco posts podrían corresponder a
-entradas del calendario. No se han inferido fechas ni preparado escrituras. Véase
-[análisis de Events](events-analysis.md).
+Siguiente etapa: `SITESETTINGS-FRONT-REVIEW`, revisar visualmente portada y
+Literatura en el próximo preview. El singleton fue creado por el usuario desde
+PocketBase Admin; GET remoto confirmó el payload. Build local con datos remotos:
+48 páginas y HTML con hero y horario semanal. No se hizo deploy. Véase la
+[auditoría](site-settings-analysis.md).
+Fallbacks runtime
+identificados: noticias (Markdown), grupos (JSON), literatura (JSON); las fuentes
+se conservan. En altas nuevas, stock 0 es válido y se captura en PocketBase.
+Los cinco Events están verificados y el usuario confirmó que `/servicios/eventos`
+se ve bien.
 
 Noticias: la revisión de preview pasó según confirmación del usuario (2026-11-02).
 Se conservan Markdown como fallback local y entrada de 13 scripts históricos.
 Literatura consulta DAL con JSON fallback; nueve categorías y 161 productos están
-migrados y el dry-run quedó `UNCHANGED`. Definir el flujo de stock para altas
-administrativas: PB asigna 0 si se omite.
+migrados y el dry-run quedó `UNCHANGED`. Las altas nuevas deben capturar stock
+real explícitamente; 0 es válido cuando no hay existencia.
 
 Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
@@ -60,10 +65,12 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
 
 - Noticias: integración y revisión visual completas; mantener Markdown como
   fallback y archivo fuente de los scripts históricos.
-- Literatura: integración DAL y builds local/remoto completados; mantener JSON
-  fallback hasta decidir su retiro y resolver el default editorial de stock.
-- Events: verificar duplicados entre posts, calendarios y páginas.
-- Site settings y media: validar alcance, assets y estrategia para videos grandes.
+- Literatura: productos en DAL con fallback JSON; stock 0 aprobado para altas
+  nuevas. Schema de `site_settings.literature` aplicado y singleton verificado;
+  revisar visualmente el próximo preview.
+- Events: cinco Events migrados, verificados y revisados visualmente.
+- Site settings: singleton creado y verificado; revisar visualmente el siguiente
+  preview. Media: definir estrategia para videos grandes.
 - Frontend: retirar JSON V1 únicamente después de validar cada entidad y sus
   rutas públicas.
 - OPS: documentar backups, recuperación, seguridad, administración, QA y release.
