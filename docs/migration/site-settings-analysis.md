@@ -114,8 +114,12 @@ ignorado por Git. Nunca copiar el valor del bypass a la conversación ni a logs.
 
 ## Siguiente paso
 
-**SITESETTINGS-PREVIEW-VERIFY:** leer el preview protegido con un bypass secret
-disponible localmente y confirmar hero/Literatura. Producción aún sirve la build
-previa; para cambiarla se requiere el flujo de producción autorizado. El CLI de
-Vercel sigue rechazando su token; después continuar con los pendientes generales
-de FRONT y OPS.
+El usuario reporta que agregó `PUBLIC_POCKETBASE_URL` a las variables de entorno
+de Preview en Vercel tras advertirle Vite que el prefijo `PUBLIC_` expone el
+valor al navegador. Es una URL pública de PocketBase, sin credenciales. Aún no
+hay evidencia de que un build de Vercel haya usado la variable.
+
+**SITESETTINGS-PREVIEW-VERIFY:** en el siguiente push/deploy comprobar el HTML de
+hero y Literatura en Preview. El comando local de build ahora propaga errores de
+Astro (`OPS-VERSIONED-BUILD`); no se hizo deploy desde esta sesión. Después
+continuar con la auditoría de backups, recuperación, seguridad y release.

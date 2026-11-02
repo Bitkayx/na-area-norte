@@ -5,7 +5,7 @@
   "packageManager": "pnpm@11.28.4",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && mkdir -p dist/assets && cp -r src/assets/blog dist/assets/ 2>/dev/null || true",
+    "build": "astro build && mkdir -p dist/assets && cp -r src/assets/blog dist/assets/",
     "preview": "astro preview",
     "astro": "astro",
     "test:dal": "tsc -p tests/tsconfig.compile.json && node --test tests/dal.test.ts",

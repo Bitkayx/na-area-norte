@@ -17,7 +17,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | Singleton creado/verificado; build local de la branch genera hero y horario. La URL pública aún sirve el hero anterior, por lo que producción tiene una build previa. `feature/26.7` está subida; preview no confirmado porque Vercel CLI rechaza su token. |
+| Frontend                       | DAL integrada en varias páginas, con fallbacks V1. El usuario reporta que agregó `PUBLIC_POCKETBASE_URL` al entorno Preview de Vercel; la integración se comprobará en el próximo push/deploy. |
 | Infraestructura/schema         | Existen scripts de creación e inspección. `site_settings` se leyó autenticadamente el 2026-11-02; otros schemas/infraestructura no se revalidaron en esta etapa. No ejecutar scripts generales de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El dry-run posterior reportó 43 `UNCHANGED`, 0 creates/updates. Tests 11/11.                                  |
 | Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. Página integrada con DAL y JSON fallback; build local/remoto verificados. Véase [análisis](literature-analysis.md). |
@@ -26,9 +26,8 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Events                         | Cinco Events creados tras autorización; dry-run `UNCHANGED` (5), 0 CREATE/conflictos. Build remota de 48 páginas; el HTML de Eventos muestra la última publicación (Literatura) y omite próximo evento futuro porque todos están archivados. Sin cambios de schema/access rules ni deploy. |
 
 La idempotencia de distritos está probada localmente mediante una segunda
-reconciliación simulada sin cambios. Aún falta validarla contra el estado real.
-El script `pnpm build` puede ocultar fallos por su operador final; la validación
-registrada usó directamente el binario de Astro.
+reconciliación simulada sin cambios y contra el estado real mediante dry-run
+posterior: los cuatro quedaron `UNCHANGED`.
 
 ## Evidencia local — 2026-10-26
 
@@ -78,11 +77,18 @@ registrada usó directamente el binario de Astro.
 
 ## Siguiente tarea exacta
 
-**SITESETTINGS-PREVIEW-VERIFY:** la lectura de PocketBase y la build local de
-48 páginas están correctas. La URL pública aún muestra “Encuentro Regional de
-Literatura”, correspondiente a la build previa. El preview compartido responde
-`Login – Vercel` por Deployment Protection; no se pudo inspeccionar su HTML.
-Véase [auditoría](site-settings-analysis.md).
+**SITESETTINGS-PREVIEW-VERIFY:** en el siguiente push/deploy comprobar hero y
+Literatura en el Preview. El usuario reporta que agregó `PUBLIC_POCKETBASE_URL`
+al entorno Preview; todavía no hay evidencia de que un build de Vercel la haya
+usado. Producción no se actualizó. Véase
+[auditoría](site-settings-analysis.md).
+
+El 2026-11-02 se corrigió `package.json`: `pnpm build` ya no termina en `|| true`,
+que podía ocultar errores de Astro. `PUBLIC_POCKETBASE_URL= npm run build` pasó
+con DAL deshabilitada y produjo 32 páginas; Reflexiones registró errores DNS de
+Google Sheets, tolerados por su fallback. `pnpm build` no pudo iniciar porque el
+store de pnpm es de solo lectura en este entorno. Esto no verifica la conexión
+de Vercel a PocketBase.
 
 La integración del hero manual se verificó localmente el 2026-11-02:
 `tsc -p tests/tsconfig.compile.json`, `node tests/dal.test.ts` (43/43) y

@@ -20,12 +20,12 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-Siguiente etapa: `SITESETTINGS-PREVIEW-VERIFY`, obtener/revisar el preview de
-`feature/26.7`. PocketBase tiene el singleton correcto y la build local de 48
-páginas lo muestra; producción todavía sirve el hero anterior. Vercel CLI rechaza
-el token local y el preview compartido devuelve `Login – Vercel` por protección;
-no se ha comprobado su HTML. Véase la
-[auditoría](site-settings-analysis.md).
+`OPS-VERSIONED-BUILD` quedó atendida localmente: se quitó el `|| true` que podía
+ocultar errores de Astro. `npm run build` pasó con PocketBase deshabilitado
+(32 páginas). Siguiente: `SITESETTINGS-PREVIEW-VERIFY`, revisar hero y Literatura
+en el siguiente Preview. El usuario reporta que agregó `PUBLIC_POCKETBASE_URL`
+al entorno Preview de Vercel; falta evidencia de un build que la haya usado.
+Véase la [auditoría](site-settings-analysis.md).
 Fallbacks runtime
 identificados: noticias (Markdown), grupos (JSON), literatura (JSON); las fuentes
 se conservan. En altas nuevas, stock 0 es válido y se captura en PocketBase.

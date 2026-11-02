@@ -218,11 +218,16 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   registro y todos los campos aprobados coinciden; próxima fecha de inventario
   ausente como se decidió. Build Astro con datos remotos generó 48 páginas; el
   HTML contiene el hero y horario de Literatura.
-- **SITESETTINGS-FRONT-REVIEW — Siguiente.** Revisar visualmente portada y
-  Literatura en el preview de `feature/26.7`. La URL pública aún sirve el hero
-  anterior, aunque la build local de la branch muestra el nuevo. El preview
-  compartido devuelve `Login – Vercel` por Deployment Protection; su contenido
-  no se comprobó. Producción no se actualizó.
+- **SITESETTINGS-FRONT-REVIEW — Pendiente de Preview.** El usuario reporta que
+  agregó `PUBLIC_POCKETBASE_URL` al entorno Preview de Vercel. Revisar hero y
+  Literatura en el siguiente build de `feature/26.7`; aún no hay evidencia de
+  que el Preview usó la variable. Producción no se actualizó.
+- **OPS-VERSIONED-BUILD — Completa localmente (2026-11-02).** Se quitó el `|| true`
+  final de `package.json`, que podía convertir en éxito un fallo de Astro.
+  `PUBLIC_POCKETBASE_URL= npm run build` pasó con 32 páginas y fallback local;
+  Reflexiones registró errores DNS tolerados. `pnpm build` no pudo iniciar por
+  el store de pnpm de solo lectura. La conexión de Vercel a PocketBase queda por
+  comprobar en el siguiente Preview.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.
@@ -236,9 +241,8 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**SITESETTINGS-PREVIEW-VERIFY:** obtener y revisar el preview de `feature/26.7`.
-La producción sigue sirviendo el hero anterior; la build local de 48 páginas y
-los datos de PocketBase son correctos. El estado del preview no está confirmado
-porque Deployment Protection bloquea las lecturas anónimas; se requiere bypass
-secret local. Véase la
-[auditoría](site-settings-analysis.md).
+**SITESETTINGS-PREVIEW-VERIFY:** revisar hero y Literatura en el siguiente
+Preview de `feature/26.7`; el usuario reporta haber agregado
+`PUBLIC_POCKETBASE_URL` para Preview, pero no hay build que confirme que Vercel
+la usó. Los pendientes OPS de backups, recuperación, seguridad y release
+requieren auditoría específica.

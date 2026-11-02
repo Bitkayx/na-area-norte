@@ -13,14 +13,14 @@ Sitio web informativo para **Neuróticos Anónimos Área Norte CDMX** — un pro
 
 ## Migración V2
 
-Consultar el [estado actual](docs/migration/README.md) y el [roadmap](docs/migration/roadmap.md). Las referencias a cinco distritos de este README están pendientes de corrección; el dominio aprobado contempla únicamente 1, 2, 4 y 5.
+Consultar el [estado actual](docs/migration/README.md) y el [roadmap](docs/migration/roadmap.md). Área Norte tiene únicamente los distritos 1, 2, 4 y 5.
 
 ## Características
 
 - **Diseño Responsivo** — Interfaz accesible en todos los dispositivos
 - **Modo Oscuro** — Tema claro/oscuro con persistencia
 - **Blog de Noticias** — Contenido dinámico para eventos y convenciones
-- **Directorio de Grupos** — Información de grupos organizados por 5 distritos
+- **Directorio de Grupos** — Información de grupos organizados por los distritos 1, 2, 4 y 5
 - **Mapas Interactivos** — Integración con Google Maps
 - **SEO Optimizado** — Meta tags y estructura semántica
 
@@ -73,7 +73,7 @@ El servidor de desarrollo estará disponible en `http://localhost:4321`.
 │   │   └── MobileMenu.jsx
 │   ├── content.config.ts    # Configuración de Content Collections
 │   ├── data/
-│   │   └── grupos/          # Datos JSON de grupos por distrito
+│   │   └── grupos/          # Fallback JSON de grupos por distrito
 │   ├── layouts/             # Layouts de página
 │   │   ├── Layout.astro
 │   │   └── MarkdownPostLayout.astro
@@ -98,11 +98,15 @@ El servidor de desarrollo estará disponible en `http://localhost:4321`.
 | -------------- | ------------------------------------------------------------- |
 | **Inicio**     | Mensaje principal, noticias recientes, mapa y contacto        |
 | **Noticias**   | Blog con eventos, convenciones y etiquetas categorizadas      |
-| **Directorio** | Grupos organizados por 5 distritos con horarios y ubicaciones |
+| **Directorio** | Grupos organizados por los distritos 1, 2, 4 y 5 con horarios y ubicaciones |
 | **Servicios**  | Programa de 12 pasos y recursos de recuperación               |
 | **Contacto**   | Formulario, ubicación y medios de contacto                    |
 
 ## Gestión de Contenido
+
+La transición a PocketBase está en curso. El frontend consulta contenido mediante la DAL;
+algunas fuentes Markdown/JSON se conservan como fallback local y no deben tratarse
+como fuente operativa de V2. Consulta el [estado de migración](docs/migration/README.md).
 
 El sitio utiliza **Astro Content Collections** para:
 
