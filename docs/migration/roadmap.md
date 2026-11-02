@@ -224,17 +224,18 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   Reflexiones registró errores DNS tolerados. `pnpm build` no pudo iniciar por
   el store de pnpm de solo lectura. La conexión de Vercel a PocketBase queda por
   comprobar en el siguiente Preview.
-- **FRONT-RUNTIME-FALLBACKS — Implementada localmente (2026-11-02).** Noticias,
-  grupos y literatura ya no sustituyen respuestas vacías de PocketBase por datos
-  V1. Markdown/JSON se preservan como fuentes de migradores. TypeScript y build
-  offline pasaron; falta validar el nuevo Preview con PocketBase.
+- **FRONT-RUNTIME-FALLBACKS — Completa (2026-11-02).** Noticias, grupos y
+  literatura ya no sustituyen respuestas vacías de PocketBase por datos V1.
+  TypeScript y build offline pasaron; el usuario confirmó visualmente el Preview
+  posterior. Markdown/JSON se preservan como fuentes de migradores.
 - **FRONT — Integración runtime implementada para noticias, grupos y literatura.**
   Las fuentes V1 se conservan únicamente para reproducir migraciones. Falta
   validar los cambios en el próximo Preview; el manejo de medios corresponde al
   punto 4.
-- **OPS — Operación y cierre V2: pendiente.** Cierra con backups y recuperación
-  probados, seguridad, actualización del sitio, administración, QA y release
-  documentados. Cambios remotos y deploys conservan sus propias autorizaciones.
+- **OPS — En curso.** Auditoría local de backups documentada; configuración del
+  volumen Railway y restauración aún sin confirmar. El cierre requiere backup y
+  recuperación probados, seguridad, actualización del sitio, administración, QA
+  y release documentados. Cambios remotos/deploys mantienen sus autorizaciones.
 
 La existencia de un script no acredita una etapa. Recuperar o documentar con
 revisión el schema faltante antes de depender de él; no reconstruir decisiones
@@ -242,8 +243,8 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**FRONT-RUNTIME-FALLBACKS-PREVIEW-VERIFY:** tras el siguiente push, comprobar en
-Preview noticias, directorio y literatura con datos de PocketBase. Después
-iniciar `OPS-BACKUP-RECOVERY-AUDIT`: establecer dónde se respaldan los datos,
-retención, acceso y restauración; acordar una prueba sin riesgo a producción.
-La estrategia de imágenes se aborda en el punto 4 acordado.
+**OPS-BACKUP-RECOVERY:** verificar en Railway el volumen montado en `/pb_data`,
+backups activos/destino/retención y restaurar una copia en entorno aislado. El
+runbook está en `runbooks/backup-recovery.md`; no se inspeccionó la consola ni se
+declaró configurado ningún backup. La política de imágenes se abordará en el
+punto 4 acordado.

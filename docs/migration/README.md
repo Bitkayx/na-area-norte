@@ -77,16 +77,18 @@ posterior: los cuatro quedaron `UNCHANGED`.
 
 ## Siguiente tarea exacta
 
-**FRONT-RUNTIME-FALLBACKS-PREVIEW-VERIFY:** en el siguiente Preview confirmar
-que noticias, directorio y literatura renderizan datos de PocketBase después de
-retirar los fallbacks. Después iniciar `OPS-BACKUP-RECOVERY-AUDIT`.
+**OPS-BACKUP-RECOVERY:** el repo confirma que PocketBase usa `/pb_data`, pero no
+hay evidencia de la configuración de volumen/backups en Railway ni de una
+restauración probada. Confirmar los puntos del
+[runbook](runbooks/backup-recovery.md) en Railway antes de cerrar la etapa.
 
 El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y
 literatura; se conservaron fuentes que usan los scripts históricos. TypeScript
 compiló y `PUBLIC_POCKETBASE_URL= npm run build` pasó con 19 páginas y PocketBase
 deshabilitado. Reflexiones registró fallos DNS de Google Sheets que su fallback
-tolera. Esta build valida compilación, no el contenido remoto. El nuevo Preview
-posterior a estos cambios queda pendiente.
+tolera. Esta build valida compilación, no el contenido remoto. El usuario
+confirmó que el Preview posterior a estos cambios muestra correctamente noticias,
+directorio y literatura.
 
 El 2026-11-02 se corrigió `package.json`: `pnpm build` ya no termina en `|| true`,
 que podía ocultar errores de Astro. `PUBLIC_POCKETBASE_URL= npm run build` pasó

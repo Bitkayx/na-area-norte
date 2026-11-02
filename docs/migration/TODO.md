@@ -20,10 +20,11 @@ autorizaciones remotas.
 
 ## Siguiente acción
 
-El usuario confirmó el Preview previo y corrigió el fallo de build de Vercel.
-Los fallbacks runtime de noticias, grupos y literatura se retiraron localmente;
-fuentes se conservan para migradores. Siguiente: `FRONT-RUNTIME-FALLBACKS-PREVIEW-VERIFY`,
-revisar el nuevo Preview después del push. Luego `OPS-BACKUP-RECOVERY-AUDIT`.
+El usuario confirmó que noticias, directorio y literatura se ven bien en el
+Preview después de retirar los fallbacks runtime. Las fuentes V1 se conservan
+para los migradores. Siguiente: `OPS-BACKUP-RECOVERY`, verificar el volumen,
+backups y restauración de PocketBase según el
+[runbook](runbooks/backup-recovery.md).
 En altas nuevas, stock 0 es válido y se captura en PocketBase.
 Los cinco Events están verificados y el usuario confirmó que `/servicios/eventos`
 se ve bien.
@@ -67,7 +68,8 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
   nuevas. Schema de `site_settings.literature` aplicado y singleton verificado.
 - Events: cinco Events migrados, verificados y revisados visualmente.
 - Site settings: singleton creado y verificado; el usuario confirmó el Preview.
-  El punto 4 definirá alojamiento y ciclo de vida de imágenes.
+  Punto 4: alojar solo imágenes; definir ubicación y ciclo de vida. Videos y
+  PDFs quedan fuera del alcance acordado.
 - Frontend: fallbacks runtime de noticias, grupos y literatura retirados
   localmente; verificar la nueva build Preview. Preservar fuentes V1 usadas por
   scripts de migración.
