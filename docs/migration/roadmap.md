@@ -219,9 +219,10 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   ausente como se decidió. Build Astro con datos remotos generó 48 páginas; el
   HTML contiene el hero y horario de Literatura.
 - **SITESETTINGS-FRONT-REVIEW — Siguiente.** Revisar visualmente portada y
-  Literatura en el preview de `feature/26.7`. La branch se subió, pero Vercel CLI
-  no permitió comprobarlo porque el token local es inválido. No se lanzó deploy
-  de producción.
+  Literatura en el preview de `feature/26.7`. La URL pública aún sirve el hero
+  anterior, aunque la build local de la branch muestra el nuevo. El preview
+  compartido devuelve `Login – Vercel` por Deployment Protection; su contenido
+  no se comprobó. Producción no se actualizó.
 - **FRONT — Integración y retiro V1: parcial.** Cierra por entidad cuando sus
   consumidores usan DAL y fuente verificada, con rutas y media preservadas. Las
   fuentes V1 solo se retiran después de validar.
@@ -235,8 +236,9 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**SITESETTINGS-FRONT-REVIEW:** revisar visualmente la portada y Literatura en un
-preview de `feature/26.7`. Los commits `f2b4a52`, `4829b14` y `96b976e` están
-subidos; la lectura remota y build local de 48 páginas pasaron. Vercel CLI tiene
-token inválido y el estado del preview está pendiente. No se lanzó deploy de
-producción. Véase la [auditoría](site-settings-analysis.md).
+**SITESETTINGS-PREVIEW-VERIFY:** obtener y revisar el preview de `feature/26.7`.
+La producción sigue sirviendo el hero anterior; la build local de 48 páginas y
+los datos de PocketBase son correctos. El estado del preview no está confirmado
+porque Deployment Protection bloquea las lecturas anónimas; se requiere bypass
+secret local. Véase la
+[auditoría](site-settings-analysis.md).

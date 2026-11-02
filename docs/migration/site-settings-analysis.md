@@ -94,10 +94,28 @@ enlace e imagen del hero; las de `dist/servicios/literatura/index.html`
 encontraron el horario martes-jueves, 17:00–18:00. El asset del hero existe en
 `dist`. No se hizo deploy ni se inspeccionó Vercel.
 
+## Producción — 2026-11-02
+
+GET público de `https://na-areanorte-cdmx.vercel.app/` devolvió HTTP 200. Su
+sección hero todavía muestra “Encuentro Regional de Literatura”, con enlace al
+post y cover anteriores; no incluye el título ni la imagen configurados en
+`site_settings`. La build local de `feature/26.7` sí contiene ambos. La lectura
+de PocketBase confirma que el dato está guardado, así que producción está
+sirviendo una build anterior. El estado del preview de branch no pudo consultarse:
+Vercel CLI rechazó el token local. No se ejecutó deploy de producción.
+
+El usuario compartió el preview asociado al último push:
+`na-areanorte-cdmx-l21zhfgol-bitkays-projects.vercel.app`. La lectura anónima
+de `/` y `/servicios/literatura/` devolvió la pantalla `Login – Vercel`, no el
+HTML de Astro; Deployment Protection impide verificar el contenido desde este
+entorno. Vercel documenta un bypass de automatización mediante el header
+`x-vercel-protection-bypass`; no hay un valor configurado localmente. `.env` está
+ignorado por Git. Nunca copiar el valor del bypass a la conversación ni a logs.
+
 ## Siguiente paso
 
-**SITESETTINGS-FRONT-REVIEW:** revisar visualmente la portada y Literatura en el
-preview de `feature/26.7`. Los commits `f2b4a52`, `4829b14` y `96b976e` están
-subidos. El estado del preview no se pudo consultar porque Vercel CLI rechazó el
-token local; no se lanzó deploy de producción. Después continuar con los
-pendientes generales de FRONT y OPS.
+**SITESETTINGS-PREVIEW-VERIFY:** leer el preview protegido con un bypass secret
+disponible localmente y confirmar hero/Literatura. Producción aún sirve la build
+previa; para cambiarla se requiere el flujo de producción autorizado. El CLI de
+Vercel sigue rechazando su token; después continuar con los pendientes generales
+de FRONT y OPS.
