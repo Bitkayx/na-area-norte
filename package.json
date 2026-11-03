@@ -11,6 +11,7 @@
     "build": "astro build && mkdir -p dist/assets && cp -r src/assets/blog dist/assets/",
     "preview": "astro preview",
     "astro": "astro",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "test:dal": "tsc -p tests/tsconfig.compile.json && node --test tests/dal.test.ts",
     "test:migrate-districts": "node --test tests/migrate-districts.test.mjs",
     "test:migrate-groups": "node --test tests/migrate-groups.test.mjs",

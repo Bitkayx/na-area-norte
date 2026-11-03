@@ -20,6 +20,9 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
+# PocketBase local data
+pb_data/
+
 # macOS-specific files
 .DS_Store
 

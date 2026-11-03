@@ -71,9 +71,10 @@ posterior: los cuatro quedaron `UNCHANGED`.
 - `docs/architecture/domain-model.md`, `docs/migration/domain-model.md` y
   `docs/migration/data-cleanup-plan.md` existen, pero están vacíos. ADR-003/004
   aportan decisiones parciales, no reemplazan documentación detallada faltante.
-- Faltan `docs/architecture/pocketbase-schema.md` (citado por scripts y tipos),
-  `system-architecture.md`, `data-model.md` y el directorio `diagrams/` que anuncia
-  el índice de arquitectura. No asumir aprobado un schema por esos comentarios.
+- `docs/architecture/pocketbase-schema.md` ahora existe como propuesta histórica;
+  está marcado como no vigente y no debe aplicarse. Siguen faltando
+  `system-architecture.md`, `data-model.md` y el directorio `diagrams/` anunciado
+  por el índice. La propuesta histórica no acredita el schema actual.
 - La lista de ADR pendientes del backlog no coincide con los ADR-003/004 reales.
   Consultar los archivos existentes, no reutilizar números desde esa lista.
 

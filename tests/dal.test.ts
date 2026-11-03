@@ -1,5 +1,6 @@
 import { test, describe, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
+import type { PBRecord } from "../src/lib/dal/client.ts";
 
 /**
  * DAL validation suite.
@@ -986,7 +987,7 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
     const mapped: string[] = [];
     const items = await listAllRecords(
       "demo",
-      (r) => {
+      (r: PBRecord) => {
         mapped.push(String((r as { id: string }).id));
         return (r as { id: string }).id;
       },
@@ -1008,7 +1009,7 @@ describe("pagination (real getAll/getRecent/getNext contracts)", () => {
     const calls = mockFetch(routes);
     const items = await listAllRecords(
       "solo",
-      (r) => (r as { id: string }).id,
+      (r: PBRecord) => (r as { id: string }).id,
       { perPage: 10 },
     );
     assert.deepEqual(items, ["a"]);

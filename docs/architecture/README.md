@@ -1,7 +1,8 @@
 # Arquitectura
 
-Astro + DAL + PocketBase es la arquitectura objetivo V2; el frontend continúa
-su transición. Consultar el [estado de migración](../migration/README.md).
+El sitio se genera con Astro. PocketBase es la fuente de datos operativos V2 y
+las páginas lo consultan mediante la DAL durante el build. Reflexiones continúa
+en Google Sheets. Véase el [estado de migración](../migration/README.md).
 
 ## Decisiones existentes
 
@@ -10,10 +11,18 @@ su transición. Consultar el [estado de migración](../migration/README.md).
 - [ADR-003 — Modelo de dominio](../adr/ADR-003-domain-model.md)
 - [ADR-004 — Separación District/Group](../adr/ADR-004-district-group-separation.md)
 
+## Diagramas y schema
+
+- [Flujo actual de datos](data-flow.md)
+- [Propuesta inicial de schema de PocketBase](pocketbase-schema.md) — documento
+  histórico; no usar para aplicar ni reconstruir el schema vigente.
+
+El estado vigente se valida con la inspección autenticada documentada en
+`docs/migration/README.md` y los runbooks por entidad.
+
 ## Documentación incompleta
 
 `domain-model.md` existe pero está vacío. No están presentes
-`system-architecture.md`, `data-model.md`, `pocketbase-schema.md` ni `diagrams/`.
-El schema citado por código y scripts no puede considerarse revisado por esa
-referencia. Véanse los pendientes en el estado de migración; no se ha inventado
-contenido para sustituir estos documentos.
+`system-architecture.md`, `data-model.md` ni `diagrams/`. Véanse los pendientes
+en el estado de migración; no se ha inventado contenido para sustituir estos
+documentos.
