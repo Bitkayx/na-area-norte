@@ -87,6 +87,81 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
   difieren a V2.1. Registro público de cuentas cerrado y verificado. Guía visual
   de posts documentada con capturas.
 
+## Propuesta de alcance para V2.1
+
+Esta lista reúne trabajo diferido y nuevas ideas para planear en otra sesión.
+No implica autorización para modificar PocketBase, contratar servicios ni
+publicar cambios. Confirmar alcance y prioridad antes de iniciar cada etapa.
+
+### Pendientes ya acordados
+
+- **Acceso editorial:** evaluar un panel propio con login y permisos para que una
+  persona edite posts sin acceso a schema, reglas u otras colecciones. El Admin
+  actual solo permite cuentas superuser; el registro público está cerrado.
+- **Backups y recuperación:** revisar opciones y procedimiento alrededor del
+  2026-12-02. Railway sigue en plan Free; no cambiar de plan ni infraestructura
+  sin una decisión explícita. Definir respaldo, retención y una prueba de
+  restauración antes de considerar resuelto el riesgo.
+- **Noticias e imágenes:** decidir si hace falta presentar imágenes intercaladas
+  con el texto. Hoy se cargan en `posts.bodyImages` y se muestran en una galería
+  debajo del cuerpo. Videos y PDFs quedan excluidos, también en contenido
+  histórico.
+- **Guía de administración:** completar material amigable en español para
+  editar grupos y horarios y para crear eventos, además de la guía existente de
+  noticias. El usuario planea convertir la guía a PDF/tutorial.
+
+### Nuevos temas propuestos
+
+- **`site_settings` y hero:** revisar el modelo y el formulario de contenido
+  dinámico. El hero guardado actualmente conserva `imagen` como ruta local del
+  sitio (`/assets/...`), por lo que depende de que ese archivo exista en el
+  build del repositorio. Evaluar un flujo de imagen alojada en PocketBase u otra
+  fuente administrable y definir fallback, validación y compatibilidad antes de
+  cambiar schema o datos.
+- **Contador del hero:** el componente `Hero.astro` ya contiene una variante
+  con cuenta regresiva; revisar cómo hacer que esa sección pueda configurarse
+  desde `site_settings.hero`, qué campos necesita (fecha/hora, zona horaria,
+  textos y visibilidad) y qué mostrar cuando el evento inicia o termina. Evitar
+  duplicar esos datos en Posts o Events sin una decisión de dominio.
+- **Documentación:** evaluar reducir, reorganizar o retirar archivos de `docs/`
+  redundantes, vacíos o superados. Primero inventariar enlaces y referencias;
+  conservar ADR, runbooks operativos y evidencia que aún sea fuente de verdad.
+  No borrar documentos solo por su antigüedad.
+- **Análisis del diseño web:** hacer una revisión del sitio completo en desktop y
+  móvil, con hallazgos concretos sobre consistencia visual, navegación,
+  legibilidad, accesibilidad y estados de carga/error. Proponer prioridades antes
+  de rediseñar.
+- **Analíticas:** decidir si se necesitan métricas reales de visitas y elegir una
+  opción compatible con privacidad, costo y mantenimiento. No inventar ni
+  presentar cifras estimadas como actividad real; si se necesitan datos de
+  demostración, etiquetarlos claramente como ficticios.
+
+### Orden sugerido para planear
+
+1. Aclarar objetivos y criterios de cierre de cada tema; hacer primero el
+   inventario de `docs/` y la revisión visual del sitio, que no requieren cambios
+   remotos.
+2. Diseñar la solución de `site_settings.hero` y revisar la variante de contador;
+   identificar campos/schema actual antes de proponer cambios.
+3. Comparar alternativas de analíticas y backups según costo, privacidad y
+   operación real.
+4. Definir la arquitectura y los permisos del panel editorial; después preparar
+   tutoriales para grupos, horarios y eventos.
+5. Implementar por etapas pequeñas, con pruebas y revisión. Para toda escritura
+   en PocketBase, presentar primero dry-run/alcance y pedir autorización
+   explícita posterior.
+
+### Preguntas abiertas para la siguiente sesión
+
+- ¿La imagen del hero debe subirse a PocketBase Admin, o basta con elegir una
+  imagen ya cargada en otra colección?
+- ¿El contador representa siempre un evento de `Events` o también puede ser una
+  campaña independiente? ¿Debe ocultarse al terminar?
+- ¿Qué reportes de analíticas necesita el equipo y quién los consultará?
+- ¿Qué persona(s) editarán posts y qué acciones exactas podrán hacer?
+- ¿Qué contenido de `docs/` consideran útil conservar como referencia histórica?
+- ¿La revisión visual debe enfocarse primero en móvil, desktop o ambos por igual?
+
 ## Al retomar
 
 Leer `AGENTS.md`, este archivo, `docs/migration/README.md`, `roadmap.md` y el

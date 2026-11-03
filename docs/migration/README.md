@@ -101,6 +101,9 @@ Backups se difieren a V2.1, para revisar en un mes (~2026-12-02); véanse
 [medios](media-assets-analysis.md), [guía Admin](runbooks/pocketbase-admin.md)
 y [runbook de backups](runbooks/backup-recovery.md). Videos y PDFs siguen
 excluidos; intercalar texto e imágenes también queda para V2.1.
+El [TODO de V2.1](TODO.md#propuesta-de-alcance-para-v21) reúne además los temas
+propuestos sobre `site_settings`/hero y su contador, documentación, análisis
+visual, analíticas reales y tutoriales administrativos.
 
 El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y
 literatura; se conservaron fuentes que usan los scripts históricos. TypeScript

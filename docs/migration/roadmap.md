@@ -89,7 +89,8 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   `site_settings` está creado y verificado; los fallbacks runtime de noticias,
   grupos y literatura se retiraron. Backups y el panel propio con cuentas por rol
   quedan diferidos a V2.1. El registro público de `users` se cerró en el cierre
-  actual. Reflexiones permanece fuera.
+  actual. Reflexiones permanece fuera. Los pendientes acordados y temas
+  propuestos para V2.1 están recopilados en [TODO](TODO.md#propuesta-de-alcance-para-v21).
 - **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
   referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
   migración remota y las verificaciones posteriores se registran en las etapas
