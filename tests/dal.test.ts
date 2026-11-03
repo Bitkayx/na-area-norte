@@ -292,6 +292,7 @@ describe("mapping (location, schedules, relations, M2M)", () => {
       author: "Área Norte",
       pubDate: "2026-04-09",
       cover: "portada.jpg",
+      bodyImages: ["grupo-1.webp", "grupo-2.png"],
       body: "## Markdown",
       status: "published",
       tags: ["tagA", "tagB"],
@@ -328,6 +329,10 @@ describe("mapping (location, schedules, relations, M2M)", () => {
       post.coverUrl,
       "http://pb.test/api/files/pbc_p/post1/portada.jpg",
     );
+    assert.deepEqual(post.bodyImageUrls, [
+      "http://pb.test/api/files/pbc_p/post1/grupo-1.webp",
+      "http://pb.test/api/files/pbc_p/post1/grupo-2.png",
+    ]);
     assert.deepEqual(post.tagIds, ["tagA", "tagB"]);
     assert.equal(post.tags.length, 2);
     assert.equal(post.tags[0].slug, "eventos");

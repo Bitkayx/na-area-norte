@@ -24,13 +24,16 @@ El usuario confirmó que noticias, directorio y literatura se ven bien en el
 Preview después de retirar los fallbacks runtime; el reintento de Vercel pasó.
 El volumen persistente está montado en `/pb_data`, pero no hay backups. El plan
 actual es Free y el usuario no desea pagar por ahora; los backups nativos de
-Railway requieren Pro. No cambiar el plan sin decisión explícita. Siguiente paso
-de medios: el campo `posts.bodyImages` está aplicado; el usuario cargó cuatro
-imágenes en el borrador `invitaciones-octubre`. Completar texto/metadata y revisar
-antes de publicar. La build local pasó con 48 páginas, pero no incluyó el post
-porque sigue en `draft`; revisar build/Preview cuando se decida publicarlo. Véase
-la [auditoría de medios](media-assets-analysis.md). La futura configuración de
-backups y restauración está en el [runbook](runbooks/backup-recovery.md).
+Railway requieren Pro. El usuario decidió revisar esta decisión en V2.1 dentro
+de un mes (~2026-12-02); no cambiar plan antes. Siguiente paso
+de medios: `invitaciones-octubre` está publicado con cuatro imágenes; el usuario
+confirmó el Preview. El build conectado pasó con 49 páginas y renderizó la
+galería. La sanitización está implementada. La guía Admin ya incluye capturas
+reales del listado, creación, estado y edición de posts. El registro público de
+`users` se bloqueó el 2026-11-02 y se verificó; las cuentas existentes y las
+demás reglas no cambiaron. El usuario decidió diferir a V2.1 el panel propio con
+rol limitado a posts. Véanse la [guía Admin](runbooks/pocketbase-admin.md) y la
+[auditoría de medios](media-assets-analysis.md).
 En altas nuevas, stock 0 es válido y se captura en PocketBase.
 Los cinco Events están verificados y el usuario confirmó que `/servicios/eventos`
 se ve bien.
@@ -74,13 +77,15 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
   nuevas. Schema de `site_settings.literature` aplicado y singleton verificado.
 - Events: cinco Events migrados, verificados y revisados visualmente.
 - Site settings: singleton creado y verificado; el usuario confirmó el Preview.
-  Para imágenes nuevas se propone almacenamiento en PocketBase; falta definir
-  conservación. Videos y PDFs quedan fuera del alcance acordado.
+  Los posts guardan imágenes en PocketBase; conservar originales externos porque
+  no hay backups activos. Videos y PDFs quedan fuera del alcance acordado.
 - Frontend: fallbacks runtime de noticias, grupos y literatura retirados; el
   usuario confirmó la revisión del Preview. Preservar fuentes V1 usadas por
   scripts de migración.
-- OPS: backups diferidos hasta decidir el plan Pro; después configurar y probar
-  recuperación. Completar también seguridad, administración, QA y release.
+- OPS: backups diferidos a V2.1 para revisar dentro de un mes (~2026-12-02).
+  El panel propio para editor de posts y los roles de usuarios también se
+  difieren a V2.1. Registro público de cuentas cerrado y verificado. Guía visual
+  de posts documentada con capturas.
 
 ## Al retomar
 

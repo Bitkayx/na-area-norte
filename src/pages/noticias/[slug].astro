@@ -1,6 +1,7 @@
 ---
 import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
 import { dal } from "../../lib/dal/index.ts";
+import { sanitizePostBody } from "../../lib/security/sanitize-post-body.mjs";
 import { marked } from "marked";
 
 export async function getStaticPaths() {
@@ -32,15 +33,15 @@ const fm = {
   tags:
     pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
 };
-const htmlBody = marked
-  .parse(body)
-  .replace(/src="\.\.\/assets\//g, 'src="/assets/');
+const htmlBody = sanitizePostBody(
+  marked.parse(body).replace(/src="\.\.\/assets\//g, 'src="/assets/'),
+);
 ---
 
 <MarkdownPostLayout frontmatter={fm}>
   {body.trim() && <div set:html={htmlBody} />}
   {pbPost.bodyImageUrls.length > 0 && (
-    <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div class="mt-8 grid grid-cols-1 gap-6">
       {pbPost.bodyImageUrls.map((url, index) => (
         <figure>
           <img

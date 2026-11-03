@@ -2,7 +2,9 @@
 
 Estado al **2026-11-02**: el usuario confirmó que no hay backups disponibles en
 Railway ni en PocketBase. Confirmó que el volumen persistente está montado en
-`/pb_data`. El plan actual es Free y no se cambiará ni se pagará por ahora.
+`/pb_data`. El plan actual es Free. El usuario decidió tratar backups como
+trabajo de V2.1 y revisarlos en un mes (seguimiento objetivo: **2026-12-02**).
+No cambiar de plan ni configurar servicios externos antes de una nueva decisión.
 
 ## Evidencia disponible
 

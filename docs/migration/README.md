@@ -18,12 +18,14 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
 | Frontend                       | Se retiraron los fallbacks runtime de noticias, grupos y literatura; el usuario confirmó que el Preview se ve bien. Las fuentes V1 se conservan para scripts históricos. |
-| Infraestructura/schema         | Existen scripts de creación e inspección. `site_settings` se leyó autenticadamente el 2026-11-02; otros schemas/infraestructura no se revalidaron en esta etapa. No ejecutar scripts generales de schema para reconstruir contexto. |
+| Infraestructura/schema         | Se inspeccionaron autenticadamente las 15 colecciones el 2026-11-02. Las colecciones de contenido permiten lectura pública y reservan escrituras a superusers. `users.createRule` ahora es `null`; altas de cuentas solo por superuser. No se cambió schema. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El directorio consulta DAL sin fallback runtime; JSON se conserva como entrada de `migrate-groups.mjs`. |
 | Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. La página consulta DAL sin fallback runtime; `inventory.json` se conserva como entrada del migrador. Véase [análisis](literature-analysis.md). |
 | `site_settings` | Campo JSON `literature` aplicado y verificado; usuario creó el singleton desde Admin el 2026-11-02. GET de lectura: 1 registro, payload coincide; próxima fecha de inventario sin configurar. Schema y reglas sin cambios en esta alta. Véase [auditoría](site-settings-analysis.md). |
 | Radio                          | Octubre de 2026 completo: 4 registros con `13:00`, verificación `UNCHANGED` y build remoto correcto. Ediciones futuras se hacen en la administración de PocketBase.                                               |
 | Events                         | Cinco Events creados tras autorización; dry-run `UNCHANGED` (5), 0 CREATE/conflictos. Build remota de 48 páginas; el HTML de Eventos muestra la última publicación (Literatura) y omite próximo evento futuro porque todos están archivados. Sin cambios de schema/access rules ni deploy. |
+| Medios de posts                | `posts.bodyImages` aplicado; Invitaciones de Octubre publicado con 4 imágenes. El usuario confirmó el Preview. El cuerpo CMS se sanitiza antes de renderizarse; galería básica debajo del texto.                                                   |
+| QA/administración              | Tests DAL 43/43, migradores 10/10 archivos, sanitizador 2/2 y build local de 49 páginas completados el 2026-11-02. Guía Admin en `runbooks/pocketbase-admin.md`.                                                         |
 
 La idempotencia de distritos está probada localmente mediante una segunda
 reconciliación simulada sin cambios y contra el estado real mediante dry-run
@@ -75,22 +77,29 @@ posterior: los cuatro quedaron `UNCHANGED`.
 - La lista de ADR pendientes del backlog no coincide con los ADR-003/004 reales.
   Consultar los archivos existentes, no reutilizar números desde esa lista.
 
-## Siguiente tarea exacta
+## Estado de cierre
 
-**MEDIA-ASSETS-IMAGES:** el campo `posts.bodyImages` fue aplicado tras
-autorización explícita el 2026-11-02. El dry-run posterior quedó `unchanged` y
-la inspección autenticada confirmó el campo opcional con máximo 20 imágenes;
-campos, índices y access rules se preservaron. El borrador
-`invitaciones-octubre` existe y el código local tiene preparado el render de
-galería. Siguiente: el usuario sube las imágenes desde Admin; después revisar
-contenido y decidir publicación; el borrador tiene cuatro imágenes en
-`bodyImages`. La build local pasó con 48 páginas, pero no generó la ruta porque
-el post sigue en `draft`. Videos y PDFs siguen excluidos. Véase el
-[análisis de medios](media-assets-analysis.md) y el
-[runbook de backups](runbooks/backup-recovery.md). El usuario confirmó que el
-build de Vercel pasó tras el 502 transitorio; no hay backups y el plan Railway
-actual es Free. El cuerpo del post de junio fue corregido y la build local
-conectada generó 48 páginas.
+Las migraciones de contenido y el post de prueba están
+revisados en Preview; el usuario confirmó el 2026-11-02 que todo se ve bien.
+`pnpm build` conectado generó 49 páginas, incluida Invitaciones de Octubre con
+cuatro imágenes. La suite DAL pasó 43/43, tests `.mjs` 10/10 y sanitizador 2/2.
+La última auditoría de dependencias tras actualizar Astro y Sharp reportó 0
+hallazgos críticos/altos, 1 moderado (`postcss-selector-parser`, vía Tailwind
+Typography) y 1 bajo (`esbuild`, servidor de desarrollo en Windows). No se pudo
+repetir `pnpm audit` en este entorno porque el almacén de pnpm está en solo
+lectura.
+El 2026-11-02 el usuario decidió diferir a V2.1 el panel propio y los roles para
+una persona que solo edite posts. Las capturas reales de PocketBase se integraron
+en la [guía Admin](runbooks/pocketbase-admin.md), que cubre listado, creación,
+estado y edición con imágenes. El 2026-11-02 se bloqueó el registro público:
+`users.createRule` ahora es `null` (solo un superuser puede crear cuentas). La
+consulta posterior confirmó que list/view/update/delete siguen limitadas al
+dueño; no se cambió el schema ni se afectaron cuentas existentes. Verificado con
+`node --env-file=.env scripts/inspect-schema.mjs users --authenticate`.
+Backups se difieren a V2.1, para revisar en un mes (~2026-12-02); véanse
+[medios](media-assets-analysis.md), [guía Admin](runbooks/pocketbase-admin.md)
+y [runbook de backups](runbooks/backup-recovery.md). Videos y PDFs siguen
+excluidos; intercalar texto e imágenes también queda para V2.1.
 
 El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y
 literatura; se conservaron fuentes que usan los scripts históricos. TypeScript

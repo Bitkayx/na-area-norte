@@ -51,14 +51,13 @@ post de junio y se creó el borrador de octubre. El schema aún no se modificó.
    la inspección autenticada confirmó `bodyImages: file maxSelect=20` y el dry-run
    posterior devolvió `unchanged`. Las reglas e índices se preservaron. El script
    no imprime secretos.
-2. En PocketBase existe el borrador `Invitaciones de Octubre`, slug
-   `invitaciones-octubre`, estado `draft`. Se creó el 2026-11-02 con título,
-   descripción provisional y cuerpo vacío. El usuario añadió cuatro archivos a
-   `bodyImages`; lectura autenticada confirmó estado `draft`, cuatro archivos y
-   ningún `<img>`, URI Base64 ni URL de archivo inline en `body`. La página
-   presenta automáticamente `bodyImages` como galería debajo del cuerpo, así
-   que no hay que relacionar cada archivo manualmente. El usuario completará el
-   contenido antes de publicar.
+2. En PocketBase existe `Invitaciones de Octubre`, slug `invitaciones-octubre`.
+   El usuario cargó cuatro archivos en `bodyImages` y cambió el estado a
+   `published`. Lectura autenticada confirmó cuatro archivos y ningún `<img>`,
+   URI Base64 ni URL de archivo inline en `body`. La página presenta
+   automáticamente `bodyImages` como galería debajo del cuerpo, así que no hay
+   que relacionar cada archivo manualmente. El usuario confirmó que el Preview
+   se ve bien.
 3. PocketBase guarda por defecto los binarios bajo `pb_data/storage`; aquí sería
    `/pb_data/storage` dentro del volumen Railway. No hay backups y el usuario no
    desea pagar por ahora. Si se usan archivos PB como fuente operativa, conservar
@@ -89,11 +88,13 @@ alternativo y pies por imagen. La versión actual presenta los archivos de
 `bodyImages` en una galería debajo del texto; es suficiente para este post si se
 usa una introducción general y no se espera asociar cada archivo a un encabezado.
 
-El schema ya contiene el campo multiimagen; el flujo de galería está preparado en
-código local. `pnpm build` pasó el 2026-11-02 y generó 48 páginas, pero el post no
-apareció porque sigue en `draft` y solo se generan rutas publicadas. El build
-registró un aviso de ID duplicado `invitaciones-junio-2026`; no impidió la
-compilación. No se hizo deploy ni se borraron binarios locales.
+El schema ya contiene el campo multiimagen y el usuario confirmó el Preview.
+`pnpm build` conectado a PocketBase pasó el 2026-11-02 y generó 49 páginas,
+incluida `/noticias/invitaciones-octubre/`. El HTML local contenía cuatro URLs
+de archivos PocketBase. Vercel registró antes un 502 transitorio de Railway al
+leer `radio_broadcasts`; las comprobaciones posteriores y el build local
+respondieron 200, y el usuario confirmó que el deployment/Preview quedó bien. No
+se borraron binarios locales.
 
 Referencias técnicas: [campos file de PocketBase](https://pocketbase.io/docs/collections/),
 [carga, URLs y almacenamiento](https://pocketbase.io/docs/files-handling/) y

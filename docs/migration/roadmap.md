@@ -87,10 +87,13 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   radio de octubre y primera ola de Events están migrados/verificados según sus
   etapas abajo. Radio mensual continúa como operación recurrente. El singleton
   `site_settings` está creado y verificado; los fallbacks runtime de noticias,
-  grupos y literatura se retiraron; falta cerrar OPS. Reflexiones permanece fuera.
+  grupos y literatura se retiraron. Backups y el panel propio con cuentas por rol
+  quedan diferidos a V2.1. El registro público de `users` se cerró en el cierre
+  actual. Reflexiones permanece fuera.
 - **NEWS-ANALYSIS — Completo localmente.** Se inventariaron 13 posts, 49
   referencias de imágenes locales sin rutas rotas y todos sus consumidores. La
-  colección remota, tags, media y cuerpos aún no están certificados.
+  migración remota y las verificaciones posteriores se registran en las etapas
+  NEWS-DRY, NEWS-BODY-REVIEW y NEWS-MEDIA-REVIEW.
 - **NEWS-DRY — Completo.** La lectura autenticada del 2026-10-26 encontró 13/13
   slugs publicados, 9 tags, ningún evento relacionado y schema compatible. No
   hubo escrituras.
@@ -232,12 +235,10 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   El usuario confirmó que las páginas se ven bien en Preview. Las fuentes V1 se
   conservan únicamente para reproducir migraciones; el manejo de medios
   corresponde al punto 4.
-- **OPS-BACKUP-RECOVERY — Diferida.** No hay backups disponibles en Railway ni
-  PocketBase; el usuario confirmó que el volumen persistente está montado en
-  `/pb_data`. El plan actual es Free y no desea pagar por ahora. Railway confirma
-  que los backups nativos de volumen requieren Pro ($20 mínimo/mes); configurar
-  y probar recuperación queda pendiente hasta que el usuario decida cambiar de
-  plan. Véase `runbooks/backup-recovery.md`.
+- **OPS-BACKUP-RECOVERY — Diferida a V2.1.** El 2026-11-02 el usuario decidió
+  revisar backups en un mes (objetivo de seguimiento: 2026-12-02). No hay backups
+  disponibles; el plan es Free y el volumen está en `/pb_data`. No cambiar plan
+  ni infraestructura hasta nueva decisión. Véase `runbooks/backup-recovery.md`.
 - **VERCEL-BUILD-TRANSIENT-502 — Observado (2026-11-02).** El deployment
   `ce7556e` falló porque el GET a `site_settings` recibió HTTP 502 de Railway.
   Después, GET `/api/health` y `site_settings` dieron 200; build local con
@@ -249,18 +250,25 @@ La existencia de un script no acredita una etapa. Recuperar o documentar con
 revisión el schema faltante antes de depender de él; no reconstruir decisiones
 aprobadas a partir de comentarios de implementación.
 
-## Siguiente tarea
+## Cierre de migración
 
-**MEDIA-ASSETS-STRATEGY:** definir alojamiento y ciclo de vida de imágenes de
-contenido. Videos y PDFs quedan fuera del alcance acordado. Backups nativos de
-Railway están diferidos hasta que el usuario decida cambiar de Free a Pro;
-detalles en `runbooks/backup-recovery.md`. El inventario local y las decisiones
-pendientes están en `media-assets-analysis.md`. El post de junio fue corregido y
-verificado en build local (48 páginas). El borrador `invitaciones-octubre` existe
-y el flujo de galería está preparado localmente. Tras autorización, el 2026-11-02
-se aplicó `posts.bodyImages` como file múltiple opcional (máximo 20, MIME de
-imagen); inspección autenticada y dry-run posterior confirmaron el cambio, con
-campos, índices y reglas preservados. El usuario añadió cuatro imágenes al
-borrador; la lectura confirmó que no se incrustaron inline. La build local pasó
-con 48 páginas, pero omitió el borrador. Siguiente: completar el contenido y
-decidir cuándo publicarlo para revisión en build/Preview.
+**SECURITY-ADMIN-CLOSE — Completo (2026-11-02):** el usuario confirmó que Vercel muestra
+Invitaciones de Octubre publicado; el post tiene cuatro imágenes. Build local
+conectado generó 49 páginas. La sanitización HTML está implementada y probada;
+los tests DAL pasaron 43/43 y los diez archivos de tests `.mjs` pasaron. La
+revisión autenticada de 15 colecciones encontró lectura pública/escritura
+superuser-only para contenido. La regla `users.createRule` permitía registro
+público, innecesario porque el frontend no usa esas cuentas. Con autorización
+del usuario, el 2026-11-02 se cambió a `null` y una consulta autenticada confirmó
+el bloqueo. Las reglas list/view/update/delete siguen limitadas al dueño; el
+schema y las cuentas existentes no cambiaron. El usuario decidió diferir a V2.1
+el panel propio y los roles para la persona editora de posts. La guía Admin ya
+incluye capturas reales de listado, creación, estado y edición con imágenes; no
+incluye confirmación tras guardar. La última auditoría
+tras actualizar Astro y Sharp reportó 0 hallazgos
+críticos/altos, 1 moderado (`postcss-selector-parser`, vía Tailwind Typography)
+y 1 bajo (`esbuild`, servidor de desarrollo en Windows); no se pudo repetir en
+este entorno porque el almacén pnpm está en solo lectura. Backups quedan
+diferidos a V2.1, con seguimiento en un mes (~2026-12-02).
+Véanse `runbooks/pocketbase-admin.md`, `media-assets-analysis.md` y
+`runbooks/backup-recovery.md`.
