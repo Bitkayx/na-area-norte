@@ -11,14 +11,22 @@ export interface SiteSettingsRepository {
 }
 
 export function createSiteSettingsRepository(): SiteSettingsRepository {
+  let settingsRequest: Promise<SiteSettings | undefined> | undefined;
   return {
     async get() {
-      const settings = await listRecords<SiteSettings, SiteSettingsRecord>(
-        "site_settings",
-        mapSiteSettings,
-        { perPage: 1 },
-      );
-      return settings[0];
+      if (!settingsRequest) {
+        settingsRequest = listRecords<SiteSettings, SiteSettingsRecord>(
+          "site_settings",
+          mapSiteSettings,
+          { perPage: 1 },
+        ).then((settings) => settings[0]);
+      }
+      try {
+        return await settingsRequest;
+      } catch (error) {
+        settingsRequest = undefined;
+        throw error;
+      }
     },
   };
 }

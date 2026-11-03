@@ -42,6 +42,12 @@ export function mapPost(r: PostRecord): Post {
     author: nullableText(r.author),
     pubDate: toDate(r.pubDate),
     coverUrl: resolveFile(r as import("../client.ts").PBRecord, r.cover),
+    bodyImageUrls: Array.isArray(r.bodyImages)
+      ? r.bodyImages
+          .filter((filename): filename is string => typeof filename === "string" && filename.length > 0)
+          .map((filename) => resolveFile(r as import("../client.ts").PBRecord, filename))
+          .filter((url): url is string => url !== null)
+      : [],
     body: nullableText(r.body),
     status: statusOf(r.status),
     tagIds: tagIds(r.tags),
@@ -51,23 +57,27 @@ export function mapPost(r: PostRecord): Post {
     updated: r.updated,
   };
 
-  // M2M expansion: PocketBase puts expanded relations under a top-level
-  // `expand` object. `expand.tags` is an ARRAY of expanded Tag objects.
+  // PocketBase returns expanded relations under a top-level `expand` object
+  // when using the `expand` query parameter. We only read it if present.
   const expandObj =
     r.expand && typeof r.expand === "object" ? (r.expand as Record<string, unknown>) : undefined;
-  const expandedTags = expandObj && (expandObj.tags as Array<Record<string, unknown>> | undefined);
+
+  // M2M expansion: `expand.tags` is an array of expanded Tag records.
+  const expandedTags = expandObj?.tags;
   if (Array.isArray(expandedTags)) {
-    post.tags = expandedTags.map((t) => ({
-      id: text(t.id),
-      name: text(t.name),
-      slug: text(t.slug),
-    }));
+    post.tags = expandedTags
+      .filter((t): t is Record<string, unknown> => !!t && typeof t === "object")
+      .map((t) => ({
+        id: text(t.id),
+        name: text(t.name),
+        slug: text(t.slug),
+      }));
   }
 
-  // Single-relation expansion: `expand.event` is a single expanded Event object.
-  const expEvent = expandObj && (expandObj.event as Record<string, unknown> | undefined);
-  if (expEvent && typeof expEvent === "object" && "id" in expEvent) {
-    post.event = mapEvent(expEvent as unknown as EventRecord);
+  // Single-relation expansion: `expand.event` is a single expanded Event record.
+  const expandedEvent = expandObj?.event;
+  if (expandedEvent && typeof expandedEvent === "object" && "id" in expandedEvent) {
+    post.event = mapEvent(expandedEvent as unknown as EventRecord);
   }
 
   return post;

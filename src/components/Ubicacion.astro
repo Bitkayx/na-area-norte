@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { dal } from "../lib/dal/index.ts";
 
 /**
  * Ubicacion - Location section component with map and contact info
@@ -26,6 +27,13 @@ interface Props {
 
 const { class: className } = Astro.props;
 const sectionClass = className ? className : "py-20";
+const siteSettings = await dal.siteSettings.get();
+const addressLine = siteSettings?.addressLine ||
+  "Av. José Loreto Fabela 726, San Juan de Aragón VII Secc, Gustavo A. Madero, 07910 Ciudad de México, CDMX";
+const phone = siteSettings?.phone || "(55) 1234 5678";
+const email = siteSettings?.email || "contacto@areanortecdmx.org.mx";
+const mapEmbedUrl = siteSettings?.mapEmbedUrl ||
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d790.7838046268157!2d-99.0793809230996!3d19.471818559111995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fb61e847bb83%3A0x47f502de91a34a!2zw4FyZWEgTm9ydGUsIE5ldXLDs3RpY29zIEFuw7NuaW1vcyBBQw!5e0!3m2!1ses-419!2smx!4v1769821650865!5m2!1ses-419!2smx";
 ---
 
 <section class={sectionClass} id="contacto">
@@ -61,8 +69,7 @@ const sectionClass = className ? className : "py-20";
                 Encuéntranos en
               </h4>
               <p class="text-slate-400 dark:text-slate-400 text-sm">
-                Av. José Loreto Fabela 726, San Juan de Aragón VII Secc, Gustavo
-                A. Madero, 07910 Ciudad de México, CDMX
+                {addressLine}
               </p>
             </div>
           </div>
@@ -77,7 +84,7 @@ const sectionClass = className ? className : "py-20";
                 Teléfono de contacto
               </h4>
               <p class="text-slate-400 dark:text-slate-400 text-sm">
-                Oficina: (55) 1234 5678
+                {phone}
               </p>
             </div>
           </div>
@@ -92,7 +99,7 @@ const sectionClass = className ? className : "py-20";
                 Correo Electrónico
               </h4>
               <p class="text-slate-400 dark:text-slate-400 text-sm">
-                contacto@areanortecdmx.org.mx
+                {email}
               </p>
             </div>
           </div>
@@ -103,7 +110,7 @@ const sectionClass = className ? className : "py-20";
       >
         <iframe
           class="absolute inset-0 w-full h-full"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d790.7838046268157!2d-99.0793809230996!3d19.471818559111995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fb61e847bb83%3A0x47f502de91a34a!2zw4FyZWEgTm9ydGUsIE5ldXLDs3RpY29zIEFuw7NuaW1vcyBBQw!5e0!3m2!1ses-419!2smx!4v1769821650865!5m2!1ses-419!2smx"
+          src={mapEmbedUrl}
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="strict-origin-when-cross-origin"></iframe>

@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
-import radiodifusionData from "../data/radiodifusion.json";
+import { dal } from "../lib/dal";
 
 /**
- * WeeklyMotivation - Banner component showing current week's radio broadcast
+ * WeeklyMotivation - Banner component showing the next radio participation
  *
- * Automatically calculates current week number and displays district broadcast info.
+ * Displays the next dated radio participation from PocketBase.
  * Includes close button to dismiss the banner.
  *
  * @example
@@ -14,14 +14,16 @@ import radiodifusionData from "../data/radiodifusion.json";
  * ```
  */
 
-const now = new Date();
-const startOfYear = new Date(now.getFullYear(), 0, 0);
-const diff = now.getTime() - startOfYear.getTime();
-const oneDay = 1000 * 60 * 60 * 24;
-const dayOfYear = Math.floor(diff / oneDay);
-const currentWeek = Math.ceil(dayOfYear / 7);
-
-const currentData = radiodifusionData.find((d) => d.semana === currentWeek);
+const currentData = await dal.radio.getNext();
+const owner = currentData?.ownerIsAreaNorte
+  ? "Área Norte"
+  : currentData?.district?.name;
+const displayTime = currentData?.time ?? "13:00";
+const formattedDate = currentData?.broadcastDate?.toLocaleDateString("es-MX", {
+  timeZone: "UTC",
+  day: "numeric",
+  month: "long",
+});
 ---
 
 <div id="weekly-motivation" class="bg-primary text-white py-3 px-4 mb-4">
@@ -31,19 +33,15 @@ const currentData = radiodifusionData.find((d) => d.semana === currentWeek);
     <div class="flex items-center gap-3 flex-col md:flex-row">
       <Icon name="material-symbols:radio" class="text-xl" />
       <span class="font-bold">
-        Radiodifusora - Semana {currentWeek}:
+        Radiodifusora{formattedDate ? ` - ${formattedDate}:` : ":"}
       </span>
       <span>
-        {
-          currentData
-            ? `${currentData.distrito} a las 13:00`
-            : "¡Participa en la radiodifusión!"
-        }
+        {owner ? `${owner} a las ${displayTime}` : "Próximo rol por publicar"}
       </span>
     </div>
     <div class="flex items-center gap-3">
       {
-        currentData && (
+        currentData?.link && (
           <a
             href={currentData.link}
             target="_blank"

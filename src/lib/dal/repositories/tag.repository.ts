@@ -1,4 +1,4 @@
-import { listRecords, getOneRecord } from "../client.ts";
+import { escapeFilterValue, listAllRecords, listRecords } from "../client.ts";
 import type { Tag, TagRecord } from "../types/tag.ts";
 import { mapTag } from "../mappers/entity.mapper.ts";
 
@@ -12,10 +12,16 @@ export interface TagRepository {
 export function createTagRepository(): TagRepository {
   return {
     getAll() {
-      return listRecords<Tag, TagRecord>("tags", mapTag, { sort: "name" });
+      return listAllRecords<Tag, TagRecord>("tags", mapTag, { sort: "name,id" });
     },
     getBySlug(slug) {
-      return getOneRecord<Tag, TagRecord>("tags", slug, mapTag);
+      // Slugs are not record ids: search by the `slug` field, with the value
+      // escaped so special characters cannot alter the filter meaning.
+      // getOneRecord() queries /records/{id} and would always miss.
+      return listRecords<Tag, TagRecord>("tags", mapTag, {
+        filter: `slug=${escapeFilterValue(slug)}`,
+        perPage: 1,
+      }).then((items) => items[0]);
     },
   };
 }

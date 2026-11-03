@@ -11,12 +11,16 @@ Sitio web informativo para **Neuróticos Anónimos Área Norte CDMX** — un pro
 
 ![Captura del Sitio](./na-area-norte-ss-01.png)
 
+## Migración V2
+
+Consultar el [estado actual](docs/migration/README.md) y el [roadmap](docs/migration/roadmap.md). Área Norte tiene únicamente los distritos 1, 2, 4 y 5.
+
 ## Características
 
 - **Diseño Responsivo** — Interfaz accesible en todos los dispositivos
 - **Modo Oscuro** — Tema claro/oscuro con persistencia
 - **Blog de Noticias** — Contenido dinámico para eventos y convenciones
-- **Directorio de Grupos** — Información de grupos organizados por 5 distritos
+- **Directorio de Grupos** — Información de grupos organizados por los distritos 1, 2, 4 y 5
 - **Mapas Interactivos** — Integración con Google Maps
 - **SEO Optimizado** — Meta tags y estructura semántica
 
@@ -69,7 +73,7 @@ El servidor de desarrollo estará disponible en `http://localhost:4321`.
 │   │   └── MobileMenu.jsx
 │   ├── content.config.ts    # Configuración de Content Collections
 │   ├── data/
-│   │   └── grupos/          # Datos JSON de grupos por distrito
+│   │   └── grupos/          # Fallback JSON de grupos por distrito
 │   ├── layouts/             # Layouts de página
 │   │   ├── Layout.astro
 │   │   └── MarkdownPostLayout.astro
@@ -94,17 +98,20 @@ El servidor de desarrollo estará disponible en `http://localhost:4321`.
 | -------------- | ------------------------------------------------------------- |
 | **Inicio**     | Mensaje principal, noticias recientes, mapa y contacto        |
 | **Noticias**   | Blog con eventos, convenciones y etiquetas categorizadas      |
-| **Directorio** | Grupos organizados por 5 distritos con horarios y ubicaciones |
+| **Directorio** | Grupos organizados por los distritos 1, 2, 4 y 5 con horarios y ubicaciones |
 | **Servicios**  | Programa de 12 pasos y recursos de recuperación               |
 | **Contacto**   | Formulario, ubicación y medios de contacto                    |
 
 ## Gestión de Contenido
 
-El sitio utiliza **Astro Content Collections** para:
+La transición a PocketBase está en curso. El contenido migrado se presenta desde
+PocketBase mediante la DAL. Se conservan fuentes Markdown/JSON V1 para reproducir
+las migraciones históricas; ya no son fallback de presentación. Consulta el
+[estado de migración](docs/migration/README.md).
 
-- **Blog**: Posts en Markdown con frontmatter tipado
-- **Grupos**: Datos JSON validados por distrito
-- **TypeScript**: Tipado estático para todo el contenido
+Astro Content Collections conserva y valida la colección Markdown histórica de
+noticias. Los scripts de migración también usan esos archivos y los JSON de V1;
+la presentación del contenido migrado consulta PocketBase por DAL.
 
 ## Diseño
 

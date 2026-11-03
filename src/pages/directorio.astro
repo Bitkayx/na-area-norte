@@ -1,6 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Directorio from "@components/Directorio.jsx";
+import { dal, dayName } from "../lib/dal/index.ts";
+import type { Grupo } from "../types/grupo.ts";
 
 /**
  * Directorio - Group directory page
@@ -9,8 +11,35 @@ import Directorio from "@components/Directorio.jsx";
  */
 
 const title = "Directorio";
+
+const pocketBaseGroups = await dal.groups.getAll(true);
+const groups: Grupo[] = pocketBaseGroups.map((group) => {
+  if (!group.district) {
+    throw new Error(
+      `Group ${group.slug} is missing its expanded district relation`,
+    );
+  }
+  return {
+    id: group.slug,
+    nombre: group.name,
+    distrito: String(group.district.number),
+    direccion: {
+      linea1: group.location.linea1,
+      colonia: group.location.colonia,
+      referencias: group.location.referencias,
+      ciudad: group.location.ciudad,
+      estado: group.location.estado,
+    },
+    horarios: group.schedules.map((schedule) => ({
+      dias: schedule.days.map(dayName).join(", "),
+      horaInicio: schedule.startTime,
+      horaFin: schedule.endTime,
+    })),
+    mapQuery: group.location.mapQuery,
+  };
+});
 ---
 
 <Layout title={title}>
-  <Directorio client:load />
+  <Directorio client:load groups={groups} />
 </Layout>

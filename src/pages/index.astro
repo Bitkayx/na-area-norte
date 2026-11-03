@@ -4,9 +4,8 @@ import BlogPost from "@components/BlogPost.astro";
 import Ubicacion from "@components/Ubicacion.astro";
 import Hero from "@components/Hero.astro";
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
-import { createLocalDate } from "../utils/dateUtils.ts";
-import congresoLiteratura from "../assets/blog/compartimientos/septiembre/congreso_literatura.jpg";
+import { getNewsItems } from "../lib/news.ts";
+import { dal } from "../lib/dal/index.ts";
 
 /**
  * Home - Main landing page
@@ -15,25 +14,38 @@ import congresoLiteratura from "../assets/blog/compartimientos/septiembre/congre
  * group directory preview, and location section.
  */
 
-const allPosts = await getCollection("blog");
-const title = "Neuroticos Anonimos Area Norte CDMX";
-
-const latestPosts = allPosts
-  .sort(
-    (a, b) =>
-      createLocalDate(b.data.pubDate).getTime() -
-      createLocalDate(a.data.pubDate).getTime(),
-  )
-  .slice(0, 4);
+const [allPosts, siteSettings] = await Promise.all([
+  getNewsItems(),
+  dal.siteSettings.get(),
+]);
+const title = "Neuróticos Anónimos Área Norte CDMX";
+const latestPosts = allPosts.slice(0, 4);
+const hero = siteSettings?.hero;
+const hasPromoHero = !!(hero?.titulo && hero.slug && hero.imagen);
+const hasEventHero = !!(
+  hero?.titulo && hero.slug && hero.fecha && hero.ubicacion && hero.fechaEvento
+);
 ---
 
 <Layout title={title}>
-  <Hero
-    titulo="Encuentro Regional de Literatura"
-    slug="/noticias/encuentro-regional-literatura-2026"
-    imagen={congresoLiteratura}
-    subtitulo="Evento del mes"
-  />
+  {
+    hasPromoHero ? (
+      <Hero
+        titulo={hero!.titulo}
+        slug={hero!.slug}
+        imagen={hero!.imagen}
+        subtitulo={hero!.subtitulo}
+      />
+    ) : hasEventHero ? (
+      <Hero
+        titulo={hero!.titulo}
+        slug={hero!.slug}
+        fecha={hero!.fecha}
+        ubicacion={hero!.ubicacion}
+        fechaEvento={hero!.fechaEvento}
+      />
+    ) : null
+  }
 
   <section class="py-16 md:py-24">
     <div
@@ -94,18 +106,23 @@ const latestPosts = allPosts
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        latestPosts.map((post: any) => (
+        latestPosts.map((post) => (
           <BlogPost
-            url={`/noticias/${post.id}`}
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            author={post.data.author}
-            image={post.data.image}
-            tags={post.data.tags}
+            url={`/noticias/${post.slug}`}
+            title={post.title}
+            description={post.description}
+            pubDate={post.pubDate}
+            author={post.author ?? undefined}
+            image={post.image}
+            tags={post.tags}
           />
         ))
       }
+      {latestPosts.length === 0 && (
+        <p class="md:col-span-2 py-8 text-center text-slate-500">
+          No hay noticias publicadas en este momento.
+        </p>
+      )}
     </div>
   </section>
 

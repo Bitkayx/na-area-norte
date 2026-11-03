@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: DAL tests
+        run: pnpm run test:dal
+
+      - name: Build
+        env:
+          PUBLIC_POCKETBASE_URL: ${{ vars.PUBLIC_POCKETBASE_URL }}
+          PUBLIC_SHEET_URL: ${{ vars.PUBLIC_SHEET_URL }}
+        run: |
+          if [ -z "$PUBLIC_POCKETBASE_URL" ]; then
+            echo "::error::Add PUBLIC_POCKETBASE_URL under GitHub Settings > Secrets and variables > Actions > Variables."
+            exit 1
+          fi
+          if [ -z "$PUBLIC_SHEET_URL" ]; then
+            echo "::error::Add PUBLIC_SHEET_URL under GitHub Settings > Secrets and variables > Actions > Variables."
+            exit 1
+          fi
+          pnpm run build

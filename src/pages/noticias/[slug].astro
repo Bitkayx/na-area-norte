@@ -1,72 +1,58 @@
 ---
-import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
-
-/**
- * [slug] - Dynamic news post page
- *
- * Renders individual blog posts from the "blog" collection.
- * Uses getStaticPaths to generate all post pages at build time.
- *
- * @example
- * ```astro
- * // Automatically generates pages for all blog posts
- * // URL: /noticias/{slug}
- * ```
- */
-
-interface PostData {
-  /*
-   * @property {string} id - Unique post identifier
-   */
-  id: string;
-  /*
-   * @property {object} data - Post frontmatter data (title, description, image, etc.)
-   */
-  data: object;
-  /*
-   * @property {string} body - Raw markdown content
-   */
-  body: string;
-  /*
-   * @property {string} filePath - Path to the markdown file
-   */
-  filePath: string;
-  /*
-   * @property {string} digest - Content hash for caching
-   */
-  digest: string;
-  /*
-   * @property {object} rendered - Rendered HTML content
-   */
-  rendered: object;
-  /*
-   * @property {object} metadata - Post metadata (headings, readingTime, etc.)
-   */
-  metadata: object;
-}
-
-interface Props {
-  /*
-   * @property {PostData} post - Full post data from collection
-   */
-  post: PostData;
-  collection: string;
-}
+import { dal } from "../../lib/dal/index.ts";
+import { sanitizePostBody } from "../../lib/security/sanitize-post-body.mjs";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-
-  return posts.map((post: any) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  const published = await dal.posts.getPublished();
+  return published.map((post) => ({ params: { slug: post.slug } }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { slug } = Astro.params;
+
+const pbPost = slug ? await dal.posts.getBySlug(slug) : undefined;
+
+if (!pbPost) {
+  throw new Error(`Published PocketBase post not found: ${slug}`);
+}
+
+const body = pbPost.body ?? "";
+if (!body.trim() && pbPost.bodyImageUrls.length === 0) {
+  throw new Error(`Published PocketBase post has no body: ${slug}`);
+}
+
+const fm = {
+  title: pbPost.title,
+  pubDate: pbPost.pubDate ?? undefined,
+  description: pbPost.description,
+  author: pbPost.author ?? "Área Norte",
+  image: pbPost.coverUrl
+    ? { url: pbPost.coverUrl, alt: pbPost.title }
+    : undefined,
+  tags:
+    pbPost.tags.length > 0 ? pbPost.tags.map((t) => t.slug) : pbPost.tagIds,
+};
+const htmlBody = sanitizePostBody(
+  marked.parse(body).replace(/src="\.\.\/assets\//g, 'src="/assets/'),
+);
 ---
 
-<MarkdownPostLayout frontmatter={post.data}>
-  <Content />
+<MarkdownPostLayout frontmatter={fm}>
+  {body.trim() && <div set:html={htmlBody} />}
+  {pbPost.bodyImageUrls.length > 0 && (
+    <div class="mt-8 grid grid-cols-1 gap-6">
+      {pbPost.bodyImageUrls.map((url, index) => (
+        <figure>
+          <img
+            src={url}
+            alt={`Imagen ${index + 1} de ${pbPost.title}`}
+            loading="lazy"
+            decoding="async"
+            class="h-auto w-full rounded-lg"
+          />
+        </figure>
+      ))}
+    </div>
+  )}
 </MarkdownPostLayout>

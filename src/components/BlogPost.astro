@@ -47,8 +47,13 @@ interface Props {
 
 const { title, tags, pubDate, description, image, url } = Astro.props;
 
-const imageUrl = image?.url?.src || image?.url;
-const imageAlt = image?.alt || title;
+const imageUrl =
+  image?.url?.src || image?.url || "/assets/blog/news_default.jpg";
+const imageAlt =
+  image?.alt ||
+  (imageUrl === "/assets/blog/news_default.jpg"
+    ? "Imagen predeterminada de noticias"
+    : title);
 ---
 
 <article
@@ -57,7 +62,7 @@ const imageAlt = image?.alt || title;
   <a href={url}>
     <div class="h-44 overflow-hidden">
       {
-        imageUrl && (
+        (
           <div class="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-700">
             <img
               src={imageUrl}

@@ -28,10 +28,18 @@ function normalizeUrl(b) {
   return (b || "").replace(/\/_\/?$/, "").replace(/\/+$/, "");
 }
 
-function getEnv(name) {
-  if (!process.env[name]) {
-    throw new Error(`Missing required env var: ${name}`);
+function getPocketBaseUrl() {
+  const value = process.env.PB_URL || process.env.PUBLIC_POCKETBASE_URL;
+  if (!value) {
+    throw new Error(
+      "Missing required env var: PB_URL or PUBLIC_POCKETBASE_URL",
+    );
   }
+  return value;
+}
+
+function getEnv(name) {
+  if (!process.env[name]) throw new Error(`Missing required env var: ${name}`);
   return process.env[name];
 }
 
@@ -66,7 +74,10 @@ async function request(baseUrl, path, { method = "GET", token, body } = {}) {
 function summarize(collection) {
   const rels = collection.fields
     .filter((f) => f.type === "relation")
-    .map((f) => `${f.name}->${f.collectionId || "(none)"}${f.maxSelect > 1 ? "[M2M]" : ""}${f.required ? "(req)" : ""}`);
+    .map(
+      (f) =>
+        `${f.name}->${f.collectionId || "(none)"}${f.maxSelect > 1 ? "[M2M]" : ""}${f.required ? "(req)" : ""}`,
+    );
   return {
     name: collection.name,
     id: collection.id,
@@ -95,20 +106,30 @@ async function main() {
   const baseUrl =
     (args.includes("--base-url")
       ? args[args.indexOf("--base-url") + 1]
-      : undefined) || getEnv("PB_URL");
+      : undefined) || getPocketBaseUrl();
   const namesOnly = args.includes("--names");
   const authenticate = args.includes("--authenticate");
-  const filters = args.filter((a) => !a.startsWith("--") && a !== "--base-url" && a !== "--names" && a !== "--authenticate");
+  const filters = args.filter(
+    (a) =>
+      !a.startsWith("--") &&
+      a !== "--base-url" &&
+      a !== "--names" &&
+      a !== "--authenticate",
+  );
 
   let token = null;
   if (authenticate) {
-    const auth = await request(baseUrl, "/api/collections/_superusers/auth-with-password", {
-      method: "POST",
-      body: {
-        identity: getEnv("PB_SUPERUSER_EMAIL"),
-        password: getEnv("PB_SUPERUSER_PASSWORD"),
+    const auth = await request(
+      baseUrl,
+      "/api/collections/_superusers/auth-with-password",
+      {
+        method: "POST",
+        body: {
+          identity: getEnv("PB_SUPERUSER_EMAIL"),
+          password: getEnv("PB_SUPERUSER_PASSWORD"),
+        },
       },
-    });
+    );
     token = auth.token;
   }
 
@@ -127,7 +148,9 @@ async function main() {
   for (const c of colls) {
     const s = summarize(c);
     console.log(`\n=== ${s.name} (${s.type}) id=${s.id} ===`);
-    console.log(`rules: list=${s.rules.list} view=${s.rules.view} create=${s.rules.create} update=${s.rules.update} delete=${s.rules.delete}`);
+    console.log(
+      `rules: list=${s.rules.list} view=${s.rules.view} create=${s.rules.create} update=${s.rules.update} delete=${s.rules.delete}`,
+    );
     console.log("fields:");
     for (const f of s.fields) {
       const extra =
@@ -136,15 +159,21 @@ async function main() {
           : f.maxSelect !== undefined
             ? ` maxSelect=${f.maxSelect}`
             : "";
-      console.log(`  - ${f.name}: ${f.type}${f.required ? " (req)" : ""}${extra}`);
+      console.log(
+        `  - ${f.name}: ${f.type}${f.required ? " (req)" : ""}${extra}`,
+      );
     }
-    console.log(`relations (${s.relations.length}): ${s.relations.join(", ") || "none"}`);
+    console.log(
+      `relations (${s.relations.length}): ${s.relations.join(", ") || "none"}`,
+    );
     console.log(`indexes (${s.indexes.length}):`);
     for (const idx of s.indexes) {
       console.log(`  - ${idx}`);
     }
   }
-  console.log(`\n[[ ${colls.length} collections inspected. Read-only: nothing was modified. ]]`);
+  console.log(
+    `\n[[ ${colls.length} collections inspected. Read-only: nothing was modified. ]]`,
+  );
 }
 
 main().catch((err) => {

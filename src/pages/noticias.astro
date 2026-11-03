@@ -1,17 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BlogPost from "../components/BlogPost.astro";
-import { getCollection } from "astro:content";
-import { createLocalDate } from "src/utils/dateUtils";
+import { getNewsItems } from "../lib/news.ts";
 
-const allPosts = await getCollection("blog");
-const latestPosts = allPosts
-  .sort(
-    (a, b) =>
-      createLocalDate(b.data.pubDate).getTime() -
-      createLocalDate(a.data.pubDate).getTime(),
-  )
-  .slice(0, 3);
+const allPosts = await getNewsItems();
 ---
 
 <Layout title="Noticias">
@@ -30,18 +22,23 @@ const latestPosts = allPosts
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {
-        allPosts.map((post: any) => (
+        allPosts.map((post) => (
           <BlogPost
-            url={`/noticias/${post.id}`}
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            author={post.data.author}
-            image={post.data.image}
-            tags={post.data.tags}
+            url={`/noticias/${post.slug}`}
+            title={post.title}
+            description={post.description}
+            pubDate={post.pubDate}
+            author={post.author ?? undefined}
+            image={post.image}
+            tags={post.tags}
           />
         ))
       }
+      {allPosts.length === 0 && (
+        <p class="md:col-span-2 py-8 text-center text-slate-500">
+          No hay noticias publicadas en este momento.
+        </p>
+      )}
     </section>
   </div>
 </Layout>

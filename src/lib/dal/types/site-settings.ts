@@ -33,6 +33,30 @@ export interface NavigationItem {
   isActive?: boolean;
 }
 
+/** Optional next literature inventory announcement configured by site admins. */
+export interface LiteratureInventory {
+  /** Local calendar date in YYYY-MM-DD format. */
+  date: string;
+  /** Optional local time in HH:mm format. */
+  time: string | null;
+  /** Current participating districts; Área Norte is represented separately. */
+  districts: number[];
+  areaNorte: boolean;
+}
+
+/** Weekly literature sales hours, with ISO weekdays (Monday=1, Sunday=7). */
+export interface LiteratureSalesSchedule {
+  days: number[];
+  startTime: string;
+  endTime: string;
+}
+
+/** Operational settings for literature; each section may be left unconfigured. */
+export interface LiteratureSettings {
+  nextInventory: LiteratureInventory | null;
+  salesSchedule: LiteratureSalesSchedule | null;
+}
+
 /**
  * SiteSettings — global site configuration (singleton, one record).
  * Maps the 5 JSON fields (socialLinks, hero, seo, navigation) plus scalars.
@@ -51,6 +75,7 @@ export interface SiteSettings {
   hero: Hero | null;
   seo: Seo;
   navigation: NavigationItem[];
+  literature: LiteratureSettings | null;
   created: string;
   updated: string;
 }
@@ -68,4 +93,5 @@ export interface SiteSettingsRecord extends PBRecord {
   hero?: unknown;
   seo?: unknown;
   navigation?: unknown;
+  literature?: unknown;
 }

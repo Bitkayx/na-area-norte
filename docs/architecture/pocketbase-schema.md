@@ -1,8 +1,18 @@
-# PocketBase Schema — Diseño Definitivo (V2)
+# Propuesta inicial de schema de PocketBase (histórica)
 
-> **Estado:** APROBADO y alineado con el script (`scripts/create-schema.mjs`).
-> **Fase:** PocketBase schema design → creación de colecciones (via script en repo), lista para revisión/ejecución.
-> **Regla:** el diseño fue aprobado; la creación de colecciones se realiza mediante el script `scripts/create-schema.mjs` (revisable; **`--apply` no se ejecuta** hasta contar con credenciales/URL real y confirmación). NO se ejecutan migraciones de datos V1, NO se modifican datos existentes, NO se toca el frontend, NO se eliminan archivos V1.
+> **No representa el schema vigente y no debe usarse para modificar PocketBase.**
+> Este documento conserva una propuesta previa a las migraciones. Varias decisiones
+> y etapas que describe cambiaron o ya se completaron. Para el estado actual,
+> consultar el [estado de migración](../migration/README.md), los runbooks por
+> entidad y la salida autenticada de solo lectura de
+> `scripts/inspect-schema.mjs`. No ejecutar `scripts/create-schema.mjs` para
+> reconstruir o modificar el schema real.
+
+> Diferencias conocidas respecto a esta propuesta: `radio_broadcasts.week` fue
+> sustituido por `broadcastDate`; no se migran calendarios históricos de radio;
+> `literature.stock` es opcional; `posts.bodyImages` admite hasta 20 imágenes;
+> Events y `site_settings` ya tienen datos migrados; el registro público en
+> `users` está deshabilitado. El panel para roles editoriales está diferido a V2.1.
 
 Este documento define el diseño del esquema de PocketBase para V2. Está alineado con `AGENTS.md`, `ADR-001` (V1→V2), `ADR-002` (PocketBase), `ADR-003` (Domain Model) y `ADR-004` (District/Group separación).
 
@@ -472,7 +482,10 @@ deleteRule: null  // escritura: SOLO superuser
 
 ---
 
-## 18. Schema final (lo que crea exactamente `scripts/create-schema.mjs`)
+## 18. Schema de bootstrap de la propuesta original
+
+Esta sección describe lo que se proponía crear en esa etapa. No garantiza que
+coincida con PocketBase ni con el estado actual del script de bootstrap.
 
 Ocho colecciones `type="base"` + una `site_settings` (singleton), todas con reglas `PUBLIC_READ` (lectura pública, escritura superuser). Los campos `relation` se definen por *nombre* en el script y se resuelven a su **ID real** en la fase 2 (ver notas §0). `posts.tags` es M2M con `maxSelect=20` (techo técnico, no regla de dominio).
 

@@ -1,13 +1,13 @@
-import { listRecords } from "../client.ts";
+import { listAllRecords } from "../client.ts";
 import type { Literature, LiteratureRecord } from "../types/literature.ts";
-import type { CategoryRecord } from "../types/category.ts";
 import { mapLiterature, mapCategory } from "../mappers/entity.mapper.ts";
+import type { CategoryRecord } from "../types/category.ts";
 import type { Category } from "../types/category.ts";
 
 export interface LiteratureRepository {
   /** All active literature, ordered by title, with category expanded. */
   getAll(): Promise<Literature[]>;
-  /** Active literature grouped by category (categories ordered by sort). */
+  /** Active literature grouped by category name (categories ordered by sort). */
   getByCategory(): Promise<Map<string, Literature[]>>;
 }
 
@@ -19,16 +19,17 @@ export interface CategoryRepository {
 export function createLiteratureRepository(): LiteratureRepository {
   return {
     getAll() {
-      return listRecords<Literature, LiteratureRecord>("literature", mapLiterature, {
+      return listAllRecords<Literature, LiteratureRecord>("literature", mapLiterature, {
         filter: "isActive=true",
-        sort: "title",
+        // `id` as tiebreaker: page walk requires a deterministic total order
+        sort: "title,id",
         expand: "category",
       });
     },
     async getByCategory() {
-      const items = await listRecords<Literature, LiteratureRecord>("literature", mapLiterature, {
+      const items = await listAllRecords<Literature, LiteratureRecord>("literature", mapLiterature, {
         filter: "isActive=true",
-        sort: "title",
+        sort: "title,id",
         expand: "category",
       });
       const groups = new Map<string, Literature[]>();
@@ -44,10 +45,16 @@ export function createLiteratureRepository(): LiteratureRepository {
 
 export function createCategoryRepository(): CategoryRepository {
   return {
-    getAll() {
-      return listRecords<Category, CategoryRecord>("categories", mapCategory, {
+    async getAll() {
+      const categories = await listAllRecords<Category, CategoryRecord>("categories", mapCategory, {
         sort: "sort,name",
       });
+      // Contract: ordered by `sort` then name; sorting server-side by
+      // "sort,name" compares lexicographically in SQLite (e.g. 10 before 2), so
+      // re-order numerically in memory to honor the contract.
+      return categories.sort((a, b) =>
+        a.sort !== b.sort ? a.sort - b.sort : a.name.localeCompare(b.name),
+      );
     },
   };
 }

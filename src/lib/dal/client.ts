@@ -54,18 +54,43 @@ export function isStrict(): boolean {
  *
  * Safe to call more than once (idempotent); the last call wins.
  */
+/**
+ * Configures the DAL.
+ *
+ * Behavior:
+ * - In permissive mode (default): if PUBLIC_POCKETBASE_URL is missing,
+ *   the DAL degrades gracefully and returns empty datasets. Real API
+ *   failures (network/500/404 treated as error) are NEVER hidden.
+ * - In strict mode: if PUBLIC_POCKETBASE_URL is missing, throws immediately.
+ *
+ * Resolution order: import.meta.env.PUBLIC_POCKETBASE_URL → process.env.PUBLIC_POCKETBASE_URL
+ * This keeps the DAL testable outside of Astro's build-time env injection.
+ *
+ * Idempotent: safe to call multiple times; last call wins.
+ */
 export function configureDal(opts: DalOptions = {}): void {
   strictMode = opts.strict ?? false;
-  // Prefer the Astro/import.meta.env value; fall back to process.env so the DAL
-  // is testable/portable outside of Astro's build-time env injection.
-  const env =
-    typeof import.meta !== "undefined" && (import.meta as ImportMeta & { env?: Record<string, unknown> }).env;
-  const importRaw = env && typeof env.PUBLIC_POCKETBASE_URL === "string" ? env.PUBLIC_POCKETBASE_URL : undefined;
-  const g: { process?: { env?: Record<string, string> } } = globalThis as { process?: { env?: Record<string, string> } };
-  const processRaw = g.process?.env?.PUBLIC_POCKETBASE_URL;
-  const raw = importRaw ?? processRaw;
-  baseUrl = normalizeBaseUrl(typeof raw === "string" ? raw : "");
+
+  const importMetaEnv =
+    typeof import.meta !== "undefined" &&
+    (import.meta as ImportMeta & { env?: Record<string, unknown> }).env;
+
+  const envValueFromImportMeta =
+    importMetaEnv && typeof importMetaEnv.PUBLIC_POCKETBASE_URL === "string"
+      ? importMetaEnv.PUBLIC_POCKETBASE_URL
+      : undefined;
+
+  const globalWithProcess = globalThis as {
+    process?: { env?: Record<string, string> };
+  };
+  const envValueFromProcess = globalWithProcess.process?.env?.PUBLIC_POCKETBASE_URL;
+
+  const rawUrl = envValueFromImportMeta ?? envValueFromProcess;
+  const normalized = normalizeBaseUrl(typeof rawUrl === "string" ? rawUrl : "");
+
+  baseUrl = normalized;
   configured = baseUrl.length > 0;
+
   if (!configured) {
     const msg =
       "PUBLIC_POCKETBASE_URL is not set. The DAL will return empty datasets. " +
@@ -73,8 +98,9 @@ export function configureDal(opts: DalOptions = {}): void {
     if (strictMode) {
       throw new Error("[dal] " + msg);
     }
-    // eslint-disable-next-line no-console
-    if (typeof console !== "undefined") console.warn("[dal] " + msg);
+    if (typeof console !== "undefined") {
+      console.warn("[dal] " + msg);
+    }
   }
 }
 
@@ -109,6 +135,70 @@ export function resolveFile(
   return `${baseUrl}/api/files/${record.collectionId}/${record.id}/${file}`;
 }
 
+/**
+ * Maximum `perPage` PocketBase accepts for a single list request. PocketBase
+ * also applies its own lower default (30) when `perPage` is omitted, so every
+ * repository that promises "all"/"n" records must set pagination explicitly.
+ */
+export const MAX_PER_PAGE = 500;
+
+/** Safety cap so a misbehaving server cannot loop forever. */
+export const MAX_LIST_PAGES = 1000;
+
+/**
+ * Escapes a value for use as a string literal inside a PocketBase filter
+ * expression, with the same JSON serialization the official JS SDK `pb.filter()`
+ * helper uses for strings (JSON.stringify: double-quoted, escaping `\` and `"`).
+ *
+ * This is NOT the same as URL-encoding: URLSearchParams only encodes the URL,
+ * never the filter string's internal syntax. Without this escape, a slug such
+ * as `x' || status='draft` can terminate the quoted literal and inject extra
+ * filter conditions.
+ *
+ * Note: within the filter expression grammar, operators and field names must
+ * never come from user input; this helper is only for the *value*.
+ */
+export function escapeFilterValue(value: string): string {
+  return JSON.stringify(value);
+}
+
+/**
+ * Lists ALL records of a collection by walking every page of PocketBase's
+ * paginated list API (page 1..totalPages). Repositories whose contract is
+ * "all records" must use this, not a single request: PocketBase can and does
+ * split results across pages, and its default perPage is small.
+ *
+ * `sort`, `filter` and `expand` are passed through on every request; a caller
+ * `perPage` is clamped to [1, MAX_PER_PAGE] (default MAX_PER_PAGE).
+ */
+export async function listAllRecords<
+  TItem,
+  TPb extends PBRecord = PBRecord & Record<string, unknown>,
+>(collection: string, map: (raw: TPb) => TItem, params: ListParams = {}): Promise<TItem[]> {
+  const perPage = clampPerPage(params.perPage ?? MAX_PER_PAGE);
+  const items: TItem[] = [];
+  for (let page = 1; page <= MAX_LIST_PAGES; page++) {
+    const data = await listRecordsPaginated(collection, map, { ...params, page, perPage });
+    items.push(...data.items);
+    if (data.page >= data.totalPages || data.items.length === 0) return items;
+  }
+  // The safety cap was reached without the server reporting completion: this
+  // means "all records" cannot be guaranteed, so do NOT fail silently.
+  if (typeof console !== "undefined") {
+    console.warn(
+      `[dal] listAllRecords('${collection}') stopped after ${MAX_LIST_PAGES} pages; ` +
+        `results may be truncated. Increase MAX_LIST_PAGES or add server-side filters.`,
+    );
+  }
+  return items;
+}
+
+function clampPerPage(v: number): number {
+  if (!Number.isInteger(v)) v = Math.trunc(v);
+  if (!Number.isFinite(v) || v < 1) return 1;
+  return Math.min(v, MAX_PER_PAGE);
+}
+
 /** Builds a PocketBase collection list URL with query params. */
 export function buildListUrl(collection: string, params: ListParams = {}): string {
   const url = new URL(`${baseUrl}/api/collections/${collection}/records`);
@@ -116,7 +206,7 @@ export function buildListUrl(collection: string, params: ListParams = {}): strin
   if (params.page !== undefined) sp.set("page", String(params.page));
   if (params.perPage !== undefined) sp.set("perPage", String(params.perPage));
   if (params.sort) sp.set("sort", params.sort);
-  if (params.filter) sp.set("filter", encodeURI(params.filter));
+  if (params.filter) sp.set("filter", params.filter);
   if (params.expand) sp.set("expand", params.expand);
   return url.toString();
 }
