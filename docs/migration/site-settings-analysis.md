@@ -114,15 +114,12 @@ ignorado por Git. Nunca copiar el valor del bypass a la conversación ni a logs.
 
 ## Siguiente paso
 
-El usuario reportó que agregó `PUBLIC_POCKETBASE_URL` a las variables de entorno
-de Preview en Vercel tras advertirle Vite que el prefijo `PUBLIC_` expone el
-valor al navegador. Es una URL pública de PocketBase, sin credenciales. Luego
-confirmó el Preview, aunque la build asociada a `bb69911` inicialmente falló.
-
-El usuario confirmó que resolvió el fallo de build y que el Preview permitió
-avanzar a la auditoría de fallbacks. Ese Preview validó el estado anterior a su
-retiro; el siguiente build debe revisar los cambios DAL-only. Después sigue la
-auditoría de backups, recuperación, seguridad y release.
+El usuario confirmó que el Preview se ve correctamente tras retirar los
+fallbacks runtime y que el build de Vercel pasó después de un 502 transitorio.
+La siguiente tarea es `MEDIA-ASSETS-STRATEGY`: definir alojamiento y ciclo de
+vida de imágenes. Videos y PDFs quedan fuera del alcance acordado. Los backups
+nativos de Railway se difieren hasta que el usuario decida cambiar de plan; ver
+[`runbooks/backup-recovery.md`](runbooks/backup-recovery.md).
 
 ## Error de build del 2026-11-02
 
@@ -132,5 +129,5 @@ Las compilaciones de Vite y Astro habían terminado; el DAL propagó correctamen
 el error de API. Después del fallo, las solicitudes de solo lectura a
 `/api/health` y `site_settings` respondieron HTTP 200. `npm run build` local con
 PocketBase conectado completó 48 páginas. Esto sugiere una indisponibilidad
-transitoria de Railway; no identifica su causa interna ni prueba que el Preview
-Vercel posterior haya pasado. Reintentar el deployment.
+transitoria de Railway; no identifica su causa interna. El usuario confirmó
+después que el build de Vercel pasó en el reintento.

@@ -16,6 +16,8 @@ export interface Post {
   pubDate: Date | null;
   /** Public cover URL; null when absent. */
   coverUrl: string | null;
+  /** Public URLs for images uploaded to the post body-image field, in upload order. */
+  bodyImageUrls: string[];
   /** Body content (editor / Markdown). */
   body: string | null;
   status: PostStatus;
@@ -39,6 +41,7 @@ export interface PostRecord extends PBRecord {
   author?: unknown;
   pubDate?: unknown;
   cover?: unknown;
+  bodyImages?: unknown;
   body?: unknown;
   status?: unknown;
   tags?: unknown;

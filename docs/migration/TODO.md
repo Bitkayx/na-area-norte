@@ -21,11 +21,16 @@ autorizaciones remotas.
 ## Siguiente acción
 
 El usuario confirmó que noticias, directorio y literatura se ven bien en el
-Preview después de retirar los fallbacks runtime. El siguiente deployment
-`ce7556e` falló cuando Railway respondió HTTP 502 a `site_settings`; las GET
-posteriores y el build local remoto devolvieron 200/completaron 48 páginas.
-Siguiente: `VERCEL-BUILD-RETRY`, confirmar el nuevo Preview. Luego
-`OPS-BACKUP-RECOVERY` según el [runbook](runbooks/backup-recovery.md).
+Preview después de retirar los fallbacks runtime; el reintento de Vercel pasó.
+El volumen persistente está montado en `/pb_data`, pero no hay backups. El plan
+actual es Free y el usuario no desea pagar por ahora; los backups nativos de
+Railway requieren Pro. No cambiar el plan sin decisión explícita. Siguiente paso
+de medios: el campo `posts.bodyImages` está aplicado; el usuario cargó cuatro
+imágenes en el borrador `invitaciones-octubre`. Completar texto/metadata y revisar
+antes de publicar. La build local pasó con 48 páginas, pero no incluyó el post
+porque sigue en `draft`; revisar build/Preview cuando se decida publicarlo. Véase
+la [auditoría de medios](media-assets-analysis.md). La futura configuración de
+backups y restauración está en el [runbook](runbooks/backup-recovery.md).
 En altas nuevas, stock 0 es válido y se captura en PocketBase.
 Los cinco Events están verificados y el usuario confirmó que `/servicios/eventos`
 se ve bien.
@@ -69,12 +74,13 @@ Cuando llegue un nuevo mensaje mensual de WhatsApp:
   nuevas. Schema de `site_settings.literature` aplicado y singleton verificado.
 - Events: cinco Events migrados, verificados y revisados visualmente.
 - Site settings: singleton creado y verificado; el usuario confirmó el Preview.
-  Punto 4: alojar solo imágenes; definir ubicación y ciclo de vida. Videos y
-  PDFs quedan fuera del alcance acordado.
-- Frontend: fallbacks runtime de noticias, grupos y literatura retirados
-  localmente; verificar la nueva build Preview. Preservar fuentes V1 usadas por
+  Para imágenes nuevas se propone almacenamiento en PocketBase; falta definir
+  conservación. Videos y PDFs quedan fuera del alcance acordado.
+- Frontend: fallbacks runtime de noticias, grupos y literatura retirados; el
+  usuario confirmó la revisión del Preview. Preservar fuentes V1 usadas por
   scripts de migración.
-- OPS: documentar backups, recuperación, seguridad, administración, QA y release.
+- OPS: backups diferidos hasta decidir el plan Pro; después configurar y probar
+  recuperación. Completar también seguridad, administración, QA y release.
 
 ## Al retomar
 

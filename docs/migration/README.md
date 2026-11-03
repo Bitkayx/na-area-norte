@@ -17,7 +17,7 @@ No llamar “E2” a distritos: Épica 2 del backlog significa modelado del domi
 | Distritos                      | **Migración y verificación completas**, registradas en `bfe7928`. Existen únicamente 1, 2, 4 y 5. El dry-run posterior reporta los cuatro `UNCHANGED`. Los tests pasaron 14/14.                                   |
 | Validación remota de distritos | Completa el 2026-10-26: schema leído con autenticación, reglas list/view públicas, colección vacía y payloads revisados. Propone CREATE para 1, 2, 4 y 5; 0 updates y 0 conflictos.                               |
 | Escrituras de distritos        | `--apply` fue autorizado explícitamente y ejecutado el 2026-10-26: 4 creates, 0 updates. No se modificaron schema ni access rules.                                                                                |
-| Frontend                       | Se retiraron localmente los fallbacks runtime de noticias, grupos y literatura tras la revisión previa del Preview. TypeScript y build offline pasaron; falta verificar el nuevo Preview tras estos cambios. Las fuentes V1 se conservan para scripts históricos. |
+| Frontend                       | Se retiraron los fallbacks runtime de noticias, grupos y literatura; el usuario confirmó que el Preview se ve bien. Las fuentes V1 se conservan para scripts históricos. |
 | Infraestructura/schema         | Existen scripts de creación e inspección. `site_settings` se leyó autenticadamente el 2026-11-02; otros schemas/infraestructura no se revalidaron en esta etapa. No ejecutar scripts generales de schema para reconstruir contexto. |
 | Grupos                         | Migración completa: 43 grupos creados (9/10/13/11), 73 horarios, slugs únicos y relaciones válidas. El directorio consulta DAL sin fallback runtime; JSON se conserva como entrada de `migrate-groups.mjs`. |
 | Literatura                     | 9 categorías y 161 productos migrados; dry-run posterior `UNCHANGED`. La página consulta DAL sin fallback runtime; `inventory.json` se conserva como entrada del migrador. Véase [análisis](literature-analysis.md). |
@@ -77,11 +77,20 @@ posterior: los cuatro quedaron `UNCHANGED`.
 
 ## Siguiente tarea exacta
 
-**VERCEL-BUILD-RETRY:** el build del deployment `ce7556e` recibió HTTP 502 de
-Railway durante un GET público a `site_settings`. Después, `/api/health` y el GET
-de `site_settings` respondieron 200; `npm run build` local conectado a PocketBase
-completó 48 páginas. Reintentar el Preview. Luego continuar
-`OPS-BACKUP-RECOVERY` según el [runbook](runbooks/backup-recovery.md).
+**MEDIA-ASSETS-IMAGES:** el campo `posts.bodyImages` fue aplicado tras
+autorización explícita el 2026-11-02. El dry-run posterior quedó `unchanged` y
+la inspección autenticada confirmó el campo opcional con máximo 20 imágenes;
+campos, índices y access rules se preservaron. El borrador
+`invitaciones-octubre` existe y el código local tiene preparado el render de
+galería. Siguiente: el usuario sube las imágenes desde Admin; después revisar
+contenido y decidir publicación; el borrador tiene cuatro imágenes en
+`bodyImages`. La build local pasó con 48 páginas, pero no generó la ruta porque
+el post sigue en `draft`. Videos y PDFs siguen excluidos. Véase el
+[análisis de medios](media-assets-analysis.md) y el
+[runbook de backups](runbooks/backup-recovery.md). El usuario confirmó que el
+build de Vercel pasó tras el 502 transitorio; no hay backups y el plan Railway
+actual es Free. El cuerpo del post de junio fue corregido y la build local
+conectada generó 48 páginas.
 
 El 2026-11-02 se retiraron los fallbacks runtime de noticias, grupos y
 literatura; se conservaron fuentes que usan los scripts históricos. TypeScript
@@ -91,14 +100,15 @@ tolera. Esta build valida compilación, no el contenido remoto. El usuario
 confirmó que el Preview posterior a estos cambios muestra correctamente noticias,
 directorio y literatura. El 2026-11-02, el build local conectado a PocketBase
 terminó con 48 páginas tras un 502 transitorio reportado por Vercel. Las
-comprobaciones GET posteriores dieron 200; el build de Vercel requiere reintento.
+comprobaciones GET posteriores dieron 200; el usuario confirmó que el build de
+Vercel pasó en el reintento.
 
 El 2026-11-02 se corrigió `package.json`: `pnpm build` ya no termina en `|| true`,
 que podía ocultar errores de Astro. `PUBLIC_POCKETBASE_URL= npm run build` pasó
 con DAL deshabilitada y produjo 32 páginas; Reflexiones registró errores DNS de
 Google Sheets, tolerados por su fallback. `pnpm build` no pudo iniciar porque el
-store de pnpm es de solo lectura en este entorno. Esto no verifica la conexión
-de Vercel a PocketBase.
+store de pnpm es de solo lectura en este entorno. El usuario confirmó después
+que el build de Vercel pasó.
 
 La integración del hero manual se verificó localmente el 2026-11-02:
 `tsc -p tests/tsconfig.compile.json`, `node tests/dal.test.ts` (43/43) y

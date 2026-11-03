@@ -17,7 +17,7 @@ if (!pbPost) {
 }
 
 const body = pbPost.body ?? "";
-if (!body.trim()) {
+if (!body.trim() && pbPost.bodyImageUrls.length === 0) {
   throw new Error(`Published PocketBase post has no body: ${slug}`);
 }
 
@@ -38,5 +38,20 @@ const htmlBody = marked
 ---
 
 <MarkdownPostLayout frontmatter={fm}>
-  <div set:html={htmlBody} />
+  {body.trim() && <div set:html={htmlBody} />}
+  {pbPost.bodyImageUrls.length > 0 && (
+    <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {pbPost.bodyImageUrls.map((url, index) => (
+        <figure>
+          <img
+            src={url}
+            alt={`Imagen ${index + 1} de ${pbPost.title}`}
+            loading="lazy"
+            decoding="async"
+            class="h-auto w-full rounded-lg"
+          />
+        </figure>
+      ))}
+    </div>
+  )}
 </MarkdownPostLayout>

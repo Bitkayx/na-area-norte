@@ -229,18 +229,21 @@ Estado y evidencia: [README](README.md). Estos identificadores no renumeran las
   TypeScript y build offline pasaron; el usuario confirmó visualmente el Preview
   posterior. Markdown/JSON se preservan como fuentes de migradores.
 - **FRONT — Integración runtime implementada para noticias, grupos y literatura.**
-  Las fuentes V1 se conservan únicamente para reproducir migraciones. Falta
-  validar los cambios en el próximo Preview; el manejo de medios corresponde al
-  punto 4.
-- **OPS — En curso.** Auditoría local de backups documentada; configuración del
-  volumen Railway y restauración aún sin confirmar. El cierre requiere backup y
-  recuperación probados, seguridad, actualización del sitio, administración, QA
-  y release documentados. Cambios remotos/deploys mantienen sus autorizaciones.
+  El usuario confirmó que las páginas se ven bien en Preview. Las fuentes V1 se
+  conservan únicamente para reproducir migraciones; el manejo de medios
+  corresponde al punto 4.
+- **OPS-BACKUP-RECOVERY — Diferida.** No hay backups disponibles en Railway ni
+  PocketBase; el usuario confirmó que el volumen persistente está montado en
+  `/pb_data`. El plan actual es Free y no desea pagar por ahora. Railway confirma
+  que los backups nativos de volumen requieren Pro ($20 mínimo/mes); configurar
+  y probar recuperación queda pendiente hasta que el usuario decida cambiar de
+  plan. Véase `runbooks/backup-recovery.md`.
 - **VERCEL-BUILD-TRANSIENT-502 — Observado (2026-11-02).** El deployment
   `ce7556e` falló porque el GET a `site_settings` recibió HTTP 502 de Railway.
   Después, GET `/api/health` y `site_settings` dieron 200; build local con
   PocketBase completó 48 páginas. La causa interna del 502 no se determinó.
-  Reintentar el Preview antes de cerrar el checkpoint.
+  El usuario confirmó que el reintento del build pasó; la causa interna del 502
+  sigue sin determinar.
 
 La existencia de un script no acredita una etapa. Recuperar o documentar con
 revisión el schema faltante antes de depender de él; no reconstruir decisiones
@@ -248,8 +251,16 @@ aprobadas a partir de comentarios de implementación.
 
 ## Siguiente tarea
 
-**VERCEL-BUILD-RETRY:** confirmar el Preview tras el 502 transitorio de Railway.
-La build local conectada a PocketBase completó 48 páginas. Después verificar en
-Railway el volumen `/pb_data`, backups activos/destino/retención y restaurar una
-copia en entorno aislado, según `runbooks/backup-recovery.md`. La política de
-imágenes se abordará en el punto 4 acordado.
+**MEDIA-ASSETS-STRATEGY:** definir alojamiento y ciclo de vida de imágenes de
+contenido. Videos y PDFs quedan fuera del alcance acordado. Backups nativos de
+Railway están diferidos hasta que el usuario decida cambiar de Free a Pro;
+detalles en `runbooks/backup-recovery.md`. El inventario local y las decisiones
+pendientes están en `media-assets-analysis.md`. El post de junio fue corregido y
+verificado en build local (48 páginas). El borrador `invitaciones-octubre` existe
+y el flujo de galería está preparado localmente. Tras autorización, el 2026-11-02
+se aplicó `posts.bodyImages` como file múltiple opcional (máximo 20, MIME de
+imagen); inspección autenticada y dry-run posterior confirmaron el cambio, con
+campos, índices y reglas preservados. El usuario añadió cuatro imágenes al
+borrador; la lectura confirmó que no se incrustaron inline. La build local pasó
+con 48 páginas, pero omitió el borrador. Siguiente: completar el contenido y
+decidir cuándo publicarlo para revisión en build/Preview.

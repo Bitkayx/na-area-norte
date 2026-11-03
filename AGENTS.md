@@ -43,9 +43,9 @@ El progreso temporal vive en `docs/migration/README.md`, no en este archivo.
   decisión explícita posterior.
 - Posts y Events son entidades distintas. Evitar duplicar eventos presentes en
   posts, calendarios y páginas. Preservar contenido, slugs y URLs públicas.
-- Normalizar tags sin perder los existentes. Preservar todas las referencias de
-  media; no borrar assets locales antes de verificar la migración. Los videos
-  grandes requieren una estrategia de almacenamiento separada.
+- El contenido admite imágenes; videos y PDFs quedan fuera de alcance, también
+  para contenido histórico. Auditar referencias antes de retirar archivos de
+  media existentes; no borrar assets locales antes de verificar la migración.
 - En literatura, `quantity` de V1 representa stock; si falta, asignar 1 al
   migrar. `stock` es opcional en el dominio. `total` es derivado
   (`price * stock`) y no se persiste. Para códigos repetidos con sufijo numérico,

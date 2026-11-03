@@ -22,15 +22,7 @@ tags: ["invitaciones", "eventos", "area-norte"]
 
 ![Grupo 2](../assets/blog/compartimientos/junio/grupo_principioDeVida_02.jpeg)
 
-<video controls class="w-full rounded-lg mb-6">
-  <source src="/junio/principio_vida.mp4" type="video/mp4">
-</video>
-
 ## Aprendiendo a Amar
-
-<video controls class="w-full rounded-lg mb-6">
-  <source src="/junio/aprendiendo_amar.mp4" type="video/mp4">
-</video>
 
 ## 2do Distrito
 

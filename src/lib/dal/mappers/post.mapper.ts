@@ -42,6 +42,12 @@ export function mapPost(r: PostRecord): Post {
     author: nullableText(r.author),
     pubDate: toDate(r.pubDate),
     coverUrl: resolveFile(r as import("../client.ts").PBRecord, r.cover),
+    bodyImageUrls: Array.isArray(r.bodyImages)
+      ? r.bodyImages
+          .filter((filename): filename is string => typeof filename === "string" && filename.length > 0)
+          .map((filename) => resolveFile(r as import("../client.ts").PBRecord, filename))
+          .filter((url): url is string => url !== null)
+      : [],
     body: nullableText(r.body),
     status: statusOf(r.status),
     tagIds: tagIds(r.tags),
